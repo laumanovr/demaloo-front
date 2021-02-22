@@ -1,23 +1,29 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+
+const loadComponent = path => () => import(`@/views/${path}.vue`);
 
 Vue.use(VueRouter);
 
 const routes = [
+  // MAIN PAGE
   {
     path: "/",
-    name: "Home",
-    component: Home
+    name: "Main",
+    component: loadComponent("client/Main"),
+    meta: {
+      requireAuth: false
+    }
   },
+
+  // GENERAL REGISTRATION PAGE
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/registration",
+    name: "registration",
+    component: loadComponent("login/Registration"),
+    meta: {
+      requireAuth: false
+    }
   }
 ];
 
