@@ -1,0 +1,75 @@
+@import "toaster";
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.btn {
+  color: #fff;
+  width: 100%;
+  border-radius: 4px;
+  outline: none;
+  height: 32px;
+ &.blue-light {
+   background: #2196F3;
+ }
+  a {
+    color: #fff !important;
+    font-weight: 600;
+    width: 100%;
+    height: 85%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+}
+
+.btn-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  button:first-child {
+    margin-right: 15px;
+  }
+}
+
+.v-btn__content {
+  color: #fff !important;
+}
+
+.no-border.v-text-field {
+  & > .v-input__control > .v-input__slot {
+    .v-text-field__slot {
+      box-shadow: 0 4px 4px rgb(51 51 51 / 4%), 0 4px 16px rgb(51 51 51 / 8%);
+      border-radius: 4px;
+      input {
+        min-height: 52px;
+        max-height: 52px;
+        padding: 0 0 0 5px;
+      }
+    }
+    .v-label {
+      top: 15px;
+      left: 5px !important;
+      &--active {
+        transform: translateY(-28px) scale(0.75);
+      }
+    }
+    &:after, &:before {
+      content: none !important;
+    }
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
