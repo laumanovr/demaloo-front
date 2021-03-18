@@ -22,7 +22,6 @@ export default {
 	width: 100%;
 	max-width: 1366px;
 	margin: 0 auto;
-	border-bottom: 1px solid $gray-light;
 	&__content {
 		padding: 30px 20px 70px 50px;
 	}
