@@ -20,7 +20,7 @@ export default {
     },
     watch: {
 		notifications() {
-            this.$toast.info('У вас новые уведомления!');
+            this.$toast.info('У вас новые уведомления!', {duration: 3500});
 		}
     }
 };
