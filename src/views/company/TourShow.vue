@@ -301,7 +301,6 @@ export default {
 					this.toggleAddClientModal();
 					this.clearClientForm();
 					this.$toast.success('Успешно добавлен!');
-					this.isLoading = false;
 				} catch (err) {
 					this.$toast.error(err);
 					this.isLoading = false;
@@ -320,7 +319,6 @@ export default {
 					this.$modal.hide('delete-modal');
 					this.showSelectedTour(this.$route.params.tourId);
 					this.$toast.success('Успешно удалено!');
-					this.isLoading = false;
 				} catch (err) {
 					this.$toast.error(err);
 					this.isLoading = false;
