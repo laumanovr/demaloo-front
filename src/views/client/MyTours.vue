@@ -53,7 +53,7 @@ export default {
 			isLoading: false,
 			myTourBookings: [],
 			todayDate: format(new Date(), 'yyyy-MM-dd')
-		}
+		};
 	},
 	created() {
 		this.getFutureBookings();
@@ -83,7 +83,7 @@ export default {
 			return format(new Date(date), 'dd.MM.yyyy');
 		}
 	}
-}
+};
 </script>
 
 <style lang="scss" scoped>

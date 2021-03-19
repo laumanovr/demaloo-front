@@ -15,14 +15,14 @@ export default {
 	components: {
 		Sidebar,
 	},
-    computed: {
+	computed: {
 		...mapState('notification', ['notifications']),
-    },
-    watch: {
+	},
+	watch: {
 		notifications() {
-            this.$toast.info('У вас новые уведомления!', {duration: 3500});
+			this.$toast.info('У вас новые уведомления!', {duration: 3500});
 		}
-    }
+	}
 };
 </script>
 
