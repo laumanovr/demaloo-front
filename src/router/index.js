@@ -68,6 +68,14 @@ const routes = [
 						meta: {
 							requireAuth: true
 						}
+					},
+					{
+						path: 'my-tours',
+						name: 'myTours',
+						component: loadComponent('client/MyTours'),
+						meta: {
+							requireAuth: true
+						}
 					}
 				]
 			}
