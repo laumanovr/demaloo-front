@@ -63,11 +63,11 @@
                 </div>
                 <div class="form-field">
                     <span class="label">Гид:</span>
-                    <v-text-field v-model="tourObj.guides" :rules="requiredRule" solo/>
+                    <v-text-field v-model="tourObj.guides" solo/>
                 </div>
                 <div class="form-field">
                     <span class="label">Водитель:</span>
-                    <v-text-field v-model="tourObj.drivers" :rules="requiredRule" solo/>
+                    <v-text-field v-model="tourObj.drivers" solo/>
                 </div>
                 <div class="form-field">
                     <span class="label">Максимальное кол-во людей:</span>
