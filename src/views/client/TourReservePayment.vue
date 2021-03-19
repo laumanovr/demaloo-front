@@ -173,7 +173,7 @@ export default {
 				this.reserveMode = 'complete';
 				this.isLoading = false;
 				setTimeout(() => {
-					this.$router.push('/');
+					this.$router.push({name: 'myTours'});
 				}, 2500);
 			} catch (err) {
 				this.$toast.error(err);
