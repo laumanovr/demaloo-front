@@ -1,9 +1,9 @@
-import Vue from 'vue';
-import VModal from 'vue-js-modal';
-import VueToast from 'vue-toast-notification';
 import App from './App.vue';
+import Vue from 'vue';
 import router from './router';
 import store from './store';
+import VModal from 'vue-js-modal';
+import VueToast from 'vue-toast-notification';
 import vuetify from './plugins/vuetify';
 import '@/assets/style/main.scss';
 
