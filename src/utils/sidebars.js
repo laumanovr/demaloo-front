@@ -35,7 +35,7 @@ export default {
 		},
 		{
 			name: 'Мои туры',
-			route: '#',
+			route: '/profile-manage/my-tours',
 			icon: 'map-marker.svg'
 		},
 		{
