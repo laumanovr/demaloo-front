@@ -271,7 +271,7 @@ export default {
 		position: relative;
 		width: 100%;
 		max-width: 330px;
-		min-height: 68vw;
+		min-height: 66vw;
 	}
 	&__price {
 		box-shadow: 0 3px 6px rgba(206, 193, 193, 0.4);
