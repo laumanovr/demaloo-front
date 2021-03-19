@@ -72,4 +72,9 @@ export class TourService {
 		return sendPostRequest(url, body);
 	}
 
+	static fetchMyTourBookings(queryParams) {
+		const url = `${API_BASE_URL}/customers/bookings?${queryParams}`;
+		return sendGetRequest(url);
+	}
+
 }
