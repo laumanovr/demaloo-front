@@ -8,7 +8,10 @@
 			<div class="profile-name">
 				{{ userProfile.name }}
 				<div class="profile-phone">{{userProfile.phoneNumber}}</div>
-				<div class="profile-logout" @click="logOut">Выход<img src="../../assets/icons/logout.svg"></div>
+				<div class="profile-logout" @click="logOut">
+					<img src="../../assets/icons/logout.svg" class="logout-icon">
+					Выход
+				</div>
 			</div>
 		</div>
 		<div class="tabs">
@@ -93,7 +96,7 @@ export default {
 					margin-top: 5px;
 					cursor: pointer;
 					img {
-						margin-left: 8px;
+						margin-right: 8px;
 					}
 				}
 			}

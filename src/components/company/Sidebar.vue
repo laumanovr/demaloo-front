@@ -16,7 +16,7 @@
 					<img src="../../assets/icons/profile.svg"/><span>Профиль</span>
 				</div>
 				<div class="tab" @click="logOut">
-					<img src="../../assets/icons/logout.svg"><span>Выход</span>
+					<img src="../../assets/icons/logout.svg" class="logout-icon"><span>Выход</span>
 				</div>
 			</div>
 		</div>
