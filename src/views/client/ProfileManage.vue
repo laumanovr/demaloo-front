@@ -22,8 +22,9 @@ export default {
 	width: 100%;
 	max-width: 1366px;
 	margin: 0 auto;
+	min-height: 70vh;
 	&__content {
-		padding: 30px 20px 70px 50px;
+		padding: 30px 20px 70px 40px;
 	}
 }
 </style>
