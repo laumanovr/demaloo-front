@@ -205,7 +205,7 @@ export default {
 			statuses: {
 				RESERVED: 'Бронь',
 				PENDING: 'В ожидании',
-				PAID: 'Оплачен',
+				PAID: 'Оплачено',
 				ADDED: 'Добавлен',
 				CANCELLED: 'Отменен'
 			},
