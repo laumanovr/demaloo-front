@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss">
 	.client-sidebar-container {
-		width: 300px;
+		min-width: 300px;
 		border-right: 1px solid $gray-light;
 		padding: 20px 10px 0;
 		.profile-data {
