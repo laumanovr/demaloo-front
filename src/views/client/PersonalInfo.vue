@@ -68,6 +68,7 @@ import PreLoader from '@/components/general/PreLoader';
 import CloseIcon from '@/components/icons/CloseIcon';
 import {mapState} from 'vuex';
 import {format, parse} from 'date-fns';
+import {API_BASE_URL} from '@/services/api.service';
 
 export default {
 	components: {
@@ -104,7 +105,7 @@ export default {
 	created() {
 		this.profileObj = JSON.parse(JSON.stringify(this.userProfile));
 		this.profileDob = this.profileObj.birthdate ? format(new Date(this.profileObj.birthdate), 'dd.MM.yyyy') : '';
-		this.avatarUrl = this.profileObj.photo ? process.env.VUE_APP_BASE_URL + this.profileObj.photo : '';
+		this.avatarUrl = this.profileObj.photo ? `${API_BASE_URL}/images/` + this.profileObj.photo : '';
 	},
 	methods: {
 		selectPhoto(e) {

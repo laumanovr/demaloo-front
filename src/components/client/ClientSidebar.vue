@@ -28,6 +28,7 @@
 
 <script>
 import Sidebars from '@/utils/sidebars';
+import {API_BASE_URL} from '@/services/api.service';
 
 export default {
 	props: {
@@ -43,7 +44,7 @@ export default {
 			return this.$store.state.account.customer;
 		},
 		profilePhoto() {
-			return process.env.VUE_APP_BASE_URL + this.userProfile.photo;
+			return `${API_BASE_URL}/images/` + this.userProfile.photo;
 		}
 	},
 	created() {

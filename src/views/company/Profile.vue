@@ -68,6 +68,7 @@
 <script>
 import {mapState} from 'vuex';
 import PreLoader from '@/components/general/PreLoader';
+import {API_BASE_URL} from '@/services/api.service';
 
 export default {
 	components: {
@@ -100,7 +101,7 @@ export default {
 		this.profileObj.phoneNumber = this.userProfile.phoneNumber;
 		this.profileObj.email = this.userProfile.email;
 		this.profileObj.logo = this.userProfile.logo;
-		this.previewUrl = this.profileObj.logo ? process.env.VUE_APP_BASE_URL + this.profileObj.logo : '';
+		this.previewUrl = this.profileObj.logo ? `${API_BASE_URL}/images/` + this.profileObj.logo : '';
 	},
 	methods: {
 		addLogo(e) {

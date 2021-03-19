@@ -97,6 +97,7 @@
 import {TourService} from '@/services/tour.service';
 import {format} from 'date-fns';
 import PreLoader from '@/components/general/PreLoader';
+import {API_BASE_URL} from '@/services/api.service';
 
 export default {
 	components: {
@@ -124,7 +125,7 @@ export default {
 			}
 		},
 		showPhoto(imgUrl) {
-			return process.env.VUE_APP_BASE_URL + imgUrl;
+			return `${API_BASE_URL}/images/` + imgUrl;
 		},
 		formatDate(date) {
 			return format(new Date(date), 'dd.MM.yyyy');

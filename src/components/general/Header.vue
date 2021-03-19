@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import {API_BASE_URL} from '@/services/api.service';
 export default {
 	computed: {
 		userProfile() {
@@ -28,7 +29,7 @@ export default {
 			return Object.values(this.userProfile).length > 0;
 		},
 		profilePhoto() {
-			return this.userProfile.photo ? process.env.VUE_APP_BASE_URL + this.userProfile.photo : '';
+			return this.userProfile.photo ? `${API_BASE_URL}/images/` + this.userProfile.photo : '';
 		}
 	}
 };

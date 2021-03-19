@@ -38,6 +38,7 @@
 import {TourService} from '@/services/tour.service';
 import PreLoader from '@/components/general/PreLoader';
 import {format} from 'date-fns';
+import {API_BASE_URL} from '@/services/api.service';
 
 export default {
 	components: {
@@ -72,7 +73,7 @@ export default {
 		},
 
 		showImage(imgUrl) {
-			return process.env.VUE_APP_BASE_URL + imgUrl;
+			return `${API_BASE_URL}/images/` + imgUrl;
 		},
 
 		getLastStage(stages) {

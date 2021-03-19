@@ -297,6 +297,7 @@ import {LocationService} from '@/services/location.service';
 import PlusIcon from '@/components/icons/PlusIcon';
 import CloseIcon from '@/components/icons/CloseIcon';
 import PreLoader from '@/components/general/PreLoader';
+import {API_BASE_URL} from '@/services/api.service';
 
 export default {
 	components: {
@@ -308,7 +309,7 @@ export default {
 	data() {
 		return {
 			isLoading: false,
-			apiImageUrl: process.env.VUE_APP_BASE_URL,
+			apiImageUrl: `${API_BASE_URL}/images/`,
 			requiredRule: [(v) => !!v || 'Обязательное поле'],
 			multipleRule: [(v) => v.length > 0 || 'Обязательное поле'],
 			tourObj: {

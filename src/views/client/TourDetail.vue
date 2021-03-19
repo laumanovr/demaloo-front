@@ -99,6 +99,7 @@
 <script>
 import {TourService} from '@/services/tour.service';
 import PreLoader from '@/components/general/PreLoader';
+import {API_BASE_URL} from '@/services/api.service';
 
 export default {
 	components: {
@@ -140,7 +141,7 @@ export default {
 		},
 
 		showImage(imageLink) {
-			return process.env.VUE_APP_BASE_URL + imageLink;
+			return `${API_BASE_URL}/images/` + imageLink;
 		},
 
 		countRestDays() {
