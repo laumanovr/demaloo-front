@@ -30,6 +30,6 @@ const sendRequest = async (method, url, data) => {
 		const res = await axios(config);
 		return res.data;
 	} catch (err) {
-		return Promise.reject(err);
+		return Promise.reject(err.response.data.message);
 	}
 };
