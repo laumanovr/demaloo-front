@@ -49,7 +49,8 @@ export default {
 			statuses: {
 				RESERVED: 'Забронирован',
 				PAID: 'Оплачено',
-				CANCELLED: 'Отменен'
+				CANCELLED: 'Отменен',
+				ADDED: 'Добавлен'
 			},
 			isLoading: false,
 			myTourBookings: [],
