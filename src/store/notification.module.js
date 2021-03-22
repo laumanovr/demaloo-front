@@ -1,7 +1,8 @@
 import {NotificationService} from '../services/notification.service';
 
 const state = {
-	notifications: []
+	notifications: [],
+	onError: ''
 };
 
 const actions = {
@@ -13,7 +14,7 @@ const actions = {
 				commit('setNotifications', newNotifies);
 			}
 		} catch (err) {
-			console.log(err);
+			commit('setError', err);
 		}
 	},
 };
@@ -21,6 +22,9 @@ const actions = {
 const mutations = {
 	setNotifications(state, resp) {
 		state.notifications = resp;
+	},
+	setError(state, err) {
+		state.onError = err;
 	}
 };
 
