@@ -15,9 +15,6 @@
 				>
 					<img src="../../assets/icons/profile.svg"/><span>Профиль</span>
 				</div>
-				<div class="tab" @click="logOut">
-					<img src="../../assets/icons/logout.svg" class="logout-icon"><span>Выход</span>
-				</div>
 			</div>
 		</div>
 		<div class="tabs">
@@ -32,6 +29,9 @@
 				<span>{{ item.name }}</span>
 				<span class="new-notify" v-if="hasNewNotify && item.route == '/company-manage/notifications'"/>
 			</div>
+		</div>
+		<div class="sign-out" @click="logOut">
+			<img src="../../assets/icons/logout.svg" class="logout-icon"><span>Выход</span>
 		</div>
 	</div>
 </template>
@@ -120,6 +120,21 @@ export default {
 					border-radius: 5px;
 				}
 			}
+		}
+	}
+	.sign-out {
+		position: fixed;
+		bottom: 16px;
+		width: 225px;
+		display: flex;
+		justify-content: center;
+		border-top: 1px solid $gray-dark;
+		padding-top: 12px;
+		font-weight: 500;
+		font-size: 16px;
+		cursor: pointer;
+		img {
+			margin-right: 15px;
 		}
 	}
 }
