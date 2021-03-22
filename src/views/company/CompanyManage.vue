@@ -1,6 +1,6 @@
 <template>
   <div class="company-manage-container">
-    <Sidebar :role="'company'"/>
+    <Sidebar :role="'company'" :hasNewNotify="hasNewNotify"/>
     <div class="main-content">
       <router-view></router-view>
     </div>
@@ -12,16 +12,31 @@ import Sidebar from '@/components/company/Sidebar';
 import {mapState} from 'vuex';
 
 export default {
+	data() {
+		return {
+			hasNewNotify: false
+        }
+    },
 	components: {
 		Sidebar,
 	},
 	computed: {
-		...mapState('notification', ['notifications']),
+		...mapState('notification', ['onNewNotifies', 'onEmpty', 'onError']),
 	},
+    created() {
+		this.$store.dispatch('notification/checkCompanyNotifies');
+    },
 	watch: {
-		notifications() {
-			this.$toast.info('У вас новые уведомления!', {duration: 3500});
-		}
+		onNewNotifies() {
+			this.$toast.info('У вас новые уведомления!', {duration: 4500});
+			this.hasNewNotify = true;
+		},
+		onEmpty() {
+			this.hasNewNotify = false;
+        },
+		onError(msg) {
+			this.$toast.error(msg);
+        }
 	}
 };
 </script>
