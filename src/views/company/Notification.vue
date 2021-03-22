@@ -68,6 +68,7 @@ export default {
 		async makeAllNotifiesRead() {
 			try {
 				await NotificationService.makeAllRead();
+				this.$store.dispatch('notification/checkCompanyNotifies');
 			} catch (err) {
 				this.$toast.error(err);
 			}
