@@ -3,7 +3,7 @@
 		<PreLoader v-if="isLoading"/>
 		<div class="main-all-tours">
 			<div class="search">
-				<div class="search__title">Найди свой тур</div>
+				<div class="search__title">Найдите свой тур</div>
 				<div class="search__filter">
 					<div class="search__form-field location">
 						<div class="label">
