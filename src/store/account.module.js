@@ -18,7 +18,6 @@ const actions = {
 			const res = await UserService.loginCompany(data);
 			dispatch('setInitialUser', res);
 			dispatch('location/fetchRegions', {}, {root: true});
-			dispatch('notification/checkCompanyNotifies', {}, {root: true});
 			router.push('/company-manage');
 		} catch (err) {
 			commit('setError', err);
