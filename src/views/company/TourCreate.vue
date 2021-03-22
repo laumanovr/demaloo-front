@@ -169,6 +169,8 @@
                         >
                             <template v-slot:activator="{ on, attrs }">
                                 <v-text-field
+                                    label="ДД.ММ.ГГГГ"
+                                    placeholder="ДД.ММ.ГГГГ"
                                     readonly
                                     solo
                                     v-bind="attrs"
@@ -251,7 +253,6 @@
                                 v-model="item.ru"
                                 solo
                                 placeholder="Дополнительно..."
-                                :rules="requiredRule"
                             />
                             <CloseIcon
                                 @click="removeTourArrayItem(i, 'additional')"
