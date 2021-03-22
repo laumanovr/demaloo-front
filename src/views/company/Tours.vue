@@ -46,7 +46,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(tour, i) in tourList" :key="i">
+                <tr v-for="(tour, i) in tourList" :key="i" class="edit-tour" @click="openTour($event, tour)">
                     <td>{{ i + 1 }}</td>
                     <td class="tour-name">{{ tour.name.ru }}</td>
                     <td>{{ formatDate(tour.date) }}</td>
@@ -55,10 +55,7 @@
                     <td>{{ tour.guides }}</td>
                     <td>{{ tour.drivers }}</td>
                     <td>{{ checkStatus(tour) }}</td>
-                    <td class="update">
-                        <EditIcon @click="$router.push({name: 'companyTourShow',params: {tourId: tour._id}})"/>
-                        <RefreshIcon @click="$router.push({name: 'tourCreate', params: {tourId: tour._id}})"/>
-                    </td>
+                    <td class="update"><RefreshIcon/></td>
                 </tr>
                 </tbody>
             </table>
@@ -146,6 +143,14 @@ export default {
 				this.isLoading = false;
 			}
 		},
+
+		openTour(e, tour) {
+			if (e.target.className === 'update' || e.target.src) {
+                this.$router.push({name: 'tourCreate', params: {tourId: tour._id}});
+            } else {
+				this.$router.push({name: 'companyTourShow', params: {tourId: tour._id}});
+            }
+        },
 
 		async paginate(nav) {
 			this.searchQuery = '';
@@ -253,12 +258,21 @@ export default {
         .tours-list {
             table {
                 .update {
+                    &:hover {
+                        background: #00f1da1f;
+                    }
                     .edit-icon {
                         margin-right: 10px;
                     }
                 }
                 .tour-name {
                     max-width: 300px;
+                }
+                .edit-tour {
+                    cursor: pointer;
+                    &:hover {
+                        background: #008fff26;
+                    }
                 }
             }
         }
