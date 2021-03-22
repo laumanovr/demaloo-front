@@ -116,25 +116,26 @@
 		</div>
 
 		<!--ADD MANUAL PERSON TO TOUR MODAL-->
-		<modal name="add-person-modal" height="auto">
+		<modal name="add-person-modal" height="95%">
 			<div class="modal-container">
 				<h3>Добавить клиента в данный тур</h3>
 				<v-form ref="addClientForm">
 					<v-text-field
-						solo
+						outlined
 						label="Имя"
 						placeholder="Имя"
 						v-model="newClient.name"
 						:rules="requiredRule"
 					/>
 					<v-text-field
-						solo
+						outlined
 						label="Фамилия"
 						placeholder="Фамилия"
 						v-model="newClient.surname"
 						:rules="requiredRule"
 					/>
 					<div class="masked-input">
+						<span class="label">Телефон</span>
 						<MaskedInput
 							mask="\+\996 (111) 11-11-11"
 							placeholder="+996(555)12-34-56"
@@ -143,7 +144,7 @@
 						<v-text-field class="error-only" v-model="newClient.phoneNumber" :rules="phoneRule"/>
 					</div>
 					<v-text-field
-						solo
+						outlined
 						label="Кол-во мест"
 						placeholder="Кол-во мест"
 						v-model.number="newClient.count"
@@ -152,7 +153,7 @@
 						@blur="autoCountTotalSum"
 					/>
 					<v-text-field
-						solo
+						outlined
 						label="Общая сумма"
 						placeholder="Общая сумма"
 						v-model.number="newClient.total"
@@ -278,6 +279,7 @@ export default {
 		},
 
 		toggleAddClientModal() {
+			this.newClient.phoneNumber = '';
 			this.$modal.toggle('add-person-modal');
 		},
 
