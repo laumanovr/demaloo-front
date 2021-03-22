@@ -69,14 +69,14 @@
 
 <script>
 import {TourService} from '@/services/tour.service';
-import EditIcon from '@/components/icons/EditIcon';
+//import EditIcon from '@/components/icons/EditIcon';
 import RefreshIcon from '@/components/icons/RefreshIcon';
 import PreLoader from '@/components/general/PreLoader';
 import moment from 'moment';
 
 export default {
 	components: {
-		EditIcon,
+		//		EditIcon,
 		RefreshIcon,
 		PreLoader
 	},
@@ -146,11 +146,11 @@ export default {
 
 		openTour(e, tour) {
 			if (e.target.className === 'update' || e.target.src) {
-                this.$router.push({name: 'tourCreate', params: {tourId: tour._id}});
-            } else {
+				this.$router.push({name: 'tourCreate', params: {tourId: tour._id}});
+			} else {
 				this.$router.push({name: 'companyTourShow', params: {tourId: tour._id}});
-            }
-        },
+			}
+		},
 
 		async paginate(nav) {
 			this.searchQuery = '';
