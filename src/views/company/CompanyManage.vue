@@ -15,17 +15,17 @@ export default {
 	data() {
 		return {
 			hasNewNotify: false
-        }
-    },
+		};
+	},
 	components: {
 		Sidebar,
 	},
 	computed: {
 		...mapState('notification', ['onNewNotifies', 'onEmpty', 'onError']),
 	},
-    created() {
+	created() {
 		this.$store.dispatch('notification/checkCompanyNotifies');
-    },
+	},
 	watch: {
 		onNewNotifies() {
 			this.$toast.info('У вас новые уведомления!', {duration: 4500});
@@ -33,10 +33,10 @@ export default {
 		},
 		onEmpty() {
 			this.hasNewNotify = false;
-        },
+		},
 		onError(msg) {
 			this.$toast.error(msg);
-        }
+		}
 	}
 };
 </script>
