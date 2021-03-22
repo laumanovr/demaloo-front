@@ -30,6 +30,7 @@
 			>
 				<img :src="require(`@/assets/icons/${item.icon}`)"/>
 				<span>{{ item.name }}</span>
+				<span class="new-notify" v-if="hasNewNotify && item.route == '/company-manage/notifications'"/>
 			</div>
 		</div>
 	</div>
@@ -42,6 +43,7 @@ import {API_BASE_URL} from '@/services/api.service';
 export default {
 	props: {
 		role: String,
+		hasNewNotify: Boolean
 	},
 	data() {
 		return {
@@ -109,6 +111,14 @@ export default {
 			}
 			span {
 				margin-left: 30px;
+				&.new-notify {
+					display: inline-block;
+					width: 7px;
+					height: 7px;
+					background: $red-primary;
+					margin-left: 8px;
+					border-radius: 5px;
+				}
 			}
 		}
 	}
