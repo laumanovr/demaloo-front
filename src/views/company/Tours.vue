@@ -3,7 +3,7 @@
         <PreLoader v-if="isLoading"/>
         <div class="create-tour">
             <button class="btn blue-primary">
-                <router-link :to="{name: 'tourCreate'}">Создать тур</router-link>
+                <router-link :to="{name: 'tourCreate'}" class="white--text">Создать тур</router-link>
             </button>
         </div>
         <div class="filter-search-block">
@@ -94,6 +94,7 @@ export default {
 	},
 	created() {
 		this.filterTours('present');
+		this.getPastTours(false);
 	},
 	methods: {
 		filterTours(type) {
@@ -118,13 +119,15 @@ export default {
 			}
 		},
 
-		async getPastTours() {
+		async getPastTours(bool = true) {
 			try {
 				this.isLoading = true;
 				const res = await TourService.fetchCompanyTours(`&date[lt]=${this.todayDate}`);
 				this.pastToursCount = res.results;
-				this.tourList = res.data.tours;
 				this.isLoading = false;
+				if (bool) {
+					this.tourList = res.data.tours;
+				}
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
