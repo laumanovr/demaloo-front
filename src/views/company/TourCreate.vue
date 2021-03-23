@@ -37,7 +37,7 @@
                     <span class="label">Цена:</span>
                     <v-text-field
                         v-model.number="tourObj.price"
-                        :rules="requiredRule"
+                        :rules="numberRule"
                         placeholder="Сом / за человека"
                         solo
                         type="number"
@@ -47,7 +47,7 @@
                     <span class="label">Длительность:</span>
                     <v-text-field
                         v-model.number="tourObj.duration"
-                        :rules="requiredRule"
+                        :rules="numberRule"
                         placeholder="кол-во дней"
                         solo
                         type="number"
@@ -73,7 +73,7 @@
                     <span class="label">Максимальное кол-во людей:</span>
                     <v-text-field
                         v-model.number="tourObj.peopleCount"
-                        :rules="requiredRule"
+                        :rules="numberRule"
                         solo
                         type="number"
                     />
@@ -95,7 +95,7 @@
                     <span class="label">Дистанция тура:</span>
                     <v-text-field
                         v-model.number="tourObj.distance"
-                        :rules="requiredRule"
+                        :rules="numberRule"
                         placeholder="км"
                         solo
                         type="number"
@@ -313,6 +313,10 @@ export default {
 			apiImageUrl: `${API_BASE_URL}/images/`,
 			requiredRule: [(v) => !!v || 'Обязательное поле'],
 			multipleRule: [(v) => v.length > 0 || 'Обязательное поле'],
+            numberRule: [
+				(v) => !!v || 'Обязательное поле',
+                (v) => (v && v > 0 && v <= 50000) || 'Неправильное значение'
+            ],
 			tourObj: {
 				name: {ru: ''},
 				description: {ru: ''},
