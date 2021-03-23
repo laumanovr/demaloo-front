@@ -152,7 +152,7 @@
 						label="Кол-во мест"
 						placeholder="Кол-во мест"
 						v-model.number="newClient.count"
-						:rules="requiredRule"
+						:rules="countQuantityRule"
 						type="number"
 						@blur="autoCountTotalSum"
 					/>
@@ -203,6 +203,10 @@ export default {
 		return {
 			isLoading: false,
 			requiredRule: [(v) => !!v || 'Обязательное поле'],
+			countQuantityRule: [
+				v => !!v || 'Обязательное поле',
+				v => (v && v > 0 && v <= this.restPlaceCount) || 'Неправильно указано кол-во мест'
+			],
 			phoneRule: [
 				v => !!v || 'Обязательное поле',
 				v => ( v && !v.includes('_') ) || 'Введите правильный номер телефона'
@@ -223,7 +227,8 @@ export default {
 			},
 			selectedTour: {},
 			tourBookings: [],
-			selectedBooking: {}
+			selectedBooking: {},
+			restPlaceCount: 0
 		};
 	},
 	computed: {
@@ -254,6 +259,7 @@ export default {
 				const res = await TourService.fetchTourBookings(this.selectedTour._id);
 				this.tourBookings = res.data.bookings;
 				this.isLoading = false;
+				this.restPlaceCount = this.selectedTour.peopleCount - this.selectedTour.bookingCount;
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
@@ -283,7 +289,7 @@ export default {
 		},
 
 		toggleAddClientModal() {
-			this.newClient.phoneNumber = '';
+			this.clearClientForm();
 			this.$modal.toggle('add-person-modal');
 		},
 
@@ -305,7 +311,6 @@ export default {
 					await TourService.addManualBooking(this.selectedTour._id, this.newClient);
 					this.showSelectedTour(this.$route.params.tourId);
 					this.toggleAddClientModal();
-					this.clearClientForm();
 					this.$toast.success('Успешно добавлен!');
 				} catch (err) {
 					this.$toast.error(err);
