@@ -66,7 +66,7 @@
 								<template v-else>-</template>
 							</div>
 							<button class="btn indigo-blue">
-								<router-link :to="{name: 'tourDetail', params: {tourId: tour._id}}">
+								<router-link :to="{name: 'tourDetail', params: {tourId: tour._id}}" class="white--text">
 									Подробнее
 								</router-link>
 							</button>

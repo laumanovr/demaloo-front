@@ -4,7 +4,11 @@
 		<div class="info-block" v-if="selectedTourIsExist">
 			<div class="title-block">
 				<span class="head-title">{{ selectedTour.name.ru }}</span>
-				<button class="btn white-color-blue">Просмотреть</button>
+				<button class="btn white-color-blue">
+					<router-link :to="{name: 'tourDetail', params: {tourId: selectedTour._id}}" target="_blank">
+						Просмотреть
+					</router-link>
+				</button>
 			</div>
 			<div class="tour-info">
 				<div class="info-fields left">
