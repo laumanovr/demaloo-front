@@ -28,6 +28,14 @@
 						<label>Кол-во мест:</label>
 						<span>{{selectedTour.bookingCount + " / " + selectedTour.peopleCount}}</span>
 					</div>
+					<div>
+						<label>Локация:</label>
+						<span>{{selectedTour.locations[0].place}}</span>
+					</div>
+					<div>
+						<label>Транспорт:</label>
+						<span>{{selectedTour.transport.ru}}</span>
+					</div>
 				</div>
 				<v-form ref="editTourForm" class="info-fields right">
 					<div>
@@ -96,6 +104,7 @@
 					<th>Источник</th>
 					<th>Дата брони</th>
 					<th>Кол-во брони</th>
+					<th>Общая сумма</th>
 					<th>Статус</th>
 					<th>-</th>
 				</tr>
@@ -105,9 +114,10 @@
 					<td>{{ i + 1 }}</td>
 					<td>{{ client.customer.surname + ' ' + client.customer.name }}</td>
 					<td>{{ client.customer.phoneNumber }}</td>
-					<td>Demaloo</td>
+					<td>{{ showSource(client.source) }}</td>
 					<td>{{ getReservedDate(getLastStage(client.stages).createdAt) }}</td>
 					<td>{{ client.peopleCount }}</td>
+					<td>{{ client.total }} сом</td>
 					<td>{{ statuses[getLastStage(client.stages).status] }}</td>
 					<td class="cancel">
 						<span v-if="client.stages[0].status == 'ADDED'" @click="deleteClient(client, true)">
@@ -147,6 +157,16 @@
 						/>
 						<v-text-field class="error-only" v-model="newClient.phoneNumber" :rules="phoneRule"/>
 					</div>
+					<v-select
+						outlined
+						label="Источник"
+						placeholder="Источник"
+						:items="sources"
+						item-text="title"
+						item-value="source"
+						:rules="requiredRule"
+						v-model="newClient.source"
+					/>
 					<v-text-field
 						outlined
 						label="Кол-во мест"
@@ -154,16 +174,14 @@
 						v-model.number="newClient.count"
 						:rules="countQuantityRule"
 						type="number"
-						@blur="autoCountTotalSum"
 					/>
 					<v-text-field
 						outlined
 						label="Общая сумма"
 						placeholder="Общая сумма"
 						v-model.number="newClient.total"
-						:rules="requiredRule"
+						:rules="numberRule"
 						type="number"
-						readonly
 					/>
 					<div class="btn-actions">
 						<button class="btn red-primary" @click.prevent="toggleAddClientModal">Отмена</button>
@@ -207,9 +225,18 @@ export default {
 				v => !!v || 'Обязательное поле',
 				v => (v && v > 0 && v <= this.restPlaceCount) || 'Неправильно указано кол-во мест'
 			],
+			numberRule: [
+				(v) => !!v || 'Обязательное поле',
+				(v) => (v && v > 0 && v <= 50000) || 'Неправильное значение'
+			],
 			phoneRule: [
 				v => !!v || 'Обязательное поле',
 				v => ( v && !v.includes('_') ) || 'Введите правильный номер телефона'
+			],
+			sources: [
+				{title: 'Instagram', source: 'instagram'},
+				{title: 'Facebook', source: 'facebook'},
+				{title: 'На прямую', source: 'direct'}
 			],
 			statuses: {
 				RESERVED: 'Бронь',
@@ -223,7 +250,8 @@ export default {
 				surname: '',
 				phoneNumber: '',
 				count: '',
-				total: ''
+				total: '',
+				source: ''
 			},
 			selectedTour: {},
 			tourBookings: [],
@@ -274,6 +302,13 @@ export default {
 			return moment(date).format("DD.MM.YYYY HH:mm");
 		},
 
+		showSource(source) {
+			if (source) {
+				return this.sources.find((i) => i.source === source).title;
+			}
+			return 'Demaloo';
+		},
+
 		async updateTour() {
 			if (this.$refs.editTourForm.validate()) {
 				try {
@@ -297,10 +332,6 @@ export default {
 			for (let key in this.newClient) {
 				this.newClient[key] = '';
 			}
-		},
-
-		autoCountTotalSum() {
-			this.newClient.total = this.newClient.count * this.selectedTour.price;
 		},
 
 		async submitAddClient() {
