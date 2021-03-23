@@ -313,10 +313,10 @@ export default {
 			apiImageUrl: `${API_BASE_URL}/images/`,
 			requiredRule: [(v) => !!v || 'Обязательное поле'],
 			multipleRule: [(v) => v.length > 0 || 'Обязательное поле'],
-            numberRule: [
+			numberRule: [
 				(v) => !!v || 'Обязательное поле',
-                (v) => (v && v > 0 && v <= 50000) || 'Неправильное значение'
-            ],
+				(v) => (v && v > 0 && v <= 50000) || 'Неправильное значение'
+			],
 			tourObj: {
 				name: {ru: ''},
 				description: {ru: ''},
@@ -435,9 +435,9 @@ export default {
 		},
 
 		addNewTourPlace() {
-		    this.isAddTourPlace = true;
+			this.isAddTourPlace = true;
 			this.tourObj.locations[0].place = '';
-        },
+		},
 
 		addImage(e) {
 			const formats = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg', 'image/svg+xml'];
