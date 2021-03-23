@@ -140,7 +140,7 @@
                             :rules="requiredRule"
                             solo
                         />
-                        <PlusIcon @click="isAddTourPlace = true" :iconTitle="'Добавить новое место'"/>
+                        <PlusIcon @click="addNewTourPlace" :iconTitle="'Добавить новое место'"/>
                     </template>
                     <template v-if="isAddTourPlace">
                         <v-text-field
@@ -430,7 +430,14 @@ export default {
 		selectRayon(rayon) {
 			this.tourObj.locations[0].region.id = rayon.id;
 			this.tourObj.locations[0].region.ru = rayon.ru;
+			this.isAddTourPlace = !rayon.places.length;
+			this.tourObj.locations[0].place = '';
 		},
+
+		addNewTourPlace() {
+		    this.isAddTourPlace = true;
+			this.tourObj.locations[0].place = '';
+        },
 
 		addImage(e) {
 			const formats = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg', 'image/svg+xml'];
