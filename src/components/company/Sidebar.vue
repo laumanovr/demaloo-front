@@ -133,6 +133,7 @@ export default {
 		font-weight: 500;
 		font-size: 16px;
 		cursor: pointer;
+		background: #fff;
 		img {
 			margin-right: 15px;
 		}
