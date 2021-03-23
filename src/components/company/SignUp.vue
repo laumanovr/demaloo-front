@@ -85,7 +85,7 @@
 			</div>
 			<div class="btn-actions">
 				<button class="btn blue-primary">
-					<router-link to="/">На главную</router-link>
+					<router-link to="/" class="white--text">На главную</router-link>
 				</button>
 			</div>
 		</template>
@@ -155,7 +155,8 @@ export default {
 
 <style lang="scss" scoped>
 	.complete-icon {
-		text-align: center;
+		display: flex;
+		justify-content: center;
 		margin-top: 20px;
 	}
 </style>
