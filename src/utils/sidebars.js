@@ -21,6 +21,11 @@ export default {
 			icon: 'notifications.svg',
 		},
 		{
+			name: 'Команда',
+			route: '/company-manage/team',
+			icon: 'people.svg'
+		},
+		{
 			name: 'Чат',
 			route: '#',
 			icon: 'message.svg',
