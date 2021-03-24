@@ -145,6 +145,14 @@ const routes = [
 				meta: {
 					requireAuth: true
 				}
+			},
+			{
+				path: 'team',
+				name: 'companyTeam',
+				component: loadComponent('company/Team'),
+				meta: {
+					requireAuth: true
+				}
 			}
 		],
 	},
