@@ -50,12 +50,6 @@
 					/>
 					<v-text-field class="error-only" :rules="phoneRule" v-model="companyObj.phoneNumber"/>
 				</div>
-				<button class="btn purple next" @click.prevent="goToNextStep">
-					Далее
-				</button>
-			</template>
-
-			<template v-if="formStep == 'two'">
 				<v-text-field
 					label="Пароль"
 					class="no-border"
@@ -105,7 +99,10 @@ export default {
 			required: [(v) => !!v || 'Обязательное поле'],
 			emailRule: [
 				(v) => !!v || 'Email обязательный',
-				(v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Email должен быть валидным',
+				(v) => {
+					const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+					return pattern.test(v) || 'Email должен быть валидным';
+				}
 			],
 			phoneRule: [
 				v => !!v || 'Обязательное поле',
@@ -125,13 +122,6 @@ export default {
 		};
 	},
 	methods: {
-		goToNextStep() {
-			if (this.$refs.signUpForm.validate()) {
-				this.formStep = 'two';
-				this.$refs.signUpForm.resetValidation();
-			}
-		},
-
 		async submitRegister() {
 			if (this.$refs.signUpForm.validate()) {
 				if (this.companyObj.password !== this.repeatPass) {
