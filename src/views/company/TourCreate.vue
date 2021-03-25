@@ -63,11 +63,23 @@
                 </div>
                 <div class="form-field">
                     <span class="label">Гид:</span>
-                    <v-text-field v-model="tourObj.guides" solo/>
+                    <v-select
+                        :items="teamGuides"
+                        item-text="fullName"
+                        item-value="fullName"
+                        v-model="tourObj.guides"
+                        solo
+                    />
                 </div>
                 <div class="form-field">
                     <span class="label">Водитель:</span>
-                    <v-text-field v-model="tourObj.drivers" solo/>
+                    <v-select
+                        :items="teamDrivers"
+                        item-text="fullName"
+                        item-value="fullName"
+                        v-model="tourObj.drivers"
+                        solo
+                    />
                 </div>
                 <div class="form-field">
                     <span class="label">Максимальное кол-во людей:</span>
@@ -364,7 +376,13 @@ export default {
 	computed: {
 		allRegions() {
 			return this.$store.state.location.regions;
-		}
+		},
+		teamDrivers() {
+			return this.$store.state.team.drivers.map((i) => ({...i, fullName: `${i.surname} ${i.name}`}));
+		},
+		teamGuides() {
+			return this.$store.state.team.guides.map((i) => ({...i, fullName: `${i.surname} ${i.name}`}));
+		},
 	},
 	methods: {
 		async createTourWithSameData(tourId) {
