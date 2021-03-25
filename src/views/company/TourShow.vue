@@ -248,7 +248,7 @@
 		<!--DELETE ADDED MANUAL BOOKING MODAL-->
 		<modal name="delete-modal" height="auto">
 			<div class="modal-container">
-				<h3>Удалить этого клиента?</h3>
+				<h3>Удалить этот бронь?</h3>
 				<div class="btn-actions">
 					<button class="btn blue-primary" @click="$modal.hide('delete-modal')">Отмена</button>
 					<button class="btn red-primary" @click="deleteBooking">Удалить</button>
