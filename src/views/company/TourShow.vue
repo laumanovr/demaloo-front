@@ -134,9 +134,10 @@
 					<td>{{ client.total }} сом</td>
 					<td>{{ statuses[getLastStage(client.stages).status] }}</td>
 					<td class="cancel">
-						<span v-if="client.stages[0].status == 'ADDED'" @click="deleteClient(client, true)">
-							Удалить
-						</span>
+						<template v-if="client.stages[0].status == 'ADDED'">
+							<EditIcon @click="submitUpdateBooking(client, true)"/>
+							<DeleteIcon @click="deleteBooking(client, true)"/>
+						</template>
 					</td>
 				</tr>
 				</tbody>
@@ -199,19 +200,58 @@
 					/>
 					<div class="btn-actions">
 						<button class="btn red-primary" @click.prevent="toggleAddClientModal">Отмена</button>
-						<button class="btn green-primary" @click.prevent="submitAddClient">Сохранить</button>
+						<button class="btn green-primary" @click.prevent="submitAddBooking">Сохранить</button>
 					</div>
 				</v-form>
 			</div>
 		</modal>
 
-		<!--CANCEL/DELETE ADDED CLIENT MODAL-->
+		<!--UPDATE MANUAL BOOKING-->
+		<modal name="update-modal" height="auto">
+			<div class="modal-container">
+				<h3>Редактировать бронь</h3>
+				<v-form ref="updateBookForm">
+					<v-select
+						outlined
+						label="Источник"
+						placeholder="Источник"
+						:items="sources"
+						item-text="title"
+						item-value="source"
+						:rules="requiredRule"
+						v-model="selectedBooking.source"
+					/>
+					<v-text-field
+						outlined
+						label="Кол-во мест"
+						placeholder="Кол-во мест"
+						v-model.number="selectedBooking.peopleCount"
+						:rules="countQuantityRule"
+						type="number"
+					/>
+					<v-text-field
+						outlined
+						label="Общая сумма"
+						placeholder="Общая сумма"
+						v-model.number="selectedBooking.total"
+						:rules="numberRule"
+						type="number"
+					/>
+				</v-form>
+				<div class="btn-actions">
+					<button class="btn red-primary" @click.prevent="$modal.hide('update-modal')">Отмена</button>
+					<button class="btn green-primary" @click.prevent="submitUpdateBooking">Сохранить</button>
+				</div>
+			</div>
+		</modal>
+
+		<!--DELETE ADDED MANUAL BOOKING MODAL-->
 		<modal name="delete-modal" height="auto">
 			<div class="modal-container">
 				<h3>Удалить этого клиента?</h3>
 				<div class="btn-actions">
 					<button class="btn blue-primary" @click="$modal.hide('delete-modal')">Отмена</button>
-					<button class="btn red-primary" @click="deleteClient">Удалить</button>
+					<button class="btn red-primary" @click="deleteBooking">Удалить</button>
 				</div>
 			</div>
 		</modal>
@@ -224,12 +264,16 @@ import PreLoader from '@/components/general/PreLoader';
 import moment from 'moment';
 import VueTimepicker from 'vue2-timepicker';
 import MaskedInput from 'vue-masked-input';
+import DeleteIcon from '@/components/icons/DeleteIcon';
+import EditIcon from '@/components/icons/EditIcon';
 
 export default {
 	components: {
 		VueTimepicker,
 		MaskedInput,
-		PreLoader
+		PreLoader,
+		EditIcon,
+		DeleteIcon
 	},
 	data() {
 		return {
@@ -288,7 +332,6 @@ export default {
 		this.isLoading = true;
 		this.showSelectedTour(this.$route.params.tourId);
 	},
-
 	methods: {
 		async showSelectedTour(tourId) {
 			try {
@@ -354,7 +397,7 @@ export default {
 			}
 		},
 
-		async submitAddClient() {
+		async submitAddBooking() {
 			if (this.$refs.addClientForm.validate()) {
 				this.newClient.phoneNumber = `+996${this.newClient.phoneNumber}`;
 				this.isLoading = true;
@@ -370,7 +413,27 @@ export default {
 			}
 		},
 
-		async deleteClient(booking, confirm) {
+		async submitUpdateBooking(booking, confirm) {
+			if (confirm) {
+				this.selectedBooking = booking;
+				this.$modal.show('update-modal');
+			} else {
+				if (this.$refs.updateBookForm.validate()) {
+					try {
+						this.isLoading = true;
+						await TourService.updateManualBooking(this.selectedBooking);
+						this.$modal.hide('update-modal');
+						this.showSelectedTour(this.$route.params.tourId);
+						this.$toast.success('Успешно обновлено!');
+					} catch (err) {
+						this.$toast.error(err);
+						this.isLoading = false;
+					}
+				}
+			}
+		},
+
+		async deleteBooking(booking, confirm) {
 			if (confirm) {
 				this.selectedBooking = booking;
 				this.$modal.show('delete-modal');
@@ -493,12 +556,9 @@ export default {
 	}
 	.clients-block {
 		.cancel {
-			span {
-				border: 1px solid $red-primary;
-				color: $red-primary;
-				padding: 3px 3px;
-				border-radius: 4px;
-				cursor: pointer;
+			text-align: right;
+			div {
+				margin-right: 5px;
 			}
 		}
 	}
