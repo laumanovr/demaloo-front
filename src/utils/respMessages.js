@@ -25,4 +25,4 @@ export default {
 	'file is not an image': 'Файл не похож на картинку',
 	'company is not verified': 'Аккаунт еще непроверен',
 	'booking can not be cancelled': 'Бронь нельзя отменить'
-}
+};
