@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {authHeader} from '../utils/authHeader';
+import respMessage from '../utils/respMessages';
 
 export const API_BASE_URL = `${process.env.VUE_APP_BASE_URL}api/v1`;
 
@@ -30,6 +31,7 @@ const sendRequest = async (method, url, data) => {
 		const res = await axios(config);
 		return res.data;
 	} catch (err) {
-		return Promise.reject(err.response.data.message);
+		const errMsg = respMessage[err.response.data.message];
+		return Promise.reject(errMsg ? errMsg : err.response.data.message);
 	}
 };
