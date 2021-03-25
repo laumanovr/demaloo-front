@@ -4,6 +4,15 @@
 		<div class="head-title">Команда компании</div>
 
 		<div class="add-member">
+			<v-select
+				outlined
+				label="Фильтр"
+				:items="memberTypes"
+				item-text="title"
+				item-value="type"
+				v-model="selectedMemberType"
+				@change="filterMembers"
+			/>
 			<button class="btn blue-primary" @click="toggleTeamModal('add')">Добавить сотрудника</button>
 		</div>
 
@@ -18,14 +27,14 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr v-for="(member, i) in companyTeam.teamMembers" :key="i">
+			<tr v-for="(member, i) in teamMembers" :key="i">
 				<td>{{ i + 1 }}</td>
 				<td>{{ member.surname + ' ' + member.name }}</td>
 				<td>0{{ member.phoneNumber }}</td>
 				<td>{{ showOccupation(member.occupation) }}</td>
 				<td class="actions">
 					<EditIcon @click="toggleTeamModal('edit', member)"/>
-					<DeleteIcon @click="deleteMember(i, true)"/>
+					<DeleteIcon @click="deleteMember(member.id, true)"/>
 				</td>
 			</tr>
 			</tbody>
@@ -34,7 +43,10 @@
 		<modal name="team-modal" height="auto">
 			<div class="modal-container">
 				<template v-if="mode == 'add' || mode == 'edit'">
-					<h3>{{mode == 'add' ? 'Добавить члена команды' : 'Редактировать члена команды'}}</h3>
+					<h3>
+						{{mode == 'add' ? 'Добавить ' : 'Редактировать '}}
+						{{selectedMemberType == 'teamDrivers' ? 'водителя' : 'гида' }}
+					</h3>
 					<v-form ref="teamForm">
 						<v-text-field
 							outlined
@@ -57,15 +69,6 @@
 								@input="newMember.phoneNumber = arguments[1]"
 							/>
 						</div>
-						<v-select
-							outlined
-							label="Должность"
-							:items="occupations"
-							item-text="title"
-							item-value="value"
-							v-model="newMember.occupation"
-							:rules="requiredRule"
-						/>
 					</v-form>
 					<div class="btn-actions">
 						<button class="btn red-primary" @click="toggleTeamModal">Отмена</button>
@@ -85,11 +88,11 @@
 </template>
 
 <script>
-import {UserService} from '@/services/user.service';
 import MaskedInput from 'vue-masked-input';
 import PreLoader from '@/components/general/PreLoader';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import EditIcon from '@/components/icons/EditIcon';
+import {mapState} from 'vuex';
 
 export default {
 	components: {
@@ -105,9 +108,12 @@ export default {
 				{title: 'Водитель', value: 'driver'},
 				{title: 'Гид', value: 'guide'}
 			],
-			companyTeam: {
-				teamMembers: []
-			},
+			teamMembers: [],
+			memberTypes: [
+				{title: 'Водители', type: 'teamDrivers'},
+				{title: 'Гиды', type: 'teamGuides'},
+			],
+			selectedMemberType: '',
 			newMember: {
 				name: '',
 				surname: '',
@@ -120,20 +126,26 @@ export default {
 			removeIndex: ''
 		};
 	},
+	computed: {
+		...mapState('team', ['onSuccess', 'onError']),
+		teamDrivers() {
+			return this.$store.state.team.drivers;
+		},
+		teamGuides() {
+			return this.$store.state.team.guides;
+		},
+		teamAllMembers() {
+			return this.$store.state.team.allMembers;
+		}
+	},
 	created() {
-		this.isLoading = true;
-		this.getCompanyTeamMembers();
+		this.selectedMemberType = 'teamDrivers';
+		this.filterMembers(this.selectedMemberType);
 	},
 	methods: {
-		async getCompanyTeamMembers() {
-			try {
-				const res = await UserService.fetchCompanyTeamMembers();
-				this.companyTeam.teamMembers = res.data.teamMembers.map((member, i) => ({...member, index: i+1}));
-				this.isLoading = false;
-			} catch (err) {
-				this.$toast.error(err);
-				this.isLoading = false;
-			}
+		filterMembers(type) {
+			this.teamMembers = this[type];
+			this.newMember.occupation = type === 'teamDrivers' ? 'driver' : 'guide';
 		},
 
 		toggleTeamModal(mode, member) {
@@ -142,10 +154,9 @@ export default {
 				this.newMember.name = '';
 				this.newMember.surname = '';
 				this.newMember.phoneNumber = '';
-				this.newMember.occupation = '';
 				this.showPhone = '';
 			} else if (mode === 'edit') {
-				this.newMember.index = member.index;
+				this.newMember.id = member.id;
 				this.newMember.name = member.name;
 				this.newMember.surname = member.surname;
 				this.newMember.phoneNumber = member.phoneNumber;
@@ -164,39 +175,49 @@ export default {
 		async submitMember() {
 			if (this.$refs.teamForm.validate()) {
 				if (this.mode === 'add') {
-					this.companyTeam.teamMembers.push(this.newMember);
+					this.teamAllMembers.push(this.newMember);
 				}
 				if (this.mode === 'edit') {
-					const index = this.companyTeam.teamMembers.findIndex((i) => i.index === this.newMember.index);
-					this.companyTeam.teamMembers[index] = this.newMember;
+					const index = this.teamAllMembers.findIndex((i) => i.id === this.newMember.id);
+					this.teamAllMembers[index] = this.newMember;
 				}
 				this.handleSubmit();
 			}
 		},
 
-		deleteMember(index, confirm) {
+		deleteMember(id, confirm) {
 			if (confirm) {
-				this.removeIndex = index;
+				this.removeIndex = this.teamAllMembers.findIndex((i) => i.id === id);
 				this.toggleTeamModal('delete');
 			} else {
-				this.companyTeam.teamMembers.splice(this.removeIndex, 1);
+				this.teamAllMembers.splice(this.removeIndex, 1);
 				this.handleSubmit();
 			}
 		},
 
 		async handleSubmit() {
-			try {
-				this.isLoading = true;
-				await UserService.updateCompanyTeamMembers(this.companyTeam);
+			this.isLoading = true;
+			this.$store.dispatch('team/updateCompanyTeamMembers', {teamMembers: this.teamAllMembers});
+		}
+	},
+	watch: {
+		onSuccess(msg) {
+			if (msg) {
 				this.$toast.success('Успешно!');
+				this.filterMembers(this.selectedMemberType);
 				this.toggleTeamModal();
 				this.newMember = {};
 				this.isLoading = false;
-			} catch (err) {
+				this.$store.state.team.onSuccess = '';
+			}
+		},
+		onError(err) {
+			if (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
+				this.$store.state.team.onError = '';
 				if (this.mode === 'edit') {
-					this.companyTeam.teamMembers.pop();
+					this.teamMembers.pop();
 				}
 			}
 		}
@@ -207,8 +228,16 @@ export default {
 <style lang="scss">
 .company-team {
 	.add-member {
-		text-align: right;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		margin: 30px 0;
+		.v-select {
+			max-width: 200px;
+			.v-input__slot {
+				background: #fff;
+			}
+		}
 		.btn {
 			max-width: 200px;
 		}
