@@ -50,7 +50,8 @@
 					<div class="tour-items">
 					<div class="tour-item" v-for="tour in tourList" :key="tour._id">
 						<div class="tour-item__image">
-							<img :src="showPhoto(tour.images[0])">
+							<img :src="showPhoto(tour.images[0])" v-if="tour.images">
+							<img src="../../assets/images/no-image.png" v-else>
 						</div>
 						<div class="tour-item__info">
 							<div class="tour-item__date">{{formatDate(tour.date)}}</div>
