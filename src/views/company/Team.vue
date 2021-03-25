@@ -206,7 +206,7 @@ export default {
 				this.$toast.success('Успешно!');
 				this.filterMembers(this.selectedMemberType);
 				this.toggleTeamModal();
-				this.newMember = {};
+				this.newMember = {occupation: this.selectedMemberType === 'teamDrivers' ? 'driver' : 'guide'};
 				this.isLoading = false;
 				this.$store.state.team.onSuccess = '';
 			}
