@@ -45,6 +45,11 @@ export class TourService {
 		return sendPostRequest(url, body);
 	}
 
+	static updateManualBooking(booking) {
+		const url = `${API_BASE_URL}/companies/bookings/${booking._id}`;
+		return sendPatchRequest(url, booking);
+	}
+
 	static deleteManualBooking(bookingId) {
 		const url = `${API_BASE_URL}/companies/bookings/${bookingId}`;
 		return sendDeleteRequest(url);
