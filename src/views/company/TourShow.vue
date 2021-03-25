@@ -39,8 +39,19 @@
 				</div>
 				<v-form ref="editTourForm" class="info-fields right">
 					<div>
-						<label>Гид:</label>
+						<label>Цена:</label>
 						<v-text-field
+							v-model.number="selectedTour.price"
+							:rules="requiredRule"
+							solo
+						/>
+					</div>
+					<div>
+						<label>Гид:</label>
+						<v-select
+							:items="teamGuides"
+							item-text="fullName"
+							item-value="fullName"
 							v-model="selectedTour.guides"
 							:rules="requiredRule"
 							solo
@@ -48,7 +59,10 @@
 					</div>
 					<div>
 						<label>Водитель:</label>
-						<v-text-field
+						<v-select
+							:items="teamDrivers"
+							item-text="fullName"
+							item-value="fullName"
 							v-model="selectedTour.drivers"
 							:rules="requiredRule"
 							solo
@@ -262,6 +276,12 @@ export default {
 	computed: {
 		selectedTourIsExist() {
 			return Object.values(this.selectedTour).length > 0;
+		},
+		teamDrivers() {
+			return this.$store.state.team.drivers.map((i) => ({...i, fullName: `${i.surname} ${i.name}`}));
+		},
+		teamGuides() {
+			return this.$store.state.team.guides.map((i) => ({...i, fullName: `${i.surname} ${i.name}`}));
 		},
 	},
 	created() {
