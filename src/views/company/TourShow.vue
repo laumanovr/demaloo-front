@@ -51,10 +51,11 @@
 						<v-select
 							:items="teamGuides"
 							item-text="fullName"
-							item-value="fullName"
+							return-object
 							v-model="selectedTour.guides"
 							:rules="requiredRule"
 							solo
+							multiple
 						/>
 					</div>
 					<div>
@@ -62,10 +63,11 @@
 						<v-select
 							:items="teamDrivers"
 							item-text="fullName"
-							item-value="fullName"
+							return-object
 							v-model="selectedTour.drivers"
 							:rules="requiredRule"
 							solo
+							multiple
 						/>
 					</div>
 					<div>
@@ -81,6 +83,13 @@
 						<vue-timepicker
 							v-model="selectedTour.meetingTime"
 							close-on-complete
+						/>
+					</div>
+					<div>
+						<label>Заметки</label>
+						<v-text-field
+							v-model="selectedTour.notes"
+							solo
 						/>
 					</div>
 					<div v-for="(item, i) in selectedTour.additional" :key="i">
