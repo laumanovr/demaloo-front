@@ -66,8 +66,9 @@
                     <v-select
                         :items="teamGuides"
                         item-text="fullName"
-                        item-value="fullName"
+                        return-object
                         v-model="tourObj.guides"
+                        multiple
                         solo
                     />
                 </div>
@@ -76,8 +77,9 @@
                     <v-select
                         :items="teamDrivers"
                         item-text="fullName"
-                        item-value="fullName"
+                        return-object
                         v-model="tourObj.drivers"
+                        multiple
                         solo
                     />
                 </div>
@@ -102,13 +104,22 @@
                         multiple
                     />
                 </div>
-
                 <div class="form-field">
-                    <span class="label">Дистанция тура:</span>
+                    <span class="label">Дистанция тура на машине:</span>
                     <v-text-field
-                        v-model.number="tourObj.distance"
+                        v-model.number="tourObj.distance.transportDistance"
                         :rules="numberRule"
-                        placeholder="км"
+                        placeholder="сколько км на машине"
+                        solo
+                        type="number"
+                    />
+                </div>
+                <div class="form-field">
+                    <span class="label">Дистанция тура пешком:</span>
+                    <v-text-field
+                        v-model.number="tourObj.distance.walkDistance"
+                        :rules="numberRule"
+                        placeholder="сколько км пешком"
                         solo
                         type="number"
                     />
@@ -276,6 +287,28 @@
                         </button>
                     </div>
                 </div>
+                <div class="form-field">
+                    <span class="label">Программа тура по дням:</span>
+                    <div class="tour-items">
+                        <div class="tour-field" v-for="(item, i) in tourObj.program" :key="i">
+                            <v-textarea
+                                v-model="item.description.ru"
+                                :placeholder="'День - ' + item.day"
+                                :label="'День - ' + item.day"
+                                outlined
+                                no-resize
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <span class="label">Заметки:</span>
+                    <v-text-field
+                        placeholder="Заметки для компании"
+                        v-model="tourObj.notes"
+                        solo
+                    />
+                </div>
                 <div class="form-field image">
                     <span class="label">Изображения:</span>
                     <div class="previews">
@@ -350,7 +383,12 @@ export default {
 				includedInCost: [{ru: ''}],
 				notIncludedInCost: [{ru: ''}],
 				additional: [{ru: ''}],
-				distance: '',
+				distance: {
+					transportDistance: '',
+					walkDistance: ''
+				},
+				program: [],
+				notes: ''
 			},
 			tourCategories: [
 				{title: 'Озера и реки', name: 'lakes'},
@@ -407,6 +445,23 @@ export default {
 		nextFormStep() {
 			if (this.$refs.tourForm.validate()) {
 				this.formStep = 'last';
+				if (!this.tourObj.program.length) {
+					new Array(this.tourObj.duration).fill(0).forEach((i, num) => {
+						const dayObj = {day: num + 1, description: {ru: ''}};
+						this.tourObj.program.push(dayObj);
+					});
+				} else {
+					if (this.tourObj.duration < this.tourObj.program.length) {
+						this.tourObj.program.length = this.tourObj.duration;
+					} else if (this.tourObj.duration > this.tourObj.program.length ) {
+						const newDays = this.tourObj.duration - this.tourObj.program.length;
+						new Array(newDays).fill(0).forEach(() => {
+							const dayObj = {day: this.tourObj.program.length + 1, description: {ru: ''}};
+							this.tourObj.program.push(dayObj);
+						});
+					}
+				}
+				window.scrollTo(0, 0);
 			}
 		},
 
