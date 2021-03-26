@@ -486,7 +486,7 @@ export default {
 			.info-fields {
 				label {
 					word-break: break-all;
-					font-size: 18px;
+					font-size: 16px;
 					color: $gray-dark;
 					display: inline-block;
 					width: calc(50% - 5px);
@@ -498,7 +498,7 @@ export default {
 					& > div {
 						margin-bottom: 10px;
 						span {
-							font-size: 18px;
+							font-size: 16px;
 							display: inline-block;
 							width: 50%;
 						}
