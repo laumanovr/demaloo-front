@@ -140,6 +140,10 @@ input {
   }
 }
 
+.v-text-field > .v-input__control > .v-input__slot {
+  background: #fff !important;
+}
+
 .masked-input {
   margin: 10px 0;
   input {
