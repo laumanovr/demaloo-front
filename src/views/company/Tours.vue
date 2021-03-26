@@ -52,8 +52,8 @@
                     <td>{{ formatDate(tour.date) }}</td>
                     <td>{{ tour.price }} сом</td>
                     <td>{{ tour.bookingCount + " / " + tour.peopleCount }}</td>
-                    <td>{{ tour.guides }}</td>
-                    <td>{{ tour.drivers }}</td>
+                    <td>{{ tour.guides && tour.guides[0].fullName }}</td>
+                    <td>{{ tour.drivers && tour.drivers[0].fullName }}</td>
                     <td>{{ checkStatus(tour) }}</td>
                     <td class="update"><RefreshIcon/></td>
                 </tr>
