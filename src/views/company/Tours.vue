@@ -2,6 +2,7 @@
     <div class="company-tours-container">
         <PreLoader v-if="isLoading"/>
         <div class="create-tour">
+            <div class="head-title">Туры</div>
             <button class="btn blue-primary">
                 <router-link :to="{name: 'tourCreate'}" class="white--text">Создать тур</router-link>
             </button>
@@ -193,7 +194,8 @@ export default {
 <style lang="scss" scoped>
     .company-tours-container {
         .create-tour {
-            text-align: right;
+            display: flex;
+            justify-content: space-between;
             border-bottom: 1px solid $gray-light;
             padding-bottom: 30px;
         }
