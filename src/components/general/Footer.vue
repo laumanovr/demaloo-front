@@ -1,32 +1,45 @@
 <template>
 	<div class="footer-container">
-		<div class="footer-content">
-			<div class="columns">
-				<div class="column">
-					<span class="logo">Demaloo</span>
+		<div class="footer__content">
+			<div class="footer__logo flex justify-center">
+				<img src="../../assets/images/logo.svg">
+				<span>Demaloo</span>
+			</div>
+
+			<div class="footer__title">Отдых без забот</div>
+			
+			<div class="footer__links flex align-center justify-center">
+				<a href="#">Как устроено Demaloo</a>
+				<span class="dot"></span>
+				<a href="#">Публичная оферта</a>
+				<span class="dot"></span>
+				<a href="#">Регистрация компании</a>
+				<span class="dot"></span>
+				<a href="#">Часто задаваемые вопросы</a>
+			</div>
+
+			<div class="footer__icons flex align-center justify-center">
+				<img src="../../assets/images/app-store.png">
+				<img src="../../assets/images/play-market.png">
+			</div>
+
+			<div class="footer__contacts flex align-center justify-center">
+				<div class="contact flex align-center">
+					<img src="../../assets/icons/cell-phone.png" class="phone">
+					<span>+996 500 100 901</span>
 				</div>
-				<div class="column">
-					<span class="first">Партнерство</span>
-					<span>Условия сотрудничества</span>
-					<span>Стать партнером</span>
+				<div class="contact address flex align-center">
+					<img src="../../assets/icons/marker-dark.png" class="street">
+					<span>г. Бишкек, ул. Советская 37, 789065</span>
 				</div>
-				<div class="column">
-					<span class="first">Поддержка</span>
-					<span>Центр поддежки</span>
-					<span>Связаться</span>
-				</div>
-				<div class="column">
-					<span class="first">Скачать приложение</span>
-					<span><img src="../../assets/images/app-store.svg"></span>
-					<span><img src="../../assets/images/play-market.svg"></span>
+				<div class="contact flex align-center">
+					<img src="../../assets/icons/envelope-dark.png" class="email">
+					<span>info@demaloo.com</span>
 				</div>
 			</div>
-			<div class="cellar">
-				<div class="social-net">
-					<img src="../../assets/icons/instagram.svg">
-					<img src="../../assets/icons/facebook.svg">
-				</div>
-				<div class="year">© 2021 Demaloo</div>
+
+			<div class="footer__confident">
+				© LLC Demaloo, Все права защищены, Политика конфидециальности
 			</div>
 		</div>
 	</div>
@@ -34,53 +47,79 @@
 
 <style lang="scss">
 	.footer-container {
-		border-top: 1px solid $gray-light;
-		margin-top: 20px;
-		.footer-content {
-			max-width: 1366px;
-			margin: 0 auto;
-			.columns {
-				display: flex;
-				justify-content: space-evenly;
-				border-bottom: 1px solid $gray-light;
-				height: 330px;
-				padding-top: 60px;
-				.column {
-					.logo {
-						font-size: 25px;
-						font-weight: bold;
-						color: $indigo-blue;
+		padding-top: 25px;
+		background: #e5e5e578;
+		.footer {
+			&__content {
+				max-width: 1366px;
+				margin: 0 auto;
+				text-align: center;
+				color: $blue-darkest;
+				padding-bottom: 15px;
+			}
+			&__logo {
+				span {
+					margin-left: 10px;
+					font-size: 20px;
+					font-weight: bold;
+				}
+			}
+			&__title {
+				color: #284A63;
+				font-weight: 600;
+				font-size: 18px;
+				margin-top: 10px;
+			}
+			&__links {
+				margin: 35px 0;
+				a {
+					font-size: 14px;
+					color: $blue-darkest;
+				}
+				.dot {
+					display: block;
+					width: 4px;
+					height: 4px;
+					background: $blue-darkest;
+					border-radius: 4px;
+					margin: 0 16px;
+				}
+			}
+			&__icons {
+				img {
+					width: 145px;
+					&:first-child {
+						margin-right: 30px;
 					}
-					span {
-						display: block;
-						color: $gray-blue;
-						font-size: 16px;
-						margin-bottom: 14px;
-						&.first {
-							font-weight: bold;
-							font-size: 18px;
+				}
+			}
+			&__contacts {
+				margin: 40px 0 50px;
+				.contact {
+					font-size: 14px;
+					&.address {
+						margin: 0 25px;
+					}
+					img {
+						margin-right: 10px;
+						&.phone {
+							width: 18px;
+							height: 18px;
+						}
+						&.street {
+							width: 15px;
+							height: 20px;
+						}
+						&.email {
+							width: 18px;
+							height: 15px;
 						}
 					}
 				}
 			}
-			.cellar {
-				height: 80px;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				padding: 0 60px;
-				.social-net {
-					display: flex;
-					align-items: center;
-					img {
-						width: 24px;
-						height: 24px;
-						margin-right: 10px;
-					}
-				}
-				.year {
-					color: $gray-blue;
-				}
+			&__confident {
+				font-size: 14px;
+				color: #A6ACBB;
 			}
 		}
 	}
