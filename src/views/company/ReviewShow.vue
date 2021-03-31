@@ -32,8 +32,13 @@
 			<div class="review-item" v-for="review in tourReviews" :key="review._id">
 				<div class="comments">
 					<div class="name">
-						{{review.customer.name}}
-						<img src="../../assets/icons/rating-icon.svg" v-for="star in review.rating" :key="star">
+						<div class="rating">
+							<img src="../../assets/icons/unfilled-star.svg" v-for="star in 5" :key="star">
+						</div>
+						<div class="rating">
+							<img src="../../assets/icons/rating-icon.svg" v-for="star in review.rating" :key="star">
+						</div>
+						<span>{{review.customer.name}}</span>
 					</div>
 					<div
 						class="comment"
@@ -201,6 +206,21 @@ export default {
 				border-radius: 4px;
 				padding: 15px 20px 30px;
 				.comments {
+					.name {
+						font-weight: 500;
+						font-size: 14px;
+						.rating {
+							display: flex;
+							position: absolute;
+						}
+						img {
+							margin-left: 5px;
+						}
+						span {
+							padding-top: 18px;
+							display: inline-block;
+						}
+					}
 					.comment {
 						border: 1px solid $gray-light;
 						border-radius: 4px;
@@ -208,14 +228,6 @@ export default {
 						padding: 10px;
 						&.reply-msg {
 							margin-left: 20px;
-						}
-						.name {
-							display: flex;
-							font-weight: 500;
-							font-size: 14px;
-							img {
-								margin-left: 5px;
-							}
 						}
 						.date {
 							font-size: 12px;
