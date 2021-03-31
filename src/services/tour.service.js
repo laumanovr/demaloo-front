@@ -57,8 +57,8 @@ export class TourService {
 	// --------------COMPANY TOURS END------------------------------------------
 	// -----------------CLIENT TOURS START--------------------------------------
 
-	static fetchAllTours() {
-		const url = `${API_BASE_URL}/tours`;
+	static fetchAllTours(queryParam='') {
+		const url = `${API_BASE_URL}/tours?limit=20${queryParam}`;
 		return sendGetRequest(url);
 	}
 
