@@ -97,8 +97,8 @@
                     <v-select
                         :items="tourCategories"
                         v-model="tourObj.categories"
-                        item-text="title"
-                        item-value="name"
+                        item-text="ru"
+                        item-value="id"
                         :rules="multipleRule"
                         solo
                         multiple
@@ -344,6 +344,7 @@ import PlusIcon from '@/components/icons/PlusIcon';
 import CloseIcon from '@/components/icons/CloseIcon';
 import PreLoader from '@/components/general/PreLoader';
 import {API_BASE_URL} from '@/services/api.service';
+import {CategoryService} from '@/services/category.service';
 
 export default {
 	components: {
@@ -410,6 +411,7 @@ export default {
 		if (this.$route.params.tourId) {
 			this.createTourWithSameData(this.$route.params.tourId);
 		}
+		this.getAllCategories();
 	},
 	computed: {
 		allRegions() {
@@ -439,6 +441,15 @@ export default {
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
+			}
+		},
+
+		async getAllCategories() {
+			try {
+				const res = await CategoryService.fetchAllCategories();
+				this.tourCategories = res.data.categories;
+			} catch (err) {
+				this.$toast.error(err);
 			}
 		},
 
