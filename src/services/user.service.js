@@ -22,6 +22,11 @@ export class UserService {
 		const url = `${API_BASE_URL}/companies/updateMe`;
 		return sendPatchRequest(url, body);
 	}
+
+	static fetchAllCompanies() {
+		const url = `${API_BASE_URL}/companies`;
+		return sendGetRequest(url);
+	}
 	// ---------------------------------------------------------------
 
 	static registerClient(body) {
