@@ -12,4 +12,9 @@ export class LocationService {
 		const url = `${API_BASE_URL}/places/${regionId}/${rayonId}/addPlace`;
 		return sendPatchRequest(url, data);
 	}
+
+	static searchPlace(query) {
+		const url = `${API_BASE_URL}/places/search?q=${query}`;
+		return sendGetRequest(url);
+	}
 }
