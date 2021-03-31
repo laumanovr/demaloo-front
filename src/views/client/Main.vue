@@ -1,93 +1,210 @@
 <template>
 	<div class="main-container">
 		<PreLoader v-if="isLoading"/>
+		<div class="main-top-bg">
+			<img src="https://sites.google.com/site/prirodanasevseegooglgfgf/_/rsrc/1463456237313/home/priroda_gory_nebo_ozero_oblaka_81150_1920x1080.jpg">
+			<div class="bg-text">
+				<div class="bg-text__block">
+					<div class="bg-text__top">Начало незабываемого отдыха</div>
+					<div class="bg-text__bottom">Найдите самый подходящий тур среди 1,200 туров.</div>
+				</div>
+			</div>
+		</div>
 		<div class="main-all-tours">
 			<div class="search">
-				<div class="search__title">Найдите свой тур</div>
 				<div class="search__filter">
 					<div class="search__form-field location">
+						<img src="../../assets/icons/marker-green.svg">
 						<div class="label">
-							<img src="../../assets/icons/compass-icon.svg">
 							<span>Локация</span>
+							<input
+								type="text"
+								placeholder="Начинайте печатать..."
+								v-model="searchObj.inputValue"
+								@input="autoCompleteLocation"
+							>
 						</div>
-						<input type="text" placeholder="Начинайте печатать...">
+						<div class="drop-down-result" v-if="searchLocations.length">
+							<div
+								class="found-item"
+								v-for="(item, i) in searchLocations" :key="i"
+								@click="onSelectFoundPlace(item)"
+							>
+								<span class="name">{{item.name}}</span>
+								<span class="type">{{placeType[item.type]}}</span>
+							</div>
+						</div>
+						<div class="not-found drop-down-result" v-if="noResult">Ничего не найдено</div>
 					</div>
-					<div class="search__form-field">
+					<div class="search__form-field date">
+						<img src="../../assets/icons/calendar-green.svg">
 						<div class="label">
-							<img src="../../assets/icons/calendar.svg">
 							<span>Дата</span>
+								<v-menu
+									v-model="showDatePicker"
+									:close-on-content-click="true"
+									:nudge-right="40"
+									transition="scale-transition"
+									offset-y
+									min-width="290px"
+								>
+									<template v-slot:activator="{ on, attrs }">
+										<input
+											placeholder="Выберите дату"
+											type="text"
+											readonly
+											v-model="searchObj.date"
+											v-bind="attrs"
+											v-on="on"
+										>
+									</template>
+									<v-date-picker
+										locale="ru-RU"
+										v-model="pickerDate"
+										:min="todayDate"
+										@input="onChangeSearchDate"
+									/>
+								</v-menu>
 						</div>
-						<input type="text" placeholder="Выберите дату">
 					</div>
-					<div class="search__form-field">
-						<div class="label">
-							<img src="../../assets/icons/dollar-icon.svg">
-							<span>Цена от (сом)</span>
-						</div>
-						<input type="text" placeholder="Пример: 750">
-					</div>
-					<div class="search__form-field last">
-						<div class="label">
-							<img src="../../assets/icons/dollar-icon.svg">
-							<span>Цена до (сом)</span>
-						</div>
-						<input type="text" placeholder="Пример: 3500">
-					</div>
-					<button type="button" class="search__search-btn">Поиск</button>
+					<button class="btn green-main" @click="submitSearchTours">Найти</button>
 				</div>
+				<div class="hint"><span>Пример:</span><span>Каракол</span></div>
 			</div>
 
 			<div class="tour-content">
-				<div class="tour-sort">
-					<div class="price-sort-block">
-						<span class="sort-item show">Фильтровать</span>
-						<span class="sort-item">Самые дешевые</span>
-						<span class="sort-item">Самые дорогие</span>
+				<div class="filter-sidebar">
+					<div class="filter-item">
+						<span class="label">Тур компания</span>
+						<v-select
+							solo
+							label="Выбрать"
+							class="border no-detail"
+							:items="allCompanies"
+							item-text="name"
+							item-value="_id"
+							v-model="sortCompany"
+							@change="filterBySidebar"
+						/>
 					</div>
-					<div class="company-sort-block"></div>
+					<div class="filter-item">
+						<span class="label">Длительность (дней)</span>
+						<v-select
+							solo
+							label="Выбрать"
+							class="border no-detail"
+							:items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+							v-model="sortDuration"
+							@change="filterBySidebar"
+						/>
+					</div>
+					<div class="filter-item">
+						<span class="label">Категории</span>
+						<div class="check-boxes">
+							<label class="box" v-for="(item, i) in categories" :key="i" :for="item.id">
+								<input :id="item.id" type="checkbox" @change="selectCategory($event, item)">
+								<span>{{item.ru}}</span>
+							</label>
+						</div>
+					</div>
+					<div class="filter-item">
+						<span class="label">Цена (сом)</span>
+						<div class="set-price">
+							<v-text-field
+								outlined
+								label="От"
+								class="no-detail from"
+								type="number"
+								v-model="sortPriceFrom"
+								@input="selectPrice"
+							/>
+							<v-text-field
+								outlined
+								label="До"
+								class="no-detail"
+								type="number"
+								v-model="sortPriceTo"
+								@input="selectPrice"
+							/>
+						</div>
+					</div>
 				</div>
 				<div class="found-tours">
-					<div class="tour-items">
-					<div class="tour-item" v-for="tour in tourList" :key="tour._id">
-						<div class="tour-item__image">
-							<img :src="showPhoto(tour.images[0])" v-if="tour.images">
-							<img src="../../assets/images/no-image.png" v-else>
+					<div class="sort-price-chip">
+						<div class="chips">
+							<div class="chip" v-for="chip in sortCategories" :key="chip.id">{{chip.ru}}</div>
 						</div>
-						<div class="tour-item__info">
-							<div class="tour-item__date">{{formatDate(tour.date)}}</div>
-							<div class="tour-item__company-price">
-								<span class="company"><img :src="showPhoto(tour.company.logo)">{{tour.company.name}}</span>
-								<span class="price">{{tour.price}} сом</span>
-							</div>
-							<div class="tour-item__name">{{tour.name.ru}}</div>
-							<div class="tour-item__free-place">
-								<template v-if="tour.bookingCount > 0">
-									Осталось мест: {{tour.bookingCount}}
-								</template>
-								<template v-else>-</template>
-							</div>
-							<button class="btn indigo-blue">
-								<router-link :to="{name: 'tourDetail', params: {tourId: tour._id}}" class="white--text">
-									Подробнее
-								</router-link>
-							</button>
-						</div>
+						<v-select
+							solo
+							label="Сортировка"
+							class="v-select-item border no-detail"
+							:items="sortItems"
+							item-text="title"
+							item-value="type"
+							@change="sortByPrice"
+						/>
 					</div>
+					<div class="tour-items">
+						<router-link
+							:to="{name: 'tourDetail', params: {tourId: tour._id}}"
+							v-for="tour in tourList"
+							:key="tour._id"
+							class="tour-item"
+						>
+							<div class="tour-item__image">
+								<img :src="showPhoto(tour.images[0])" v-if="tour.images">
+								<img src="../../assets/images/no-image.png" v-else>
+							</div>
+							<div class="tour-item__info">
+								<div class="tour-item__name">{{tour.name.ru}}</div>
+
+								<div class="tour-item__right">
+									<div class="tour-item__desc-block">
+										<div class="tour-item__company">
+											<img :src="showPhoto(tour.company.logo)">
+											{{tour.company.name}}
+											<div class="rating">
+												<img src="../../assets/icons/rating-icon.svg">
+												<span>{{tour.company.rating}}</span>
+											</div>
+										</div>
+										<div class="tour-item__description">
+											Погрузитесь в яркую атмосферу отдыха на природе! Вас ждут незабываемые ощущения в отличной компании и непринужденной обстановке
+										</div>
+										<div class="tour-item__date">
+											<span>Дата тура:</span>
+											<div class="format-date" v-html="formatDate(tour.date)"></div>
+										</div>
+									</div>
+									<div class="tour-item__price-block">
+										<div class="tour-item__free-place">
+											<template v-if="tour.bookingCount > 0">
+												Осталось мест: {{tour.bookingCount}}
+											</template>
+										</div>
+										<span class="tour-item__price">{{tour.price}} сом</span>
+									</div>
+								</div>
+							</div>
+						</router-link>
 					</div>
 					<div class="single-center">
-						<button class="btn indigo-blue">Показать еще</button>
+						<button class="btn green-main" v-if="tourList.length" @click="showMore">
+							Показать еще
+						</button>
+						<h2 v-if="!tourList.length">Ничего не найдено</h2>
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="banner">
-			<img src="../../assets/images/app-bg.png" class="bg">
+			<img src="../../assets/images/app-bg.jpg" class="bg">
 			<div class="banner__text">
-				<div class="banner__title">Скачивайте <br> приложение для <br> большего удобства</div>
+				<div class="banner__title">Скачивайте приложение <br> для мобильных устройств</div>
 				<div class="app-icons">
-					<img src="../../assets/images/app-store.svg">
-					<img src="../../assets/images/play-market.svg">
+					<img src="../../assets/images/app-store.png">
+					<img src="../../assets/images/play-market.png">
 				</div>
 			</div>
 		</div>
@@ -97,8 +214,12 @@
 <script>
 import {TourService} from '@/services/tour.service';
 import {format} from 'date-fns';
+import {ru} from 'date-fns/locale';
 import PreLoader from '@/components/general/PreLoader';
 import {API_BASE_URL} from '@/services/api.service';
+import {CategoryService} from '@/services/category.service';
+import {UserService} from '@/services/user.service';
+import {LocationService} from '@/services/location.service';
 
 export default {
 	components: {
@@ -106,30 +227,167 @@ export default {
 	},
 	data() {
 		return {
+			isLoading: false,
 			tourList: [],
-			isLoading: false
+			categories: [],
+			allCompanies: [],
+			sortItems: [
+				{title: 'По цене', type: 'price'},
+				{title: 'По дате', type: 'date'},
+			],
+			showDatePicker: false,
+			pickerDate: '',
+			todayDate: format(new Date(), 'yyyy-MM-dd'),
+			searchObj: {
+				inputValue: '',
+				date: ''
+			},
+			placeType: {
+				oblast: 'Область',
+				region: 'Район',
+				place: 'Место'
+			},
+			noResult: false,
+			searchLocations: [],
+			queryParam: '',
+			sortCompany: '',
+			sortDuration: '',
+			categoriesQuery: '',
+			sortCategories: [],
+			sortPriceFrom: '',
+			sortPriceTo: '',
+			sortPage: 1,
+			typingTimer: null,
+			locationTimer: null
 		};
 	},
 	created() {
 		this.isLoading = true;
+		this.getAllCompanies();
 		this.getAllTours();
+		this.getAllCategories();
 	},
 	methods: {
-		async getAllTours() {
+		async autoCompleteLocation(e) {
+			clearTimeout(this.locationTimer);
+			this.locationTimer = setTimeout(() => {
+				LocationService.searchPlace(e.target.value).then((res) => {
+					this.searchLocations = res.data.locations.items;
+					this.noResult = !this.searchLocations.length;
+				}).catch((err) => {
+					this.$toast.error(err);
+				});
+			}, 900);
+		},
+		onSelectFoundPlace(item) {
+			this.searchObj.inputValue = item.name;
+			this.searchLocations = [];
+		},
+		submitSearchTours() {
+			this.sortCompany = '';
+			this.sortDuration = '';
+			this.sortCategories = [];
+			const place = this.searchObj.inputValue ? `&search=${this.searchObj.inputValue}` : '';
+			const date = this.pickerDate ? `&date[gte]=${this.pickerDate}` : '';
+			this.queryParam = `${place || ''}${date || ''}`;
+			this.getAllTours();
+		},
+
+		sortByPrice(sortType) {
+			this.queryParam = `&sort=${sortType}`;
+			this.searchObj.date = '';
+			this.sortCompany = '';
+			this.sortDuration = '';
+			this.sortCategories = [];
+			this.getAllTours();
+		},
+
+		filterBySidebar(isPaginate = false) {
+			let company, duration, priceFrom, priceTo, page;
+			company = this.sortCompany ? `&company=${this.sortCompany}` : '';
+			duration = this.sortDuration ? `&duration=${this.sortDuration}` : '';
+			priceFrom = this.sortPriceFrom ? `&price[gte]=${this.sortPriceFrom}` : '';
+			priceTo = this.sortPriceTo ? `&price[lte]=${this.sortPriceTo}` : '';
+			page = this.sortPage ? `&page=${this.sortPage}` : '';
+			this.queryParam =
+				`${company || ''}` + `${duration || ''}` + `${this.categoriesQuery || ''}` +
+				`${priceFrom || ''}` + `${priceTo || ''}` + `${page || ''}`;
+			this.getAllTours(isPaginate);
+		},
+
+		selectCategory(e, category) {
+			this.categoriesQuery = '';
+			if (e.currentTarget.checked) {
+				this.sortCategories.push(category);
+			} else {
+				let index = this.sortCategories.findIndex((i) => i.id === category.id);
+				this.sortCategories.splice(index, 1);
+			}
+			this.sortCategories.forEach((category) => {
+				this.categoriesQuery += `&categories[]=${category.id}`;
+			});
+			this.filterBySidebar();
+		},
+
+		selectPrice() {
+			clearTimeout(this.typingTimer);
+			this.typingTimer = setTimeout(() => {
+				this.filterBySidebar();
+			}, 1000);
+		},
+
+		showMore() {
+			this.sortPage += 1;
+			this.filterBySidebar(true);
+		},
+
+		async getAllCompanies() {
 			try {
-				const res = await TourService.fetchAllTours();
-				this.tourList = res.data.tours;
+				const res = await UserService.fetchAllCompanies();
+				this.allCompanies = res.data.companies;
+			} catch (err) {
+				this.$toast.error(err);
+			}
+		},
+
+		async getAllTours(isPaginate) {
+			try {
+				this.isLoading = true;
+				const res = await TourService.fetchAllTours(this.queryParam);
+				if (isPaginate) {
+					this.tourList = [...this.tourList, ...res.data.tours];
+				} else {
+					this.tourList = res.data.tours;
+				}
 				this.isLoading = false;
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
 			}
 		},
+
+		async getAllCategories() {
+			try {
+				const res = await CategoryService.fetchAllCategories();
+				this.categories = res.data.categories;
+			} catch (err) {
+				this.$toast.error(err);
+			}
+		},
+
+		onChangeSearchDate() {
+			this.searchObj.date = format(new Date(this.pickerDate), 'dd.MM.yyyy');
+		},
+
 		showPhoto(imgUrl) {
 			return `${API_BASE_URL}/images/` + imgUrl;
 		},
+
 		formatDate(date) {
-			return format(new Date(date), 'dd.MM.yyyy');
+			const dateNum = format(new Date(date), 'dd');
+			const month = format(new Date(date), 'LLLL', {locale: ru});
+			const weekD = format(new Date(date), 'eeeeee', {locale: ru});
+			return `<span>${dateNum}</span><span style="margin: 0 6px">${month},</span><span>${weekD}</span>`;
 		}
 	},
 };
@@ -137,173 +395,314 @@ export default {
 
 <style lang="scss" scoped>
 	.main-container {
+		background: #e5e5e578;
+		.main-top-bg {
+			position: relative;
+			height: 350px;
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			.bg-text {
+				color: #fff;
+				position: absolute;
+				top: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: #00000080;
+				height: 100%;
+				width: 100%;
+				&__block {
+					text-align: center;
+				}
+				&__top {
+					font-weight: bold;
+					font-size: 48px;
+				}
+				&__bottom {
+					font-weight: 500;
+					font-size: 22px;
+				}
+			}
+		}
 		.main-all-tours {
 			max-width: 1200px;
-			margin: 70px auto;
+			margin: 0 auto;
+			transform: translateY(-70px);
 			.search {
-				background: $indigo-blue;
+				background: #fff;
 				border-radius: 8px;
-				padding: 30px 40px 38px;
-				&__title {
-					font-size: 14px;
-					margin-bottom: 12px;
-					color: #fff;
-				}
+				box-shadow: $btn-box-shadow;
 				&__filter {
 					display: flex;
 					align-items: center;
 					justify-content: center;
+					padding-top: 25px;
+					.btn {
+						max-width: 220px;
+						height: 54px;
+						box-shadow: none;
+					}
 				}
 				&__form-field {
+					display: flex;
+					align-items: center;
 					background: #fff;
 					width: 100%;
-					max-width: 220px;
+					max-width: 435px;
 					min-width: 140px;
-					&:not(:last-child) {
-						border-right: 1px solid $gray-dark;
-					}
-					&.location {
-						border-radius: 5px 0 0 5px;
-					}
-					&.last {
-						border-radius: 0 5px 5px 0;
+					border: 1px solid #A6ACBB;
+					border-radius: 8px;
+					padding-left: 25px;
+					&.date {
+						margin: 0 25px;
 					}
 					.label {
-						display: flex;
-						align-items: center;
-						margin: 5px 0 2px;
-						img {
-							margin: 0 12px;
-						}
+						margin-left: 13px;
+						width: 100%;
 						span {
-							font-size: 12px;
+							padding-left: 5px;
+							font-size: 14px;
 							color: $gray-dark;
 						}
+						input {
+							display: block;
+							width: 100%;
+							height: 28px;
+							color: $blue-darkest;
+						}
 					}
-					input {
-						height: 30px;
-						font-size: 14px;
-						width: 100%;
-						padding-left: 18px;
+					&.location {
+						position: relative;
+						.drop-down-result {
+							position: absolute;
+							top: 60px;
+							left: 0;
+							z-index: 999;
+							width: 100%;
+							max-height: 230px;
+							overflow-y: auto;
+							border-radius: 4px;
+							border: 1px solid #bdbdbd;
+							box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
+							padding: 10px 0;
+							background: #fff;
+							.found-item {
+								display: flex;
+								align-items: center;
+								justify-content: space-between;
+								cursor: pointer;
+								padding: 4px 10px;
+								.name {
+									max-width: 85%;
+									overflow-x: hidden;
+									white-space: nowrap;
+									text-overflow: ellipsis;
+								}
+								.type {
+									font-size: 13px;
+									color: $gray-dark;
+								}
+								&:hover {
+									background: $green-main;
+									color: #fff;
+									.type {
+										color: #fff;
+									}
+								}
+							}
+						}
+						.not-found {
+							text-align: center;
+						}
 					}
 				}
-				&__search-btn {
-					background: #fff;
-					height: 60px;
-					width: 100%;
-					max-width: 200px;
-					min-width: 100px;
-					border-radius: 8px;
-					outline: none;
-					margin-left: 25px;
+				.hint {
+					margin-left: 32px;
+					padding: 6px 0 15px 0;
+					span {
+						font-size: 13px;
+						&:first-child {
+							color: $gray-dark;
+							margin-right: 5px;
+						}
+						&:last-child {
+							color: $blue-darkest;
+						}
+					}
 				}
 			}
 			.tour-content {
 				display: flex;
-				margin-top: 26px;
-				.tour-sort {
+				.filter-sidebar {
 					min-width: 270px;
-					margin-right: 30px;
-					.price-sort-block {
-						box-shadow: 0 5px 6px #EAEAEA;
-						padding: 22px 28px;
-						span {
-							display: block;
-							padding: 10px 0;
-							font-size: 16px;
-							color: $gray-dark;
-							&.show {
-								font-size: 14px;
-								color: $black-light;
-								font-weight: bold;
-								text-transform: uppercase;
+					max-width: 270px;
+					margin-right: 25px;
+					padding-top: 100px;
+					.filter-item {
+						padding-bottom: 18px;
+						margin-bottom: 18px;
+						&:not(:last-child) {
+							border-bottom: 1px solid $gray-blue;
+						}
+						.label {
+							font-weight: 600;
+							font-size: 15px;
+							color: $blue-darkest;
+							margin-bottom: 7px;
+							padding-left: 5px;
+							display: inline-block;
+						}
+						.check-boxes {
+							.box {
+								display: block;
+								padding-left: 5px;
+								margin-bottom: 6px;
+								cursor: pointer;
+								input {
+									transform: scale(1.2);
+								}
+								span {
+									margin-left: 8px;
+									font-size: 15px;
+									color: $blue-darkest;
+								}
+							}
+						}
+						.set-price {
+							display: flex;
+							align-items: center;
+							.v-text-field {
+								max-width: 90px;
+								&.from {
+									margin-right: 30px;
+								}
 							}
 						}
 					}
 				}
 				.found-tours {
 					width: 100%;
-					.tour-items {
+					.sort-price-chip {
 						display: flex;
-						flex-wrap: wrap;
+						align-items: center;
 						justify-content: space-between;
-						&:after {
-							content: '';
-							width: 270px;
-							display: block;
+						margin: 27px 0 20px;
+						.chips {
+							display: flex;
+							align-items: center;
+							.chip {
+								background: #284B63;
+								border-radius: 20px;
+								color: #fff;
+								padding: 3px 10px;
+								margin-right: 15px;
+								font-size: 14px;
+							}
 						}
 					}
 					.tour-item {
-						width: 100%;
-						max-width: 270px;
-						box-shadow: 0 5px 10.125px rgba(206, 193, 193, 0.4);
+						display: flex;
+						background: #fff;
+						box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 						border-radius: 13px;
-						margin-bottom: 45px;
+						margin-bottom: 25px;
 						&__image {
 							width: 100%;
-							max-width: 270px;
-							height: 177px;
+							max-width: 273px;
+							height: 194px;
 							img {
 								width: 100%;
 								height: 100%;
 								object-fit: fill;
-								border-radius: 13px 13px 0 0;
+								border-radius: 13px 0 0 13px;
 							}
+						}
+						&__right {
+							display: flex;
+							justify-content: space-between;
+							align-items: flex-end;
+						}
+						&__desc-block {
+							width: 75%;
+						}
+						&__price-block {
+							width: 25%;
 						}
 						&__info {
-							padding: 13px;
+							width: 100%;
+							padding: 18px 25px 25px;
+							color: $blue-darkest;
 						}
 						&__date {
-							font-size: 12px;
-							color: $indigo-blue;
-							border: 2px solid $indigo-blue;
-							border-radius: 5px;
-							font-weight: 600;
-							display: inline-block;
-							padding: 3px 10px;
-						}
-						&__company-price {
+							color: $blue-darkest;
 							display: flex;
 							align-items: center;
-							justify-content: space-between;
-							margin: 8px 0 5px;
-							.company {
-								font-size: 15px;
-								width: 60%;
-								white-space: nowrap;
-								overflow-x: hidden;
-								text-overflow: ellipsis;
-								display: flex;
-								img {
-									width: 18px;
-									height: 18px;
-									object-fit: cover;
-									margin-right: 5px;
-									border: 1px solid $gray-light;
-									border-radius: 4px;
-								}
+							span {
+								font-size: 14px;
+								margin-right: 10px;
 							}
-							.price {
-								font-size: 20px;
-								font-weight: bold;
-								color: $indigo-blue;
+							.format-date {
+								display: flex;
+								font-weight: 600;
+								font-size: 16px;
+								text-transform: capitalize;
+							}
+						}
+						&__company {
+							display: flex;
+							align-items: center;
+							font-weight: 600;
+							font-size: 14px;
+							margin: 5px 0 7px;
+							img {
+								width: 24px;
+								height: 24px;
+								object-fit: cover;
+								margin-right: 6px;
+							}
+							.rating {
+								display: flex;
+								align-items: center;
+								margin-left: 14px;
+								img {
+									width: 12px;
+									height: 12px;
+									margin-right: 3px;
+								}
+								span {
+									font-size: 14px;
+									font-weight: normal;
+								}
 							}
 						}
 						&__name {
-							font-size: 20px;
-							height: 60px;
-							overflow: hidden;
+							font-weight: bold;
+							font-size: 18px;
+							white-space: nowrap;
+							overflow-x: hidden;
+							text-overflow: ellipsis;
+							max-width: 580px;
+						}
+						&__description {
+							font-size: 12px;
+							margin-bottom: 7px;
+							max-height: 54px;
+							overflow-y: hidden;
 						}
 						&__free-place {
-							font-size: 16px;
+							font-size: 14px;
 							color: $red-primary;
-							text-align: center;
-							margin: 8px 0;
+							text-align: right;
+							margin-bottom: 5px;
 						}
-						.indigo-blue {
-							font-size: 16px;
-							height: 48px;
-							border-radius: 10px;
+						&__price {
+							font-weight: bold;
+							font-size: 24px;
+							display: block;
+							text-align: right;
 						}
 					}
 					.single-center {
@@ -318,8 +717,9 @@ export default {
 
 		.banner {
 			max-width: 2000px;
-			margin: 0 auto;
+			margin: -45px auto 0;
 			position: relative;
+
 			img.bg {
 				width: 100%;
 				height: 100%;
@@ -339,8 +739,11 @@ export default {
 			.app-icons {
 				display: flex;
 				align-items: center;
-				img:first-child {
-					margin-right: 30px;
+				img {
+					width: 175px;
+					&:first-child {
+						margin-right: 30px;
+					}
 				}
 			}
 		}
