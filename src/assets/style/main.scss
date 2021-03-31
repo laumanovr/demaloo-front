@@ -87,6 +87,9 @@ input {
   &.indigo-blue {
     background: $indigo-blue;
   }
+  &.green-main {
+    background: $green-main;
+  }
 }
 
 .head-title {
@@ -142,6 +145,22 @@ input {
 
 .v-text-field > .v-input__control > .v-input__slot {
   background: #fff !important;
+}
+
+.border.v-text-field {
+  border: 0;
+  & > .v-input__control > .v-input__slot {
+    border: 1px solid #A6ACBB;
+    box-shadow: none !important;
+  }
+}
+
+.v-select-item {
+  max-width: 240px !important;
+}
+
+.no-detail.v-text-field .v-text-field__details {
+  display: none;
 }
 
 .masked-input {
