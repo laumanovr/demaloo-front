@@ -1,7 +1,10 @@
 <template>
 	<div class="header-container">
 		<div class="header-info">
-			<div class="logo" @click="$router.push('/')"><img src="../../assets/images/logo.svg"></div>
+			<div class="logo" @click="$router.push('/')">
+				<img src="../../assets/images/logo.svg">
+				<span>Demaloo</span>
+			</div>
 			<div class="links">
 				<template v-if="userLogged">
 					<span @click="$router.push('/profile-manage')">
@@ -10,8 +13,9 @@
 					</span>
 				</template>
 				<template v-else>
-					<router-link to="/login">Войти</router-link>
-					<router-link to="/registration">Регистрация</router-link>
+					<router-link to="/registration">Для туроператоров</router-link>
+					<a href="#">Поддержка</a>
+					<router-link to="/login" class="login">Войти</router-link>
 				</template>
 			</div>
 		</div>
@@ -37,38 +41,55 @@ export default {
 
 <style lang="scss">
 	.header-container {
-		background: $indigo-blue;
+		background: #fff;
 		text-align: center;
+		border-bottom: 1px solid $gray-light;
+		padding: 0 2px;
 		.header-info {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			height: 87px;
-			max-width: 1366px;
+			height: 65px;
+			max-width: 1200px;
 			margin: 0 auto;
-			padding: 0 30px;
 			.logo {
 				cursor: pointer;
+				display: flex;
+				align-items: center;
+				span {
+					font-size: 18px;
+					font-weight: bold;
+					margin-left: 10px;
+					color: $blue-darkest;
+				}
 			}
 			.links {
 				display: flex;
+				align-items: center;
 				a {
-					color: #fff;
-					font-size: 14px;
-					font-weight: 500;
+					color: $blue-darkest;
+					font-weight: 600;
+					font-size: 13px;
 					text-decoration: none;
 					letter-spacing: 0.8px;
+					margin-left: 30px;
 					&:hover {
 						font-weight: 900;
 					}
-					&:first-child {
-						margin-right: 25px;
+					&.login {
+						color: $green-main;
+						font-size: 14px;
+						border: 1px solid;
+						border-radius: 20px;
+						padding: 4px 15px;
 					}
 				}
 				span {
 					width: 30px;
 					height: 30px;
 					cursor: pointer;
+					border: 1px solid $green-main;
+					border-radius: 30px;
 					&:hover {
 						width: 35px;
 						height: 35px;
