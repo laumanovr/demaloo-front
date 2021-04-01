@@ -21,5 +21,6 @@ export default {
 <style lang="scss">
 	.client-manage {
 		min-width: 1010px;
+		background: #e5e5e578;
 	}
 </style>
