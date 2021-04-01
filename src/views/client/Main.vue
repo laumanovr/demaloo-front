@@ -272,7 +272,7 @@ export default {
 			clearTimeout(this.locationTimer);
 			this.locationTimer = setTimeout(() => {
 				LocationService.searchPlace(e.target.value).then((res) => {
-					this.searchLocations = res.data.locations.items;
+					this.searchLocations = res.data.locations;
 					this.noResult = !this.searchLocations.length;
 				}).catch((err) => {
 					this.$toast.error(err);
