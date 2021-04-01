@@ -48,7 +48,7 @@
 <style lang="scss">
 	.footer-container {
 		padding-top: 25px;
-		background: #e5e5e578;
+		border-top: 1px solid $gray-light;
 		.footer {
 			&__content {
 				max-width: 1366px;
