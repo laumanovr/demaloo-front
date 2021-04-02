@@ -23,11 +23,11 @@
 						<span class="price">{{book.total}} сом</span>
 					</div>
 					<div class="tour-item__name">{{book.tour.name.ru}}</div>
-					<button type="button" class="btn indigo-blue">
-						<!--<router-link to="/">-->
-							Подробнее
-						<!--</router-link>-->
-					</button>
+					<!--<button type="button" class="btn indigo-blue">-->
+						<!--&lt;!&ndash;<router-link to="/">&ndash;&gt;-->
+							<!--Подробнее-->
+						<!--&lt;!&ndash;</router-link>&ndash;&gt;-->
+					<!--</button>-->
 				</div>
 			</div>
 		</div>
