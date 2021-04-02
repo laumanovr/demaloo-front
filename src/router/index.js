@@ -7,19 +7,11 @@ const loadComponent = (path) => () => import(`@/views/${path}.vue`);
 Vue.use(VueRouter);
 
 const routes = [
-	// GENERAL LOGIN AND REGISTRATION PAGE
-	{
-		path: '/registration',
-		name: 'registration',
-		component: loadComponent('login/Registration'),
-		meta: {
-			requireAuth: false
-		}
-	},
+	// CLIENT LOGIN AND REGISTRATION
 	{
 		path: '/login',
 		name: 'login',
-		component: loadComponent('login/Login'),
+		component: loadComponent('login/ClientLogin'),
 		meta: {
 			requireAuth: false
 		}
@@ -74,6 +66,15 @@ const routes = [
 		]
 	},
 
+	// COMPANY LOGIN AND SIGNUP
+	{
+		path: '/company-login',
+		name: 'companyLogin',
+		component: loadComponent('login/CompanyLogin'),
+		meta: {
+			requireAuth: false
+		}
+	},
 	// COMPANY
 	{
 		path: '/company-manage',
