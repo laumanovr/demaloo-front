@@ -7,18 +7,23 @@
 			</router-link>
 		</div>
 		<div class="form-container">
-			<ClientSignUp
-				v-if="registerType == 'client'"
-				@changeType="changeForm"
+			<CompanyLogin
+				v-if="loginType == 'login'"
 				@loading="showLoader"
 			/>
 			<CompanySignUp
-				v-if="registerType == 'company'"
-				@changeType="changeForm"
+				v-if="loginType == 'signUp'"
 				@loading="showLoader"
 			/>
 			<div class="form-link">
-				<span>Уже есть аккаунт?</span><span @click="$router.push('/login')">Войти</span>
+				<template v-if="loginType == 'login'">
+					<span>Нет аккаунта?</span>
+					<span @click="loginType = 'signUp'">Зарегистрироваться</span>
+				</template>
+				<template v-if="loginType == 'signUp'">
+					<span>Уже есть аккаунт?</span>
+					<span @click="loginType = 'login'">Войти</span>
+				</template>
 			</div>
 		</div>
 	</div>
@@ -26,25 +31,22 @@
 
 <script>
 import CompanySignUp from '@/components/company/SignUp';
-import ClientSignUp from '@/components/client/SignUp';
+import CompanyLogin from '@/components/company/SignIn';
 import PreLoader from '@/components/general/PreLoader';
 
 export default {
 	components: {
 		CompanySignUp,
-		ClientSignUp,
+		CompanyLogin,
 		PreLoader
 	},
 	data() {
 		return {
 			isLoading: false,
-			registerType: 'company'
+			loginType: 'login'
 		};
 	},
 	methods: {
-		changeForm(type) {
-			this.registerType = type;
-		},
 		showLoader(bool) {
 			this.isLoading = bool;
 		}
