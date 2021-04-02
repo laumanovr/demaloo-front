@@ -121,7 +121,7 @@
 							<v-text-field
 								outlined
 								label="До"
-								class="no-detail"
+								class="no-detail to"
 								type="number"
 								v-model="sortPriceTo"
 								@input="selectPrice"
@@ -393,7 +393,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.main-container {
 		background: #e5e5e578;
 		.main-top-bg {
@@ -574,10 +574,19 @@ export default {
 						.set-price {
 							display: flex;
 							align-items: center;
+							margin-top: 8px;
 							.v-text-field {
 								max-width: 90px;
 								&.from {
 									margin-right: 30px;
+								}
+								&.from, &.to {
+									.v-input__slot {
+										min-height: 45px !important;
+										.v-label {
+											top: 13px;
+										}
+									}
 								}
 							}
 						}
