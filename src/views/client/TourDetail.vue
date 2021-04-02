@@ -783,7 +783,7 @@ export default {
 		width: calc(33% - 25px);
 		.reserve-block {
 			position: sticky;
-			top: 0;
+			top: 5px;
 			background: #fff;
 			padding: 22px 23px 25px;
 			color: $blue-darkest;
