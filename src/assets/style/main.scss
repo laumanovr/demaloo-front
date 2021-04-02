@@ -79,8 +79,8 @@ input {
     background: #fff;
   }
   &.white-color-green {
-    color: $green-primary;
-    border: 1px solid $green-primary;
+    color: $green-main;
+    border: 1px solid $green-main;
     box-shadow: none;
     background: #fff;
   }
@@ -89,6 +89,7 @@ input {
   }
   &.green-main {
     background: $green-main;
+    box-shadow: none;
   }
 }
 
