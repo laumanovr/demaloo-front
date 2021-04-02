@@ -5,10 +5,10 @@
 		<!--</div>-->
 		<h3 class="head-title">Добро пожаловать!</h3>
 		<span class="sign-up-in-text">Быстрый, легкий и максимально удобный поиск туров!</span>
-		<div class="sign-in-up-type">
-			<span class="change" @click="$emit('changeType', 'client')">Турист</span>
-			<span class="selected">Тур-оператор</span>
-		</div>
+		<!--<div class="sign-in-up-type">-->
+			<!--<span class="change" @click="$emit('changeType', 'client')">Турист</span>-->
+			<!--<span class="selected">Тур-оператор</span>-->
+		<!--</div>-->
 		<v-form ref="signInForm">
 			<v-text-field
 				class="no-border"

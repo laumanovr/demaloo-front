@@ -2,10 +2,10 @@
 	<div class="company-sign-up-in">
 		<h3 class="head-title">Добро пожаловать!</h3>
 		<span class="sign-up-in-text">Быстрый, легкий и максимально удобный поиск туров!</span>
-		<div class="sign-in-up-type">
-			<span class="selected">Турист</span>
-			<span class="change" @click="$emit('changeType', 'company')">Тур-оператор</span>
-		</div>
+		<!--<div class="sign-in-up-type">-->
+			<!--<span class="selected">Турист</span>-->
+			<!--<span class="change" @click="$emit('changeType', 'company')">Тур-оператор</span>-->
+		<!--</div>-->
 		<v-form ref="signInForm">
 			<div class="masked-input" @click="isDisabled = false">
 				<MaskedInput

@@ -5,10 +5,10 @@
 			<template v-else>Регистрация</template>
 		</h3>
 		<span class="sign-up-in-text">Быстрый, легкий и максимально удобный поиск туров!</span>
-		<div class="sign-in-up-type" v-if="formStep == 'one'">
-			<span class="change" @click="$emit('changeType', 'client')">Турист</span>
-			<span class="selected">Тур-оператор</span>
-		</div>
+		<!--<div class="sign-in-up-type" v-if="formStep == 'one'">-->
+			<!--<span class="change" @click="$emit('changeType', 'client')">Турист</span>-->
+			<!--<span class="selected">Тур-оператор</span>-->
+		<!--</div>-->
 		<v-form ref="signUpForm">
 			<template v-if="formStep == 'one'">
 				<v-text-field

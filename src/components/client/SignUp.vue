@@ -6,10 +6,10 @@
 		<h3 class="head-title">Регистрация</h3>
 		<template v-if="formStep == 'first'">
 			<span class="sign-up-in-text">Быстрый, легкий и максимально удобный поиск туров!</span>
-			<div class="sign-in-up-type">
-				<span class="selected">Турист</span>
-				<span class="change" @click="$emit('changeType', 'company')">Тур-оператор</span>
-			</div>
+			<!--<div class="sign-in-up-type">-->
+				<!--<span class="selected">Турист</span>-->
+				<!--<span class="change" @click="$emit('changeType', 'company')">Тур-оператор</span>-->
+			<!--</div>-->
 			<v-form ref="registerForm">
 				<div class="masked-input" @click="inputDisabled = false">
 					<MaskedInput
