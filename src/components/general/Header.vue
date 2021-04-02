@@ -13,7 +13,7 @@
 					</span>
 				</template>
 				<template v-else>
-					<router-link to="/registration">Для туроператоров</router-link>
+					<router-link :to="{name: 'companyLogin'}">Для туроператоров</router-link>
 					<a href="#">Поддержка</a>
 					<router-link to="/login" class="login">Войти</router-link>
 				</template>
