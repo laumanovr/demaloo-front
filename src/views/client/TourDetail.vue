@@ -2,97 +2,293 @@
 	<div class="tour-detail__container">
 		<PreLoader v-if="isLoading"/>
 		<template v-if="hasTour">
-		<h3 class="tour-detail__title">{{tourDetail.name.ru}}</h3>
-		<div class="tour-detail__images">
-			<div class="selected-image"><img :src="mainImgUrl"></div>
-			<div class="preview-images">
-				<span v-for="(image, i) in tourDetail.images" :key="i" @click="changeImage(image)">
-					<img :src="showImage(image)">
-				</span>
+			<div class="tour-content">
+				<div class="tour-detail__left">
+					<div class="tour-detail__image">
+						<img :src="mainImgUrl" class="main-img">
+						<div class="arrows">
+							<img src="../../assets/icons/circle-arrow-left.svg" @click="changeImage('prev')">
+							<img src="../../assets/icons/circle-arrow-right.svg" @click="changeImage('next')">
+						</div>
+						<div class="image-count">{{imgIndex + 1}}/{{tourDetail.images.length}}</div>
+					</div>
+					<div class="tour-detail__info">
+						<div class="top-title flex align-center justify-space-between">
+							<span class="tour-detail__name">{{tourDetail.name.ru}}</span>
+							<span class="tour-detail__favorite flex align-center">
+						<img src="../../assets/icons/heart-blue.svg">
+						Сохранить
+					</span>
+						</div>
+						<div class="tour-detail__company-info flex align-center">
+							<img :src="showImage(tourDetail.company.logo)" class="company">
+							{{tourDetail.company.name}}
+							<div class="rating flex">
+								<img src="../../assets/icons/rating-icon.svg">
+								<span>{{tourDetail.company.rating}}</span>
+							</div>
+						</div>
+						<div class="tour-detail__description">
+							{{tourDetail.description.ru}}
+						</div>
+						<div class="tour-detail__additional-block flex">
+							<div class="includes">
+								<div class="data-block">
+									<div class="block-title flex">
+										<img src="../../assets/icons/include-icon.svg">
+										<span>Включено</span>
+									</div>
+									<div class="block-item" v-for="(item, i) in tourDetail.includedInCost" :key="i">
+										<span class="dot"></span>
+										<span class="item-title">{{item.ru}}</span>
+									</div>
+								</div>
+								<div class="data-block additional">
+									<div class="block-title flex">
+										<img src="../../assets/icons/additional-icon.svg">
+										<span>Дополнительно</span>
+									</div>
+									<div class="block-item" v-for="(item, i) in tourDetail.additional" :key="i">
+										<span class="dot"></span>
+										<span class="item-title">{{item.ru}}</span>
+									</div>
+								</div>
+							</div>
+							<div class="not-include">
+								<div class="data-block">
+									<div class="block-title flex">
+										<img src="../../assets/icons/not-include-icon.svg">
+										<span>Взять с собой</span>
+									</div>
+									<div class="block-item" v-for="(item, i) in tourDetail.notIncludedInCost" :key="i">
+										<span class="dot"></span>
+										<span class="item-title">{{item.ru}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tour-detail__transport-block">
+							<div class="transport flex align-center">
+								<div class="label flex align-center"><img src="../../assets/icons/transport-icon.svg">Транспорт:
+								</div>
+								<span>{{tourDetail.transport.ru}}</span>
+							</div>
+							<div class="distance label flex align-center"><img
+								src="../../assets/icons/double-marker.svg">Дистанция
+							</div>
+							<div class="kilometer">
+								<img src="../../assets/images/distance-image.png">
+								<div class="avto-foot flex justify-space-between">
+									<span>{{tourDetail.distance.transportDistance}} км</span>
+									<span>{{tourDetail.distance.walkDistance}} км</span>
+								</div>
+							</div>
+						</div>
+						<div class="tour-detail__program-block">
+							<div class="program-title flex align-center">
+								<img src="../../assets/icons/program-icon.svg">
+								<span>Программа</span>
+							</div>
+
+							<div class="program-item" v-for="program in tourDetail.program" :key="program.day">
+								<div class="day flex align-center">
+									<img src="../../assets/icons/calendar-green.svg">
+									<span>День {{program.day}}</span>
+								</div>
+								<div class="text">
+									{{program.description.ru}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tour-detail__right">
+					<div class="reserve-block">
+						<div class="head-block flex align-center justify-space-between">
+							<div class="price">{{tourDetail.price}} сом</div>
+							<div class="date-place">
+								<div class="date" v-html="formatDate(tourDetail.date)"></div>
+								<div class="place" v-if="tourDetail.bookingCount > 0">
+									Осталось мест: {{tourDetail.bookingCount}}
+								</div>
+							</div>
+						</div>
+						<div class="short-info">
+							<div class="item flex align-center">
+								<img src="../../assets/icons/duration-icon.svg">
+								<span>Длительность:</span>
+							</div>
+							<div class="value">{{tourDetail.duration}} дней</div>
+						</div>
+						<div class="short-info">
+							<div class="item flex align-center">
+								<img src="../../assets/icons/timer-icon.svg">
+								<span>Время сбора:</span>
+							</div>
+							<div class="value">{{tourDetail.meetingTime}}</div>
+						</div>
+						<div class="short-info">
+							<div class="item flex align-center">
+								<img src="../../assets/icons/marker-dark.png">
+								<span>Место сбора:</span>
+							</div>
+							<div class="value">{{tourDetail.meetingPoint.ru}}</div>
+						</div>
+						<div class="short-info">
+							<div class="item">
+								<span>Человек:</span>
+							</div>
+							<div class="value flex align-center">
+								<img src="../../assets/icons/circle-minus.svg" @click="addSubtractQuantity('minus')">
+								<span>{{payOrReserve.count}}</span>
+								<img src="../../assets/icons/circle-plus.svg" @click="addSubtractQuantity('add')">
+							</div>
+						</div>
+						<div class="total flex align-center justify-space-between">
+							<span>Итого:</span>
+							<span>{{totalPayPrice}} сом</span>
+						</div>
+						<div class="agreement">
+							Забронировав тур, я соглашаюсь с <span>Условиями предоставления услуг.</span>
+						</div>
+						<button class="btn green-main" @click="toggleReserveModal">Забронировать</button>
+					</div>
+				</div>
 			</div>
-		</div>
-
-		<div class="tour-detail__content">
-			<div class="tour-detail__info">
-				<div class="tour-detail__company-name">{{tourDetail.company.name}}</div>
-				<div class="tour-detail__description">{{tourDetail.description.ru}}</div>
-
-				<div class="tour-detail__about">
-					<div class="head-title detail">О туре</div>
-					<div class="item">
-						<span class="info-label">Дата:</span>
-						<span class="info-value">{{tourDetail.date}}</span>
-					</div>
-					<div class="item">
-						<span class="info-label">Длительность:</span>
-						<span class="info-value">{{tourDetail.duration}} дней</span>
-					</div>
-					<div class="item">
-						<span class="info-label">Количество участников:</span>
-						<span class="info-value">{{tourDetail.peopleCount}} человек</span>
-					</div>
-					<div class="item">
-						<span class="info-label">Дистанция:</span>
-						<span class="info-value">{{tourDetail.distance}} км</span>
-					</div>
-					<div class="item">
-						<span class="info-label">Место сбора:</span>
-						<span class="info-value">{{tourDetail.meetingPoint.ru}}</span>
-					</div>
-					<div class="item">
-						<span class="info-label">Время сбора:</span>
-						<span class="info-value">{{tourDetail.meetingTime}}</span>
-					</div>
-				</div>
-
-				<div class="tour-detail__include-add">
-					<div class="head-title detail">Включено</div>
-					<div class="item" v-for="(item, i) in tourDetail.includedInCost" :key="i">
-						<img src="../../assets/icons/flag-icon.svg">
-						<span>{{ item.ru }}</span>
-					</div>
-				</div>
-
-				<div class="tour-detail__include-add">
-					<div class="head-title detail">Взять с собой</div>
-					<div class="item" v-for="(item, i) in tourDetail.notIncludedInCost" :key="i">
-						<img src="../../assets/icons/flag-icon.svg">
-						<span>{{ item.ru }}</span>
-					</div>
-				</div>
-
-				<div class="tour-detail__include-add">
-					<div class="head-title detail">Дополнительно</div>
-					<div class="item" v-for="(item, i) in tourDetail.additional" :key="i">
-						<img src="../../assets/icons/flag-icon.svg">
-						<span>{{ item.ru }}</span>
-					</div>
-				</div>
-			</div>
-			<div class="tour-detail__right">
-			<div class="tour-detail__price">
-				<div class="price-person">
-					<span class="price">{{tourDetail.price}} сом</span>
-					<span class="person"> / за человека</span>
-				</div>
-				<div class="date-rest">
-					<span class="tour-date">{{tourDetail.date}}</span>
-					<span class="rest-days">До тура дней: {{countRestDays()}}</span>
-				</div>
-				<div class="rest-place">
-					<template v-if="tourDetail.bookingCount > 0">Осталось мест: {{tourDetail.bookingCount}}</template>
-					<template v-else>-</template>
-				</div>
-				<button
-					class="btn indigo-blue reserve"
-					@click="goToReservePage"
-				>
-					Бронировать
-				</button>
-			</div>
-			</div>
-		</div>
 		</template>
+
+		<div class="other-tours" v-if="hasTour">
+			<div class="company-name"><span>Другие туры:</span><span>{{tourDetail.company.name}}</span></div>
+			<div class="tour-items">
+				<div class="tour-item" v-for="tour in otherTours" :key="tour._id" @click="openTourFromOther(tour._id)">
+					<div class="tour-img"><img :src="showImage(tour.images[0])"></div>
+					<div class="tour-name">{{tour.name.ru}}</div>
+					<div class="tour-detail__company-info flex align-center">
+						<img :src="showImage(tour.company.logo)" class="company">
+						{{tour.company.name}}
+						<div class="rating flex">
+							<img src="../../assets/icons/rating-icon.svg">
+							<span>{{tour.company.rating}} ({{tour.company.reviewCount}})</span>
+						</div>
+					</div>
+					<div class="tour-desc">
+						{{tour.description.ru}}
+					</div>
+					<div class="date-price flex align-center justify-space-between">
+						<div class="date" v-html="formatDate(tour.date)"></div>
+						<span class="price">{{tour.price}} сом</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--RESERVE AND PAY MODAL-->
+		<modal
+			name="reserve-modal"
+			class="reserve-modal"
+			width="390px" height="90%"
+			:clickToClose="false"
+			v-if="hasTour"
+		>
+			<div class="modal-container">
+				<div class="reserve__title flex align-center justify-end">
+					<span>Детали брони</span>
+					<img src="../../assets/icons/close.svg" @click="toggleReserveModal">
+				</div>
+				<div class="reserve__tour-title">Незабываемый тур в Каракол</div>
+				<div class="reserve__company-date flex align-center justify-space-between">
+					<div class="tour-detail__company-info flex align-center">
+						<img :src="showImage(tourDetail.company.logo)" class="company">
+						{{tourDetail.company.name}}
+						<div class="rating flex">
+							<img src="../../assets/icons/rating-icon.svg">
+							<span>{{tourDetail.company.rating}}</span>
+						</div>
+					</div>
+					<div class="date flex text-capitalize" v-html="formatDate(tourDetail.date)"></div>
+				</div>
+				<div class="reserve__free-cancel flex align-center">
+					<img src="../../assets/icons/calendar-green.svg">
+					<div>
+						<div class="free-text">Бесплатная отмена брони до</div>
+						<div class="free-date">{{showFreeCancelDate()}}</div>
+					</div>
+				</div>
+				<div class="short-info">
+					<div class="item flex align-center">
+						<img src="../../assets/icons/duration-icon.svg">
+						<span class="reserve">Длительность:</span>
+					</div>
+					<div class="value reserve">{{tourDetail.duration}} дней</div>
+				</div>
+				<div class="short-info">
+					<div class="item flex align-center">
+						<img src="../../assets/icons/timer-icon.svg">
+						<span class="reserve">Время сбора:</span>
+					</div>
+					<div class="value reserve">{{tourDetail.meetingTime}}</div>
+				</div>
+				<div class="short-info">
+					<div class="item flex align-center">
+						<img src="../../assets/icons/marker-dark.png">
+						<span class="reserve">Место сбора:</span>
+					</div>
+					<div class="value reserve">{{tourDetail.meetingPoint.ru}}</div>
+				</div>
+				<div class="short-info">
+					<div class="item flex align-center">
+						<img src="../../assets/icons/person-icon.svg">
+						<span class="reserve">Гость:</span>
+					</div>
+					<div class="value reserve">{{userProfile.surname + ' ' + userProfile.name}}</div>
+				</div>
+				<div class="short-info">
+					<div class="item flex align-center">
+						<img src="../../assets/icons/people-icon.svg">
+						<span class="reserve">Количество мест:</span>
+					</div>
+					<div class="value reserve">{{payOrReserve.count}}</div>
+				</div>
+				<div class="short-info">
+					<div class="item flex align-center">
+						<img src="../../assets/icons/bank-card-icon.svg">
+						<span class="reserve">Итого:</span>
+					</div>
+					<div class="value reserve">{{totalPayPrice}} сом</div>
+				</div>
+				<div class="single-center">
+					<button
+						class="btn green-main"
+						@click="makePaymentForTour"
+					>
+						Оплатить
+					</button>
+					<button
+						class="btn white-color-green"
+						:class="{'disabled': !isReservable()}"
+						@click="makeReservation"
+						:disabled="!isReservable()"
+					>
+						Забронировать
+					</button>
+				</div>
+			</div>
+		</modal>
+
+		<!--COMPLETE RESERVE MODAL-->
+		<modal name="complete-reserve-modal" width="380px" height="auto">
+			<div class="modal-container">
+				<div class="warn-img"><img src="../../assets/icons/warning-icon.svg"></div>
+				<div class="warn-title">
+					Тур забронирован. <br>
+					Пожалуйста, не забудьте оплатить. <br> По истечении 12 часов ваша бронь обнуляется.
+				</div>
+				<div class="single-center complete">
+					<button class="btn green-main" @click="toggleCompleteModal">Готово</button>
+				</div>
+			</div>
+		</modal>
 	</div>
 </template>
 
@@ -100,6 +296,8 @@
 import {TourService} from '@/services/tour.service';
 import PreLoader from '@/components/general/PreLoader';
 import {API_BASE_URL} from '@/services/api.service';
+import {format} from 'date-fns';
+import {ru} from 'date-fns/locale';
 
 export default {
 	components: {
@@ -109,7 +307,14 @@ export default {
 		return {
 			isLoading: false,
 			mainImgUrl: '',
-			tourDetail: {}
+			tourDetail: {},
+			imgIndex: 0,
+			otherTours: [],
+			totalPayPrice: 0,
+			payOrReserve: {
+				count: 1,
+				tourId: ''
+			}
 		};
 	},
 	computed: {
@@ -133,34 +338,114 @@ export default {
 				const res = await TourService.fetchClientTourDetail(tourId);
 				this.tourDetail = res.data.tour;
 				this.mainImgUrl = this.showImage(this.tourDetail.images[0]);
+				this.totalPayPrice = this.tourDetail.price;
+				this.payOrReserve.tourId = this.$route.params.tourId;
 				this.isLoading = false;
+				this.getOtherTours(this.tourDetail.company._id);
 			} catch(err) {
 				this.$toast.error(err);
 				this.isLoading = false;
 			}
 		},
 
+		async getOtherTours(companyId) {
+			try {
+				const query = `&company=${companyId}`;
+				const res = await TourService.fetchAllTours(query);
+				this.otherTours = res.data.tours.filter((i) => i._id !== this.$route.params.tourId).slice(0, 8);
+			} catch (err) {
+				this.$toast.error(err);
+			}
+		},
+
+		openTourFromOther(tourId) {
+			this.$router.push('/0#');
+			setTimeout(() => {
+				this.$router.push({name: 'tourDetail', params: {tourId: tourId}});
+			}, 2);
+		},
+
 		showImage(imageLink) {
 			return `${API_BASE_URL}/images/` + imageLink;
 		},
 
-		countRestDays() {
-			const futureDate = new Date(this.tourDetail.date);
-			const today = new Date();
-			return Math.round((futureDate - today) / (1000*60*60*24));
+		addSubtractQuantity(type) {
+			if (type === 'add') {
+				this.payOrReserve.count += 1;
+			} else if (type === 'minus' && this.payOrReserve.count > 1) {
+				this.payOrReserve.count -= 1;
+			}
+			this.totalPayPrice = (this.tourDetail.price * this.payOrReserve.count);
 		},
 
-		changeImage(imageUrl) {
-			this.mainImgUrl = this.showImage(imageUrl);
+		changeImage(nav) {
+			if (nav === 'next' && this.imgIndex < (this.tourDetail.images.length - 1)) {
+				this.imgIndex += 1;
+				this.mainImgUrl = this.showImage(this.tourDetail.images[this.imgIndex]);
+			} else if (nav === 'prev' && this.imgIndex) {
+				this.imgIndex -= 1;
+				this.mainImgUrl = this.showImage(this.tourDetail.images[this.imgIndex]);
+			}
 		},
 
-		goToReservePage() {
+		showFreeCancelDate() {
+			this.cancelTourDate = new Date(this.tourDetail.date);
+			this.cancelTourDate.setDate(this.cancelTourDate.getDate() - 2);
+			return format(this.cancelTourDate, 'dd.MM.yyyy');
+		},
+
+		isReservable() {
+			return format(this.cancelTourDate, 'yyyy-MM-dd') > format(new Date(), 'yyyy-MM-dd');
+		},
+
+		formatDate(date) {
+			const dateNum = format(new Date(date), 'dd');
+			const month = format(new Date(date), 'LLLL', {locale: ru});
+			const weekD = format(new Date(date), 'eeeeee', {locale: ru});
+			return `<span>${dateNum}</span><span style="margin: 0 6px">${month},</span><span>${weekD}</span>`;
+		},
+
+		toggleReserveModal() {
 			if (this.userLogged) {
-				this.$router.push({name: 'tourReservePayment', params: {tourId: this.tourDetail._id}});
+				this.$modal.toggle('reserve-modal');
 			} else {
 				this.$router.push('/login');
 			}
-		}
+		},
+
+		toggleCompleteModal() {
+			this.$modal.toggle('complete-reserve-modal');
+		},
+
+		async makeReservation() {
+			if (this.payOrReserve.count > 4) {
+				this.$toast.info('Больше 4 мест бронировать нельзя!');
+				return;
+			}
+			try {
+				this.isLoading = true;
+				await TourService.reservationForTour(this.payOrReserve);
+				this.isLoading = false;
+				this.payOrReserve.count = 1;
+				this.toggleReserveModal();
+				this.toggleCompleteModal();
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
+		},
+
+		async makePaymentForTour() {
+			try {
+				this.isLoading = true;
+				const res = await TourService.paymentForTour(this.payOrReserve);
+				window.location.href = res.data.redirectUrl;
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
+		},
+
 	}
 };
 </script>
@@ -171,149 +456,430 @@ export default {
 		padding: 50px 0 20px;
 		max-width: 1200px;
 		margin: 0 auto;
-		.head-title.detail {
-			font-weight: 700;
-			margin: 40px 0 15px;
+		.tour-content {
+			display: flex;
+			justify-content: space-between;
 		}
-	}
-	&__title {
-		font-size: 36px;
-		font-weight: 700;
-		color: $black-light;
-		margin-bottom: 50px;
-	}
-	&__images {
-		max-width: 750px;
-		.selected-image {
-			width: 750px;
-			height: 400px;
-			margin-bottom: 15px;
-			border: 1px solid $gray-light;
-			border-radius: 4px;
+		.short-info {
+			display: flex;
+			justify-content: space-between;
+			font-size: 14px;
+			margin-bottom: 22px;
+			.item {
+				img {
+					width: 16px;
+					height: 19px;
+				}
+				span {
+					font-weight: 600;
+					margin-left: 16px;
+					&.reserve {
+						font-weight: 400;
+					}
+				}
+			}
+			.value {
+				text-align: right;
+				max-height: 42px;
+				overflow-y: hidden;
+				img {
+					cursor: pointer;
+				}
+				span {
+					margin: 0 9px;
+				}
+				&.reserve {
+					font-weight: 600;
+				}
+			}
+		}
+		.single-center {
+			justify-content: space-between;
+			&.complete {
+				justify-content: center;
+			}
+			.btn {
+				max-width: 165px;
+				height: 40px;
+			}
+		}
+		.warn-img {
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
 			img {
 				width: 100%;
 				height: 100%;
-				border-radius: 4px;
-				object-fit: fill;
 			}
 		}
-		.preview-images {
-			display: flex;
-			align-items: center;
-			span {
-				width: 70px;
-				height: 70px;
-				border: 1px solid $gray-light;
-				border-radius: 4px;
-				margin-right: 10px;
-				cursor: pointer;
-				img {
-					width: 100%;
-					height: 100%;
-					border-radius: 4px;
-					object-fit: contain;
+		.warn-title {
+			color: #1E2432;
+			font-size: 14px;
+			text-align: center;
+			margin: 25px 0;
+		}
+		.other-tours {
+			background: #fff;
+			margin-top: 25px;
+			border-radius: 7px;
+			.company-name {
+				margin: 0 0 20px 26px;
+				padding-top: 18px;
+				span {
+					&:first-child {
+						font-weight: bold;
+						font-size: 18px;
+						color: $blue-darkest;
+						margin-right: 10px;
+					}
+					&:last-child {
+						font-weight: 500;
+						font-size: 18px;
+						color: $green-main;
+					}
+				}
+			}
+			.tour-items {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				padding: 0 25px;
+				.tour-item {
+					color: $blue-darkest;
+					max-width: 260px;
+					margin-bottom: 25px;
+					border-radius: 7px;
+					cursor: pointer;
+					&:hover {
+						box-shadow: 0 0 20px 0 rgba(0,0,0,0.30);
+						.tour-name, .tour-desc, .date-price {
+							padding: 0 5px;
+						}
+					}
+					.tour-img {
+						width: 260px;
+						height: 155px;
+						img {
+							width: 100%;
+							height: 100%;
+							object-fit: cover;
+							border-radius: 7px;
+						}
+					}
+					.tour-name {
+						font-weight: bold;
+						font-size: 16px;
+						margin-top: 5px;
+						white-space: nowrap;
+						overflow-x: hidden;
+						text-overflow: ellipsis;
+					}
+					.tour-desc {
+						font-size: 12px;
+						height: 36px;
+						overflow-y: hidden;
+					}
+					.date-price {
+						padding: 5px 0;
+						.date {
+							font-weight: 600;
+							font-size: 16px;
+						}
+						.price {
+							font-weight: bold;
+							font-size: 18px;
+						}
+					}
 				}
 			}
 		}
 	}
-
-	&__content {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		margin-top: 100px;
+	&__left {
+		width: 67%;
+	}
+	&__image {
+		width: 100%;
+		height: 455px;
+		margin-bottom: 25px;
+		position: relative;
+		img.main-img {
+			width: 100%;
+			height: 100%;
+			border-radius: 5px;
+			object-fit: fill;
+		}
+		.arrows {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			display: flex;
+			width: 100%;
+			justify-content: space-between;
+			img {
+				cursor: pointer;
+			}
+		}
+		.image-count {
+			position: absolute;
+			right: 15px;
+			bottom: 15px;
+			color: #fff;
+			font-size: 14px;
+			background: rgba(0, 0, 0, 0.5);
+			border-radius: 5px;
+			padding: 3px 14px;
+		}
 	}
 	&__info {
-		width: 100%;
-		max-width: 670px;
+		background: #fff;
+		padding: 25px;
+		border-radius: 6px;
 	}
-	&__company-name {
-		font-size: 18px;
-		color: $green-primary;
-		margin-bottom: 15px;
+	&__name {
+		font-weight: bold;
+		font-size: 20px;
+		color: #00113C;
+	}
+	&__favorite {
+		font-weight: 600;
+		font-size: 14px;
+		color: $blue-darkest;
+		cursor: pointer;
+		img {
+			margin-right: 4px;
+		}
+	}
+	&__company-info {
+		font-weight: 600;
+		font-size: 14px;
+		color: $blue-darkest;
+		margin: 10px 0;
+		img.company {
+			width: 24px;
+			height: 24px;
+			margin-right: 7px;
+		}
+		.rating {
+			font-weight: normal;
+			margin-left: 10px;
+			span {
+				margin-left: 3px;
+			}
+		}
 	}
 	&__description {
-		font-size: 18px;
-		color: $black-light;
+		padding-bottom: 20px;
+		border-bottom: 2px solid $gray-light;
+		font-size: 14px;
+		color: #153243;
+		margin-bottom: 25px;
 	}
-	&__about {
-		margin-top: 45px;
-		.item {
-			margin-bottom: 15px;
-			display: flex;
+	&__additional-block {
+		color: $blue-darkest;
+		border-bottom: 1px solid $gray-light;
+		padding-bottom: 25px;
+		.additional {
+			margin-top: 50px;
 		}
-		.info-label {
-			font-size: 18px;
-			font-weight: 700;
-			min-width: 40%;
+		.includes {
+			width: 50%;
 		}
-		.info-value {
-			font-size: 18px;
-			font-weight: 500;
+		.not-include {
+			width: 50%;
 		}
-	}
-	&__include-add {
-		.item {
+		.block-title {
+			span {
+				font-weight: bold;
+				font-size: 18px;
+				color: #153243;
+				margin-left: 20px;
+			}
+		}
+		.block-item {
+			font-size: 14px;
+			color: $blue-darkest;
 			display: flex;
 			align-items: center;
-			margin-bottom: 10px;
-			img {
-				margin-right: 15px;
+			margin-top: 20px;
+			.dot {
+				display: block;
+				min-width: 4px;
+				height: 4px;
+				border-radius: 4px;
+				background: $blue-darkest;
+				margin-right: 8px;
 			}
+
+		}
+	}
+	&__transport-block {
+		padding-top: 25px;
+		.label {
+			font-weight: 600;
+			font-size: 18px;
+			color: $blue-darkest;
+			img {
+				margin-right: 8px;
+			}
+		}
+		.distance {
+			margin: 25px 0 45px;
+		}
+		.kilometer {
+			border-bottom: 1px solid $gray-light;
+			padding-bottom: 12px;
+			.avto-foot {
+				span {
+					&:first-child {
+						width: 40%;
+						text-align: center;
+					}
+					&:last-child {
+						width: 30%;
+						text-align: center;
+					}
+				}
+			}
+		}
+		span {
+			font-size: 18px;
+			color: $blue-darkest;
+			margin-left: 12px;
+		}
+	}
+
+	&__program-block {
+		padding-top: 30px;
+		.program-title {
+			margin-bottom: 30px;
 			span {
+				margin-left: 12px;
+				font-weight: 600;
 				font-size: 18px;
-				font-weight: 500;
+				color: $blue-darkest;
+			}
+		}
+		.program-item {
+			margin-bottom: 16px;
+			.day {
+				span {
+					color: $green-main;
+					font-weight: 600;
+					font-size: 14px;
+					margin-left: 7px;
+				}
+			}
+			.text {
+				font-weight: 300;
+				font-size: 14px;
+				color: #153243;
+				margin-top: 11px;
 			}
 		}
 	}
 
 	&__right {
 		position: relative;
-		width: 100%;
-		max-width: 330px;
-		min-height: 66vw;
-	}
-	&__price {
-		box-shadow: 0 3px 6px rgba(206, 193, 193, 0.4);
-		border: 1px solid $gray-light;
-		border-radius: 4px;
-		padding: 25px;
-		position: sticky;
-		top: 0;
-		.price-person {
-			margin-bottom: 22px;
+		width: calc(33% - 25px);
+		.reserve-block {
+			position: sticky;
+			top: 0;
+			background: #fff;
+			padding: 22px 23px 25px;
+			color: $blue-darkest;
+			border-radius: 6px;
 			.price {
+				font-weight: bold;
 				font-size: 24px;
-				font-weight: 700;
 			}
-			.person {
+			.head-block {
+				border-bottom: 1px solid $gray-light;
+				padding-bottom: 14px;
+				margin-bottom: 18px;
+			}
+			.date-place {
+				.date {
+					display: flex;
+					font-weight: 600;
+					font-size: 16px;
+					text-align: right;
+					text-transform: capitalize;
+				}
+				.place {
+					font-size: 14px;
+					color: $red-primary;
+				}
+			}
+			.total {
+				font-weight: bold;
 				font-size: 18px;
+				border-top: 1px solid $gray-light;
+				margin-bottom: 20px;
+				padding-top: 13px;
 			}
-		}
-		.date-rest {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			.tour-date {
-				font-size: 18px;
-				font-weight: 600;
-				color: $indigo-blue;
-			}
-			.rest-days {
+			.agreement {
 				font-size: 12px;
-				color: $black-light;
+				text-align: center;
+				margin-bottom: 20px;
+				span {
+					color: $green-main;
+				}
 			}
-		}
-		.rest-place {
-			font-size: 12px;
-			font-weight: 700;
-			color: $red-primary;
-		}
-		.reserve {
-			height: 44px;
-			margin-top: 25px;
+			.btn {
+				height: 53px;
+			}
 		}
 	}
-
 }
+
+.reserve-modal {
+	.vm--modal {
+		max-height: 650px;
+		.modal-container {
+			color: $blue-darkest;
+			.reserve {
+				&__title {
+					font-weight: 600;
+					font-size: 18px;
+					margin-bottom: 20px;
+					span {
+						width: 60%;
+					}
+					img {
+						width: 24px;
+						height: 24px;
+						cursor: pointer;
+					}
+				}
+				&__tour-title {
+					font-weight: bold;
+					font-size: 18px;
+				}
+				&__company-date {
+					.date {
+						font-weight: 600;
+						font-size: 14px;
+						margin-left: 15px;
+					}
+				}
+				&__free-cancel {
+					font-size: 14px;
+					border-top: 1px solid $gray-light;
+					border-bottom: 1px solid $gray-light;
+					margin: 10px 0 20px;
+					padding: 12px 0;
+					img {
+						margin-right: 12px;
+					}
+					.free-date {
+						font-weight: 600;
+					}
+				}
+			}
+		}
+	}
+}
+	.disabled {
+		opacity: 0.5;
+	}
 </style>
