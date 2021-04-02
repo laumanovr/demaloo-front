@@ -609,6 +609,10 @@ export default {
 						box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 						border-radius: 13px;
 						margin-bottom: 25px;
+						&:hover {
+							transform: scale(1.01);
+							box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.30);
+						}
 						&__image {
 							width: 100%;
 							max-width: 273px;
