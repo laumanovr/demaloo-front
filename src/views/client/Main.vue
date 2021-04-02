@@ -169,7 +169,7 @@
 											</div>
 										</div>
 										<div class="tour-item__description">
-											Погрузитесь в яркую атмосферу отдыха на природе! Вас ждут незабываемые ощущения в отличной компании и непринужденной обстановке
+											{{tour.description.ru}}
 										</div>
 										<div class="tour-item__date">
 											<span>Дата тура:</span>
