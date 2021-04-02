@@ -50,14 +50,6 @@ const routes = [
 				}
 			},
 			{
-				path: 'tour-reserve-payment/:tourId',
-				name: 'tourReservePayment',
-				component: loadComponent('client/TourReservePayment'),
-				meta: {
-					requireAuth: true
-				}
-			},
-			{
 				path: '/profile-manage',
 				component: loadComponent('client/ProfileManage'),
 				children: [
