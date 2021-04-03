@@ -586,7 +586,10 @@ export default {
 		.other {
 			display: flex;
 			justify-content: flex-end;
-			width: 440px;
+			.btn {
+				margin: 0;
+				min-width: 205px;
+			}
 		}
 	}
 	.clients-block {
