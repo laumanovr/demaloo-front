@@ -63,7 +63,7 @@ export default {
 	},
 	methods: {
 		logOut() {
-			this.$store.dispatch('account/logout');
+			this.$store.dispatch('account/logout', true);
 		}
 	}
 };
