@@ -158,7 +158,7 @@
 			</div>
 		</template>
 
-		<div class="other-tours" v-if="hasTour">
+		<div class="other-tours" v-if="hasTour && otherTours.length">
 			<div class="company-name"><span>Другие туры:</span><span>{{tourDetail.company.name}}</span></div>
 			<div class="tour-items">
 				<div class="tour-item" v-for="tour in otherTours" :key="tour._id" @click="openTourFromOther(tour._id)">
