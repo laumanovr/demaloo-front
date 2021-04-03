@@ -17,8 +17,16 @@
 				<td>{{ formatDate(notify.createdAt) }}</td>
 				<td>
 					<router-link
+						:to="{name: 'companyReviewShow', params: {tourId: notify.tour}}"
+						class="blue-light"
+						v-if="notify.type == 'new_tour_review'"
+					>
+						Перейти
+					</router-link>
+					<router-link
 						:to="{name: 'companyTourShow', params: {tourId: notify.tour}}"
 						class="blue-light"
+						v-else
 					>
 						Перейти
 					</router-link>
