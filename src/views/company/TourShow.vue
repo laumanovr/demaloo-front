@@ -112,8 +112,11 @@
 		<div class="actions-block">
 			<button class="btn white" @click="toggleAddClientModal">+ Добавить человека</button>
 			<div class="other">
-				<button class="btn white-color-green">Экспортировать</button>
-				<!--<button class="btn white-color-blue">Распечатать</button>-->
+				<ExcelExport :headers="excelHeaders" :rows="excelRows" :fileName="excelName" ref="excel">
+					<template v-slot:excel>
+						<button class="btn white-color-green" @click="exportClientBookings">Экспортировать</button>
+					</template>
+				</ExcelExport>
 			</div>
 		</div>
 
@@ -275,6 +278,7 @@ import VueTimepicker from 'vue2-timepicker';
 import MaskedInput from 'vue-masked-input';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import EditIcon from '@/components/icons/EditIcon';
+import ExcelExport from '@/components/general/ExcelJs';
 
 export default {
 	components: {
@@ -282,7 +286,8 @@ export default {
 		MaskedInput,
 		PreLoader,
 		EditIcon,
-		DeleteIcon
+		DeleteIcon,
+		ExcelExport
 	},
 	data() {
 		return {
@@ -323,7 +328,10 @@ export default {
 			selectedTour: {},
 			tourBookings: [],
 			selectedBooking: {},
-			restPlaceCount: 0
+			restPlaceCount: 0,
+			excelHeaders: [],
+			excelRows: [],
+			excelName: 'Список бронирований клиентов'
 		};
 	},
 	computed: {
@@ -458,6 +466,24 @@ export default {
 					this.isLoading = false;
 				}
 			}
+		},
+
+		exportClientBookings() {
+			this.excelHeaders = ['ФИО', 'Телефон', 'Источник', 'Дата брони', 'Кол-во брони', 'Общая сумма', 'Статус'];
+			this.excelRows = this.tourBookings.map((i) => {
+				return [
+					i.customer.surname +' '+ i.customer.name,
+					i.customer.phoneNumber,
+					this.showSource(i.source),
+					this.getReservedDate(this.getLastStage(i.stages).createdAt),
+					i.peopleCount,
+					i.total,
+					this.statuses[this.getLastStage(i.stages).status]
+				];
+			});
+			this.$nextTick(() => {
+				this.$refs.excel.exportExcel();
+			});
 		}
 	},
 };
