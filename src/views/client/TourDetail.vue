@@ -602,11 +602,13 @@ export default {
 		height: 455px;
 		margin-bottom: 25px;
 		position: relative;
+		border: 1px solid $gray-dark;
+		border-radius: 7px;
 		img.main-img {
 			width: 100%;
 			height: 100%;
 			border-radius: 5px;
-			object-fit: fill;
+			object-fit: contain;
 		}
 		.arrows {
 			position: absolute;
