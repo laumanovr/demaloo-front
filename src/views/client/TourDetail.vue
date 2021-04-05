@@ -608,7 +608,7 @@ export default {
 			width: 100%;
 			height: 100%;
 			border-radius: 5px;
-			object-fit: contain;
+			object-fit: cover;
 		}
 		.arrows {
 			position: absolute;
