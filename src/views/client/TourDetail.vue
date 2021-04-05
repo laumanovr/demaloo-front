@@ -542,7 +542,6 @@ export default {
 			.tour-items {
 				display: flex;
 				flex-wrap: wrap;
-				justify-content: space-between;
 				padding: 0 25px;
 				.tour-item {
 					color: $blue-darkest;
@@ -550,11 +549,8 @@ export default {
 					margin-bottom: 25px;
 					border-radius: 7px;
 					cursor: pointer;
-					&:hover {
-						box-shadow: 0 0 20px 0 rgba(0,0,0,0.30);
-						.tour-name, .tour-desc, .date-price {
-							padding: 0 5px;
-						}
+					&:not(:last-child) {
+						margin-right: 25px;
 					}
 					.tour-img {
 						width: 260px;
