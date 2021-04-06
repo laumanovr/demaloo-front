@@ -47,8 +47,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(tour, i) in tourList" :key="i" class="edit-tour" @click="openTour($event, tour)">
-                    <td>{{ i + 1 }}</td>
+                <tr v-for="tour in tourList" :key="tour.num" class="edit-tour" @click="openTour($event, tour)">
+                    <td>{{ tour.num }}</td>
                     <td class="tour-name">{{ tour.name.ru }}</td>
                     <td>{{ formatDate(tour.date) }}</td>
                     <td>{{ tour.price }} сом</td>
@@ -61,8 +61,13 @@
                 </tbody>
             </table>
             <div class="btn-actions pagination">
-                <button class="btn white-color-blue" @click="paginate('left')" v-if="page != 1">Назад</button>
-                <button class="btn white-color-blue" @click="paginate('right')" v-if="tourList.length > 8">Вперед</button>
+                <button
+                    class="btn white-color-blue"
+                    @click="showMoreTours"
+                    v-if="tourList.length > 9"
+                >
+                    Показать еще
+                </button>
             </div>
         </div>
     </div>
@@ -99,6 +104,7 @@ export default {
 	},
 	methods: {
 		filterTours(type) {
+			this.page = 1;
 			this.filterType = type;
 			if (type === 'present') {
 				this.getPresentTours();
@@ -112,7 +118,7 @@ export default {
 				this.isLoading = true;
 				const res = await TourService.fetchCompanyTours(`&date[gte]=${this.todayDate}`);
 				this.presentToursCount = res.results;
-				this.tourList = res.data.tours;
+				this.tourList = res.data.tours.map((i, num) => ({...i, num: num + 1}));
 				this.isLoading = false;
 			} catch (err) {
 				this.$toast.error(err);
@@ -127,7 +133,7 @@ export default {
 				this.pastToursCount = res.results;
 				this.isLoading = false;
 				if (bool) {
-					this.tourList = res.data.tours;
+					this.tourList = res.data.tours.map((i, num) => ({...i, num: num + 1}));
 				}
 			} catch (err) {
 				this.$toast.error(err);
@@ -156,9 +162,9 @@ export default {
 			}
 		},
 
-		async paginate(nav) {
+		async showMoreTours() {
 			this.searchQuery = '';
-			this.page = nav === 'left' ? this.page - 1 : this.page + 1;
+			this.page += 1;
 			const presentDates = `&date[gte]=${this.todayDate}`;
 			const pastDates = `&date[lt]=${this.todayDate}`;
 			const paginateDate = this.filterType === 'present' ? presentDates : pastDates;
@@ -166,7 +172,9 @@ export default {
 			try {
 				this.isLoading = true;
 				const res = await TourService.fetchCompanyTours(query);
-				this.tourList = res.data.tours;
+				if (res.data.tours.length) {
+					this.tourList = [...this.tourList, ...res.data.tours].map((i, num) => ({...i, num: num + 1}));
+				}
 				this.isLoading = false;
 			} catch (err) {
 				this.$toast.error(err);
