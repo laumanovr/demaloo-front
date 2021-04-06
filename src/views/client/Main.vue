@@ -1,7 +1,7 @@
 <template>
 	<div class="main-container">
 		<PreLoader v-if="isLoading"/>
-		<div class="main-top-bg">
+		<div class="main-top-bg web">
 			<img src="https://sites.google.com/site/prirodanasevseegooglgfgf/_/rsrc/1463456237313/home/priroda_gory_nebo_ozero_oblaka_81150_1920x1080.jpg">
 			<div class="bg-text">
 				<div class="bg-text__block">
@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<div class="main-all-tours">
-			<div class="search">
+			<div class="search" :class="{'mob-search': showMobSearch}">
 				<div class="search__filter">
 					<div class="search__form-field location">
 						<img src="../../assets/icons/marker-green.svg">
@@ -69,11 +69,11 @@
 					</div>
 					<button class="btn green-main" @click="submitSearchTours">Найти</button>
 				</div>
-				<div class="hint"><span>Пример:</span><span>Каракол</span></div>
+				<div class="hint web"><span>Пример:</span><span>Каракол</span></div>
 			</div>
 
 			<div class="tour-content">
-				<div class="filter-sidebar">
+				<div class="filter-sidebar web">
 					<div class="filter-item">
 						<span class="label">Тур компания</span>
 						<v-select
@@ -130,7 +130,7 @@
 					</div>
 				</div>
 				<div class="found-tours">
-					<div class="sort-price-chip">
+					<div class="sort-price-chip web">
 						<div class="chips">
 							<div class="chip" v-for="chip in sortCategories" :key="chip.id">{{chip.ru}}</div>
 						</div>
@@ -172,7 +172,7 @@
 											{{tour.description.ru}}
 										</div>
 										<div class="tour-item__date">
-											<span>Дата тура:</span>
+											<span class="web">Дата тура:</span>
 											<div class="format-date" v-html="formatDate(tour.date)"></div>
 										</div>
 									</div>
@@ -202,7 +202,7 @@
 			<img src="../../assets/images/app-bg.jpg" class="bg">
 			<div class="banner__text">
 				<div class="banner__title">Скачивайте приложение <br> для мобильных устройств</div>
-				<div class="app-icons">
+				<div class="app-icons web">
 					<img src="../../assets/images/app-store.png">
 					<img src="../../assets/images/play-market.png">
 				</div>
@@ -220,6 +220,7 @@ import {API_BASE_URL} from '@/services/api.service';
 import {CategoryService} from '@/services/category.service';
 import {UserService} from '@/services/user.service';
 import {LocationService} from '@/services/location.service';
+import {CustomEventEmitter} from '@/utils/customEventEmitter';
 
 export default {
 	components: {
@@ -258,7 +259,8 @@ export default {
 			sortPriceTo: '',
 			sortPage: 1,
 			typingTimer: null,
-			locationTimer: null
+			locationTimer: null,
+			showMobSearch: false
 		};
 	},
 	created() {
@@ -266,6 +268,7 @@ export default {
 		this.getAllCompanies();
 		this.getAllTours();
 		this.getAllCategories();
+		this.onMobileSearch();
 	},
 	methods: {
 		async autoCompleteLocation(e) {
@@ -388,6 +391,12 @@ export default {
 			const month = format(new Date(date), 'LLLL', {locale: ru});
 			const weekD = format(new Date(date), 'eeeeee', {locale: ru});
 			return `<span>${dateNum}</span><span style="margin: 0 6px">${month},</span><span>${weekD}</span>`;
+		},
+
+		onMobileSearch() {
+			CustomEventEmitter.$on('onShowSearch', () => {
+				this.showMobSearch = !this.showMobSearch;
+			});
 		}
 	},
 };
@@ -431,10 +440,27 @@ export default {
 			max-width: 1200px;
 			margin: 0 auto;
 			transform: translateY(-70px);
+			@media #{$mob-view} {
+				transform: translateY(0);
+			}
 			.search {
 				background: #fff;
 				border-radius: 8px;
 				box-shadow: $btn-box-shadow;
+				@media #{$mob-view} {
+					padding: 0;
+					border-radius: 0;
+					box-shadow: 0 20px 22px 0 rgb(0 0 0 / 40%);
+					max-height: 0;
+					overflow: hidden;
+					will-change: max-height;
+					transition: max-height 0.3s ease-out;
+					&.mob-search {
+						padding: 0 20px 20px;
+						max-height: 212px;
+						transition: max-height 0.3s ease-in;
+					}
+				}
 				&__filter {
 					display: flex;
 					align-items: center;
@@ -444,6 +470,14 @@ export default {
 						max-width: 220px;
 						height: 54px;
 						box-shadow: none;
+					}
+					@media #{$mob-view} {
+						display: block;
+						padding-top: 20px;
+						.btn {
+							height: 46px;
+							max-width: 100%;
+						}
 					}
 				}
 				&__form-field {
@@ -456,8 +490,14 @@ export default {
 					border: 1px solid #A6ACBB;
 					border-radius: 8px;
 					padding-left: 25px;
+					@media #{$mob-view} {
+						max-width: 100%;
+					}
 					&.date {
 						margin: 0 25px;
+						@media #{$mob-view} {
+							margin: 15px 0;
+						}
 					}
 					.label {
 						margin-left: 13px;
@@ -472,6 +512,9 @@ export default {
 							width: 100%;
 							height: 28px;
 							color: $blue-darkest;
+							@media #{$mob-view} {
+								height: 22px;
+							}
 						}
 					}
 					&.location {
@@ -489,6 +532,9 @@ export default {
 							box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
 							padding: 10px 0;
 							background: #fff;
+							@media #{$mob-view} {
+								top: 55px;
+							}
 							.found-item {
 								display: flex;
 								align-items: center;
@@ -536,6 +582,9 @@ export default {
 			}
 			.tour-content {
 				display: flex;
+				@media #{$mob-view} {
+					margin-top: 15px;
+				}
 				.filter-sidebar {
 					min-width: 270px;
 					max-width: 270px;
@@ -612,12 +661,24 @@ export default {
 							}
 						}
 					}
+					.tour-items {
+						@media #{$mob-view} {
+							display: flex;
+							flex-wrap: wrap;
+							justify-content: space-evenly;
+						}
+					}
 					.tour-item {
 						display: flex;
 						background: #fff;
 						box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 						border-radius: 13px;
 						margin-bottom: 25px;
+						@media #{$mob-view} {
+							flex-wrap: wrap;
+							justify-content: center;
+							max-width: 336px;
+						}
 						&:hover {
 							transform: scale(1.01);
 							box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.30);
@@ -632,36 +693,56 @@ export default {
 								object-fit: cover;
 								border-radius: 13px 0 0 13px;
 							}
-						}
-						&__right {
-							display: flex;
-							justify-content: space-between;
-							align-items: flex-end;
-						}
-						&__desc-block {
-							width: 75%;
-						}
-						&__price-block {
-							width: 25%;
+							@media #{$mob-view} {
+								max-width: 336px;
+								height: 200px;
+								img {
+									border-radius: 7px 7px 0 0;
+								}
+							}
 						}
 						&__info {
 							width: 100%;
 							padding: 18px 25px 25px;
 							color: $blue-darkest;
-						}
-						&__date {
-							color: $blue-darkest;
-							display: flex;
-							align-items: center;
-							span {
-								font-size: 14px;
-								margin-right: 10px;
+							@media #{$mob-view} {
+								padding: 16px;
 							}
-							.format-date {
-								display: flex;
-								font-weight: 600;
+						}
+						&__name {
+							font-weight: bold;
+							font-size: 18px;
+							white-space: nowrap;
+							overflow-x: hidden;
+							text-overflow: ellipsis;
+							max-width: 580px;
+							@media #{$mob-view} {
+								max-width: 304px;
 								font-size: 16px;
-								text-transform: capitalize;
+							}
+						}
+						&__right {
+							display: flex;
+							justify-content: space-between;
+							align-items: flex-end;
+							@media #{$mob-view} {
+								display: block;
+								position: relative;
+							}
+						}
+						&__desc-block {
+							width: 75%;
+							@media #{$mob-view} {
+								width: auto;
+							}
+						}
+						&__price-block {
+							width: 25%;
+							@media #{$mob-view} {
+								width: auto;
+								position: absolute;
+								right: 0;
+								bottom: 0;
 							}
 						}
 						&__company {
@@ -691,31 +772,47 @@ export default {
 								}
 							}
 						}
-						&__name {
-							font-weight: bold;
-							font-size: 18px;
-							white-space: nowrap;
-							overflow-x: hidden;
-							text-overflow: ellipsis;
-							max-width: 580px;
-						}
 						&__description {
 							font-size: 12px;
 							margin-bottom: 7px;
 							max-height: 54px;
 							overflow-y: hidden;
+							@media #{$mob-view} {
+								margin-bottom: 28px;
+							}
+						}
+						&__date {
+							color: $blue-darkest;
+							display: flex;
+							align-items: center;
+							span {
+								font-size: 14px;
+								margin-right: 10px;
+							}
+							.format-date {
+								display: flex;
+								font-weight: 600;
+								font-size: 16px;
+								text-transform: capitalize;
+							}
 						}
 						&__free-place {
 							font-size: 14px;
 							color: $red-primary;
 							text-align: right;
 							margin-bottom: 5px;
+							@media #{$mob-view} {
+								margin-bottom: 0;
+							}
 						}
 						&__price {
 							font-weight: bold;
 							font-size: 24px;
 							display: block;
 							text-align: right;
+							@media #{$mob-view} {
+								font-size: 18px;
+							}
 						}
 					}
 					.single-center {
@@ -732,7 +829,9 @@ export default {
 			max-width: 2000px;
 			margin: -45px auto 0;
 			position: relative;
-
+			@media #{$mob-view} {
+				margin: 0 auto;
+			}
 			img.bg {
 				width: 100%;
 				height: 100%;
@@ -748,6 +847,9 @@ export default {
 				font-size: 45px;
 				color: #fff;
 				margin-bottom: 50px;
+				@media #{$mob-view} {
+					font-size: 14px;
+				}
 			}
 			.app-icons {
 				display: flex;
