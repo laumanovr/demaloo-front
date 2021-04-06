@@ -135,7 +135,10 @@
 				<div class="found-tours">
 					<div class="sort-price-chip web">
 						<div class="chips">
-							<div class="chip" v-for="chip in sortCategories" :key="chip.id">{{chip.ru}}</div>
+							<div class="chip" v-for="chip in sortCategories" :key="chip.id">
+								{{chip.ru}}
+								<PlusIcon @click="selectCategory({currentTarget: {}}, chip)"/>
+							</div>
 						</div>
 						<v-select
 							solo
@@ -230,10 +233,12 @@ import {CategoryService} from '@/services/category.service';
 import {UserService} from '@/services/user.service';
 import {LocationService} from '@/services/location.service';
 import {CustomEventEmitter} from '@/utils/customEventEmitter';
+import PlusIcon from '@/components/icons/PlusIcon';
 
 export default {
 	components: {
-		PreLoader
+		PreLoader,
+		PlusIcon
 	},
 	data() {
 		return {
@@ -670,12 +675,21 @@ export default {
 							display: flex;
 							align-items: center;
 							.chip {
+								display: flex;
+								align-items: center;
 								background: #284B63;
 								border-radius: 20px;
 								color: #fff;
 								padding: 3px 10px;
 								margin-right: 15px;
 								font-size: 14px;
+								.plus-icon {
+									margin: 0;
+									img {
+										background: none;
+										transform: rotate(45deg);
+									}
+								}
 							}
 						}
 					}
