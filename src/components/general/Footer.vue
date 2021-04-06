@@ -49,6 +49,9 @@
 	.footer-container {
 		padding-top: 25px;
 		border-top: 1px solid $gray-light;
+		@media #{$mob-view} {
+			background: #fff;
+		}
 		.footer {
 			&__content {
 				max-width: 1366px;
@@ -72,6 +75,9 @@
 			}
 			&__links {
 				margin: 35px 0;
+				@media #{$mob-view} {
+					flex-wrap: wrap;
+				}
 				a {
 					font-size: 14px;
 					color: $blue-darkest;
@@ -95,6 +101,9 @@
 			}
 			&__contacts {
 				margin: 40px 0 50px;
+				@media #{$mob-view} {
+					flex-wrap: wrap;
+				}
 				.contact {
 					font-size: 14px;
 					&.address {
