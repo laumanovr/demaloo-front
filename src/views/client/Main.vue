@@ -22,6 +22,7 @@
 								placeholder="Начинайте печатать..."
 								v-model="searchObj.inputValue"
 								@input="autoCompleteLocation"
+								v-on:blur="searchLocations=[]"
 							>
 						</div>
 						<div class="drop-down-result" v-if="searchLocations.length">
@@ -93,7 +94,9 @@
 							solo
 							label="Выбрать"
 							class="border no-detail"
-							:items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+							:items="allDurations"
+							item-text="name"
+							item-value="val"
 							v-model="sortDuration"
 							@change="filterBySidebar"
 						/>
@@ -141,6 +144,7 @@
 							:items="sortItems"
 							item-text="title"
 							item-value="type"
+							v-model="datePriceSort"
 							@change="sortByPrice"
 						/>
 					</div>
@@ -165,7 +169,12 @@
 											{{tour.company.name}}
 											<div class="rating">
 												<img src="../../assets/icons/rating-icon.svg">
-												<span>{{tour.company.rating}}</span>
+												<span>
+													{{tour.company.rating}}
+													<template v-if="tour.company.reviewCount">
+														({{tour.company.reviewCount}})
+													</template>
+												</span>
 											</div>
 										</div>
 										<div class="tour-item__description">
@@ -232,6 +241,10 @@ export default {
 			tourList: [],
 			categories: [],
 			allCompanies: [],
+			allDurations: [
+				{name: 'Выбрать', val: ''}, {name: 1, val: 1}, {name: 2, val: 2},
+				{name: 3, val: 3}, {name: 4, val: 4}, {name: 5, val: 5}
+				],
 			sortItems: [
 				{title: 'По цене', type: 'price'},
 				{title: 'По дате', type: 'date'},
@@ -258,6 +271,7 @@ export default {
 			sortPriceFrom: '',
 			sortPriceTo: '',
 			sortPage: 1,
+			datePriceSort: '',
 			typingTimer: null,
 			locationTimer: null,
 			showMobSearch: false
@@ -282,14 +296,17 @@ export default {
 				});
 			}, 900);
 		},
+
 		onSelectFoundPlace(item) {
 			this.searchObj.inputValue = item.name;
 			this.searchLocations = [];
 		},
+
 		submitSearchTours() {
 			this.sortCompany = '';
 			this.sortDuration = '';
 			this.sortCategories = [];
+			this.categoriesQuery = '';
 			const place = this.searchObj.inputValue ? `&search=${this.searchObj.inputValue}` : '';
 			const date = this.pickerDate ? `&date[gte]=${this.pickerDate}` : '';
 			this.queryParam = `${place || ''}${date || ''}`;
@@ -297,25 +314,25 @@ export default {
 		},
 
 		sortByPrice(sortType) {
-			this.queryParam = `&sort=${sortType}`;
-			this.searchObj.date = '';
-			this.sortCompany = '';
-			this.sortDuration = '';
-			this.sortCategories = [];
-			this.getAllTours();
+			this.datePriceSort = sortType;
+			this.filterBySidebar();
 		},
 
 		filterBySidebar(isPaginate = false) {
-			let company, duration, priceFrom, priceTo, page;
+			let company, duration, priceFrom, priceTo, location, date, sortPriceDate, page;
 			company = this.sortCompany ? `&company=${this.sortCompany}` : '';
 			duration = this.sortDuration ? `&duration=${this.sortDuration}` : '';
 			priceFrom = this.sortPriceFrom ? `&price[gte]=${this.sortPriceFrom}` : '';
 			priceTo = this.sortPriceTo ? `&price[lte]=${this.sortPriceTo}` : '';
+			location = this.searchObj.inputValue ? `&search=${this.searchObj.inputValue}` : '';
+			date = this.searchObj.date ? `&date[gte]=${this.searchObj.date}` : '';
+			sortPriceDate = this.datePriceSort ? `&sort=${this.datePriceSort}` : '';
 			page = this.sortPage ? `&page=${this.sortPage}` : '';
 			this.queryParam =
 				`${company || ''}` + `${duration || ''}` + `${this.categoriesQuery || ''}` +
-				`${priceFrom || ''}` + `${priceTo || ''}` + `${page || ''}`;
-			this.getAllTours(isPaginate);
+				`${priceFrom || ''}` + `${priceTo || ''}` + `${location || ''}` + `${date || ''}` +
+				`${sortPriceDate || ''}` + `${page || ''}`;
+			this.getAllTours(isPaginate === 'paginate');
 		},
 
 		selectCategory(e, category) {
@@ -341,13 +358,14 @@ export default {
 
 		showMore() {
 			this.sortPage += 1;
-			this.filterBySidebar(true);
+			this.filterBySidebar('paginate');
 		},
 
 		async getAllCompanies() {
 			try {
 				const res = await UserService.fetchAllCompanies();
 				this.allCompanies = res.data.companies;
+				this.allCompanies.unshift({_id: '', name: 'Выбрать'});
 			} catch (err) {
 				this.$toast.error(err);
 			}
@@ -390,7 +408,7 @@ export default {
 			const dateNum = format(new Date(date), 'dd');
 			const month = format(new Date(date), 'LLLL', {locale: ru});
 			const weekD = format(new Date(date), 'eeeeee', {locale: ru});
-			return `<span>${dateNum}</span><span style="margin: 0 6px">${month},</span><span>${weekD}</span>`;
+			return `<span style="margin-left: 7px">${dateNum}</span><span style="margin: 0 6px">${month},</span><span>${weekD}</span>`;
 		},
 
 		onMobileSearch() {
@@ -775,7 +793,7 @@ export default {
 						&__description {
 							font-size: 12px;
 							margin-bottom: 7px;
-							max-height: 54px;
+							height: 54px;
 							overflow-y: hidden;
 							@media #{$mob-view} {
 								margin-bottom: 28px;
@@ -787,7 +805,6 @@ export default {
 							align-items: center;
 							span {
 								font-size: 14px;
-								margin-right: 10px;
 							}
 							.format-date {
 								display: flex;
