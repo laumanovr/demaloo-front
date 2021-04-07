@@ -22,7 +22,7 @@
 								placeholder="Начинайте печатать..."
 								v-model="searchObj.inputValue"
 								@input="autoCompleteLocation"
-								v-on:blur="searchLocations=[]"
+								v-on:blur="onBlurInput"
 							>
 						</div>
 						<div class="drop-down-result" v-if="searchLocations.length">
@@ -307,6 +307,14 @@ export default {
 			this.searchLocations = [];
 		},
 
+		onBlurInput() {
+			this.$nextTick(() => {
+				setTimeout(() => {
+					this.searchLocations = [];
+				}, 100);
+			});
+		},
+
 		submitSearchTours() {
 			this.sortCompany = '';
 			this.sortDuration = '';
@@ -471,7 +479,7 @@ export default {
 				border-radius: 8px;
 				box-shadow: $btn-box-shadow;
 				@media #{$mob-view} {
-					padding: 0;
+					padding: 0 20px;
 					border-radius: 0;
 					box-shadow: 0 20px 22px 0 rgb(0 0 0 / 40%);
 					max-height: 0;
@@ -479,9 +487,9 @@ export default {
 					will-change: max-height;
 					transition: max-height 0.3s ease-out;
 					&.mob-search {
-						padding: 0 20px 20px;
 						max-height: 212px;
 						transition: max-height 0.3s ease-in;
+						padding: 0 20px 20px;
 					}
 				}
 				&__filter {
@@ -557,6 +565,8 @@ export default {
 							background: #fff;
 							@media #{$mob-view} {
 								top: 55px;
+								max-height: 136px;
+								font-size: 13px;
 							}
 							.found-item {
 								display: flex;
@@ -612,7 +622,7 @@ export default {
 					min-width: 270px;
 					max-width: 270px;
 					margin-right: 25px;
-					padding-top: 100px;
+					padding-top: 97px;
 					.filter-item {
 						padding-bottom: 18px;
 						margin-bottom: 18px;
