@@ -219,6 +219,7 @@ input {
 }
 
 .v-text-field.error-only {
+  padding-top: 0;
   .v-input__control > .v-input__slot {
     display: none;
   }
