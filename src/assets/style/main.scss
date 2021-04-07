@@ -270,7 +270,7 @@ input[type=number] {
 }
 @media (min-width: 1024px) {
   .mob {
-    display: none;
+    display: none !important;
   }
 }
 svg {

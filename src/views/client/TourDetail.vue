@@ -284,6 +284,7 @@
 					</div>
 					<div class="value reserve">{{payOrReserve.count}}</div>
 				</div>
+				<!--mobile-->
 				<div class="short-info mob">
 					<div class="item">
 						<span>Человек:</span>
@@ -294,6 +295,7 @@
 						<img src="../../assets/icons/circle-plus.svg" @click="addSubtractQuantity('add')">
 					</div>
 				</div>
+				<!--mobile-->
 				<div class="short-info">
 					<div class="item flex align-center">
 						<img src="../../assets/icons/bank-card-icon.svg">
@@ -1023,6 +1025,9 @@ export default {
 	left: 0;
 	width: 100%;
 	opacity: 1;
+	@media #{$mob-view} {
+		padding: 0 20px;
+	}
 }
 .fade-enter,
 .fade-leave-to {
