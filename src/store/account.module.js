@@ -40,7 +40,7 @@ const actions = {
 			dispatch('setInitialUser', res);
 			if (res.data.user.name) {
 				router.push('/');
-				commit('setSuccess', 'success')
+				commit('setSuccess', 'success');
 			} else {
 				router.push('/profile-manage');
 			}

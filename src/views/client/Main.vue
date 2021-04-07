@@ -249,7 +249,7 @@ export default {
 			allDurations: [
 				{name: 'Выбрать', val: ''}, {name: 1, val: 1}, {name: 2, val: 2},
 				{name: 3, val: 3}, {name: 4, val: 4}, {name: 5, val: 5}
-				],
+			],
 			sortItems: [
 				{title: 'По цене', type: 'price'},
 				{title: 'По дате', type: 'date'},
