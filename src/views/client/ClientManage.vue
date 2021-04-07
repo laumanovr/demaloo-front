@@ -1,25 +1,53 @@
 <template>
 	<div class="client-manage">
-		<Header/>
+		<Header @onLogin="toggleLoginModal"/>
 		<router-view/>
 		<Footer/>
+		<!--LOGIN MODAL-->
+		<modal
+			name="login-modal"
+			:width="isMobileWindow ? '100%' : '1020px'"
+			:height="isMobileWindow ? '100%' : '508px'"
+		>
+			<CloseIcon @click="toggleLoginModal" class="mob"/>
+			<ClientLogin/>
+		</modal>
 	</div>
 </template>
 
 <script>
 import Header from '@/components/general/Header';
 import Footer from '@/components/general/Footer';
+import ClientLogin from '@/views/login/ClientLogin';
+import CloseIcon from '@/components/icons/CloseIcon';
 
 export default {
 	components: {
 		Header,
-		Footer
+		Footer,
+		ClientLogin,
+		CloseIcon
+	},
+	computed: {
+		isMobileWindow() {
+			return window.innerWidth < 1024;
+		}
+	},
+	methods: {
+		toggleLoginModal() {
+			this.$modal.toggle('login-modal');
+		}
 	}
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.client-manage {
 		background: #e5e5e578;
+		.close-icon {
+			position: absolute;
+			right: 10px;
+			top: 10px;
+		}
 	}
 </style>
