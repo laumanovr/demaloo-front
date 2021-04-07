@@ -3,7 +3,7 @@
 		<PreLoader v-if="isLoading"/>
 		<div class="login-image">
 			<router-link to="/">
-				<img src="../../assets/images/welcome.svg">
+				<img src="../../assets/images/welcome.png">
 			</router-link>
 		</div>
 		<div class="form-container">

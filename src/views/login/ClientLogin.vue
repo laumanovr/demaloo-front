@@ -2,7 +2,7 @@
 	<div class="client-sign-up-in-container">
 		<PreLoader v-if="isLoading"/>
 		<div class="login-image web">
-				<img src="../../assets/images/welcome.svg">
+				<img src="../../assets/images/welcome.png">
 			<div class="logo-text">
 				<img src="../../assets/images/big-logo.svg">
 				<div class="title">
