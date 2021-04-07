@@ -5,7 +5,9 @@
 			<div class="tour-content">
 				<div class="tour-detail__left">
 					<div class="tour-detail__image">
-						<img :src="mainImgUrl" class="main-img">
+						<transition-group name="fade">
+							<img v-for="i in [imgIndex]" :key="i" :src="slideImages[imgIndex]" class="main-img"/>
+						</transition-group>
 						<div class="arrows">
 							<img src="../../assets/icons/circle-arrow-left.svg" @click="changeImage('prev')">
 							<img src="../../assets/icons/circle-arrow-right.svg" @click="changeImage('next')">
@@ -15,10 +17,10 @@
 					<div class="tour-detail__info">
 						<div class="top-title flex align-center justify-space-between">
 							<span class="tour-detail__name">{{tourDetail.name.ru}}</span>
-							<span class="tour-detail__favorite flex align-center">
-						<img src="../../assets/icons/heart-blue.svg">
-						Сохранить
-					</span>
+							<span class="tour-detail__favorite flex align-center web">
+								<img src="../../assets/icons/heart-blue.svg">
+								Сохранить
+							</span>
 						</div>
 						<div class="tour-detail__company-info flex align-center">
 							<img :src="showImage(tourDetail.company.logo)" class="company">
@@ -31,6 +33,38 @@
 						<div class="tour-detail__description">
 							{{tourDetail.description.ru}}
 						</div>
+						<!--Mobile-->
+						<div class="mob detail">
+							<div class="short-info">
+								<div class="item flex align-center">
+									<img src="../../assets/icons/calendar-blue.svg">
+									<span>Дата:</span>
+								</div>
+								<div class="value" v-html="formatDate(tourDetail.date)"></div>
+							</div>
+							<div class="short-info">
+								<div class="item flex align-center">
+									<img src="../../assets/icons/duration-icon.svg">
+									<span>Длительность:</span>
+								</div>
+								<div class="value">{{tourDetail.duration}} дней</div>
+							</div>
+							<div class="short-info">
+								<div class="item flex align-center">
+									<img src="../../assets/icons/timer-icon.svg">
+									<span>Время сбора:</span>
+								</div>
+								<div class="value">{{tourDetail.meetingTime}}</div>
+							</div>
+							<div class="short-info">
+								<div class="item flex align-center">
+									<img src="../../assets/icons/marker-dark.png">
+									<span>Место сбора:</span>
+								</div>
+								<div class="value">{{tourDetail.meetingPoint.ru}}</div>
+							</div>
+						</div>
+						<!--Mobile end-->
 						<div class="tour-detail__additional-block flex">
 							<div class="includes">
 								<div class="data-block">
@@ -108,34 +142,34 @@
 						<div class="head-block flex align-center justify-space-between">
 							<div class="price">{{tourDetail.price}} сом</div>
 							<div class="date-place">
-								<div class="date" v-html="formatDate(tourDetail.date)"></div>
+								<div class="date web" v-html="formatDate(tourDetail.date)"></div>
 								<div class="place" v-if="tourDetail.bookingCount > 0">
 									Осталось мест: {{tourDetail.bookingCount}}
 								</div>
 							</div>
 						</div>
-						<div class="short-info">
+						<div class="short-info web">
 							<div class="item flex align-center">
 								<img src="../../assets/icons/duration-icon.svg">
 								<span>Длительность:</span>
 							</div>
 							<div class="value">{{tourDetail.duration}} дней</div>
 						</div>
-						<div class="short-info">
+						<div class="short-info web">
 							<div class="item flex align-center">
 								<img src="../../assets/icons/timer-icon.svg">
 								<span>Время сбора:</span>
 							</div>
 							<div class="value">{{tourDetail.meetingTime}}</div>
 						</div>
-						<div class="short-info">
+						<div class="short-info web">
 							<div class="item flex align-center">
 								<img src="../../assets/icons/marker-dark.png">
 								<span>Место сбора:</span>
 							</div>
 							<div class="value">{{tourDetail.meetingPoint.ru}}</div>
 						</div>
-						<div class="short-info">
+						<div class="short-info web">
 							<div class="item">
 								<span>Человек:</span>
 							</div>
@@ -145,11 +179,11 @@
 								<img src="../../assets/icons/circle-plus.svg" @click="addSubtractQuantity('add')">
 							</div>
 						</div>
-						<div class="total flex align-center justify-space-between">
+						<div class="total flex align-center justify-space-between web">
 							<span>Итого:</span>
 							<span>{{totalPayPrice}} сом</span>
 						</div>
-						<div class="agreement">
+						<div class="agreement web">
 							Забронировав тур, я соглашаюсь с <span>Условиями предоставления услуг.</span>
 						</div>
 						<button class="btn green-main" @click="toggleReserveModal">Забронировать</button>
@@ -158,11 +192,11 @@
 			</div>
 		</template>
 
-		<div class="other-tours" v-if="hasTour && otherTours.length">
+		<div class="other-tours web" v-if="hasTour && otherTours.length">
 			<div class="company-name"><span>Другие туры:</span><span>{{tourDetail.company.name}}</span></div>
 			<div class="tour-items">
 				<div class="tour-item" v-for="tour in otherTours" :key="tour._id" @click="openTourFromOther(tour._id)">
-					<div class="tour-img"><img :src="showImage(tour.images[0])"></div>
+					<div class="tour-img"><img :src="showImage(tour.images[0])" v-if="tour.images"></div>
 					<div class="tour-name">{{tour.name.ru}}</div>
 					<div class="tour-detail__company-info flex align-center">
 						<img :src="showImage(tour.company.logo)" class="company">
@@ -187,7 +221,7 @@
 		<modal
 			name="reserve-modal"
 			class="reserve-modal"
-			width="390px" height="90%"
+			:width="isMobileWindow ? '100%' : '390px'" height="90%"
 			:clickToClose="false"
 			v-if="hasTour"
 		>
@@ -243,12 +277,22 @@
 					</div>
 					<div class="value reserve">{{userProfile.surname + ' ' + userProfile.name}}</div>
 				</div>
-				<div class="short-info">
+				<div class="short-info web">
 					<div class="item flex align-center">
 						<img src="../../assets/icons/people-icon.svg">
 						<span class="reserve">Количество мест:</span>
 					</div>
 					<div class="value reserve">{{payOrReserve.count}}</div>
+				</div>
+				<div class="short-info mob">
+					<div class="item">
+						<span>Человек:</span>
+					</div>
+					<div class="value flex align-center">
+						<img src="../../assets/icons/circle-minus.svg" @click="addSubtractQuantity('minus')">
+						<span>{{payOrReserve.count}}</span>
+						<img src="../../assets/icons/circle-plus.svg" @click="addSubtractQuantity('add')">
+					</div>
 				</div>
 				<div class="short-info">
 					<div class="item flex align-center">
@@ -256,6 +300,9 @@
 						<span class="reserve">Итого:</span>
 					</div>
 					<div class="value reserve">{{totalPayPrice}} сом</div>
+				</div>
+				<div class="agreement mob">
+					Забронировав тур, я соглашаюсь с <span>Условиями предоставления услуг.</span>
 				</div>
 				<div class="single-center">
 					<button
@@ -306,7 +353,6 @@ export default {
 	data() {
 		return {
 			isLoading: false,
-			mainImgUrl: '',
 			tourDetail: {},
 			imgIndex: 0,
 			otherTours: [],
@@ -314,7 +360,8 @@ export default {
 			payOrReserve: {
 				count: 1,
 				tourId: ''
-			}
+			},
+			slideImages: []
 		};
 	},
 	computed: {
@@ -326,6 +373,9 @@ export default {
 		},
 		hasTour() {
 			return Object.values(this.tourDetail).length > 0;
+		},
+		isMobileWindow() {
+			return window.innerWidth < 1024;
 		}
 	},
 	created() {
@@ -337,11 +387,15 @@ export default {
 			try {
 				const res = await TourService.fetchClientTourDetail(tourId);
 				this.tourDetail = res.data.tour;
-				this.mainImgUrl = this.showImage(this.tourDetail.images[0]);
 				this.totalPayPrice = this.tourDetail.price;
 				this.payOrReserve.tourId = this.$route.params.tourId;
 				this.isLoading = false;
 				this.getOtherTours(this.tourDetail.company._id);
+				if (this.tourDetail.images) {
+					this.tourDetail.images.forEach((image) => {
+						this.slideImages.push(this.showImage(image));
+					});
+				}
 			} catch(err) {
 				this.$toast.error(err);
 				this.isLoading = false;
@@ -381,10 +435,8 @@ export default {
 		changeImage(nav) {
 			if (nav === 'next' && this.imgIndex < (this.tourDetail.images.length - 1)) {
 				this.imgIndex += 1;
-				this.mainImgUrl = this.showImage(this.tourDetail.images[this.imgIndex]);
 			} else if (nav === 'prev' && this.imgIndex) {
 				this.imgIndex -= 1;
-				this.mainImgUrl = this.showImage(this.tourDetail.images[this.imgIndex]);
 			}
 		},
 
@@ -402,7 +454,7 @@ export default {
 			const dateNum = format(new Date(date), 'dd');
 			const month = format(new Date(date), 'LLLL', {locale: ru});
 			const weekD = format(new Date(date), 'eeeeee', {locale: ru});
-			return `<span>${dateNum}</span><span style="margin: 0 6px">${month},</span><span>${weekD}</span>`;
+			return `<span>${dateNum}</span><span style="margin: 0 5px">${month},</span><span>${weekD}</span>`;
 		},
 
 		toggleReserveModal() {
@@ -427,6 +479,7 @@ export default {
 				await TourService.reservationForTour(this.payOrReserve);
 				this.isLoading = false;
 				this.payOrReserve.count = 1;
+				this.totalPayPrice = this.tourDetail.price;
 				this.toggleReserveModal();
 				this.toggleCompleteModal();
 			} catch (err) {
@@ -456,9 +509,17 @@ export default {
 		padding: 50px 0 20px;
 		max-width: 1200px;
 		margin: 0 auto;
+		@media #{$mob-view} {
+			padding: 16px 0 20px;
+			background: #fff;
+			box-shadow: 0 -5px 8px 2px rgb(0 0 0 / 5%);
+		}
 		.tour-content {
 			display: flex;
 			justify-content: space-between;
+			@media #{$mob-view} {
+				display: block;
+			}
 		}
 		.short-info {
 			display: flex;
@@ -501,6 +562,9 @@ export default {
 			.btn {
 				max-width: 165px;
 				height: 40px;
+				&:first-child {
+					margin-right: 10px;
+				}
 			}
 		}
 		.warn-img {
@@ -592,6 +656,9 @@ export default {
 	}
 	&__left {
 		width: 67%;
+		@media #{$mob-view} {
+			width: auto;
+		}
 	}
 	&__image {
 		width: 100%;
@@ -600,6 +667,11 @@ export default {
 		position: relative;
 		border: 1px solid $gray-dark;
 		border-radius: 7px;
+		@media #{$mob-view} {
+			max-height: 280px;
+			padding: 0 20px;
+			border: 0;
+		}
 		img.main-img {
 			width: 100%;
 			height: 100%;
@@ -609,12 +681,17 @@ export default {
 		.arrows {
 			position: absolute;
 			top: 50%;
+			left: 0;
 			transform: translateY(-50%);
 			display: flex;
 			width: 100%;
 			justify-content: space-between;
+			padding: 0 15px;
 			img {
 				cursor: pointer;
+			}
+			@media #{$mob-view} {
+				padding: 0 25px;
 			}
 		}
 		.image-count {
@@ -626,6 +703,9 @@ export default {
 			background: rgba(0, 0, 0, 0.5);
 			border-radius: 5px;
 			padding: 3px 14px;
+			@media #{$mob-view} {
+				right: 30px;
+			}
 		}
 	}
 	&__info {
@@ -676,14 +756,26 @@ export default {
 		color: $blue-darkest;
 		border-bottom: 1px solid $gray-light;
 		padding-bottom: 25px;
+		@media #{$mob-view} {
+			flex-wrap: wrap;
+		}
 		.additional {
 			margin-top: 50px;
+			@media #{$mob-view} {
+				margin: 25px 0;
+			}
 		}
 		.includes {
 			width: 50%;
+			@media #{$mob-view} {
+				width: 100%;
+			}
 		}
 		.not-include {
 			width: 50%;
+			@media #{$mob-view} {
+				width: 100%;
+			}
 		}
 		.block-title {
 			span {
@@ -779,6 +871,9 @@ export default {
 	&__right {
 		position: relative;
 		width: calc(33% - 25px);
+		@media #{$mob-view} {
+			width: auto;
+		}
 		.reserve-block {
 			position: sticky;
 			top: 5px;
@@ -786,6 +881,18 @@ export default {
 			padding: 22px 23px 25px;
 			color: $blue-darkest;
 			border-radius: 6px;
+			@media #{$mob-view} {
+				display: flex;
+				border-top: 1px solid $gray-dark;
+				border-bottom: 1px solid $gray-dark;
+				padding: 12px 15px;
+				position: fixed;
+				top: auto;
+				bottom: 15px;
+				width: 100%;
+				align-items: center;
+				border-radius: 0;
+			}
 			.price {
 				font-weight: bold;
 				font-size: 24px;
@@ -794,6 +901,13 @@ export default {
 				border-bottom: 1px solid $gray-light;
 				padding-bottom: 14px;
 				margin-bottom: 18px;
+				@media #{$mob-view} {
+					display: block;
+					width: 50%;
+					margin: 0;
+					padding: 0;
+					border: 0;
+				}
 			}
 			.date-place {
 				.date {
@@ -815,18 +929,23 @@ export default {
 				margin-bottom: 20px;
 				padding-top: 13px;
 			}
-			.agreement {
-				font-size: 12px;
-				text-align: center;
-				margin-bottom: 20px;
-				span {
-					color: $green-main;
-				}
-			}
 			.btn {
 				height: 53px;
+				@media #{$mob-view} {
+					width: 50%;
+					height: 50px;
+				}
 			}
 		}
+	}
+}
+
+.agreement {
+	font-size: 12px;
+	text-align: center;
+	margin-bottom: 20px;
+	span {
+		color: $green-main;
 	}
 }
 
@@ -877,7 +996,38 @@ export default {
 		}
 	}
 }
-	.disabled {
-		opacity: 0.5;
+
+.disabled {
+	opacity: 0.5;
+}
+
+.mob.detail {
+	color: $blue-darkest;
+	border-bottom: 1px solid $gray-light;
+	margin-bottom: 15px;
+	.short-info .value {
+		display: flex;
+		text-transform: capitalize;
+		span {
+			margin: 0;
+		}
 	}
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: all 0.8s ease;
+	overflow: hidden;
+	visibility: visible;
+	position: absolute;
+	left: 0;
+	width: 100%;
+	opacity: 1;
+}
+.fade-enter,
+.fade-leave-to {
+	visibility: hidden;
+	width: 100%;
+	opacity: 0;
+}
 </style>
