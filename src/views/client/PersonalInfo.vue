@@ -129,12 +129,12 @@ export default {
 			}
 		}
 	},
-	beforeRouteLeave(to, from, next) {
-		if (to.name === 'login' || this.userProfile.name) {
-			return next();
-		}
-		this.$modal.show('profile-info-modal');
-	},
+//	beforeRouteLeave(to, from, next) {
+//		if (to.name === 'login' || this.userProfile.name) {
+//			return next();
+//		}
+//		this.$modal.show('profile-info-modal');
+//	},
 	watch: {
 		onSuccess(msg) {
 			if (msg) {

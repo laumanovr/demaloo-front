@@ -463,7 +463,7 @@ export default {
 			if (this.userLogged) {
 				this.$modal.toggle('reserve-modal');
 			} else {
-				this.$router.push('/login');
+				this.$modal.show('login-modal');
 			}
 		},
 
