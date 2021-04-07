@@ -6,16 +6,26 @@
 				<span>Demaloo</span>
 			</div>
 			<div class="links">
+				<template v-if="$route.path == '/'">
+					<!--mobile-->
+					<svg @click="showMobileSearch" class="mob" :class="{'searchOpen': isSearchOpen}">
+						<use href="../../assets/icons/svg-sprite/loupe-icon.svg#loupe"/>
+					</svg>
+					<img src="../../assets/icons/sort-icon.svg" class="mob sort">
+				</template>
+				<a href="#" class="web">Поддержка</a>
 				<template v-if="userLogged">
-					<span @click="$router.push('/profile-manage')">
+					<div class="profile" @click="$router.push('/profile-manage')">
+						<span class="name web">{{userProfile.name}}</span>
 						<img :src="profilePhoto" v-if="profilePhoto">
 						<img src="../../assets/icons/profile.svg" v-else>
-					</span>
+					</div>
 				</template>
 				<template v-else>
-					<router-link :to="{name: 'companyLogin'}">Для туроператоров</router-link>
-					<a href="#">Поддержка</a>
-					<router-link to="/login" class="login">Войти</router-link>
+					<router-link :to="{name: 'companyLogin'}" class="web">Для туроператоров</router-link>
+					<router-link to="/login" class="login web">Войти</router-link>
+					<!--mobile-->
+					<img src="../../assets/icons/circle-person.svg" class="mob">
 				</template>
 			</div>
 		</div>
@@ -24,7 +34,14 @@
 
 <script>
 import {API_BASE_URL} from '@/services/api.service';
+import {CustomEventEmitter} from '@/utils/customEventEmitter';
+
 export default {
+	data() {
+		return {
+			isSearchOpen: false
+		}
+	},
 	computed: {
 		userProfile() {
 			return this.$store.state.account.customer;
@@ -34,6 +51,12 @@ export default {
 		},
 		profilePhoto() {
 			return this.userProfile.photo ? `${API_BASE_URL}/images/` + this.userProfile.photo : '';
+		}
+	},
+	methods: {
+		showMobileSearch() {
+			this.isSearchOpen = !this.isSearchOpen;
+			CustomEventEmitter.$emit('onShowSearch');
 		}
 	}
 };
@@ -45,6 +68,9 @@ export default {
 		text-align: center;
 		border-bottom: 1px solid $gray-light;
 		padding: 0 2px;
+		@media #{$mob-view} {
+			padding: 0 10px;
+		}
 		.header-info {
 			display: flex;
 			align-items: center;
@@ -84,21 +110,45 @@ export default {
 						padding: 4px 15px;
 					}
 				}
-				span {
-					width: 30px;
-					height: 30px;
+				.profile {
 					cursor: pointer;
-					border: 1px solid $green-main;
+					border: 1px solid $gray-light;
 					border-radius: 30px;
+					display: flex;
+					align-items: center;
+					padding: 2px 5px 2px 20px;
+					margin-left: 50px;
+					@media #{$mob-view} {
+						border: 0;
+						padding: 0;
+						margin: 0;
+					}
 					&:hover {
-						width: 35px;
-						height: 35px;
 					}
 					img {
 						background: #fff;
 						border-radius: 20px;
-						width: 100%;
-						height: 100%;
+						width: 30px;
+						height: 30px;
+					}
+					.name {
+						font-weight: 600;
+						font-size: 12px;
+						color: $blue-darkest;
+						margin-right: 10px;
+					}
+				}
+			}
+		}
+		@media #{$mob-view} {
+			.links {
+				img.sort {
+					margin: 0 18px;
+				}
+				svg {
+					fill: $blue-darkest;
+					&.searchOpen {
+						fill: #0ACF83;
 					}
 				}
 			}
