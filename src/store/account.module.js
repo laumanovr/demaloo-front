@@ -40,6 +40,7 @@ const actions = {
 			dispatch('setInitialUser', res);
 			if (res.data.user.name) {
 				router.push('/');
+				commit('setSuccess', 'success')
 			} else {
 				router.push('/profile-manage');
 			}
@@ -83,7 +84,7 @@ const actions = {
 	logout({commit}, isCompany) {
 		window.localStorage.removeItem('demalooUser');
 		commit('removeUser');
-		isCompany ? router.push('/company-login') : router.push('/login');
+		isCompany ? router.push('/company-login') : router.push('/');
 	},
 };
 
