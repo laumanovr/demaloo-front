@@ -1,13 +1,10 @@
 <template>
-	<div class="company-sign-up-in">
-		<h3 class="head-title">Добро пожаловать!</h3>
-		<span class="sign-up-in-text">Быстрый, легкий и максимально удобный поиск туров!</span>
-		<!--<div class="sign-in-up-type">-->
-			<!--<span class="selected">Турист</span>-->
-			<!--<span class="change" @click="$emit('changeType', 'company')">Тур-оператор</span>-->
-		<!--</div>-->
+	<div class="client-login">
+		<h3 class="head-title">Войти в учетную запись</h3>
+
 		<v-form ref="signInForm">
 			<div class="masked-input" @click="isDisabled = false">
+				<span class="label">Телефон</span>
 				<MaskedInput
 					mask="\+\996 (111) 11-11-11"
 					placeholder="+996(555)12-34-56"
@@ -16,15 +13,18 @@
 				/>
 				<v-text-field class="error-only" v-model="phoneValue" :rules="phoneRule"/>
 			</div>
+			<div class="password">
+			<span class="label">Пароль</span>
 			<v-text-field
-				class="no-border"
+				solo
 				label="Пароль"
 				type="password"
 				:rules="requiredRule"
 				v-model="loginObj.password"
 				:readonly="isDisabled"
 			/>
-			<button class="btn purple next" @click.prevent="submitLogin">
+			</div>
+			<button class="btn green-main next" @click.prevent="submitLogin">
 				Войти
 			</button>
 		</v-form>
@@ -40,7 +40,7 @@ export default {
 		MaskedInput
 	},
 	computed: {
-		...mapState('account', ['onError']),
+		...mapState('account', ['onSuccess', 'onError']),
 	},
 	data() {
 		return {
@@ -67,6 +67,13 @@ export default {
 		}
 	},
 	watch: {
+		onSuccess(msg) {
+			if (msg) {
+				this.$emit('loading', false);
+				this.$store.state.account.onSuccess = '';
+				this.$modal.hide('login-modal');
+			}
+		},
 		onError(msg) {
 			if (msg) {
 				this.$toast.error(msg);
@@ -77,3 +84,36 @@ export default {
 	}
 };
 </script>
+
+<style lang="scss">
+	.client-login {
+		.head-title {
+			font-weight: bold;
+			font-size: 20px;
+			color: $blue-darkest;
+			text-align: center;
+			justify-content: center;
+		}
+		.next {
+			height: 53px;
+		}
+		.masked-input {
+			input {
+				height: 53px;
+				border: 1px solid #A6ACBB;
+				box-shadow: none;
+			}
+		}
+		.password {
+			.v-text-field > .v-input__control > .v-input__slot {
+				box-shadow: none !important;
+				height: 53px;
+				border: 1px solid #A6ACBB;
+			}
+		}
+		.label {
+			font-size: 16px;
+			color: $blue-darkest;
+		}
+	}
+</style>
