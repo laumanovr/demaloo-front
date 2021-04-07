@@ -23,9 +23,9 @@
 				</template>
 				<template v-else>
 					<router-link :to="{name: 'companyLogin'}" class="web">Для туроператоров</router-link>
-					<router-link to="/login" class="login web">Войти</router-link>
+					<a class="login web" @click="$emit('onLogin')">Войти</a>
 					<!--mobile-->
-					<img src="../../assets/icons/circle-person.svg" class="mob">
+					<img src="../../assets/icons/circle-person.svg" @click="$emit('onLogin')" class="mob">
 				</template>
 			</div>
 		</div>
