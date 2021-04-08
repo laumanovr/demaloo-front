@@ -1,17 +1,11 @@
 <template>
-	<div class="company-sign-up-in">
-		<!--<div class="back-route">-->
-			<!--<img src="../../assets/icons/left-arrow.svg" @click="$router.push('/')"/>Назад-->
-		<!--</div>-->
-		<h3 class="head-title">Регистрация</h3>
+	<div class="client-login sign-up">
+		<h3 class="head-title">Зарегистрироваться</h3>
 		<template v-if="formStep == 'first'">
-			<span class="sign-up-in-text">Быстрый, легкий и максимально удобный поиск туров!</span>
-			<!--<div class="sign-in-up-type">-->
-				<!--<span class="selected">Турист</span>-->
-				<!--<span class="change" @click="$emit('changeType', 'company')">Тур-оператор</span>-->
-			<!--</div>-->
 			<v-form ref="registerForm">
+				<img src="../../assets/images/register-step-one.png" class="step">
 				<div class="masked-input" @click="inputDisabled = false">
+					<span class="label">Телефон</span>
 					<MaskedInput
 						mask="\+\996 (111) 11-11-11"
 						placeholder="Ваш номер телефона"
@@ -21,37 +15,72 @@
 					/>
 					<v-text-field class="error-only" v-model="registerObj.phoneNumber" :rules="phoneRule"/>
 				</div>
-				<v-text-field
-					solo
-					label="Пароль"
-					placeholder="Пароль"
-					type="password"
-					v-model="registerObj.password"
-					:rules="requiredRule"
-					:readonly="inputDisabled"
-				/>
-				<div class="btn-actions" v-if="showBtn">
-					<button class="btn purple next" @click.prevent="sendPhoneNum">
-						Далее
-					</button>
-				</div>
+				<button class="btn green-main next" @click.prevent="sendPhoneNum" v-if="showBtn">
+					Получить код
+				</button>
 				<div id="recaptcha-container"></div>
 			</v-form>
 		</template>
 
-		<template v-if="formStep == 'last'">
-			<span class="sign-up-in-text">Ваш номер телефона {{phoneView}}</span>
-			<div class="type-code">Введите 6-ти значный код отправленный на ваш телефон</div>
-			<div class="masked-input code">
-				<MaskedInput
-					mask="1.1.1.1.1.1"
-					placeholder="_._._._._._"
-					@input="codeValue = arguments[1]"
+		<template v-if="formStep == 'second'">
+			<img src="../../assets/images/register-step-two.png" class="margin-bottom step">
+			<div class="password">
+				<span class="label">Ваш номер телефона</span>
+				<v-text-field
+					solo
+					v-model="phoneView"
+					readonly
+					disabled
+					class="no-detail"
 				/>
 			</div>
-			<button class="btn purple next" @click="sendReceivedSmsCode">
-				Далее
-			</button>
+			<div class="masked-input text-lg-center code">
+				<span class="label d-block">Код подтверждения</span>
+				<MaskedInput
+					mask="1•1•1•1•1•1"
+					@input="codeValue = arguments[1]"
+					class="text-lg-center short"
+				/>
+			</div>
+			<div class="btn-actions">
+				<button class="btn white-color-green" @click="formStep='first';showBtn=true">Назад</button>
+				<button class="btn green-main next" @click="sendReceivedSmsCode">Далее</button>
+			</div>
+		</template>
+
+		<template v-if="formStep == 'last'">
+			<img src="../../assets/images/register-step-last.png" class="step">
+			<div class="password">
+				<span class="label">Ваш номер телефона</span>
+				<v-text-field
+					solo
+					v-model="phoneView"
+					readonly
+					disabled
+					class="no-detail"
+				/>
+			</div>
+			<div class="set-pass">
+				<div class="password first-pass">
+					<span class="label">Пароль</span>
+					<v-text-field
+						solo
+						type="password"
+						v-model="registerObj.password"
+						:rules="requiredRule"
+					/>
+				</div>
+				<div class="password">
+					<span class="label">Повторите пароль</span>
+					<v-text-field
+						solo
+						type="password"
+						v-model="checkPassword"
+						:rules="requiredRule"
+					/>
+				</div>
+			</div>
+			<button class="btn green-main next" @click.prevent="submitRegister">Регистрация</button>
 		</template>
 	</div>
 </template>
@@ -78,6 +107,7 @@ export default {
 			inputDisabled: true,
 			showBtn: true,
 			secretCode: '',
+			checkPassword: '',
 			registerObj: {
 				phoneNumber: '',
 				password: ''
@@ -96,7 +126,7 @@ export default {
 					const recaptcha = new firebase.firebase_.auth.RecaptchaVerifier("recaptcha-container");
 					const provider = new firebase.firebase_.auth.PhoneAuthProvider();
 					this.secretCode = await provider.verifyPhoneNumber(`+996${this.registerObj.phoneNumber}`, recaptcha);
-					this.formStep = 'last';
+					this.formStep = 'second';
 				} catch (err) {
 					this.$toast.error(err);
 				}
@@ -111,12 +141,16 @@ export default {
 			this.$emit('loading', true);
 			const credential = await firebase.firebase_.auth.PhoneAuthProvider.credential(this.secretCode, this.codeValue);
 			await firebase.auth().signInWithCredential(credential);
-			const token = await firebase.auth().currentUser.getIdToken();
-			this.submitRegister(token);
+			this.registerObj.idToken = await firebase.auth().currentUser.getIdToken();
+			this.formStep = 'last';
+			this.$emit('loading', false);
 		},
 			
-		async submitRegister(userToken) {
-			this.registerObj.idToken = userToken;
+		async submitRegister() {
+			if (!this.registerObj.password || this.registerObj.password !== this.checkPassword) {
+				this.$toast.info('Пароли не совпадают!');
+				return;
+			}
 			this.registerObj.phoneNumber = `+996${this.registerObj.phoneNumber}`;
 			this.$store.dispatch('account/clientRegister', this.registerObj);
 		}
