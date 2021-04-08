@@ -327,6 +327,7 @@ export default {
 		},
 
 		sortByPrice(sortType) {
+			this.sortPage = 1;
 			this.datePriceSort = sortType;
 			this.filterBySidebar();
 		},
