@@ -85,3 +85,74 @@
     margin-bottom: 15px;
   }
 }
+
+.client-login {
+  .head-title {
+    font-weight: bold;
+    font-size: 20px;
+    color: $blue-darkest;
+    text-align: center;
+    justify-content: center;
+  }
+  .next {
+    height: 53px;
+  }
+  .masked-input {
+    @media #{$mob-view} {
+      text-align: center;
+    }
+    input {
+      height: 53px;
+      border: 1px solid #A6ACBB;
+      box-shadow: none;
+      &.short {
+        width: 42%;
+        letter-spacing: 6px;
+        @media #{$mob-view} {
+          width: 60%;
+          text-align: center;
+        }
+      }
+    }
+  }
+  .password {
+    .v-text-field > .v-input__control > .v-input__slot {
+      box-shadow: none !important;
+      height: 53px;
+      border: 1px solid #A6ACBB;
+    }
+    .no-detail > .v-input__control > .v-input__slot {
+      background: #EDEDF0 !important;
+    }
+  }
+  .label {
+    font-size: 16px !important;
+    color: $blue-darkest !important;
+    @media #{$mob-view} {
+      display: block;
+      text-align: left;
+    }
+  }
+  .btn-actions {
+    margin: 20px 0 0 0;
+    .btn {
+      height: 53px;
+    }
+  }
+  .set-pass {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+    .first-pass {
+      margin-right: 20px;
+    }
+  }
+  img {
+    &.step {
+      margin: 0 auto;
+    }
+    &.margin-bottom {
+      margin: 0 auto 15px;
+    }
+  }
+}
