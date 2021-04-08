@@ -1,7 +1,6 @@
 <template>
 	<div class="client-login">
 		<h3 class="head-title">Войти в учетную запись</h3>
-
 		<v-form ref="signInForm">
 			<div class="masked-input" @click="isDisabled = false">
 				<span class="label">Телефон</span>
@@ -14,15 +13,15 @@
 				<v-text-field class="error-only" v-model="phoneValue" :rules="phoneRule"/>
 			</div>
 			<div class="password">
-			<span class="label">Пароль</span>
-			<v-text-field
-				solo
-				label="Пароль"
-				type="password"
-				:rules="requiredRule"
-				v-model="loginObj.password"
-				:readonly="isDisabled"
-			/>
+				<span class="label">Пароль</span>
+				<v-text-field
+					solo
+					label="Пароль"
+					type="password"
+					:rules="requiredRule"
+					v-model="loginObj.password"
+					:readonly="isDisabled"
+				/>
 			</div>
 			<button class="btn green-main next" @click.prevent="submitLogin">
 				Войти
@@ -85,35 +84,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-	.client-login {
-		.head-title {
-			font-weight: bold;
-			font-size: 20px;
-			color: $blue-darkest;
-			text-align: center;
-			justify-content: center;
-		}
-		.next {
-			height: 53px;
-		}
-		.masked-input {
-			input {
-				height: 53px;
-				border: 1px solid #A6ACBB;
-				box-shadow: none;
-			}
-		}
-		.password {
-			.v-text-field > .v-input__control > .v-input__slot {
-				box-shadow: none !important;
-				height: 53px;
-				border: 1px solid #A6ACBB;
-			}
-		}
-		.label {
-			font-size: 16px;
-			color: $blue-darkest;
-		}
-	}
-</style>
+<style lang="scss"></style>
