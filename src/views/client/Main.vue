@@ -716,12 +716,14 @@ export default {
 						box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 						border-radius: 13px;
 						margin-bottom: 25px;
+						transition: transform 0.2s ease-out;
 						@media #{$mob-view} {
 							flex-wrap: wrap;
 							justify-content: center;
 							max-width: 336px;
 						}
 						&:hover {
+							transition: transform 0.2s ease-in;
 							transform: scale(1.01);
 							box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.30);
 						}
