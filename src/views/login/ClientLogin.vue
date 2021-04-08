@@ -6,8 +6,8 @@
 			<div class="logo-text">
 				<img src="../../assets/images/big-logo.svg">
 				<div class="title">
-					<span>Demaloo</span>
-					<!--<span>Отдых без забот</span>-->
+					<img src="../../assets/images/demaloo-text.png">
+					<span>Отдых без забот</span>
 				</div>
 			</div>
 		</div>
@@ -73,16 +73,21 @@ export default {
 			.logo-text {
 				display: flex;
 				align-items: center;
+				justify-content: center;
 				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				background: rgba($blue-darkest, 0.3);
 				.title {
-					display: inherit;
+					display: inline-block;
+					margin: 28px 0 0 20px;
 					span {
-						font-size: 45px;
+						display: block;
+						font-size: 14px;
 						color: #fff;
-						margin-left: 20px;
+						text-align: right;
 					}
 				}
 			}
@@ -90,6 +95,9 @@ export default {
 		.form-container {
 			padding: 25px;
 			width: 507px;
+			@media #{$mob-view} {
+				width: 100%;
+			}
 			.form-link {
 				text-align: center;
 				border-bottom: 1px solid $gray-light;
