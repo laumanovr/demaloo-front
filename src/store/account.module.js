@@ -81,10 +81,10 @@ const actions = {
 		commit('setSuccess', 'success');
 	},
 
-	logout({commit}, isCompany) {
+	logout({commit}) {
 		window.localStorage.removeItem('demalooUser');
 		commit('removeUser');
-		isCompany ? router.push('/company-login') : router.push('/');
+		router.push('/');
 	},
 };
 
