@@ -230,7 +230,7 @@
 					<span>Детали брони</span>
 					<img src="../../assets/icons/close.svg" @click="toggleReserveModal">
 				</div>
-				<div class="reserve__tour-title">Незабываемый тур в Каракол</div>
+				<div class="reserve__tour-title">{{tourDetail.name.ru}}</div>
 				<div class="reserve__company-date flex align-center justify-space-between">
 					<div class="tour-detail__company-info flex align-center">
 						<img :src="showImage(tourDetail.company.logo)" class="company">
