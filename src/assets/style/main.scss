@@ -253,6 +253,10 @@ a.blue-light {
   color: $blue-primary !important;
 }
 
+.bor-radius .vm--modal {
+  border-radius: 10px;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
