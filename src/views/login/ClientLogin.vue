@@ -26,7 +26,7 @@
 					<span class="answer" @click="loginType = 'signUp'">Зарегистрироваться</span>
 				</template>
 				<template v-if="loginType == 'signUp'">
-					<span class="question">Уже есть аккаунт?</span>
+					<div class="question">Уже есть аккаунт?</div>
 					<span class="answer" @click="loginType = 'login'">Войти</span>
 				</template>
 			</div>
@@ -65,6 +65,7 @@ export default {
 <style lang="scss">
 	.client-sign-up-in-container {
 		display: flex;
+		align-items: flex-start;
 		.login-image {
 			position: relative;
 			.welcome {
@@ -93,7 +94,7 @@ export default {
 			}
 		}
 		.form-container {
-			padding: 25px;
+			padding: 25px 25px 18px;
 			width: 507px;
 			@media #{$mob-view} {
 				width: 100%;
