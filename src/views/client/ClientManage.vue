@@ -6,6 +6,7 @@
 		<!--LOGIN MODAL-->
 		<modal
 			name="login-modal"
+			class="bor-radius"
 			:width="isMobileWindow ? '100%' : '1020px'"
 			:height="isMobileWindow ? '100%' : '508px'"
 		>
