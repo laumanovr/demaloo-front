@@ -291,6 +291,10 @@ export default {
 	},
 	methods: {
 		async autoCompleteLocation(e) {
+			if (!e.target.value.length) {
+				this.searchLocations = [];
+				return;
+			}
 			clearTimeout(this.locationTimer);
 			this.locationTimer = setTimeout(() => {
 				LocationService.searchPlace(e.target.value).then((res) => {
@@ -311,19 +315,13 @@ export default {
 			this.$nextTick(() => {
 				setTimeout(() => {
 					this.searchLocations = [];
-				}, 100);
+				}, 300);
 			});
 		},
 
 		submitSearchTours() {
-			this.sortCompany = '';
-			this.sortDuration = '';
-			this.sortCategories = [];
-			this.categoriesQuery = '';
-			const place = this.searchObj.inputValue ? `&search=${this.searchObj.inputValue}` : '';
-			const date = this.pickerDate ? `&date[gte]=${this.pickerDate}` : '';
-			this.queryParam = `${place || ''}${date || ''}`;
-			this.getAllTours();
+			this.sortPage = 1;
+			this.filterBySidebar();
 		},
 
 		sortByPrice(sortType) {
@@ -332,7 +330,7 @@ export default {
 			this.filterBySidebar();
 		},
 
-		filterBySidebar(isPaginate = false) {
+		filterBySidebar(isPaginate = '') {
 			let company, duration, priceFrom, priceTo, location, date, sortPriceDate, page;
 			company = this.sortCompany ? `&company=${this.sortCompany}` : '';
 			duration = this.sortDuration ? `&duration=${this.sortDuration}` : '';
@@ -350,6 +348,7 @@ export default {
 		},
 
 		selectCategory(e, category) {
+			this.sortPage = 1;
 			this.categoriesQuery = '';
 			if (e.currentTarget.checked) {
 				this.sortCategories.push(category);
@@ -364,6 +363,7 @@ export default {
 		},
 
 		selectPrice() {
+			this.sortPage = 1;
 			clearTimeout(this.typingTimer);
 			this.typingTimer = setTimeout(() => {
 				this.filterBySidebar();
