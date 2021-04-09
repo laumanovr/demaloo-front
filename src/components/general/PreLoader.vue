@@ -35,7 +35,7 @@
     width: 100px;
     height: 100px;
     margin: 8px;
-    border: 8px solid $green-main;
+    border: 15px solid $green-main;
     border-radius: 50%;
     animation: lds-ring 1.1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: $green-main transparent transparent transparent;
