@@ -54,6 +54,7 @@ const actions = {
 			const res = await UserService.registerClient(data);
 			dispatch('setInitialUser', res);
 			router.push('/profile-manage');
+			commit('setSuccess', 'success');
 		} catch (err) {
 			commit('setError', err);
 		}
