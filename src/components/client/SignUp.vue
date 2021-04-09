@@ -49,7 +49,7 @@
 		</template>
 
 		<template v-if="formStep == 'last'">
-			<img src="../../assets/images/register-step-last.png" class="step">
+			<img src="../../assets/images/register-step-last.png" class="step margin-bottom">
 			<div class="password">
 				<span class="label">Ваш номер телефона</span>
 				<v-text-field
@@ -116,7 +116,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapState('account', ['onError'])
+		...mapState('account', ['onSuccess', 'onError'])
 	},
 	methods: {
 		async sendPhoneNum() {
@@ -151,12 +151,19 @@ export default {
 				this.$toast.info('Пароли не совпадают!');
 				return;
 			}
+			this.$emit('loading', true);
 			this.registerObj.phoneNumber = `+996${this.registerObj.phoneNumber}`;
 			this.$store.dispatch('account/clientRegister', this.registerObj);
 		}
 	},
 
 	watch: {
+		onSuccess(msg) {
+			if (msg) {
+				this.$modal.hide('login-modal');
+				this.$store.state.account.onSuccess = '';
+			}
+		},
 		onError(message) {
 			if (message) {
 				this.$toast.error(message);
