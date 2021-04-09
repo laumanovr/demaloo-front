@@ -25,6 +25,7 @@
 								v-on:blur="onBlurInput"
 							>
 						</div>
+						<SmallLoader class="small-load" v-if="isSmallLoader"/>
 						<div class="drop-down-result" v-if="searchLocations.length">
 							<div
 								class="found-item"
@@ -228,6 +229,7 @@ import {TourService} from '@/services/tour.service';
 import {format} from 'date-fns';
 import {ru} from 'date-fns/locale';
 import PreLoader from '@/components/general/PreLoader';
+import SmallLoader from '@/components/general/SmallLoader';
 import {API_BASE_URL} from '@/services/api.service';
 import {CategoryService} from '@/services/category.service';
 import {UserService} from '@/services/user.service';
@@ -238,11 +240,13 @@ import PlusIcon from '@/components/icons/PlusIcon';
 export default {
 	components: {
 		PreLoader,
-		PlusIcon
+		PlusIcon,
+		SmallLoader
 	},
 	data() {
 		return {
 			isLoading: false,
+			isSmallLoader: false,
 			tourList: [],
 			categories: [],
 			allCompanies: [],
@@ -295,13 +299,16 @@ export default {
 				this.searchLocations = [];
 				return;
 			}
+			this.isSmallLoader = true;
 			clearTimeout(this.locationTimer);
 			this.locationTimer = setTimeout(() => {
 				LocationService.searchPlace(e.target.value).then((res) => {
 					this.searchLocations = res.data.locations;
 					this.noResult = !this.searchLocations.length;
+					this.isSmallLoader = false;
 				}).catch((err) => {
 					this.$toast.error(err);
+					this.isSmallLoader = false;
 				});
 			}, 900);
 		},
@@ -315,6 +322,7 @@ export default {
 			this.$nextTick(() => {
 				setTimeout(() => {
 					this.searchLocations = [];
+					this.noResult = false;
 				}, 300);
 			});
 		},
