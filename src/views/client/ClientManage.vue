@@ -44,7 +44,7 @@ export default {
 
 <style lang="scss" scoped>
 	.client-manage {
-		background: #e5e5e578;
+		background: #f5f5f5;
 		.close-icon {
 			position: absolute;
 			right: 10px;

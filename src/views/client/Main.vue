@@ -444,7 +444,7 @@ export default {
 
 <style lang="scss">
 	.main-container {
-		background: #e5e5e578;
+		background: #f5f5f5;
 		.main-top-bg {
 			position: relative;
 			height: 350px;
