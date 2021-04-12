@@ -2,8 +2,7 @@
 	<div class="header-container">
 		<div class="header-info">
 			<div class="logo" @click="$router.push('/')">
-				<img src="../../assets/images/logo.svg">
-				<span>Demaloo</span>
+				<img src="../../assets/images/logo-text.svg">
 			</div>
 			<div class="links">
 				<template v-if="$route.path == '/'">
@@ -82,12 +81,6 @@ export default {
 				cursor: pointer;
 				display: flex;
 				align-items: center;
-				span {
-					font-size: 18px;
-					font-weight: bold;
-					margin-left: 10px;
-					color: $blue-darkest;
-				}
 			}
 			.links {
 				display: flex;
