@@ -423,11 +423,11 @@ export default {
 		},
 
 		showTourPhoto(imgUrl) {
-			return `${AWS_IMAGE_URL}/images/` + imgUrl;
+			return `${AWS_IMAGE_URL}/images/` + imgUrl + '?w=273';
 		},
 
 		showCompanyPhoto(imgUrl) {
-			return `${AWS_IMAGE_URL}/logos/` + imgUrl;
+			return `${AWS_IMAGE_URL}/logos/` + imgUrl + '?w=24';
 		},
 
 		formatDate(date) {
