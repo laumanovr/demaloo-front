@@ -204,7 +204,7 @@
                             </template>
                             <v-date-picker
                                 locale="ru-RU"
-                                v-model="tourObj.dates"
+                                v-model="tourObj.date"
                                 :min="todayDate"
                                 @input="onChangeDate"
                             />
@@ -343,8 +343,9 @@ import {LocationService} from '@/services/location.service';
 import PlusIcon from '@/components/icons/PlusIcon';
 import CloseIcon from '@/components/icons/CloseIcon';
 import PreLoader from '@/components/general/PreLoader';
-import {API_BASE_URL} from '@/services/api.service';
+import {AWS_IMAGE_URL} from '@/services/api.service';
 import {CategoryService} from '@/services/category.service';
+import {ImageService} from '@/services/image.service';
 
 export default {
 	components: {
@@ -356,7 +357,7 @@ export default {
 	data() {
 		return {
 			isLoading: false,
-			apiImageUrl: `${API_BASE_URL}/images/`,
+			apiImageUrl: `${AWS_IMAGE_URL}/images/`,
 			requiredRule: [(v) => !!v || 'Обязательное поле'],
 			multipleRule: [(v) => v.length > 0 || 'Обязательное поле'],
 			numberRule: [
@@ -380,7 +381,7 @@ export default {
 				duration: '',
 				price: '',
 				peopleCount: '',
-				dates: '',
+				date: '',
 				includedInCost: [{ru: ''}],
 				notIncludedInCost: [{ru: ''}],
 				additional: [{ru: ''}],
@@ -389,6 +390,7 @@ export default {
 					walkDistance: ''
 				},
 				program: [],
+				images: [],
 				notes: ''
 			},
 			tourCategories: [
@@ -402,7 +404,6 @@ export default {
 			selectRegion: {},
 			selectedRayon: {},
 			rayons: [],
-			selectedImages: [],
 			previewImages: [],
 			isAddTourPlace: false,
 		};
@@ -435,7 +436,6 @@ export default {
 				this.selectedRayon = this.rayons.find((i) => i.id === this.tourObj.locations[0].region.id);
 				this.tourObj.images.forEach((img) => {
 					this.previewImages.push(this.apiImageUrl + img);
-					this.selectedImages.push(img);
 				});
 				this.isLoading = false;
 			} catch (err) {
@@ -477,7 +477,7 @@ export default {
 		},
 
 		onChangeDate() {
-			this.pickerDate = moment(this.tourObj.dates, 'YYYY-MM-DD').format('DD.MM.YYYY');
+			this.pickerDate = moment(this.tourObj.date, 'YYYY-MM-DD').format('DD.MM.YYYY');
 			this.showDatePicker = false;
 		},
 
@@ -499,7 +499,7 @@ export default {
 		removeTourArrayItem(index, field) {
 			if (field === 'images') {
 				this.previewImages.splice(index, 1);
-				this.selectedImages.splice(index, 1);
+				this.tourObj.images.splice(index, 1);
 				return;
 			}
 			this.tourObj[field].splice(index, 1);
@@ -523,47 +523,41 @@ export default {
 			this.tourObj.locations[0].place = '';
 		},
 
-		addImage(e) {
+		async addImage(e) {
 			const formats = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg', 'image/svg+xml'];
 			const file = e.target.files[0];
 			if (!formats.includes(file.type)) {
 				this.$toast.error('Ошибка! Файл не похож на картинку!');
 				return;
 			}
-			this.selectedImages.push(file);
-			const imgUrl = URL.createObjectURL(file);
-			this.previewImages.push(imgUrl);
+			try {
+				this.isLoading = true;
+				const res = await ImageService.generateSaveUrl({folder: 'images', fileType: file.type.slice(6)});
+				await ImageService.saveImage(res.data.url, file);
+				this.tourObj.images.push(res.data.fileName);
+				this.previewImages.push(URL.createObjectURL(file));
+				this.isLoading = false;
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
 		},
 
 		async submitCreateTour() {
 			if (this.$refs.tourForm.validate()) {
-				if (!this.selectedImages.length) {
+				if (!this.tourObj.images.length) {
 					this.$toast.info('Загрузите фотографии тура!');
 					return;
 				}
 				this.isLoading = true;
-				this.tourObj.dates = this.tourObj.dates.split();
 				try {
-					const res = await TourService.createTour(this.tourObj);
-					await this.sendTourImages(res.data.tours[0]._id);
+					await TourService.createTour(this.tourObj);
 					await this.createNewPlaces();
+					this.$router.push('/company-manage');
 					this.$toast.success('Тур успешно создан!');
 				} catch (err) {
 					this.$toast.error(err);
 					this.isLoading = false;
-				}
-			}
-		},
-
-		async sendTourImages(tourId) {
-			if (this.selectedImages.length) {
-				const formData = new FormData();
-				this.selectedImages.forEach((image) => formData.append('images', image));
-				try {
-					await TourService.addImagesForTour(tourId, formData);
-					this.$router.push('/company-manage');
-				} catch (err) {
-					this.$toast.error(err);
 				}
 			}
 		},
