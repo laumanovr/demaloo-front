@@ -160,7 +160,7 @@
 							class="tour-item"
 						>
 							<div class="tour-item__image">
-								<img :src="showPhoto(tour.images[0])" v-if="tour.images">
+								<img :src="showTourPhoto(tour.images[0])" v-if="tour.images">
 								<img src="../../assets/images/no-image.png" v-else>
 							</div>
 							<div class="tour-item__info">
@@ -169,7 +169,7 @@
 								<div class="tour-item__right">
 									<div class="tour-item__desc-block">
 										<div class="tour-item__company">
-											<img :src="showPhoto(tour.company.logo)">
+											<img :src="showCompanyPhoto(tour.company.logo)">
 											{{tour.company.name}}
 											<div class="rating">
 												<img src="../../assets/icons/rating-icon.svg">
@@ -230,7 +230,7 @@ import {format} from 'date-fns';
 import {ru} from 'date-fns/locale';
 import PreLoader from '@/components/general/PreLoader';
 import SmallLoader from '@/components/general/SmallLoader';
-import {API_BASE_URL} from '@/services/api.service';
+import {AWS_IMAGE_URL} from '@/services/api.service';
 import {CategoryService} from '@/services/category.service';
 import {UserService} from '@/services/user.service';
 import {LocationService} from '@/services/location.service';
@@ -422,8 +422,12 @@ export default {
 			this.searchObj.date = format(new Date(this.pickerDate), 'dd.MM.yyyy');
 		},
 
-		showPhoto(imgUrl) {
-			return `${API_BASE_URL}/images/` + imgUrl;
+		showTourPhoto(imgUrl) {
+			return `${AWS_IMAGE_URL}/images/` + imgUrl;
+		},
+
+		showCompanyPhoto(imgUrl) {
+			return `${AWS_IMAGE_URL}/logos/` + imgUrl;
 		},
 
 		formatDate(date) {
@@ -693,17 +697,22 @@ export default {
 						.chips {
 							display: flex;
 							align-items: center;
+							flex-wrap: wrap;
+							max-width: 73%;
 							.chip {
 								display: flex;
 								align-items: center;
 								background: #284B63;
 								border-radius: 20px;
 								color: #fff;
-								padding: 3px 10px;
-								margin-right: 15px;
+								padding: 2px 10px 4px;
+								margin: 0 15px 8px 0;
 								font-size: 14px;
+								white-space: nowrap;
 								.plus-icon {
 									margin: 0;
+									height: 24px;
+									transform: translateY(1px);
 									img {
 										background: none;
 										transform: rotate(45deg);
@@ -768,7 +777,7 @@ export default {
 							white-space: nowrap;
 							overflow-x: hidden;
 							text-overflow: ellipsis;
-							max-width: 580px;
+							max-width: 460px;
 							@media #{$mob-view} {
 								max-width: 304px;
 								font-size: 16px;
