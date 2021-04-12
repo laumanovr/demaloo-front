@@ -68,7 +68,8 @@
 <script>
 import {mapState} from 'vuex';
 import PreLoader from '@/components/general/PreLoader';
-import {API_BASE_URL} from '@/services/api.service';
+import {AWS_IMAGE_URL} from '@/services/api.service';
+import {ImageService} from '@/services/image.service';
 
 export default {
 	components: {
@@ -101,18 +102,27 @@ export default {
 		this.profileObj.phoneNumber = this.userProfile.phoneNumber;
 		this.profileObj.email = this.userProfile.email;
 		this.profileObj.logo = this.userProfile.logo;
-		this.previewUrl = this.profileObj.logo ? `${API_BASE_URL}/images/` + this.profileObj.logo : '';
+		this.previewUrl = this.profileObj.logo ? `${AWS_IMAGE_URL}/logos/` + this.profileObj.logo : '';
 	},
 	methods: {
-		addLogo(e) {
+		async addLogo(e) {
 			const formats = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg', 'image/svg+xml'];
 			const file = e.target.files[0];
 			if (!formats.includes(file.type)) {
 				this.$toast.error('Ошибка! Файл не похож на картинку!');
 				return;
 			}
-			this.profileObj.logo = file;
-			this.previewUrl = URL.createObjectURL(file);
+			try {
+				this.isLoading = true;
+				const res = await ImageService.generateSaveUrl({folder: 'logos', fileType: file.type.slice(6)});
+				await ImageService.saveImage(res.data.url, file);
+				this.profileObj.logo = res.data.fileName;
+				this.previewUrl = URL.createObjectURL(file);
+				this.isLoading = false;
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
 		},
 
 		async submitUpdate() {
