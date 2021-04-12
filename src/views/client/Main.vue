@@ -492,7 +492,7 @@ export default {
 			}
 			.search {
 				background: #fff;
-				border-radius: 8px;
+				border-radius: 7px;
 				box-shadow: $btn-box-shadow;
 				@media #{$mob-view} {
 					padding: 0 20px;
@@ -535,7 +535,7 @@ export default {
 					max-width: 435px;
 					min-width: 140px;
 					border: 1px solid #A6ACBB;
-					border-radius: 8px;
+					border-radius: 7px;
 					padding-left: 25px;
 					@media #{$mob-view} {
 						max-width: 100%;
@@ -735,7 +735,7 @@ export default {
 						display: flex;
 						background: #fff;
 						box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-						border-radius: 13px;
+						border-radius: 7px;
 						margin-bottom: 25px;
 						transition: transform 0.2s ease-out;
 						@media #{$mob-view} {
