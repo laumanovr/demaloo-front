@@ -55,16 +55,17 @@
 											placeholder="Выберите дату"
 											type="text"
 											readonly
-											v-model="searchObj.date"
+											v-model="pickerDate"
 											v-bind="attrs"
 											v-on="on"
 										>
 									</template>
 									<v-date-picker
 										locale="ru-RU"
-										v-model="pickerDate"
+										v-model="searchObj.date"
 										:min="todayDate"
 										@input="onChangeSearchDate"
+										class="search-date"
 									/>
 								</v-menu>
 						</div>
@@ -419,7 +420,7 @@ export default {
 		},
 
 		onChangeSearchDate() {
-			this.searchObj.date = format(new Date(this.pickerDate), 'dd.MM.yyyy');
+			this.pickerDate = format(new Date(this.searchObj.date), 'dd.MM.yyyy');
 		},
 
 		showTourPhoto(imgUrl) {
@@ -923,6 +924,10 @@ export default {
 				}
 			}
 		}
-
+	}
+	.search-date {
+		.v-picker__title {
+			background: $green-main !important;
+		}
 	}
 </style>
