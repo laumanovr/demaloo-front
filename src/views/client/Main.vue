@@ -106,7 +106,7 @@
 					<div class="filter-item">
 						<span class="label">Категории</span>
 						<div class="check-boxes">
-							<label class="box" v-for="(item, i) in categories" :key="i" :for="item.id">
+							<label class="box" v-for="(item, i) in categories" :key="i" :for="item.id" ref="boxes">
 								<input :id="item.id" type="checkbox" @change="selectCategory($event, item)">
 								<span>{{item.ru}}</span>
 							</label>
@@ -364,6 +364,8 @@ export default {
 			} else {
 				let index = this.sortCategories.findIndex((i) => i.id === category.id);
 				this.sortCategories.splice(index, 1);
+				let box = this.$refs.boxes.find((i) => i.innerText === category.ru);
+				box.querySelector('input').checked = false;
 			}
 			this.sortCategories.forEach((category) => {
 				this.categoriesQuery += `&categories[]=${category.id}`;
