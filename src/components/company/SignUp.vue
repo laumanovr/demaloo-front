@@ -25,7 +25,7 @@
 					v-model="companyObj.name"
 				/>
 				<v-text-field
-					label="Название ОсОО"
+					label="Название Юр.лица"
 					class="no-border"
 					:rules="required"
 					v-model="companyObj.osoo"
