@@ -23,7 +23,7 @@
 							</span>
 						</div>
 						<div class="tour-detail__company-info flex align-center">
-							<img :src="showImage(tourDetail.company.logo)" class="company">
+							<img :src="showCompanyImage(tourDetail.company.logo)" class="company">
 							{{tourDetail.company.name}}
 							<div class="rating flex">
 								<img src="../../assets/icons/rating-icon.svg">
@@ -196,10 +196,10 @@
 			<div class="company-name"><span>Другие туры:</span><span>{{tourDetail.company.name}}</span></div>
 			<div class="tour-items">
 				<div class="tour-item" v-for="tour in otherTours" :key="tour._id" @click="openTourFromOther(tour._id)">
-					<div class="tour-img"><img :src="showImage(tour.images[0])" v-if="tour.images"></div>
+					<div class="tour-img"><img :src="showTourImage(tour.images[0])" v-if="tour.images"></div>
 					<div class="tour-name">{{tour.name.ru}}</div>
 					<div class="tour-detail__company-info flex align-center">
-						<img :src="showImage(tour.company.logo)" class="company">
+						<img :src="showCompanyImage(tour.company.logo)" class="company">
 						{{tour.company.name}}
 						<div class="rating flex">
 							<img src="../../assets/icons/rating-icon.svg">
@@ -233,7 +233,7 @@
 				<div class="reserve__tour-title">{{tourDetail.name.ru}}</div>
 				<div class="reserve__company-date flex align-center justify-space-between">
 					<div class="tour-detail__company-info flex align-center">
-						<img :src="showImage(tourDetail.company.logo)" class="company">
+						<img :src="showCompanyImage(tourDetail.company.logo)" class="company">
 						{{tourDetail.company.name}}
 						<div class="rating flex">
 							<img src="../../assets/icons/rating-icon.svg">
@@ -344,7 +344,7 @@
 <script>
 import {TourService} from '@/services/tour.service';
 import PreLoader from '@/components/general/PreLoader';
-import {API_BASE_URL} from '@/services/api.service';
+import {AWS_IMAGE_URL} from '@/services/api.service';
 import {format} from 'date-fns';
 import {ru} from 'date-fns/locale';
 
@@ -395,7 +395,7 @@ export default {
 				this.getOtherTours(this.tourDetail.company._id);
 				if (this.tourDetail.images) {
 					this.tourDetail.images.forEach((image) => {
-						this.slideImages.push(this.showImage(image));
+						this.slideImages.push(this.showTourImage(image));
 					});
 				}
 			} catch(err) {
@@ -421,8 +421,12 @@ export default {
 			}, 2);
 		},
 
-		showImage(imageLink) {
-			return `${API_BASE_URL}/images/` + imageLink;
+		showTourImage(imageLink) {
+			return `${AWS_IMAGE_URL}/images/` + imageLink + '?w=800';
+		},
+
+		showCompanyImage(imageLink) {
+			return `${AWS_IMAGE_URL}/logos/` + imageLink;
 		},
 
 		addSubtractQuantity(type) {
