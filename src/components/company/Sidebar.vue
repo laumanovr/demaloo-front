@@ -38,7 +38,7 @@
 
 <script>
 import Sidebars from '@/utils/sidebars';
-import {API_BASE_URL} from '@/services/api.service';
+import {AWS_IMAGE_URL} from '@/services/api.service';
 
 export default {
 	props: {
@@ -55,7 +55,7 @@ export default {
 			return this.$store.state.account.company;
 		},
 		profilePhoto() {
-			return this.userProfile.logo ? `${API_BASE_URL}/images/` + this.userProfile.logo : '';
+			return this.userProfile.logo ? `${AWS_IMAGE_URL}/logos/` + this.userProfile.logo : '';
 		}
 	},
 	created() {
