@@ -4,6 +4,8 @@ import respMessage from '../utils/respMessages';
 
 export const API_BASE_URL = `${process.env.VUE_APP_BASE_URL}api/v1`;
 
+export const AWS_IMAGE_URL = 'https://g64x0limh7.execute-api.eu-central-1.amazonaws.com/prod';
+
 export const sendGetRequest = (url) => sendRequest('GET', url);
 
 export const sendPostRequest = (url, data) => sendRequest('POST', url, data);
