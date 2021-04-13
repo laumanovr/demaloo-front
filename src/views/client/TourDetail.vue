@@ -907,7 +907,7 @@ export default {
 				padding: 12px 15px;
 				position: fixed;
 				top: auto;
-				bottom: 15px;
+				bottom: 0;
 				width: 100%;
 				align-items: center;
 				border-radius: 0;
