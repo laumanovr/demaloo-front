@@ -10,7 +10,7 @@ const hasRole = (to, next, role) => {
 		if (user && user.data.user.role.includes(role)) {
 			return next();
 		}
-		return next('/login');
+		return next('/');
 	}
 	return next();
 };
