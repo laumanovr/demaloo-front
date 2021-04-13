@@ -7,16 +7,6 @@ const loadComponent = (path) => () => import(`@/views/${path}.vue`);
 Vue.use(VueRouter);
 
 const routes = [
-	// CLIENT LOGIN AND REGISTRATION
-	// {
-	// 	path: '/login',
-	// 	name: 'login',
-	// 	component: loadComponent('login/ClientLogin'),
-	// 	meta: {
-	// 		requireAuth: false
-	// 	}
-	// },
-
 	// CLIENT SIDE
 	{
 		path: '/',
