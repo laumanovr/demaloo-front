@@ -473,10 +473,12 @@ export default {
 
 		toggleReserveModal() {
 			if (this.userLogged) {
-				this.$modal.toggle('reserve-modal');
-			} else {
-				this.$modal.show('login-modal');
+				if (this.userProfile.name) {
+					return this.$modal.toggle('reserve-modal');
+				}
+				return this.$router.push('/profile-manage');
 			}
+			this.$modal.show('login-modal');
 		},
 
 		toggleCompleteModal() {
