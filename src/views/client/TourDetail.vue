@@ -5,14 +5,23 @@
 			<div class="tour-content">
 				<div class="tour-detail__left">
 					<div class="tour-detail__image">
-						<transition-group name="fade">
-							<img v-for="i in [imgIndex]" :key="i" :src="slideImages[imgIndex]" class="main-img"/>
-						</transition-group>
+						<carousel
+							:perPage="1"
+							:navigationEnabled="true"
+							:paginationEnabled="false"
+							@page-change="changeImage"
+						>
+							<slide v-for="imageUrl in slideImages" :key="imageUrl">
+								<img class="main-img" :src="imageUrl">
+							</slide>
+						</carousel>
 						<div class="arrows">
-							<img src="../../assets/icons/circle-arrow-left.svg" @click="changeImage('prev')">
-							<img src="../../assets/icons/circle-arrow-right.svg" @click="changeImage('next')">
+							<img src="../../assets/icons/circle-arrow-left.svg">
+							<img src="../../assets/icons/circle-arrow-right.svg">
 						</div>
-						<div class="image-count">{{imgIndex + 1}}/{{tourDetail.images.length}}</div>
+						<div class="image-count" v-if="tourDetail.images">
+							{{imgIndex}}/{{tourDetail.images.length}}
+						</div>
 					</div>
 					<div class="tour-detail__info">
 						<div class="top-title flex align-center justify-space-between">
@@ -345,18 +354,21 @@
 import {TourService} from '@/services/tour.service';
 import PreLoader from '@/components/general/PreLoader';
 import {AWS_IMAGE_URL} from '@/services/api.service';
+import {Carousel, Slide} from 'vue-carousel';
 import {format} from 'date-fns';
 import {ru} from 'date-fns/locale';
 
 export default {
 	components: {
-		PreLoader
+		PreLoader,
+		Carousel,
+		Slide
 	},
 	data() {
 		return {
 			isLoading: false,
 			tourDetail: {},
-			imgIndex: 0,
+			imgIndex: 1,
 			otherTours: [],
 			totalPayPrice: 0,
 			payOrReserve: {
@@ -438,12 +450,8 @@ export default {
 			this.totalPayPrice = (this.tourDetail.price * this.payOrReserve.count);
 		},
 
-		changeImage(nav) {
-			if (nav === 'next' && this.imgIndex < (this.tourDetail.images.length - 1)) {
-				this.imgIndex += 1;
-			} else if (nav === 'prev' && this.imgIndex) {
-				this.imgIndex -= 1;
-			}
+		changeImage(slidePage) {
+			this.imgIndex = slidePage + 1;
 		},
 
 		showFreeCancelDate() {
@@ -512,7 +520,7 @@ export default {
 <style lang="scss">
 .tour-detail {
 	&__container {
-		padding: 50px 0 20px;
+		padding: 25px 0 20px;
 		max-width: 1200px;
 		margin: 0 auto;
 		@media #{$mob-view} {
@@ -674,15 +682,18 @@ export default {
 		border: 1px solid $gray-dark;
 		border-radius: 7px;
 		@media #{$mob-view} {
-			max-height: 280px;
+			height: auto;
 			padding: 0 20px;
 			border: 0;
 		}
 		img.main-img {
-			width: 100%;
-			height: 100%;
+			min-width: 100%;
+			height: 453px;
 			border-radius: 5px;
 			object-fit: cover;
+			@media #{$mob-view} {
+				height: 220px;
+			}
 		}
 		.arrows {
 			position: absolute;
@@ -697,12 +708,13 @@ export default {
 				cursor: pointer;
 			}
 			@media #{$mob-view} {
+				display: none;
 				padding: 0 25px;
 			}
 		}
 		.image-count {
 			position: absolute;
-			right: 15px;
+			left: 50%;
 			bottom: 15px;
 			color: #fff;
 			font-size: 14px;
@@ -710,7 +722,8 @@ export default {
 			border-radius: 5px;
 			padding: 3px 14px;
 			@media #{$mob-view} {
-				right: 30px;
+				bottom: 5px;
+				left: 48%;
 			}
 		}
 	}
@@ -882,7 +895,7 @@ export default {
 		}
 		.reserve-block {
 			position: sticky;
-			top: 5px;
+			top: 25px;
 			background: #fff;
 			padding: 22px 23px 25px;
 			color: $blue-darkest;
