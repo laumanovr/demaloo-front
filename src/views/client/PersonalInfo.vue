@@ -132,14 +132,12 @@ export default {
 			}
 		}
 	},
-	//	beforeRouteLeave(to, from, next) {
-	//		if (!this.userProfile.name) {
-	//			this.$modal.show('profile-info-modal');
-	//		}
-	//		if (!this.userLogged) {
-	//			next();
-	//		}
-	//	},
+	beforeRouteLeave(to, from, next) {
+		if (!this.userLogged || this.userProfile.name) {
+			return next();
+		}
+		this.$modal.show('profile-info-modal');
+	},
 	watch: {
 		onSuccess(msg) {
 			if (msg) {
