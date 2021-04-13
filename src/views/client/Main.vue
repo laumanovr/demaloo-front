@@ -756,7 +756,7 @@ export default {
 								width: 100%;
 								height: 100%;
 								object-fit: cover;
-								border-radius: 13px 0 0 13px;
+								border-radius: 7px 0 0 7px;
 							}
 							@media #{$mob-view} {
 								max-width: 336px;

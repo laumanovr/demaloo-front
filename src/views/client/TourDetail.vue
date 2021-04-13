@@ -679,7 +679,7 @@ export default {
 		height: 455px;
 		margin-bottom: 25px;
 		position: relative;
-		border: 1px solid $gray-dark;
+		border: 1px solid $gray-light;
 		border-radius: 7px;
 		@media #{$mob-view} {
 			height: auto;
@@ -689,7 +689,7 @@ export default {
 		img.main-img {
 			min-width: 100%;
 			height: 453px;
-			border-radius: 5px;
+			border-radius: 6px;
 			object-fit: cover;
 			@media #{$mob-view} {
 				height: 220px;
@@ -730,7 +730,7 @@ export default {
 	&__info {
 		background: #fff;
 		padding: 25px;
-		border-radius: 6px;
+		border-radius: 7px;
 	}
 	&__name {
 		font-weight: bold;
@@ -899,7 +899,7 @@ export default {
 			background: #fff;
 			padding: 22px 23px 25px;
 			color: $blue-darkest;
-			border-radius: 6px;
+			border-radius: 7px;
 			@media #{$mob-view} {
 				display: flex;
 				border-top: 1px solid $gray-dark;
