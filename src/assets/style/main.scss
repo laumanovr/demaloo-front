@@ -289,3 +289,28 @@ svg {
   width: 24px;
   height: 24px;
 }
+
+.VueCarousel-pagination {
+  position: absolute;
+  bottom: 0;
+  .VueCarousel-dot:focus {
+    outline: none !important;
+  }
+}
+.VueCarousel-navigation {
+  .VueCarousel-navigation-button {
+    z-index: 9999;
+    padding: 8px 12px !important;
+    color: transparent !important;
+    &:focus {
+      outline: none !important;
+    }
+    &.VueCarousel-navigation-next {
+      right: 53px;
+    }
+    &.VueCarousel-navigation-prev {
+      left: 53px;
+    }
+  }
+}
+
