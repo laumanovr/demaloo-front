@@ -1,5 +1,6 @@
 <template>
 	<div class="sidebar-container">
+		<PreLoader v-if="isLoading"/>
 		<div class="profile-data">
 			<div class="avatar">
 				<img :src="profilePhoto" v-if="profilePhoto"/>
@@ -39,14 +40,19 @@
 <script>
 import Sidebars from '@/utils/sidebars';
 import {AWS_IMAGE_URL} from '@/services/api.service';
+import PreLoader from '@/components/general/PreLoader';
 
 export default {
+	components: {
+		PreLoader
+	},
 	props: {
 		role: String,
 		hasNewNotify: Boolean
 	},
 	data() {
 		return {
+			isLoading: false,
 			sidebars: [],
 		};
 	},
@@ -63,6 +69,7 @@ export default {
 	},
 	methods: {
 		logOut() {
+			this.isLoading = true;
 			this.$store.dispatch('account/logout', true);
 		}
 	}
