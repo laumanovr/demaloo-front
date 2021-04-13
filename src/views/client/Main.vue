@@ -476,10 +476,12 @@ export default {
 				&__top {
 					font-weight: bold;
 					font-size: 48px;
+					font-family: $montserrat;
 				}
 				&__bottom {
 					font-weight: 500;
 					font-size: 22px;
+					font-family: $montserrat;
 				}
 			}
 		}
@@ -517,6 +519,8 @@ export default {
 						max-width: 220px;
 						height: 54px;
 						box-shadow: none;
+						font-size: 16px;
+						font-weight: bold;
 					}
 					@media #{$mob-view} {
 						display: block;
