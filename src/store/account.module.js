@@ -38,9 +38,9 @@ const actions = {
 		try {
 			const res = await UserService.loginClient(data);
 			dispatch('setInitialUser', res);
+			commit('setSuccess', 'success');
 			if (res.data.user.name) {
 				router.push('/');
-				commit('setSuccess', 'success');
 			} else {
 				router.push('/profile-manage');
 			}
