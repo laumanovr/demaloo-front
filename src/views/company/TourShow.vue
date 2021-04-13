@@ -47,6 +47,14 @@
 						/>
 					</div>
 					<div>
+						<label>Кол-во мест</label>
+						<v-text-field
+							v-model.number="selectedTour.peopleCount"
+							:rules="requiredRule"
+							solo
+						/>
+					</div>
+					<div>
 						<label>Гид:</label>
 						<v-select
 							:items="teamGuides"
