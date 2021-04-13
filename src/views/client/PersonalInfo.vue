@@ -100,6 +100,9 @@ export default {
 		...mapState('account', ['onSuccess', 'onError']),
 		userProfile() {
 			return this.$store.state.account.customer;
+		},
+		userLogged() {
+			return Object.values(this.userProfile).length > 0;
 		}
 	},
 	created() {
@@ -129,12 +132,14 @@ export default {
 			}
 		}
 	},
-	//	beforeRouteLeave(to, from, next) {
-	//		if (to.name === 'login' || this.userProfile.name) {
-	//			return next();
-	//		}
-	//		this.$modal.show('profile-info-modal');
-	//	},
+//	beforeRouteLeave(to, from, next) {
+//		if (!this.userProfile.name) {
+//			this.$modal.show('profile-info-modal');
+//		}
+//		if (!this.userLogged) {
+//			next();
+//		}
+//	},
 	watch: {
 		onSuccess(msg) {
 			if (msg) {
