@@ -11,7 +11,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-container">
+		<div class="form-container" v-if="showContent">
 			<ClientSignIn
 				v-if="loginType == 'login'"
 				@loading="showLoader"
@@ -51,8 +51,18 @@ export default {
 	data() {
 		return {
 			loginType: 'login',
-			isLoading: false
+			isLoading: false,
+			showContent: false
 		};
+	},
+	created() {
+		this.isLoading = true;
+		this.$nextTick(() => {
+			setTimeout(() => {
+				this.showContent = true;
+				this.isLoading = false;
+			});
+		});
 	},
 	methods: {
 		showLoader(bool) {
