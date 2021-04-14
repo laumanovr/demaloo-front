@@ -61,7 +61,7 @@ export default {
 			if (this.$refs.signInForm.validate()) {
 				this.$emit('loading', true);
 				this.loginObj.phoneNumber = `+996${this.phoneValue}`;
-				this.$store.dispatch('account/clientLogin', this.loginObj);
+				this.$store.dispatch('account/clientLogin', {loginObj: this.loginObj, url: this.$route.path});
 			}
 		}
 	},
