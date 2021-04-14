@@ -5,6 +5,7 @@
 		<Footer/>
 		<!--LOGIN MODAL-->
 		<modal
+			transition="vm-transition--overlay-enter-active"
 			name="login-modal"
 			class="bor-radius"
 			:width="isMobileWindow ? '100%' : '1020px'"
