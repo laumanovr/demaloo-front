@@ -426,7 +426,7 @@ export default {
 		},
 
 		showTourPhoto(imgUrl) {
-			return `${AWS_IMAGE_URL}/images/` + imgUrl + '?w=273';
+			return `${AWS_IMAGE_URL}/images/` + imgUrl + '?w=273&q=100';
 		},
 
 		showCompanyPhoto(imgUrl) {
@@ -785,6 +785,7 @@ export default {
 							overflow-x: hidden;
 							text-overflow: ellipsis;
 							max-width: 460px;
+							font-family: $montserrat;
 							@media #{$mob-view} {
 								max-width: 304px;
 								font-size: 16px;
@@ -878,6 +879,7 @@ export default {
 							font-size: 24px;
 							display: block;
 							text-align: right;
+							font-family: $montserrat;
 							@media #{$mob-view} {
 								font-size: 18px;
 							}

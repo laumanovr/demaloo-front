@@ -606,6 +606,7 @@ export default {
 				margin: 0 0 20px 26px;
 				padding-top: 18px;
 				span {
+					font-family: $montserrat;
 					&:first-child {
 						font-weight: bold;
 						font-size: 18px;
@@ -643,6 +644,7 @@ export default {
 						}
 					}
 					.tour-name {
+						font-family: $montserrat;
 						font-weight: bold;
 						font-size: 16px;
 						margin-top: 5px;
@@ -662,6 +664,7 @@ export default {
 							font-size: 16px;
 						}
 						.price {
+							font-family: $montserrat;
 							font-weight: bold;
 							font-size: 18px;
 						}
@@ -735,6 +738,7 @@ export default {
 		border-radius: 7px;
 	}
 	&__name {
+		font-family: $montserrat;
 		font-weight: bold;
 		font-size: 20px;
 		color: #00113C;
@@ -800,6 +804,7 @@ export default {
 		}
 		.block-title {
 			span {
+				font-family: $montserrat;
 				font-weight: bold;
 				font-size: 18px;
 				color: #153243;
@@ -848,6 +853,9 @@ export default {
 					&:last-child {
 						width: 30%;
 						text-align: center;
+					}
+					@media #{$mob-view} {
+						font-size: 14px;
 					}
 				}
 			}
@@ -904,8 +912,8 @@ export default {
 			border-radius: 7px;
 			@media #{$mob-view} {
 				display: flex;
-				border-top: 1px solid $gray-dark;
-				border-bottom: 1px solid $gray-dark;
+				border-top: 1px solid $gray-light;
+				border-bottom: 1px solid $gray-light;
 				padding: 12px 15px;
 				position: fixed;
 				top: auto;
@@ -949,6 +957,9 @@ export default {
 				border-top: 1px solid $gray-light;
 				margin-bottom: 20px;
 				padding-top: 13px;
+				span {
+					font-family: $montserrat;
+				}
 			}
 			.btn {
 				height: 53px;
