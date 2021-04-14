@@ -1,18 +1,17 @@
 <template>
-	<!--<div class="client-sign-up-in-container">-->
-		<!--<PreLoader v-if="isLoading"/>-->
-		<!--<div class="login-image web">-->
-			<!--<img src="../../assets/images/welcome.png" class="welcome">-->
-			<!--<div class="logo-text">-->
-				<!--<img src="../../assets/images/big-logo.svg">-->
-				<!--<div class="title">-->
-					<!--<img src="../../assets/images/demaloo-text.png">-->
-					<!--<span>Отдых без забот</span>-->
-				<!--</div>-->
-			<!--</div>-->
-		<!--</div>-->
+	<div class="client-sign-up-in-container">
+		<PreLoader v-if="isLoading"/>
+		<div class="login-image web">
+			<img src="../../assets/images/welcome.png" class="welcome">
+			<div class="logo-text">
+				<img src="../../assets/images/big-logo.svg">
+				<div class="title">
+					<img src="../../assets/images/demaloo-text.png">
+					<span>Отдых без забот</span>
+				</div>
+			</div>
+		</div>
 		<div class="form-container">
-			<PreLoader v-if="isLoading"/>
 			<ClientSignIn
 				v-if="loginType == 'login'"
 				@loading="showLoader"
@@ -35,7 +34,7 @@
 				By login into account, I agree to the Demaloo Terms of Use, Privacy Policy, and Demaloo Rewards Terms and Conditions.
 			</div>
 		</div>
-	<!--</div>-->
+	</div>
 </template>
 
 <script>
