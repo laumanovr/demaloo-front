@@ -55,13 +55,13 @@ export default {
 			showContent: false
 		};
 	},
-	created() {
+	beforeCreate() {
 		this.isLoading = true;
 		this.$nextTick(() => {
 			setTimeout(() => {
 				this.showContent = true;
 				this.isLoading = false;
-			});
+			}, 100);
 		});
 	},
 	methods: {
