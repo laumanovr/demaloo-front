@@ -36,11 +36,14 @@ const actions = {
 
 	async clientLogin({commit, dispatch}, data) {
 		try {
-			const res = await UserService.loginClient(data);
+			const res = await UserService.loginClient(data.loginObj);
 			dispatch('setInitialUser', res);
 			commit('setSuccess', 'success');
 			if (res.data.user.name) {
-				router.push('/');
+				this.$router.push('/0#');
+				setTimeout(() => {
+					router.push(data.url);
+				}, 5);
 			} else {
 				router.push('/profile-manage');
 			}
