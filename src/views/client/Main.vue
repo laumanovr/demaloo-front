@@ -472,6 +472,7 @@ export default {
 				width: 100%;
 				&__block {
 					text-align: center;
+					transform: translateY(-20px);
 				}
 				&__top {
 					font-weight: bold;
