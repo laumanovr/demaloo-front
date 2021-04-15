@@ -1,16 +1,35 @@
-.main-sign-up-in-container {
+.company-sign-up-in-container {
   display: flex;
-  align-items: center;
   background: #fff;
-  min-height: 100vh;
   position: relative;
   .login-image {
-    width: 55%;
-    height: 100%;
-    img {
-      width: 100%;
+    position: relative;
+    .welcome {
       height: 100%;
-      object-fit: cover;
+      &.sign-in {
+        height: auto;
+      }
+    }
+    .logo-text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba($blue-darkest, 0.3);
+      .title {
+        display: inline-block;
+        margin: 28px 0 0 20px;
+        span {
+          display: block;
+          font-size: 14px;
+          color: #fff;
+          text-align: right;
+        }
+      }
     }
   }
   .sign-up-in-text {
@@ -18,7 +37,7 @@
     color: $gray-dark;
   }
   .form-container {
-    width: 45%;
+    min-width: 50%;
     background: #fff;
   }
   .form-link {
