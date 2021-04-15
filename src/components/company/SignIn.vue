@@ -1,14 +1,7 @@
 <template>
 	<div class="company-sign-up-in">
-		<!--<div class="back-route">-->
-			<!--<img src="../../assets/icons/left-arrow.svg" @click="$router.push('/')"/>Назад-->
-		<!--</div>-->
 		<h3 class="head-title">Добро пожаловать!</h3>
 		<span class="sign-up-in-text">Быстрый, легкий и максимально удобный поиск туров!</span>
-		<!--<div class="sign-in-up-type">-->
-			<!--<span class="change" @click="$emit('changeType', 'client')">Турист</span>-->
-			<!--<span class="selected">Тур-оператор</span>-->
-		<!--</div>-->
 		<v-form ref="signInForm">
 			<v-text-field
 				class="no-border"
@@ -26,7 +19,7 @@
 				type="password"
 				:readonly="isDisabled"
 			/>
-			<button class="btn purple next" @click.prevent="submitLogin">
+			<button class="btn green-main next" @click.prevent="submitLogin">
 				Войти
 			</button>
 		</v-form>
@@ -57,6 +50,9 @@ export default {
 	},
 	computed: {
 		...mapState('account', ['onError'])
+	},
+	mounted() {
+		window.scrollTo(0, 0);
 	},
 	methods: {
 		submitLogin() {

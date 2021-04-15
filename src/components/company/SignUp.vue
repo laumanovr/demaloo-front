@@ -5,10 +5,6 @@
 			<template v-else>Регистрация</template>
 		</h3>
 		<span class="sign-up-in-text">Быстрый, легкий и максимально удобный поиск туров!</span>
-		<!--<div class="sign-in-up-type" v-if="formStep == 'one'">-->
-			<!--<span class="change" @click="$emit('changeType', 'client')">Турист</span>-->
-			<!--<span class="selected">Тур-оператор</span>-->
-		<!--</div>-->
 		<v-form ref="signUpForm">
 			<template v-if="formStep == 'one'">
 				<v-text-field
@@ -56,6 +52,8 @@
 					type="password"
 					:rules="required"
 					v-model="companyObj.password"
+					:readonly="isReadOnly"
+					@focus="isReadOnly=false"
 				/>
 				<v-text-field
 					label="Повторите пароль"
@@ -63,8 +61,9 @@
 					type="password"
 					:rules="required"
 					v-model="repeatPass"
+					:readonly="isReadOnly"
 				/>
-				<button class="btn purple next" @click.prevent="submitRegister">
+				<button class="btn green-main next" @click.prevent="submitRegister">
 					Регистрация
 				</button>
 			</template>
@@ -119,7 +118,11 @@ export default {
 				city: '',
 				address: '',
 			},
+			isReadOnly: true
 		};
+	},
+	mounted() {
+		window.scrollTo(0, 0);
 	},
 	methods: {
 		async submitRegister() {
