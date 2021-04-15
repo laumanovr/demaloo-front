@@ -105,7 +105,7 @@
                     />
                 </div>
                 <div class="form-field">
-                    <span class="label">Дистанция тура на машине:</span>
+                    <span class="label">Дистанция тура на машине(км):</span>
                     <v-text-field
                         v-model.number="tourObj.distance.transportDistance"
                         :rules="numberRule"
@@ -115,7 +115,7 @@
                     />
                 </div>
                 <div class="form-field">
-                    <span class="label">Дистанция тура пешком:</span>
+                    <span class="label">Дистанция тура пешком(км):</span>
                     <v-text-field
                         v-model.number="tourObj.distance.walkDistance"
                         :rules="numberRule"
