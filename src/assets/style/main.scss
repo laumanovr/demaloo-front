@@ -47,7 +47,6 @@ input {
   height: 36px;
   font-size: 14px;
   font-weight: 700;
-  box-shadow: $btn-box-shadow;
   text-transform: uppercase;
   a {
     color: #fff;
@@ -93,6 +92,12 @@ input {
   &.green-main {
     background: $green-main;
     box-shadow: none;
+  }
+  &.white-color-red {
+    background: #fff;
+    border: 1px solid $red-primary;
+    color: $red-primary;
+    font-weight: 500;
   }
 }
 
