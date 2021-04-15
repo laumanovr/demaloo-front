@@ -35,11 +35,6 @@ export class TourService {
 		return sendGetRequest(url);
 	}
 
-	static addImagesForTour(tourId, formData) {
-		const url = `${API_BASE_URL}/companies/tours/${tourId}/uploadImages`;
-		return sendPatchRequest(url, formData);
-	}
-
 	static addManualBooking(tourId, body) {
 		const url = `${API_BASE_URL}/companies/tours/${tourId}/bookings`;
 		return sendPostRequest(url, body);
@@ -53,6 +48,11 @@ export class TourService {
 	static deleteManualBooking(bookingId) {
 		const url = `${API_BASE_URL}/companies/bookings/${bookingId}`;
 		return sendDeleteRequest(url);
+	}
+
+	static cancelTour(tourId, data) {
+		const url = `${API_BASE_URL}/companies/tours/${tourId}/cancel`;
+		return sendPatchRequest(url, data);
 	}
 	// --------------COMPANY TOURS END------------------------------------------
 	// -----------------CLIENT TOURS START--------------------------------------
