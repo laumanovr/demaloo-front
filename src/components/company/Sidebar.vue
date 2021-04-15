@@ -131,12 +131,12 @@ export default {
 	}
 	.sign-out {
 		position: fixed;
-		bottom: 16px;
+		bottom: 0;
 		width: 225px;
 		display: flex;
 		justify-content: center;
 		border-top: 1px solid $gray-dark;
-		padding-top: 12px;
+		padding: 12px 0;
 		font-weight: 500;
 		font-size: 16px;
 		cursor: pointer;
