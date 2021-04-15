@@ -4,11 +4,21 @@
 		<div class="info-block" v-if="selectedTourIsExist">
 			<div class="title-block">
 				<span class="head-title">{{ selectedTour.name.ru }}</span>
-				<button class="btn white-color-blue">
-					<router-link :to="{name: 'tourDetail', params: {tourId: selectedTour._id}}" target="_blank">
-						Просмотреть
-					</router-link>
-				</button>
+				<div class="actions">
+					<button
+						class="btn white-color-red"
+						:class="{'cancelled': selectedTour.cancelled}"
+						@click="cancelTour(true)"
+						:disabled="selectedTour.cancelled"
+					>
+						{{selectedTour.cancelled ? 'Отменен' : 'Отменить'}}
+					</button>
+					<button class="btn white-color-blue">
+						<router-link :to="{name: 'tourDetail', params: {tourId: selectedTour._id}}" target="_blank">
+							Просмотреть
+						</router-link>
+					</button>
+				</div>
 			</div>
 			<div class="tour-info">
 				<div class="info-fields left">
@@ -275,6 +285,24 @@
 				</div>
 			</div>
 		</modal>
+
+		<!--CANCEL TOUR MODAL-->
+		<modal name="cancel-tour-modal" height="250px">
+			<CloseIcon class="top-right" @click="$modal.hide('cancel-tour-modal')"/>
+			<div class="modal-container">
+				<h3>Отменить тур?</h3>
+				<v-form ref="cancelForm">
+					<v-text-field
+						label="Причина"
+						v-model="cancelReason.reason"
+						:rules="requiredRule"
+					/>
+				</v-form>
+				<div class="single-center">
+					<button class="btn red-primary" @click="cancelTour(false)">Отменить</button>
+				</div>
+			</div>
+		</modal>
 	</div>
 </template>
 
@@ -287,6 +315,7 @@ import MaskedInput from 'vue-masked-input';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import EditIcon from '@/components/icons/EditIcon';
 import ExcelExport from '@/components/general/ExcelJs';
+import CloseIcon from '@/components/icons/CloseIcon';
 
 export default {
 	components: {
@@ -295,7 +324,8 @@ export default {
 		PreLoader,
 		EditIcon,
 		DeleteIcon,
-		ExcelExport
+		ExcelExport,
+		CloseIcon
 	},
 	data() {
 		return {
@@ -339,7 +369,8 @@ export default {
 			restPlaceCount: 0,
 			excelHeaders: [],
 			excelRows: [],
-			excelName: 'Список бронирований клиентов'
+			excelName: 'Список бронирований клиентов',
+			cancelReason: {reason: ''}
 		};
 	},
 	computed: {
@@ -492,6 +523,26 @@ export default {
 			this.$nextTick(() => {
 				this.$refs.excel.exportExcel();
 			});
+		},
+
+		async cancelTour(isConfirm) {
+			if (isConfirm) {
+				this.cancelReason.reason = '';
+				this.$modal.show('cancel-tour-modal');
+				return;
+			}
+			if (this.$refs.cancelForm.validate()) {
+				try {
+					this.isLoading = true;
+					await TourService.cancelTour(this.selectedTour._id, this.cancelReason);
+					this.$modal.hide('cancel-tour-modal');
+					this.$toast.success('Успешно отменено!');
+					this.isLoading = false;
+				} catch (err) {
+					this.$toast.error(err);
+					this.isLoading = false;
+				}
+			}
 		}
 	},
 };
@@ -510,8 +561,24 @@ export default {
 			justify-content: space-between;
 			padding-bottom: 16px;
 			border-bottom: 1px solid $gray-light;
-			.btn {
-				max-width: 214px;
+			.head-title {
+				max-width: 55%;
+			}
+			.actions {
+				display: flex;
+				justify-content: flex-end;
+				width: 435px;
+				.btn {
+					max-width: 210px;
+					&:first-child {
+						margin-right: 12px;
+					}
+					&.cancelled {
+						opacity: 0.6;
+						color: $gray-dark;
+						border-color: $gray-dark;
+					}
+				}
 			}
 		}
 		.tour-info {
