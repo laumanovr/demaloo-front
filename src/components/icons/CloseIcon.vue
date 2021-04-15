@@ -11,6 +11,11 @@
         width: 26px;
         min-width: 26px;
         height: 26px;
+        &.top-right {
+            position: absolute;
+            top: 3px;
+            right: 5px;
+        }
         img {
             border-radius: 5px;
             padding: 3px;
