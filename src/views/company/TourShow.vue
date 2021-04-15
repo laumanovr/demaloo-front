@@ -128,7 +128,7 @@
 		</div>
 
 		<div class="actions-block">
-			<button class="btn white" @click="toggleAddClientModal">+ Добавить человека</button>
+			<button class="btn white-btn" @click="toggleAddClientModal">+ Добавить человека</button>
 			<div class="other">
 				<ExcelExport :headers="excelHeaders" :rows="excelRows" :fileName="excelName" ref="excel">
 					<template v-slot:excel>
@@ -537,7 +537,7 @@ export default {
 					await TourService.cancelTour(this.selectedTour._id, this.cancelReason);
 					this.$modal.hide('cancel-tour-modal');
 					this.$toast.success('Успешно отменено!');
-					this.isLoading = false;
+					this.showSelectedTour(this.$route.params.tourId);
 				} catch (err) {
 					this.$toast.error(err);
 					this.isLoading = false;

@@ -241,7 +241,7 @@
                                 v-if="tourObj.includedInCost.length > 1"
                             />
                         </div>
-                        <button class="btn white" @click.prevent="addIncludeItem">
+                        <button class="btn white-btn" @click.prevent="addIncludeItem">
                             + Добавить
                         </button>
                     </div>
@@ -262,7 +262,7 @@
                                 v-if="tourObj.notIncludedInCost.length > 1"
                             />
                         </div>
-                        <button class="btn white" @click.prevent="addExcludeItem">
+                        <button class="btn white-btn" @click.prevent="addExcludeItem">
                             + Добавить
                         </button>
                     </div>
@@ -282,7 +282,7 @@
                                 v-if="tourObj.additional.length > 1"
                             />
                         </div>
-                        <button class="btn white" @click.prevent="addAdditionalItem">
+                        <button class="btn white-btn" @click.prevent="addAdditionalItem">
                             + Добавить
                         </button>
                     </div>
