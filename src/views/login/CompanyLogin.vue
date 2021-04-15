@@ -1,9 +1,16 @@
 <template>
-	<div class="main-sign-up-in-container">
+	<div class="company-sign-up-in-container">
 		<PreLoader v-if="isLoading"/>
 		<div class="login-image">
 			<router-link to="/">
-				<img src="../../assets/images/welcome.png">
+				<img src="../../assets/images/welcome.png" class="welcome" :class="{'sign-in': loginType == 'login'}">
+				<div class="logo-text">
+					<img src="../../assets/images/big-logo.svg">
+					<div class="title">
+						<img src="../../assets/images/demaloo-text.png">
+						<span>Отдых без забот</span>
+					</div>
+				</div>
 			</router-link>
 		</div>
 		<div class="form-container">
