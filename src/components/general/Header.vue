@@ -16,8 +16,7 @@
 				<template v-if="userLogged">
 					<div class="profile" @click="$router.push('/profile-manage')">
 						<span class="name web">{{userProfile.name}}</span>
-						<img :src="profilePhoto" v-if="profilePhoto">
-						<img src="../../assets/icons/profile.svg" v-else>
+						<img :src="profilePhoto" @error="$event.target.src = require('@/assets/icons/profile-tab.svg')">
 					</div>
 				</template>
 				<template v-else>
@@ -32,7 +31,7 @@
 </template>
 
 <script>
-import {API_BASE_URL} from '@/services/api.service';
+import {AWS_IMAGE_URL} from '@/services/api.service';
 import {CustomEventEmitter} from '@/utils/customEventEmitter';
 
 export default {
@@ -49,7 +48,7 @@ export default {
 			return Object.values(this.userProfile).length > 0;
 		},
 		profilePhoto() {
-			return this.userProfile.photo ? `${API_BASE_URL}/images/` + this.userProfile.photo : '';
+			return `${AWS_IMAGE_URL}/photos/` + this.userProfile.photo;
 		}
 	},
 	methods: {
