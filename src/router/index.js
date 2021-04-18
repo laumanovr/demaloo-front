@@ -37,16 +37,16 @@ const routes = [
 				children: [
 					{
 						path: '',
-						name: 'personalInfo',
-						component: loadComponent('client/PersonalInfo'),
+						name: 'myTours',
+						component: loadComponent('client/MyTours'),
 						meta: {
 							requireAuth: true
 						}
 					},
 					{
-						path: 'my-tours',
-						name: 'myTours',
-						component: loadComponent('client/MyTours'),
+						path: 'info',
+						name: 'personalInfo',
+						component: loadComponent('client/PersonalInfo'),
 						meta: {
 							requireAuth: true
 						}
