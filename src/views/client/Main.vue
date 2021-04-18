@@ -426,7 +426,7 @@ export default {
 		},
 
 		showTourPhoto(imgUrl) {
-			return `${AWS_IMAGE_URL}/images/` + imgUrl + '?w=273&q=100';
+			return `${AWS_IMAGE_URL}/images/` + imgUrl + '?w=300&q=100';
 		},
 
 		showCompanyPhoto(imgUrl) {
