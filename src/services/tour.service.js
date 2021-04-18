@@ -78,7 +78,7 @@ export class TourService {
 	}
 
 	static fetchMyTourBookings(queryParams) {
-		const url = `${API_BASE_URL}/customers/bookings?${queryParams}`;
+		const url = `${API_BASE_URL}/customers/bookings?limit=100${queryParams}`;
 		return sendGetRequest(url);
 	}
 
