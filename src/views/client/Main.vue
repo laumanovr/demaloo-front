@@ -773,7 +773,7 @@ export default {
 						}
 						&__info {
 							width: 100%;
-							padding: 18px 25px 25px;
+							padding: 18px 25px 5px;
 							color: $blue-darkest;
 							@media #{$mob-view} {
 								padding: 16px;
