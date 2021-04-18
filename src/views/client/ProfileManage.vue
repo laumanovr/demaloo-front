@@ -20,12 +20,13 @@ export default {
 .client-profile-manage {
 	display: flex;
 	width: 100%;
-	max-width: 1366px;
+	max-width: 1200px;
 	margin: 0 auto;
 	min-height: 70vh;
 	background: #fff;
 	&__content {
-		padding: 30px 20px 70px 40px;
+		width: 100%;
+		padding: 52px 0 70px 25px;
 	}
 }
 </style>

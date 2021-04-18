@@ -46,7 +46,7 @@
 				/>
 			</div>
 			<div class="single-center">
-				<button class="btn green-primary" @click.prevent="submitProfileInfo">Сохранить</button>
+				<button class="btn green-main" @click.prevent="submitProfileInfo">Сохранить</button>
 			</div>
 		</v-form>
 
