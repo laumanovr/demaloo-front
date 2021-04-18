@@ -174,8 +174,8 @@ export default {
 				display: flex;
 				align-items: center;
 				.image {
-					width: 80px;
-					height: 80px;
+					width: 85px;
+					height: 85px;
 					display: flex;
 					align-items: center;
 					margin-right: 25px;
@@ -184,6 +184,7 @@ export default {
 						height: 100%;
 						object-fit: cover;
 						margin-right: 10px;
+						border-radius: 35px;
 					}
 				}
 				label {
