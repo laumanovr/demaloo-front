@@ -104,8 +104,7 @@
 											<img src="../../assets/icons/not-include-icon.svg">
 											<span>Взять с собой</span>
 										</div>
-										<div class="block-item" v-for="(item, i) in tourDetail.notIncludedInCost"
-											 :key="i">
+										<div class="block-item" v-for="(item, i) in tourDetail.notIncludedInCost" :key="i">
 											<span class="dot"></span>
 											<span class="item-title">{{item.ru}}</span>
 										</div>
@@ -186,8 +185,7 @@
 									<span>Человек:</span>
 								</div>
 								<div class="value flex align-center">
-									<img src="../../assets/icons/circle-minus.svg"
-										 @click="addSubtractQuantity('minus')">
+									<img src="../../assets/icons/circle-minus.svg" @click="addSubtractQuantity('minus')">
 									<span>{{payOrReserve.count}}</span>
 									<img src="../../assets/icons/circle-plus.svg" @click="addSubtractQuantity('add')">
 								</div>
@@ -208,8 +206,7 @@
 			<div class="other-tours web" v-if="hasTour && otherTours.length">
 				<div class="company-name"><span>Другие туры:</span><span>{{tourDetail.company.name}}</span></div>
 				<div class="tour-items">
-					<div class="tour-item" v-for="tour in otherTours" :key="tour._id"
-						 @click="openTourFromOther(tour._id)">
+					<div class="tour-item" v-for="tour in otherTours" :key="tour._id" @click="openTourFromOther(tour._id)">
 						<div class="tour-img"><img :src="showTourImage(tour.images[0])" v-if="tour.images"></div>
 						<div class="tour-name">{{tour.name.ru}}</div>
 						<div class="tour-detail__company-info flex align-center">

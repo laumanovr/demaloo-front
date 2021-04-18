@@ -491,13 +491,13 @@ export default {
 		onSelectRegion(region) {
 			this.tourObj.locations[0].country = region.country;
 			this.tourObj.locations[0].region = region.code;
-        },
+		},
 
 		showRegionTitle(region) {
 			if (region && region.name) {
 				return region.name.ru;
 			}
-        },
+		},
 
 		addNewTourPlace() {
 			this.isAddTourPlace = true;
