@@ -204,14 +204,14 @@
 			</template>
 
 			<div class="other-tours web" v-if="hasTour && otherTours.length">
-				<div class="company-name"><span>Другие туры:</span><span>{{tourDetail.company.name}}</span></div>
+				<div class="current-company-name"><span>Другие туры:</span><span>{{tourDetail.company.name}}</span></div>
 				<div class="tour-items">
 					<div class="tour-item" v-for="tour in otherTours" :key="tour._id" @click="openTourFromOther(tour._id)">
 						<div class="tour-img"><img :src="showTourImage(tour.images[0])" v-if="tour.images"></div>
 						<div class="tour-name">{{tour.name.ru}}</div>
 						<div class="tour-detail__company-info flex align-center">
 							<img :src="showCompanyImage(tour.company.logo)" class="company">
-							{{tour.company.name}}
+							<span class="company-name">{{tour.company.name}}</span>
 							<div class="rating flex">
 								<img src="../../assets/icons/rating-icon.svg">
 								<span>{{tour.company.rating}} ({{tour.company.reviewCount}})</span>
@@ -608,7 +608,7 @@ export default {
 			background: #fff;
 			margin-top: 25px;
 			border-radius: 7px;
-			.company-name {
+			.current-company-name {
 				margin: 0 0 20px 26px;
 				padding-top: 18px;
 				span {
@@ -763,6 +763,12 @@ export default {
 		font-size: 14px;
 		color: $blue-darkest;
 		margin: 10px 0;
+		.company-name {
+			max-width: 65%;
+			white-space: nowrap;
+			overflow-x: hidden;
+			text-overflow: ellipsis;
+		}
 		img.company {
 			width: 24px;
 			height: 24px;
