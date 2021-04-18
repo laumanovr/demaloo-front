@@ -4,11 +4,10 @@
 		<div class="head-title">Обновить профиль</div>
 		<v-form ref="profileForm">
 			<div class="profile-avatar">
-				<div class="image" v-if="avatarUrl">
-					<img :src="avatarUrl">
-					<CloseIcon/>
+				<div class="image">
+					<img :src="avatarUrl" @error="$event.target.src = require('@/assets/icons/profile-tab.svg')">
 				</div>
-				<label for="ava" v-else>Загрузить фото</label>
+				<label for="ava">Изменить фото</label>
 				<input type="file" id="ava" @change="selectPhoto">
 			</div>
 			<v-text-field
@@ -65,15 +64,14 @@
 <script>
 import MaskedInput from 'vue-masked-input';
 import PreLoader from '@/components/general/PreLoader';
-import CloseIcon from '@/components/icons/CloseIcon';
 import {mapState} from 'vuex';
 import {format, parse} from 'date-fns';
-import {API_BASE_URL} from '@/services/api.service';
+import {ImageService} from '@/services/image.service';
+import {AWS_IMAGE_URL} from '@/services/api.service';
 
 export default {
 	components: {
 		MaskedInput,
-		CloseIcon,
 		PreLoader
 	},
 	data() {
@@ -108,18 +106,27 @@ export default {
 	created() {
 		this.profileObj = JSON.parse(JSON.stringify(this.userProfile));
 		this.profileDob = this.profileObj.birthdate ? format(new Date(this.profileObj.birthdate), 'dd.MM.yyyy') : '';
-		this.avatarUrl = this.profileObj.photo ? `${API_BASE_URL}/images/` + this.profileObj.photo : '';
+		this.avatarUrl =  `${AWS_IMAGE_URL}/photos/` + this.profileObj.photo;
 	},
 	methods: {
-		selectPhoto(e) {
+		async selectPhoto(e) {
 			const formats = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg', 'image/svg+xml'];
 			const file = e.target.files[0];
 			if (!formats.includes(file.type)) {
 				this.$toast.error('Ошибка! Файл не похож на картинку!');
 				return;
 			}
-			this.avatarUrl = URL.createObjectURL(file);
-			this.profileObj.photo = file;
+			try {
+				this.isLoading = true;
+				const res = await ImageService.generateSaveUrl({folder: 'photos', fileType: file.type.slice(6)});
+				await ImageService.saveImage(res.data.url, file);
+				this.profileObj.photo = res.data.fileName;
+				this.avatarUrl = URL.createObjectURL(file);
+				this.isLoading = false;
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
 		},
 
 		submitProfileInfo() {
@@ -159,15 +166,19 @@ export default {
 
 <style lang="scss">
 	.personal-info {
+		max-width: 60%;
 		.v-form {
 			min-width: 500px;
 			.profile-avatar {
 				margin: 20px 0;
+				display: flex;
+				align-items: center;
 				.image {
 					width: 80px;
 					height: 80px;
 					display: flex;
 					align-items: center;
+					margin-right: 25px;
 					img {
 						width: 100%;
 						height: 100%;
@@ -176,13 +187,11 @@ export default {
 					}
 				}
 				label {
-					background: #fff;
-					color: $blue-primary;
-					border: 1px solid $gray-light;
-					border-radius: 4px;
+					font-weight: 600;
+					font-size: 14px;
+					color: $blue-darkest;
+					text-decoration: underline;
 					cursor: pointer;
-					padding: 10px 26px;
-					display: inline-block;
 				}
 				input {
 					display: none;
@@ -190,6 +199,9 @@ export default {
 			}
 			.single-center {
 				margin: 50px 0 5px;
+				.btn {
+					height: 53px;
+				}
 			}
 		}
 	}
