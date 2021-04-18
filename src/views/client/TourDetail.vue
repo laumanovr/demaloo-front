@@ -1,36 +1,251 @@
 <template>
-	<div class="tour-detail__container">
-		<PreLoader v-if="isLoading"/>
-		<template v-if="hasTour">
-			<div class="tour-content">
-				<div class="tour-detail__left">
-					<div class="tour-detail__image">
-						<carousel
-							:perPage="1"
-							:navigationEnabled="true"
-							:paginationEnabled="false"
-							@page-change="changeImage"
-						>
-							<slide v-for="imageUrl in slideImages" :key="imageUrl">
-								<img class="main-img" :src="imageUrl">
-							</slide>
-						</carousel>
-						<div class="arrows">
-							<img src="../../assets/icons/circle-arrow-left.svg">
-							<img src="../../assets/icons/circle-arrow-right.svg">
+	<div class="show-tour-container">
+		<div class="tour-detail__container">
+			<PreLoader v-if="isLoading"/>
+			<template v-if="hasTour">
+				<div class="tour-content">
+					<div class="tour-detail__left">
+						<div class="tour-detail__image">
+							<carousel
+								:perPage="1"
+								:navigationEnabled="true"
+								:paginationEnabled="false"
+								@page-change="changeImage"
+							>
+								<slide v-for="imageUrl in slideImages" :key="imageUrl">
+									<img class="main-img" :src="imageUrl">
+								</slide>
+							</carousel>
+							<div class="arrows">
+								<img src="../../assets/icons/circle-arrow-left.svg">
+								<img src="../../assets/icons/circle-arrow-right.svg">
+							</div>
+							<div class="image-count" v-if="tourDetail.images">
+								{{imgIndex}}/{{tourDetail.images.length}}
+							</div>
 						</div>
-						<div class="image-count" v-if="tourDetail.images">
-							{{imgIndex}}/{{tourDetail.images.length}}
-						</div>
-					</div>
-					<div class="tour-detail__info">
-						<div class="top-title flex align-center justify-space-between">
-							<span class="tour-detail__name">{{tourDetail.name.ru}}</span>
-							<span class="tour-detail__favorite flex align-center web">
+						<div class="tour-detail__info">
+							<div class="top-title flex align-center justify-space-between">
+								<span class="tour-detail__name">{{tourDetail.name.ru}}</span>
+								<span class="tour-detail__favorite flex align-center web">
 								<img src="../../assets/icons/heart-blue.svg">
 								Сохранить
 							</span>
+							</div>
+							<div class="tour-detail__company-info flex align-center">
+								<img :src="showCompanyImage(tourDetail.company.logo)" class="company">
+								{{tourDetail.company.name}}
+								<div class="rating flex">
+									<img src="../../assets/icons/rating-icon.svg">
+									<span>{{tourDetail.company.rating}}</span>
+								</div>
+							</div>
+							<div class="tour-detail__description">
+								{{tourDetail.description.ru}}
+							</div>
+							<!--Mobile-->
+							<div class="mob detail">
+								<div class="short-info">
+									<div class="item flex align-center">
+										<img src="../../assets/icons/calendar-blue.svg">
+										<span>Дата:</span>
+									</div>
+									<div class="value" v-html="formatDate(tourDetail.date)"></div>
+								</div>
+								<div class="short-info">
+									<div class="item flex align-center">
+										<img src="../../assets/icons/duration-icon.svg">
+										<span>Длительность:</span>
+									</div>
+									<div class="value">{{tourDetail.duration}} дней</div>
+								</div>
+								<div class="short-info">
+									<div class="item flex align-center">
+										<img src="../../assets/icons/timer-icon.svg">
+										<span>Время сбора:</span>
+									</div>
+									<div class="value">{{tourDetail.meetingTime}}</div>
+								</div>
+								<div class="short-info">
+									<div class="item flex align-center">
+										<img src="../../assets/icons/marker-dark.png">
+										<span>Место сбора:</span>
+									</div>
+									<div class="value">{{tourDetail.meetingPoint.ru}}</div>
+								</div>
+							</div>
+							<!--Mobile end-->
+							<div class="tour-detail__additional-block flex">
+								<div class="includes">
+									<div class="data-block">
+										<div class="block-title flex">
+											<img src="../../assets/icons/include-icon.svg">
+											<span>Включено</span>
+										</div>
+										<div class="block-item" v-for="(item, i) in tourDetail.includedInCost" :key="i">
+											<span class="dot"></span>
+											<span class="item-title">{{item.ru}}</span>
+										</div>
+									</div>
+									<div class="data-block additional">
+										<div class="block-title flex">
+											<img src="../../assets/icons/additional-icon.svg">
+											<span>Дополнительно</span>
+										</div>
+										<div class="block-item" v-for="(item, i) in tourDetail.additional" :key="i">
+											<span class="dot"></span>
+											<span class="item-title">{{item.ru}}</span>
+										</div>
+									</div>
+								</div>
+								<div class="not-include">
+									<div class="data-block">
+										<div class="block-title flex">
+											<img src="../../assets/icons/not-include-icon.svg">
+											<span>Взять с собой</span>
+										</div>
+										<div class="block-item" v-for="(item, i) in tourDetail.notIncludedInCost"
+											 :key="i">
+											<span class="dot"></span>
+											<span class="item-title">{{item.ru}}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tour-detail__transport-block">
+								<div class="transport flex align-center">
+									<div class="label flex align-center"><img
+										src="../../assets/icons/transport-icon.svg">Транспорт:
+									</div>
+									<span>{{tourDetail.transport.ru}}</span>
+								</div>
+								<div class="distance label flex align-center"><img
+									src="../../assets/icons/double-marker.svg">Дистанция
+								</div>
+								<div class="kilometer">
+									<img src="../../assets/images/distance-image.png">
+									<div class="avto-foot flex justify-space-between">
+										<span>{{tourDetail.distance.transportDistance}} км</span>
+										<span>{{tourDetail.distance.walkDistance}} км</span>
+									</div>
+								</div>
+							</div>
+							<div class="tour-detail__program-block">
+								<div class="program-title flex align-center">
+									<img src="../../assets/icons/program-icon.svg">
+									<span>Программа</span>
+								</div>
+
+								<div class="program-item" v-for="program in tourDetail.program" :key="program.day">
+									<div class="day flex align-center">
+										<img src="../../assets/icons/calendar-green.svg">
+										<span>День {{program.day}}</span>
+									</div>
+									<div class="text">
+										{{program.description.ru}}
+									</div>
+								</div>
+							</div>
 						</div>
+					</div>
+
+					<div class="tour-detail__right">
+						<div class="reserve-block">
+							<div class="head-block flex align-center justify-space-between">
+								<div class="price">{{tourDetail.price}} сом</div>
+								<div class="date-place">
+									<div class="date web" v-html="formatDate(tourDetail.date)"></div>
+									<div class="place" v-if="tourDetail.bookingCount > 0">
+										Осталось мест: {{tourDetail.bookingCount}}
+									</div>
+								</div>
+							</div>
+							<div class="short-info web">
+								<div class="item flex align-center">
+									<img src="../../assets/icons/duration-icon.svg">
+									<span>Длительность:</span>
+								</div>
+								<div class="value">{{tourDetail.duration}} дней</div>
+							</div>
+							<div class="short-info web">
+								<div class="item flex align-center">
+									<img src="../../assets/icons/timer-icon.svg">
+									<span>Время сбора:</span>
+								</div>
+								<div class="value">{{tourDetail.meetingTime}}</div>
+							</div>
+							<div class="short-info web">
+								<div class="item flex align-center">
+									<img src="../../assets/icons/marker-dark.png">
+									<span>Место сбора:</span>
+								</div>
+								<div class="value">{{tourDetail.meetingPoint.ru}}</div>
+							</div>
+							<div class="short-info web">
+								<div class="item">
+									<span>Человек:</span>
+								</div>
+								<div class="value flex align-center">
+									<img src="../../assets/icons/circle-minus.svg"
+										 @click="addSubtractQuantity('minus')">
+									<span>{{payOrReserve.count}}</span>
+									<img src="../../assets/icons/circle-plus.svg" @click="addSubtractQuantity('add')">
+								</div>
+							</div>
+							<div class="total flex align-center justify-space-between web">
+								<span>Итого:</span>
+								<span>{{totalPayPrice}} сом</span>
+							</div>
+							<div class="agreement web">
+								Забронировав тур, я соглашаюсь с <span>Условиями предоставления услуг.</span>
+							</div>
+							<button class="btn green-main" @click="toggleReserveModal">Забронировать</button>
+						</div>
+					</div>
+				</div>
+			</template>
+
+			<div class="other-tours web" v-if="hasTour && otherTours.length">
+				<div class="company-name"><span>Другие туры:</span><span>{{tourDetail.company.name}}</span></div>
+				<div class="tour-items">
+					<div class="tour-item" v-for="tour in otherTours" :key="tour._id"
+						 @click="openTourFromOther(tour._id)">
+						<div class="tour-img"><img :src="showTourImage(tour.images[0])" v-if="tour.images"></div>
+						<div class="tour-name">{{tour.name.ru}}</div>
+						<div class="tour-detail__company-info flex align-center">
+							<img :src="showCompanyImage(tour.company.logo)" class="company">
+							{{tour.company.name}}
+							<div class="rating flex">
+								<img src="../../assets/icons/rating-icon.svg">
+								<span>{{tour.company.rating}} ({{tour.company.reviewCount}})</span>
+							</div>
+						</div>
+						<div class="tour-desc">
+							{{tour.description.ru}}
+						</div>
+						<div class="date-price flex align-center justify-space-between">
+							<div class="date" v-html="formatDate(tour.date)"></div>
+							<span class="price">{{tour.price}} сом</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--RESERVE AND PAY MODAL-->
+			<modal
+				name="reserve-modal"
+				class="reserve-modal"
+				:width="isMobileWindow ? '100%' : '390px'" height="90%"
+				:clickToClose="false"
+				v-if="hasTour"
+			>
+				<div class="modal-container">
+					<div class="reserve__title flex align-center justify-end">
+						<span>Детали брони</span>
+						<img src="../../assets/icons/close.svg" @click="toggleReserveModal">
+					</div>
+					<div class="reserve__tour-title">{{tourDetail.name.ru}}</div>
+					<div class="reserve__company-date flex align-center justify-space-between">
 						<div class="tour-detail__company-info flex align-center">
 							<img :src="showCompanyImage(tourDetail.company.logo)" class="company">
 							{{tourDetail.company.name}}
@@ -39,314 +254,105 @@
 								<span>{{tourDetail.company.rating}}</span>
 							</div>
 						</div>
-						<div class="tour-detail__description">
-							{{tourDetail.description.ru}}
+						<div class="date flex text-capitalize" v-html="formatDate(tourDetail.date)"></div>
+					</div>
+					<div class="reserve__free-cancel flex align-center">
+						<img src="../../assets/icons/calendar-green.svg">
+						<div>
+							<div class="free-text">Бесплатная отмена брони до</div>
+							<div class="free-date">{{showFreeCancelDate()}}</div>
 						</div>
-						<!--Mobile-->
-						<div class="mob detail">
-							<div class="short-info">
-								<div class="item flex align-center">
-									<img src="../../assets/icons/calendar-blue.svg">
-									<span>Дата:</span>
-								</div>
-								<div class="value" v-html="formatDate(tourDetail.date)"></div>
-							</div>
-							<div class="short-info">
-								<div class="item flex align-center">
-									<img src="../../assets/icons/duration-icon.svg">
-									<span>Длительность:</span>
-								</div>
-								<div class="value">{{tourDetail.duration}} дней</div>
-							</div>
-							<div class="short-info">
-								<div class="item flex align-center">
-									<img src="../../assets/icons/timer-icon.svg">
-									<span>Время сбора:</span>
-								</div>
-								<div class="value">{{tourDetail.meetingTime}}</div>
-							</div>
-							<div class="short-info">
-								<div class="item flex align-center">
-									<img src="../../assets/icons/marker-dark.png">
-									<span>Место сбора:</span>
-								</div>
-								<div class="value">{{tourDetail.meetingPoint.ru}}</div>
-							</div>
+					</div>
+					<div class="short-info">
+						<div class="item flex align-center">
+							<img src="../../assets/icons/duration-icon.svg">
+							<span class="reserve">Длительность:</span>
 						</div>
-						<!--Mobile end-->
-						<div class="tour-detail__additional-block flex">
-							<div class="includes">
-								<div class="data-block">
-									<div class="block-title flex">
-										<img src="../../assets/icons/include-icon.svg">
-										<span>Включено</span>
-									</div>
-									<div class="block-item" v-for="(item, i) in tourDetail.includedInCost" :key="i">
-										<span class="dot"></span>
-										<span class="item-title">{{item.ru}}</span>
-									</div>
-								</div>
-								<div class="data-block additional">
-									<div class="block-title flex">
-										<img src="../../assets/icons/additional-icon.svg">
-										<span>Дополнительно</span>
-									</div>
-									<div class="block-item" v-for="(item, i) in tourDetail.additional" :key="i">
-										<span class="dot"></span>
-										<span class="item-title">{{item.ru}}</span>
-									</div>
-								</div>
-							</div>
-							<div class="not-include">
-								<div class="data-block">
-									<div class="block-title flex">
-										<img src="../../assets/icons/not-include-icon.svg">
-										<span>Взять с собой</span>
-									</div>
-									<div class="block-item" v-for="(item, i) in tourDetail.notIncludedInCost" :key="i">
-										<span class="dot"></span>
-										<span class="item-title">{{item.ru}}</span>
-									</div>
-								</div>
-							</div>
+						<div class="value reserve">{{tourDetail.duration}} дней</div>
+					</div>
+					<div class="short-info">
+						<div class="item flex align-center">
+							<img src="../../assets/icons/timer-icon.svg">
+							<span class="reserve">Время сбора:</span>
 						</div>
-						<div class="tour-detail__transport-block">
-							<div class="transport flex align-center">
-								<div class="label flex align-center"><img src="../../assets/icons/transport-icon.svg">Транспорт:
-								</div>
-								<span>{{tourDetail.transport.ru}}</span>
-							</div>
-							<div class="distance label flex align-center"><img
-								src="../../assets/icons/double-marker.svg">Дистанция
-							</div>
-							<div class="kilometer">
-								<img src="../../assets/images/distance-image.png">
-								<div class="avto-foot flex justify-space-between">
-									<span>{{tourDetail.distance.transportDistance}} км</span>
-									<span>{{tourDetail.distance.walkDistance}} км</span>
-								</div>
-							</div>
+						<div class="value reserve">{{tourDetail.meetingTime}}</div>
+					</div>
+					<div class="short-info">
+						<div class="item flex align-center">
+							<img src="../../assets/icons/marker-dark.png">
+							<span class="reserve">Место сбора:</span>
 						</div>
-						<div class="tour-detail__program-block">
-							<div class="program-title flex align-center">
-								<img src="../../assets/icons/program-icon.svg">
-								<span>Программа</span>
-							</div>
-
-							<div class="program-item" v-for="program in tourDetail.program" :key="program.day">
-								<div class="day flex align-center">
-									<img src="../../assets/icons/calendar-green.svg">
-									<span>День {{program.day}}</span>
-								</div>
-								<div class="text">
-									{{program.description.ru}}
-								</div>
-							</div>
+						<div class="value reserve">{{tourDetail.meetingPoint.ru}}</div>
+					</div>
+					<div class="short-info">
+						<div class="item flex align-center">
+							<img src="../../assets/icons/person-icon.svg">
+							<span class="reserve">Гость:</span>
 						</div>
+						<div class="value reserve">{{userProfile.surname + ' ' + userProfile.name}}</div>
+					</div>
+					<div class="short-info web">
+						<div class="item flex align-center">
+							<img src="../../assets/icons/people-icon.svg">
+							<span class="reserve">Количество мест:</span>
+						</div>
+						<div class="value reserve">{{payOrReserve.count}}</div>
+					</div>
+					<!--mobile-->
+					<div class="short-info mob">
+						<div class="item">
+							<span>Человек:</span>
+						</div>
+						<div class="value flex align-center">
+							<img src="../../assets/icons/circle-minus.svg" @click="addSubtractQuantity('minus')">
+							<span>{{payOrReserve.count}}</span>
+							<img src="../../assets/icons/circle-plus.svg" @click="addSubtractQuantity('add')">
+						</div>
+					</div>
+					<!--mobile-->
+					<div class="short-info">
+						<div class="item flex align-center">
+							<img src="../../assets/icons/bank-card-icon.svg">
+							<span class="reserve">Итого:</span>
+						</div>
+						<div class="value reserve">{{totalPayPrice}} сом</div>
+					</div>
+					<div class="agreement mob">
+						Забронировав тур, я соглашаюсь с <span>Условиями предоставления услуг.</span>
+					</div>
+					<div class="single-center">
+						<button
+							class="btn green-main"
+							@click="makePaymentForTour"
+						>
+							Оплатить
+						</button>
+						<button
+							class="btn white-color-green"
+							:class="{'disabled': !isReservable()}"
+							@click="makeReservation"
+							:disabled="!isReservable()"
+						>
+							Забронировать
+						</button>
 					</div>
 				</div>
+			</modal>
 
-				<div class="tour-detail__right">
-					<div class="reserve-block">
-						<div class="head-block flex align-center justify-space-between">
-							<div class="price">{{tourDetail.price}} сом</div>
-							<div class="date-place">
-								<div class="date web" v-html="formatDate(tourDetail.date)"></div>
-								<div class="place" v-if="tourDetail.bookingCount > 0">
-									Осталось мест: {{tourDetail.bookingCount}}
-								</div>
-							</div>
-						</div>
-						<div class="short-info web">
-							<div class="item flex align-center">
-								<img src="../../assets/icons/duration-icon.svg">
-								<span>Длительность:</span>
-							</div>
-							<div class="value">{{tourDetail.duration}} дней</div>
-						</div>
-						<div class="short-info web">
-							<div class="item flex align-center">
-								<img src="../../assets/icons/timer-icon.svg">
-								<span>Время сбора:</span>
-							</div>
-							<div class="value">{{tourDetail.meetingTime}}</div>
-						</div>
-						<div class="short-info web">
-							<div class="item flex align-center">
-								<img src="../../assets/icons/marker-dark.png">
-								<span>Место сбора:</span>
-							</div>
-							<div class="value">{{tourDetail.meetingPoint.ru}}</div>
-						</div>
-						<div class="short-info web">
-							<div class="item">
-								<span>Человек:</span>
-							</div>
-							<div class="value flex align-center">
-								<img src="../../assets/icons/circle-minus.svg" @click="addSubtractQuantity('minus')">
-								<span>{{payOrReserve.count}}</span>
-								<img src="../../assets/icons/circle-plus.svg" @click="addSubtractQuantity('add')">
-							</div>
-						</div>
-						<div class="total flex align-center justify-space-between web">
-							<span>Итого:</span>
-							<span>{{totalPayPrice}} сом</span>
-						</div>
-						<div class="agreement web">
-							Забронировав тур, я соглашаюсь с <span>Условиями предоставления услуг.</span>
-						</div>
-						<button class="btn green-main" @click="toggleReserveModal">Забронировать</button>
+			<!--COMPLETE RESERVE MODAL-->
+			<modal name="complete-reserve-modal" width="380px" height="auto">
+				<div class="modal-container">
+					<div class="warn-img"><img src="../../assets/icons/warning-icon.svg"></div>
+					<div class="warn-title">
+						Тур забронирован. <br>
+						Пожалуйста, не забудьте оплатить. <br> По истечении 12 часов ваша бронь обнуляется.
+					</div>
+					<div class="single-center complete">
+						<button class="btn green-main" @click="toggleCompleteModal">Готово</button>
 					</div>
 				</div>
-			</div>
-		</template>
-
-		<div class="other-tours web" v-if="hasTour && otherTours.length">
-			<div class="company-name"><span>Другие туры:</span><span>{{tourDetail.company.name}}</span></div>
-			<div class="tour-items">
-				<div class="tour-item" v-for="tour in otherTours" :key="tour._id" @click="openTourFromOther(tour._id)">
-					<div class="tour-img"><img :src="showTourImage(tour.images[0])" v-if="tour.images"></div>
-					<div class="tour-name">{{tour.name.ru}}</div>
-					<div class="tour-detail__company-info flex align-center">
-						<img :src="showCompanyImage(tour.company.logo)" class="company">
-						{{tour.company.name}}
-						<div class="rating flex">
-							<img src="../../assets/icons/rating-icon.svg">
-							<span>{{tour.company.rating}} ({{tour.company.reviewCount}})</span>
-						</div>
-					</div>
-					<div class="tour-desc">
-						{{tour.description.ru}}
-					</div>
-					<div class="date-price flex align-center justify-space-between">
-						<div class="date" v-html="formatDate(tour.date)"></div>
-						<span class="price">{{tour.price}} сом</span>
-					</div>
-				</div>
-			</div>
+			</modal>
 		</div>
-
-		<!--RESERVE AND PAY MODAL-->
-		<modal
-			name="reserve-modal"
-			class="reserve-modal"
-			:width="isMobileWindow ? '100%' : '390px'" height="90%"
-			:clickToClose="false"
-			v-if="hasTour"
-		>
-			<div class="modal-container">
-				<div class="reserve__title flex align-center justify-end">
-					<span>Детали брони</span>
-					<img src="../../assets/icons/close.svg" @click="toggleReserveModal">
-				</div>
-				<div class="reserve__tour-title">{{tourDetail.name.ru}}</div>
-				<div class="reserve__company-date flex align-center justify-space-between">
-					<div class="tour-detail__company-info flex align-center">
-						<img :src="showCompanyImage(tourDetail.company.logo)" class="company">
-						{{tourDetail.company.name}}
-						<div class="rating flex">
-							<img src="../../assets/icons/rating-icon.svg">
-							<span>{{tourDetail.company.rating}}</span>
-						</div>
-					</div>
-					<div class="date flex text-capitalize" v-html="formatDate(tourDetail.date)"></div>
-				</div>
-				<div class="reserve__free-cancel flex align-center">
-					<img src="../../assets/icons/calendar-green.svg">
-					<div>
-						<div class="free-text">Бесплатная отмена брони до</div>
-						<div class="free-date">{{showFreeCancelDate()}}</div>
-					</div>
-				</div>
-				<div class="short-info">
-					<div class="item flex align-center">
-						<img src="../../assets/icons/duration-icon.svg">
-						<span class="reserve">Длительность:</span>
-					</div>
-					<div class="value reserve">{{tourDetail.duration}} дней</div>
-				</div>
-				<div class="short-info">
-					<div class="item flex align-center">
-						<img src="../../assets/icons/timer-icon.svg">
-						<span class="reserve">Время сбора:</span>
-					</div>
-					<div class="value reserve">{{tourDetail.meetingTime}}</div>
-				</div>
-				<div class="short-info">
-					<div class="item flex align-center">
-						<img src="../../assets/icons/marker-dark.png">
-						<span class="reserve">Место сбора:</span>
-					</div>
-					<div class="value reserve">{{tourDetail.meetingPoint.ru}}</div>
-				</div>
-				<div class="short-info">
-					<div class="item flex align-center">
-						<img src="../../assets/icons/person-icon.svg">
-						<span class="reserve">Гость:</span>
-					</div>
-					<div class="value reserve">{{userProfile.surname + ' ' + userProfile.name}}</div>
-				</div>
-				<div class="short-info web">
-					<div class="item flex align-center">
-						<img src="../../assets/icons/people-icon.svg">
-						<span class="reserve">Количество мест:</span>
-					</div>
-					<div class="value reserve">{{payOrReserve.count}}</div>
-				</div>
-				<!--mobile-->
-				<div class="short-info mob">
-					<div class="item">
-						<span>Человек:</span>
-					</div>
-					<div class="value flex align-center">
-						<img src="../../assets/icons/circle-minus.svg" @click="addSubtractQuantity('minus')">
-						<span>{{payOrReserve.count}}</span>
-						<img src="../../assets/icons/circle-plus.svg" @click="addSubtractQuantity('add')">
-					</div>
-				</div>
-				<!--mobile-->
-				<div class="short-info">
-					<div class="item flex align-center">
-						<img src="../../assets/icons/bank-card-icon.svg">
-						<span class="reserve">Итого:</span>
-					</div>
-					<div class="value reserve">{{totalPayPrice}} сом</div>
-				</div>
-				<div class="agreement mob">
-					Забронировав тур, я соглашаюсь с <span>Условиями предоставления услуг.</span>
-				</div>
-				<div class="single-center">
-					<button
-						class="btn green-main"
-						@click="makePaymentForTour"
-					>
-						Оплатить
-					</button>
-					<button
-						class="btn white-color-green"
-						:class="{'disabled': !isReservable()}"
-						@click="makeReservation"
-						:disabled="!isReservable()"
-					>
-						Забронировать
-					</button>
-				</div>
-			</div>
-		</modal>
-
-		<!--COMPLETE RESERVE MODAL-->
-		<modal name="complete-reserve-modal" width="380px" height="auto">
-			<div class="modal-container">
-				<div class="warn-img"><img src="../../assets/icons/warning-icon.svg"></div>
-				<div class="warn-title">
-					Тур забронирован. <br>
-					Пожалуйста, не забудьте оплатить. <br> По истечении 12 часов ваша бронь обнуляется.
-				</div>
-				<div class="single-center complete">
-					<button class="btn green-main" @click="toggleCompleteModal">Готово</button>
-				</div>
-			</div>
-		</modal>
 	</div>
 </template>
 
@@ -520,6 +526,9 @@ export default {
 </script>
 
 <style lang="scss">
+.show-tour-container {
+	background: #f5f5f5;
+}
 .tour-detail {
 	&__container {
 		padding: 25px 0 20px;
