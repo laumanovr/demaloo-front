@@ -27,7 +27,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	.client-manage {
-		background: #f5f5f5;
-	}
+	.client-manage {}
 </style>
