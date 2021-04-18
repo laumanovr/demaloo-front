@@ -45,7 +45,7 @@ const actions = {
 					router.push(data.url);
 				}, 5);
 			} else {
-				router.push('/profile-manage');
+				router.push('/profile-manage/info');
 			}
 		} catch (err) {
 			commit('setError', err);
@@ -56,7 +56,7 @@ const actions = {
 		try {
 			const res = await UserService.registerClient(data);
 			dispatch('setInitialUser', res);
-			router.push('/profile-manage');
+			router.push('/profile-manage/info');
 			commit('setSuccess', 'success');
 		} catch (err) {
 			commit('setError', err);

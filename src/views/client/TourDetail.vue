@@ -482,7 +482,7 @@ export default {
 				if (this.userProfile.name) {
 					return this.$modal.toggle('reserve-modal');
 				}
-				return this.$router.push('/profile-manage');
+				return this.$router.push('/profile-manage/info');
 			}
 			this.$modal.show('login-modal');
 		},
