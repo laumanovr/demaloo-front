@@ -9907,6 +9907,11 @@
   "resolved" "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz"
   "version" "2.3.4"
 
+"vue-inline-svg@^2.0.0":
+  "integrity" "sha512-tvuYR9ynqJEuzrwqneNQ2q5uoFbgbot1fFuWIADfpmA1Sm9CMkid1SJyRuvmUdQHdjgAstGEU3tMbiTk5ud4OQ=="
+  "resolved" "https://registry.npmjs.org/vue-inline-svg/-/vue-inline-svg-2.0.0.tgz"
+  "version" "2.0.0"
+
 "vue-js-modal@^2.0.0-rc.6":
   "integrity" "sha512-bJOm7Yhrl0ur/QyXjoC3gMMmE7UxiVEcS2rl8v9iPXIe9QLvjiCSZElSOvvyps8LNuG1X0rPifZGxI/CWKCFaw=="
   "resolved" "https://registry.npmjs.org/vue-js-modal/-/vue-js-modal-2.0.0-rc.6.tgz"
