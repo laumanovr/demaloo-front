@@ -34,29 +34,40 @@ export default {
 
 	client: [
 		{
-			name: 'Профиль',
+			name: 'Поездки',
 			route: '/profile-manage',
-			icon: 'avatar.svg'
+			icon: 'compass-tab.svg',
+			className: 'single'
 		},
 		{
-			name: 'Мои туры',
-			route: '/profile-manage/my-tours',
-			icon: 'map-marker.svg'
+			name: 'Профиль',
+			route: '/profile-manage/info',
+			icon: 'profile-tab.svg',
+			className: 'single'
 		},
 		{
 			name: 'Мои отзывы',
 			route: '#',
-			icon: 'review.svg'
-		},
-		{
-			name: 'Сообщения',
-			route: '#',
-			icon: 'envelope.svg'
+			icon: 'review-tab.svg',
+			className: 'single'
 		},
 		{
 			name: 'Уведомления',
 			route: '#',
-			icon: 'bell.svg'
+			icon: 'notification-tab.svg',
+			className: 'multi'
+		},
+		{
+			name: 'Сохраненные туры',
+			route: '#',
+			icon: 'favorite-tab.svg',
+			className: 'multi'
+		},
+		{
+			name: 'Сообщения',
+			route: '#',
+			icon: 'message-tab.svg',
+			className: 'multi'
 		}
 	],
 
