@@ -48,6 +48,7 @@
 <style lang="scss">
 	.footer-container {
 		padding-top: 25px;
+		background: #f5f5f5;
 		border-top: 1px solid $gray-light;
 		@media #{$mob-view} {
 			background: #fff;
