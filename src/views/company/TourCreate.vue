@@ -136,29 +136,19 @@
                 <div class="form-field location">
                     <span class="label">Локация тура:</span>
                     <v-select
+                        solo
                         label="Область"
                         :items="allRegions"
-                        item-text="ru"
-                        v-model="selectRegion"
-                        return-object
+                        :item-text="showRegionTitle"
                         :rules="requiredRule"
-                        @change="findRegionRayons"
-                        solo
-                    />
-                    <v-select
-                        label="Район"
-                        :items="rayons"
-                        item-text="ru"
-                        v-model="selectedRayon"
+						v-model="selectRegion"
                         return-object
-                        @change="selectRayon"
-                        :rules="requiredRule"
-                        solo
+						@change="onSelectRegion"
                     />
-                    <template v-if="!isAddTourPlace && rayons.length">
-                        <v-autocomplete
+                    <template v-if="!isAddTourPlace">
+                        <v-select
                             label="Место"
-                            :items="selectedRayon.places"
+                            :items="selectRegion.places"
                             v-model="tourObj.locations[0].place"
                             :rules="requiredRule"
                             solo
@@ -371,10 +361,10 @@ export default {
 				meetingTime: '',
 				locations: [
 					{
-						oblast: {id: 0, ru: ''},
-						region: {id: 0, ru: ''},
-						place: '',
-					},
+						country: '',
+						region: '',
+						place: ''
+					}
 				],
 				transport: {ru: ''},
 				categories: [],
@@ -393,17 +383,12 @@ export default {
 				images: [],
 				notes: ''
 			},
-			tourCategories: [
-				{title: 'Озера и реки', name: 'lakes'},
-				{title: 'Горы', name: 'mountains'},
-			],
+			tourCategories: [],
 			showDatePicker: false,
 			formStep: 'first',
 			pickerDate: '',
 			todayDate: moment().format('YYYY-MM-DD'),
 			selectRegion: {},
-			selectedRayon: {},
-			rayons: [],
 			previewImages: [],
 			isAddTourPlace: false,
 		};
@@ -431,9 +416,7 @@ export default {
 				this.isLoading = true;
 				const res = await TourService.fetchTourById(tourId);
 				this.tourObj = res.data.tour;
-				this.selectRegion = this.allRegions.find((i) => i.id === this.tourObj.locations[0].oblast.id);
-				this.rayons = this.selectRegion.regions;
-				this.selectedRayon = this.rayons.find((i) => i.id === this.tourObj.locations[0].region.id);
+				this.selectRegion = this.allRegions.find((i) => i.code === this.tourObj.locations[0].region);
 				this.tourObj.images.forEach((img) => {
 					this.previewImages.push(this.apiImageUrl + img);
 				});
@@ -505,18 +488,16 @@ export default {
 			this.tourObj[field].splice(index, 1);
 		},
 
-		findRegionRayons(region) {
-			this.tourObj.locations[0].oblast.id = region.id;
-			this.tourObj.locations[0].oblast.ru = region.ru;
-			this.rayons = region.regions;
-		},
+		onSelectRegion(region) {
+			this.tourObj.locations[0].country = region.country;
+			this.tourObj.locations[0].region = region.code;
+        },
 
-		selectRayon(rayon) {
-			this.tourObj.locations[0].region.id = rayon.id;
-			this.tourObj.locations[0].region.ru = rayon.ru;
-			this.isAddTourPlace = !rayon.places.length;
-			this.tourObj.locations[0].place = '';
-		},
+		showRegionTitle(region) {
+			if (region && region.name) {
+				return region.name.ru;
+			}
+        },
 
 		addNewTourPlace() {
 			this.isAddTourPlace = true;
@@ -564,11 +545,10 @@ export default {
 
 		async createNewPlaces() {
 			if (this.isAddTourPlace) {
-				const regionId = this.tourObj.locations[0].oblast.id;
-				const rayonId = this.tourObj.locations[0].region.id;
+				const regionId = this.tourObj.locations[0].region;
 				const newPlace = {place: this.tourObj.locations[0].place};
 				try {
-					await LocationService.addNewPlace(newPlace, regionId, rayonId);
+					await LocationService.addNewPlace(newPlace, regionId);
 					this.$store.dispatch('location/fetchRegions', {}, {root: true});
 				} catch (err) {
 					this.$toast.error(`new-place-${err}`);
