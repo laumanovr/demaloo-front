@@ -58,9 +58,9 @@ input {
     justify-content: center;
     text-decoration: none;
   }
- &.blue-primary {
-   background: $blue-primary;
- }
+  &.blue-primary {
+    background: $blue-primary;
+  }
   &.green-primary {
     background: $green-primary;
   }
@@ -98,6 +98,10 @@ input {
     border: 1px solid $red-primary;
     color: $red-primary;
     font-weight: 500;
+  }
+  &.gray-primary {
+    background: $gray-light;
+    color: $blue-darkest;
   }
 }
 
