@@ -64,7 +64,7 @@ export default {
 		async getFutureBookings() {
 			try {
 				this.isLoading = true;
-				const res = await TourService.fetchMyTourBookings(`date[gte]=${this.todayDate}`);
+				const res = await TourService.fetchMyTourBookings(`&date[gte]=${this.todayDate}`);
 				this.myTourBookings = res.data.bookings;
 				this.isLoading = false;
 			} catch (err) {
