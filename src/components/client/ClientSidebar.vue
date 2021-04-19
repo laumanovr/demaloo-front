@@ -1,24 +1,26 @@
 <template>
 	<div class="client-sidebar-container">
-		<div class="profile-data">
-			<div class="avatar">
-				<img :src="profilePhoto" @error="$event.target.src = require('@/assets/icons/profile-tab.svg')"/>
+		<div class="sticky-block">
+			<div class="profile-data">
+				<div class="avatar">
+					<img :src="profilePhoto" @error="$event.target.src = require('@/assets/icons/profile-tab.svg')"/>
+				</div>
+				<div class="profile-name">
+					<div>{{ userProfile.name }}</div>
+					<div class="profile-phone">{{userProfile.phoneNumber}}</div>
+				</div>
 			</div>
-			<div class="profile-name">
-				<div>{{ userProfile.name }}</div>
-				<div class="profile-phone">{{userProfile.phoneNumber}}</div>
-			</div>
-		</div>
-		<div class="tabs">
-			<div
-				class="tab"
-				v-for="(item, i) in sidebars"
-				:key="i"
-				:class="{ active: $route.path === item.route }"
-				@click="$router.push(item.route)"
-			>
-				<inline-svg :src="require(`@/assets/icons/${item.icon}`)" :class="item.className"/>
-				<span>{{ item.name }}</span>
+			<div class="tabs">
+				<div
+					class="tab"
+					v-for="(item, i) in sidebars"
+					:key="i"
+					:class="{ active: $route.path === item.route }"
+					@click="$router.push(item.route)"
+				>
+					<inline-svg :src="require(`@/assets/icons/${item.icon}`)" :class="item.className"/>
+					<span>{{ item.name }}</span>
+				</div>
 			</div>
 		</div>
 		<div class="profile-logout" @click="logOut">
@@ -64,6 +66,10 @@ export default {
 	.client-sidebar-container {
 		min-width: 280px;
 		border-right: 1px solid $gray-light;
+		.sticky-block {
+			position: sticky;
+			top: 0;
+		}
 		.profile-data {
 			display: flex;
 			align-items: center;
@@ -134,6 +140,10 @@ export default {
 			font-size: 12px;
 			cursor: pointer;
 			color: $blue-darkest;
+			position: fixed;
+			bottom: 0;
+			padding: 15px 15px 15px 10px;
+			width: 270px;
 			img {
 				margin-right: 14px;
 			}
