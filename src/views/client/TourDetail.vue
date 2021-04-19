@@ -339,7 +339,7 @@
 			<!--COMPLETE RESERVE MODAL-->
 			<modal name="complete-reserve-modal" width="380px" height="auto">
 				<div class="modal-container">
-					<div class="warn-img"><img src="../../assets/icons/warning-icon.svg"></div>
+					<div class="warn-img"><img src="../../assets/icons/checked-icon.svg"></div>
 					<div class="warn-title">
 						Тур забронирован. <br>
 						Пожалуйста, не забудьте оплатить. <br> По истечении 12 часов ваша бронь обнуляется.
@@ -501,6 +501,9 @@ export default {
 				this.totalPayPrice = this.tourDetail.price;
 				this.toggleReserveModal();
 				this.toggleCompleteModal();
+				setTimeout(() => {
+					this.$router.push('/profile-manage');
+				}, 3000);
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
