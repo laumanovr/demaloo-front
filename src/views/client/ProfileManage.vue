@@ -12,6 +12,12 @@ import ClientSidebar from '@/components/client/ClientSidebar';
 export default {
 	components: {
 		ClientSidebar
+	},
+	created() {
+		document.querySelector('.footer-container').style.display = 'none';
+	},
+	beforeDestroy() {
+		document.querySelector('.footer-container').style.display = 'block';
 	}
 };
 </script>
