@@ -267,8 +267,7 @@ export default {
 				date: ''
 			},
 			placeType: {
-				oblast: 'Область',
-				region: 'Район',
+				region: 'Область',
 				place: 'Место'
 			},
 			noResult: false,
