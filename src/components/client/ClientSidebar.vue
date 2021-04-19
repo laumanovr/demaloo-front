@@ -143,7 +143,7 @@ export default {
 			position: fixed;
 			bottom: 0;
 			padding: 15px 15px 15px 10px;
-			width: 270px;
+			width: 250px;
 			img {
 				margin-right: 14px;
 			}
