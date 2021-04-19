@@ -405,7 +405,7 @@ export default {
 				const res = await TourService.fetchClientTourDetail(tourId);
 				this.tourDetail = res.data.tour;
 				this.totalPayPrice = this.tourDetail.price;
-				this.payOrReserve.tourId = this.$route.params.tourId;
+				this.payOrReserve.tourId = tourId;
 				this.isLoading = false;
 				this.getOtherTours(this.tourDetail.company._id);
 				if (this.tourDetail.images) {
@@ -501,6 +501,7 @@ export default {
 				this.totalPayPrice = this.tourDetail.price;
 				this.toggleReserveModal();
 				this.toggleCompleteModal();
+				this.$store.dispatch('booking/getAllUserBookings');
 				setTimeout(() => {
 					this.$router.push('/profile-manage');
 				}, 3000);
