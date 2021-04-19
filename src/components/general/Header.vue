@@ -87,7 +87,7 @@ export default {
 				a {
 					color: $blue-darkest;
 					font-weight: 600;
-					font-size: 13px;
+					font-size: 12px;
 					text-decoration: none;
 					letter-spacing: 0.8px;
 					margin-left: 30px;
