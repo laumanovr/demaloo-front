@@ -13,7 +13,7 @@ export default {
 	components: {
 		ClientSidebar
 	},
-	created() {
+	mounted() {
 		document.querySelector('.footer-container').style.display = 'none';
 	},
 	beforeDestroy() {
