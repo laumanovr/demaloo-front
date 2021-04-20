@@ -92,12 +92,13 @@ input {
   &.green-main {
     background: $green-main;
     box-shadow: none;
+    outline: none;
   }
   &.white-color-red {
     background: #fff;
     border: 1px solid $red-primary;
     color: $red-primary;
-    font-weight: 500;
+    outline: none;
   }
   &.gray-primary {
     background: $gray-light;
