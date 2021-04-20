@@ -436,7 +436,7 @@ export default {
 		},
 
 		checkIsAlreadyBooked() {
-			const book = this.userBookings && this.userBookings.find((book) => book.tour._id === this.$route.params.tourId);
+			const book = this.userBookings.find((book) => book.tour._id === this.$route.params.tourId);
 			if (book) {
 				return book.stages[book.stages.length - 1].status === 'RESERVED';
 			}

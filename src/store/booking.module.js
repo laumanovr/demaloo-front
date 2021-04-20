@@ -4,7 +4,7 @@ import {format} from 'date-fns';
 const userBookings = JSON.parse(window.localStorage.getItem('demalooUserBookings'));
 
 const state = {
-	userBookings,
+	userBookings: userBookings || [],
 	onSuccess: '',
 	onError: ''
 };
