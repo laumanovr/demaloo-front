@@ -77,9 +77,9 @@ export class TourService {
 		return sendPostRequest(url, body);
 	}
 
-	static purchaseReservation(bookId) {
+	static purchaseReservation(bookId, data) {
 		const url = `${API_BASE_URL}/customers/bookings/${bookId}/purchase`;
-		return sendPostRequest(url, {});
+		return sendPostRequest(url, data);
 	}
 
 	static fetchMyTourBookings(queryParams) {
