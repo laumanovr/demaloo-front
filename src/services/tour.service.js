@@ -77,9 +77,22 @@ export class TourService {
 		return sendPostRequest(url, body);
 	}
 
+	static purchaseReservation(bookId) {
+		const url = `${API_BASE_URL}/customers/bookings/${bookId}/purchase`;
+		return sendPostRequest(url, {});
+	}
+
 	static fetchMyTourBookings(queryParams) {
 		const url = `${API_BASE_URL}/customers/bookings?limit=100${queryParams}`;
 		return sendGetRequest(url);
 	}
 
+	static fetchBookingById(bookId) {
+		const url = `${API_BASE_URL}/customers/bookings/${bookId}`;
+		return sendGetRequest(url);
+	}
+	static cancelBooking(bookId) {
+		const url = `${API_BASE_URL}/customers/bookings/${bookId}/cancel`;
+		return sendPatchRequest(url, {});
+	}
 }
