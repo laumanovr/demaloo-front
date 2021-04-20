@@ -253,7 +253,7 @@ export default {
 			},
 			slideImages: [],
 			imgIndex: 1
-		}
+		};
 	},
 	computed: {
 		userProfile() {
@@ -372,7 +372,7 @@ export default {
 			}
 		}
 	}
-}
+};
 </script>
 
 <style lang="scss" scoped>
