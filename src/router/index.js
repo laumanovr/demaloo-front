@@ -32,6 +32,14 @@ const routes = [
 				}
 			},
 			{
+				path: 'booking-detail/:tourId/:bookId',
+				name: 'bookingDetail',
+				component: loadComponent('client/BookingDetail'),
+				meta: {
+					requireAuth: true
+				}
+			},
+			{
 				path: '/profile-manage',
 				component: loadComponent('client/ProfileManage'),
 				children: [
