@@ -197,7 +197,20 @@
 							<div class="agreement web">
 								Забронировав тур, я соглашаюсь с <span>Условиями предоставления услуг.</span>
 							</div>
-							<button class="btn green-main" @click="toggleReserveModal">Забронировать</button>
+							<button
+								disabled
+								class="btn gray-primary disabled"
+								v-if="checkIsAlreadyBooked()"
+							>
+								Уже забронирован
+							</button>
+							<button
+								class="btn green-main"
+								@click="toggleReserveModal"
+								v-else
+							>
+								Забронировать
+							</button>
 						</div>
 					</div>
 				</div>
@@ -393,6 +406,9 @@ export default {
 		},
 		isMobileWindow() {
 			return window.innerWidth < 1024;
+		},
+		userBookings() {
+			return this.$store.state.booking.userBookings;
 		}
 	},
 	created() {
@@ -416,6 +432,13 @@ export default {
 			} catch(err) {
 				this.$toast.error(err);
 				this.isLoading = false;
+			}
+		},
+
+		checkIsAlreadyBooked() {
+			const book = this.userBookings.find((book) => book.tour._id === this.$route.params.tourId);
+			if (book) {
+				return book.stages[book.stages.length - 1].status === 'RESERVED';
 			}
 		},
 
@@ -501,7 +524,6 @@ export default {
 				this.totalPayPrice = this.tourDetail.price;
 				this.toggleReserveModal();
 				this.toggleCompleteModal();
-				this.$store.dispatch('booking/getAllUserBookings');
 				setTimeout(() => {
 					this.$router.push('/profile-manage');
 				}, 3000);
