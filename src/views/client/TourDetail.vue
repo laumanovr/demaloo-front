@@ -200,7 +200,7 @@
 							<button
 								disabled
 								class="btn gray-primary disabled"
-								v-if="checkIsAlreadyBooked()"
+								v-if="checkIsAlreadyBooked() && userLogged"
 							>
 								Уже забронирован
 							</button>
