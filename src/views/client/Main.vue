@@ -263,6 +263,7 @@ export default {
 			pickerDate: '',
 			todayDate: format(new Date(), 'yyyy-MM-dd'),
 			searchObj: {
+				queryValue: '',
 				inputValue: '',
 				date: ''
 			},
@@ -315,6 +316,7 @@ export default {
 
 		onSelectFoundPlace(item) {
 			this.searchObj.inputValue = item.name;
+			this.searchObj.queryValue = `&${item.type}=${item.code || item.name}`;
 			this.searchLocations = [];
 		},
 
@@ -339,18 +341,17 @@ export default {
 		},
 
 		filterBySidebar(isPaginate = '') {
-			let company, duration, priceFrom, priceTo, location, date, sortPriceDate, page;
+			let company, duration, priceFrom, priceTo, date, sortPriceDate, page;
 			company = this.sortCompany ? `&company=${this.sortCompany}` : '';
 			duration = this.sortDuration ? `&duration=${this.sortDuration}` : '';
 			priceFrom = this.sortPriceFrom ? `&price[gte]=${this.sortPriceFrom}` : '';
 			priceTo = this.sortPriceTo ? `&price[lte]=${this.sortPriceTo}` : '';
-			location = this.searchObj.inputValue ? `&search=${this.searchObj.inputValue}` : '';
 			date = this.searchObj.date ? `&date[gte]=${this.searchObj.date}` : '';
 			sortPriceDate = this.datePriceSort ? `&sort=${this.datePriceSort}` : '';
 			page = this.sortPage ? `&page=${this.sortPage}` : '';
 			this.queryParam =
 				`${company || ''}` + `${duration || ''}` + `${this.categoriesQuery || ''}` +
-				`${priceFrom || ''}` + `${priceTo || ''}` + `${location || ''}` + `${date || ''}` +
+				`${priceFrom || ''}` + `${priceTo || ''}` + `${this.searchObj.queryValue || ''}` + `${date || ''}` +
 				`${sortPriceDate || ''}` + `${page || ''}`;
 			this.getAllTours(isPaginate === 'paginate');
 		},
