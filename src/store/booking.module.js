@@ -12,6 +12,7 @@ const state = {
 const actions = {
 	async getAllUserBookings({commit}) {
 		try {
+			commit('setSuccess', '');
 			let todayDate = format(new Date(), 'yyyy-MM-dd');
 			const res = await TourService.fetchMyTourBookings(`&date[gte]=${todayDate}`);
 			commit('setBookings', res.data.bookings);
