@@ -266,7 +266,7 @@ export default {
 			return window.innerWidth < 1024;
 		}
 	},
-	created() {
+	mounted() {
 		this.isLoading = true;
 		this.getSelectedTour(this.$route.params.tourId);
 	},
