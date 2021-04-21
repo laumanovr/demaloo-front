@@ -65,7 +65,7 @@
 import MaskedInput from 'vue-masked-input';
 import PreLoader from '@/components/general/PreLoader';
 import {mapState} from 'vuex';
-import {format, parse} from 'date-fns';
+import {format, parse, isValid} from 'date-fns';
 import {ImageService} from '@/services/image.service';
 import {AWS_IMAGE_URL} from '@/services/api.service';
 
@@ -131,8 +131,13 @@ export default {
 
 		submitProfileInfo() {
 			if (this.$refs.profileForm.validate()) {
+				const parsedDate = parse(this.profileDob, 'dd.MM.yyyy', new Date());
+				if (!isValid(parsedDate) || parsedDate.getFullYear() < 1940) {
+					this.$toast.error('Некорректная дата рождения!');
+					return;
+				}
 				this.isLoading = true;
-				this.profileObj.birthdate = format(parse(this.profileDob, 'dd.MM.yyyy', new Date()), 'yyyy-MM-dd');
+				this.profileObj.birthdate = format(parsedDate, 'yyyy-MM-dd');
 				const formData = new FormData();
 				Object.entries(this.profileObj).forEach((item) => formData.append(item[0], item[1]));
 				this.$store.dispatch('account/clientUpdate', formData);
