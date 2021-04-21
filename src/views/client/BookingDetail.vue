@@ -269,7 +269,6 @@ export default {
 	created() {
 		this.isLoading = true;
 		this.getSelectedTour(this.$route.params.tourId);
-		this.getSelectedBooking(this.$route.params.bookId);
 	},
 	methods: {
 		async getSelectedTour(tourId) {
@@ -281,7 +280,7 @@ export default {
 						this.slideImages.push(this.showTourImage(image));
 					});
 				}
-				this.isLoading = false;
+				this.getSelectedBooking(this.$route.params.bookId);
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
@@ -294,8 +293,10 @@ export default {
 				this.bookingDetail = res.data.booking;
 				this.payOrReserve.peopleCount = this.bookingDetail.peopleCount;
 				this.totalPayPrice = this.bookingDetail.total;
+				this.isLoading = false;
 			} catch (err) {
 				this.$toast.error(err);
+				this.isLoading = false;
 			}
 		},
 
