@@ -280,7 +280,11 @@ export default {
 						this.slideImages.push(this.showTourImage(image));
 					});
 				}
-				this.getSelectedBooking(this.$route.params.bookId);
+				this.$nextTick(() => {
+					setTimeout(() => {
+						this.getSelectedBooking(this.$route.params.bookId);
+					}, 100);
+				});
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
