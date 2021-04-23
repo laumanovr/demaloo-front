@@ -8,6 +8,7 @@
 					mask="\+\996 (111) 11-11-11"
 					placeholder="+996(555)12-34-56"
 					@input="phoneValue = arguments[1]"
+					autocomplete="new-password"
 				/>
 			</div>
 			<div class="password">
@@ -18,6 +19,7 @@
 					type="password"
 					:rules="requiredRule"
 					v-model="loginObj.password"
+					autocomplete="new-password"
 				/>
 			</div>
 			<button class="btn green-main next" @click.prevent="submitLogin">
