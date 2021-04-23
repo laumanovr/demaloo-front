@@ -119,6 +119,25 @@ input {
   }
 }
 
+.mob-profile-head {
+  margin: 0;
+  padding: 0 20px;
+  position: relative;
+  justify-content: center;
+  img {
+    position: absolute;
+    left: 20px;
+  }
+  span {
+    font-family: $montserrat;
+    font-size: 16px;
+    font-weight: bold;
+    color: $blue-darkest;
+    text-align: center;
+    padding: 15px 0;
+  }
+}
+
 .single-center {
   margin: 15px 0;
   display: flex;
