@@ -40,6 +40,14 @@ const routes = [
 				}
 			},
 			{
+				path: '/mobile-profile',
+				name: 'mobileProfile',
+				component: loadComponent('client/MobileProfile'),
+				meta: {
+					requireAuth: true
+				}
+			},
+			{
 				path: '/profile-manage',
 				component: loadComponent('client/ProfileManage'),
 				children: [
