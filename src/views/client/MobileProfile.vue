@@ -25,35 +25,35 @@
 </template>
 
 <script>
-	import Sidebars from '@/utils/sidebars';
-	import {AWS_IMAGE_URL} from '@/services/api.service';
+import Sidebars from '@/utils/sidebars';
+import {AWS_IMAGE_URL} from '@/services/api.service';
 
-	export default {
-		props: {
-			role: String,
+export default {
+	props: {
+		role: String,
+	},
+	data() {
+		return {
+			sidebars: [],
+		};
+	},
+	computed: {
+		userProfile() {
+			return this.$store.state.account.customer;
 		},
-		data() {
-			return {
-				sidebars: [],
-			};
-		},
-		computed: {
-			userProfile() {
-				return this.$store.state.account.customer;
-			},
-			profilePhoto() {
-				return `${AWS_IMAGE_URL}/photos/` + this.userProfile.photo;
-			}
-		},
-		created() {
-			this.sidebars = Sidebars.client;
-		},
-		methods: {
-			logOut() {
-				this.$store.dispatch('account/logout');
-			}
+		profilePhoto() {
+			return `${AWS_IMAGE_URL}/photos/` + this.userProfile.photo;
 		}
-	};
+	},
+	created() {
+		this.sidebars = Sidebars.client;
+	},
+	methods: {
+		logOut() {
+			this.$store.dispatch('account/logout');
+		}
+	}
+};
 </script>
 
 <style lang="scss" scoped>
