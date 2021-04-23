@@ -1,6 +1,6 @@
 <template>
 	<div class="client-profile-manage">
-		<ClientSidebar :role="'client'"/>
+		<ClientSidebar :role="'client'" class="web"/>
 		<div class="client-profile-manage__content">
 			<router-view></router-view>
 		</div>
@@ -13,11 +13,20 @@ export default {
 	components: {
 		ClientSidebar
 	},
+	computed: {
+		isWebWindow() {
+			return window.innerWidth >= 1024;
+		}
+	},
 	mounted() {
-		document.querySelector('.footer-container').style.display = 'none';
+		if (this.isWebWindow) {
+			document.querySelector('.footer-container').style.display = 'none';
+		}
 	},
 	beforeDestroy() {
-		document.querySelector('.footer-container').style.display = 'block';
+		if (this.isWebWindow) {
+			document.querySelector('.footer-container').style.display = 'block';
+		}
 	}
 };
 </script>
@@ -30,9 +39,15 @@ export default {
 	margin: 0 auto;
 	min-height: 70vh;
 	background: #fff;
+	@media #{$mob-view} {
+		min-height: 20vh;
+	}
 	&__content {
 		width: 100%;
 		padding: 52px 0 70px 25px;
+		@media #{$mob-view} {
+			padding: 0;
+		}
 	}
 }
 </style>
