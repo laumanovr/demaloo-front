@@ -1,6 +1,11 @@
 <template>
 	<div class="my-tours-container">
 		<PreLoader v-if="isLoading"/>
+		<div class="mob-profile-head head-title mob">
+			<img src="../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
+			<span>Поездки</span>
+		</div>
+
 		<div class="tour-tabs">
 			<div class="tab" @click="activeTab='future'" :class="{'active': activeTab == 'future'}">
 				Предстоящие
@@ -11,77 +16,89 @@
 		</div>
 
 		<div class="my-future-tours" v-if="activeTab == 'future'">
-			<router-link
-				v-for="book in futureBookings" :key="book._id"
-				:to="{name: 'bookingDetail', params: {tourId: book.tour._id, bookId: book._id}}"
-				class="tour-item"
-			>
-				<div class="tour-item__image">
-					<img :src="showTourPhoto(book.tour.images[0])" v-if="book.tour.images">
-					<img src="../../assets/images/no-image.png" v-else>
-				</div>
-				<div class="tour-item__info">
-					<div class="tour-item__name">{{book.tour.name.ru}}</div>
-					<div class="tour-item__right">
-						<div class="tour-item__desc-block">
-							<div class="tour-item__company">
-								<img :src="showCompanyPhoto(book.tour.company.logo)">
-								{{book.tour.company.name}}
-								<div class="rating">
-									<img src="../../assets/icons/rating-icon.svg">
-									<span>
+			<template v-if="futureBookings.length">
+				<router-link
+					v-for="book in futureBookings" :key="book._id"
+					:to="{name: 'bookingDetail', params: {tourId: book.tour._id, bookId: book._id}}"
+					class="tour-item"
+				>
+					<div class="tour-item__image">
+						<img :src="showTourPhoto(book.tour.images[0])" v-if="book.tour.images">
+						<img src="../../assets/images/no-image.png" v-else>
+					</div>
+					<div class="tour-item__info">
+						<div class="tour-item__name">{{book.tour.name.ru}}</div>
+						<div class="tour-item__right">
+							<div class="tour-item__desc-block">
+								<div class="tour-item__company">
+									<img :src="showCompanyPhoto(book.tour.company.logo)">
+									{{book.tour.company.name}}
+									<div class="rating">
+										<img src="../../assets/icons/rating-icon.svg">
+										<span>
 										{{book.tour.company.rating}}
 										<template v-if="book.tour.company.reviewCount">
 											({{book.tour.company.reviewCount}})
 										</template>
 									</span>
+									</div>
+								</div>
+								<div class="tour-item__description web">
+									{{book.tour.description.ru}}
+								</div>
+								<div class="tour-item__status" v-if="book.stages.length">
+									Статус:
+									<span :class="getLastStage(book.stages).status">
+									{{statuses[getLastStage(book.stages).status]}}
+								</span>
+								</div>
+								<div class="tour-item__date">
+									<span class="web">Дата тура:</span>
+									<div class="format-date" v-html="formatDate(book.tour.date)"></div>
 								</div>
 							</div>
-							<div class="tour-item__description">
-								{{book.tour.description.ru}}
+							<div class="tour-item__price-block">
+								<span class="tour-item__price">{{book.tour.price}} сом</span>
 							</div>
-							<div class="tour-item__status">
-								Статус:
-								<span :class="getLastStage(book.stages).status">
-								{{statuses[getLastStage(book.stages).status]}}
-							</span>
-							</div>
-							<div class="tour-item__date">
-								<span class="web">Дата тура:</span>
-								<div class="format-date" v-html="formatDate(book.tour.date)"></div>
-							</div>
-						</div>
-						<div class="tour-item__price-block">
-							<span class="tour-item__price">{{book.tour.price}} сом</span>
 						</div>
 					</div>
-				</div>
-			</router-link>
+				</router-link>
+			</template>
+			<template v-else>
+				<span class="no-result">Здесь пока пусто</span>
+			</template>
 		</div>
 
 		<div class="my-past-tours" v-if="activeTab == 'past'">
-			<div class="tour-items">
-				<div class="tour-item" v-for="book in pastBookings" :key="book._id">
-					<div class="tour-img"><img :src="showTourPhoto(book.tour.images[0])"></div>
-					<div class="tour-name">{{book.tour.name.ru}}</div>
-					<div class="company-info flex align-center">
-						<img :src="showCompanyPhoto(book.tour.company.logo)" class="company">
-						<span class="company-name">{{book.tour.company.name}}</span>
-						<div class="rating flex">
-							<img src="../../assets/icons/rating-icon.svg">
-							<span>{{book.tour.company.rating}} ({{book.tour.company.reviewCount}})</span>
+			<template v-if="pastBookings.length">
+				<div class="tour-items">
+					<div class="tour-item" v-for="book in pastBookings" :key="book._id">
+						<div class="tour-img"><img :src="showTourPhoto(book.tour.images[0])"></div>
+						<div class="tour-item-info">
+							<div class="tour-name">{{book.tour.name.ru}}</div>
+							<div class="company-info flex align-center">
+								<img :src="showCompanyPhoto(book.tour.company.logo)" class="company">
+								<span class="company-name">{{book.tour.company.name}}</span>
+								<div class="rating flex">
+									<img src="../../assets/icons/rating-icon.svg">
+									<span>{{book.tour.company.rating}} ({{book.tour.company.reviewCount}})</span>
+								</div>
+							</div>
+							<div class="tour-desc web">
+								{{book.tour.description.ru}}
+							</div>
+							<div class="date-price flex align-center justify-space-between">
+								<div class="date" v-html="formatDate(book.tour.date)"></div>
+								<span class="price">{{book.tour.price}} сом</span>
+							</div>
+							<button class="btn gray-primary">Написать отзыв</button>
 						</div>
 					</div>
-					<div class="tour-desc">
-						{{book.tour.description.ru}}
-					</div>
-					<div class="date-price flex align-center justify-space-between">
-						<div class="date" v-html="formatDate(book.tour.date)"></div>
-						<span class="price">{{book.tour.price}} сом</span>
-					</div>
-					<button class="btn gray-primary">Написать отзыв</button>
 				</div>
-			</div>
+			</template>
+			<template v-else>
+				<span class="no-result">Здесь пока пусто</span>
+			</template>
 		</div>
 	</div>
 </template>
@@ -181,6 +198,10 @@ export default {
 		align-items: center;
 		width: 100%;
 		border-bottom: 1px solid $gray-light;
+		@media #{$mob-view} {
+			justify-content: center;
+			border: 0;
+		}
 		.tab {
 			font-weight: 600;
 			font-size: 14px;
@@ -188,6 +209,11 @@ export default {
 			border-bottom: 2px solid transparent;
 			cursor: pointer;
 			padding-bottom: 10px;
+			text-align: center;
+			@media #{$mob-view} {
+				color: $gray-dark;
+				padding: 0 25px 10px;
+			}
 			&:first-child {
 				margin-right: 25px;
 			}
@@ -200,6 +226,14 @@ export default {
 	}
 	.my-future-tours {
 		margin-top: 25px;
+		@media #{$mob-view} {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-evenly;
+			background: #f5f5f5;
+			margin: 0;
+			padding: 20px;
+		}
 		.tour-item {
 			display: flex;
 			background: #fff;
@@ -350,6 +384,9 @@ export default {
 					font-size: 16px;
 					text-transform: capitalize;
 					margin-left: 7px;
+					@media #{$mob-view} {
+						margin: 0;
+					}
 				}
 			}
 			&__free-place {
@@ -376,16 +413,33 @@ export default {
 
 	.my-past-tours {
 		margin-top: 25px;
+		@media #{$mob-view} {
+			background: #f5f5f5;
+			margin: 0;
+			padding: 20px;
+		}
 		.tour-items {
 			display: flex;
 			flex-wrap: wrap;
+			@media #{$mob-view} {
+				justify-content: space-evenly;
+			}
 			.tour-item {
 				color: $blue-darkest;
 				max-width: 273px;
 				margin-bottom: 25px;
 				border-radius: 7px;
+				@media #{$mob-view} {
+					background: #fff;
+					margin-right: 0;
+				}
 				&:not(:last-child) {
 					margin-right: 25px;
+				}
+				.tour-item-info {
+					@media #{$mob-view} {
+						padding: 16px;
+					}
 				}
 				.company-info {
 					font-weight: 600;
@@ -420,6 +474,9 @@ export default {
 						height: 100%;
 						object-fit: cover;
 						border-radius: 7px;
+						@media #{$mob-view} {
+							border-radius: 7px 7px 0 0;
+						}
 					}
 				}
 				.tour-name {
@@ -452,9 +509,18 @@ export default {
 				.btn {
 					height: 45px;
 					text-transform: none;
+					@media #{$mob-view} {
+						margin-top: 5px;
+					}
 				}
 			}
 		}
+	}
+	.no-result {
+		display: block;
+		text-align: center;
+		color: $blue-darkest;
+		padding: 25px 0;
 	}
 }
 </style>
