@@ -10,7 +10,7 @@
 					@input="phoneValue = arguments[1]"
 				/>
 			</div>
-			<div class="password" @click="isDisabled=false">
+			<div class="password">
 				<span class="label">Пароль</span>
 				<v-text-field
 					solo
@@ -18,7 +18,6 @@
 					type="password"
 					:rules="requiredRule"
 					v-model="loginObj.password"
-					:readonly="isDisabled"
 				/>
 			</div>
 			<button class="btn green-main next" @click.prevent="submitLogin">
@@ -46,8 +45,7 @@ export default {
 			loginObj: {
 				phoneNumber: '',
 				password: ''
-			},
-			isDisabled: true
+			}
 		};
 	},
 	methods: {
