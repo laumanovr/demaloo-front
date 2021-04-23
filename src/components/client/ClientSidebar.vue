@@ -1,5 +1,5 @@
 <template>
-	<div class="client-sidebar-container">
+	<div class="client-sidebar-container web">
 		<div class="sticky-block">
 			<div class="profile-data">
 				<div class="avatar">
@@ -63,7 +63,7 @@ export default {
 </script>
 
 <style lang="scss">
-	.client-sidebar-container {
+	.client-sidebar-container.web {
 		min-width: 280px;
 		border-right: 1px solid $gray-light;
 		.sticky-block {
