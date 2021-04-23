@@ -415,6 +415,9 @@ export default {
 		this.isLoading = true;
 		this.getSelectedTourDetail(this.$route.params.tourId);
 	},
+	beforeDestroy() {
+		this.isLoading = false;
+	},
 	methods: {
 		async getSelectedTourDetail(tourId) {
 			try {
@@ -537,7 +540,9 @@ export default {
 			try {
 				this.isLoading = true;
 				const res = await TourService.paymentForTour(this.payOrReserve);
+				this.toggleReserveModal();
 				window.location.href = res.data.redirectUrl;
+				this.isLoading = false;
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
@@ -931,6 +936,7 @@ export default {
 				font-size: 14px;
 				color: #153243;
 				margin-top: 11px;
+				white-space: pre-line;
 			}
 		}
 	}
