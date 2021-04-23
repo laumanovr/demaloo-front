@@ -42,10 +42,6 @@ export default {
 	data() {
 		return {
 			requiredRule: [(v) => !!v || 'Обязательное поле'],
-			// phoneRule: [
-			// 	v => !!v || 'Обязательное поле',
-			// 	v => ( v && !v.includes('_') ) || 'Введите правильный номер телефона'
-			// ],
 			phoneValue: '',
 			loginObj: {
 				phoneNumber: '',
@@ -56,7 +52,7 @@ export default {
 	},
 	methods: {
 		submitLogin() {
-			if (this.phoneValue.includes('_')) {
+			if (!this.phoneValue || this.phoneValue.includes('_')) {
 				this.$toast.error('Введите правильный номер телефона');
 				return;
 			}
