@@ -14,8 +14,12 @@
 				</template>
 				<a href="#" class="web">Поддержка</a>
 				<template v-if="userLogged">
-					<div class="profile" @click="$router.push('/profile-manage')">
-						<span class="name web">{{userProfile.name}}</span>
+					<div class="profile web" @click="$router.push('/profile-manage')">
+						<span class="name">{{userProfile.name}}</span>
+						<img :src="profilePhoto" @error="$event.target.src = require('@/assets/icons/profile-tab.svg')">
+					</div>
+					<!--mobile-->
+					<div class="profile mob" @click="$router.push('/mobile-profile')">
 						<img :src="profilePhoto" @error="$event.target.src = require('@/assets/icons/profile-tab.svg')">
 					</div>
 				</template>
@@ -67,7 +71,7 @@ export default {
 		border-bottom: 1px solid $gray-light;
 		padding: 0 2px;
 		@media #{$mob-view} {
-			padding: 0 10px;
+			padding: 0 20px;
 		}
 		.header-info {
 			display: flex;
