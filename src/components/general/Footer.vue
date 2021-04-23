@@ -51,7 +51,7 @@
 		background: #f5f5f5;
 		border-top: 1px solid $gray-light;
 		@media #{$mob-view} {
-			background: #fff;
+			/*background: #fff;*/
 		}
 		.footer {
 			&__content {
@@ -60,6 +60,9 @@
 				text-align: center;
 				color: $blue-darkest;
 				padding-bottom: 15px;
+				@media #{$mob-view} {
+					padding: 0 8px 15px;
+				}
 			}
 			&__logo {
 				span {
