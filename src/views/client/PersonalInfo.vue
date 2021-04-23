@@ -1,7 +1,10 @@
 <template>
 	<div class="personal-info">
 		<PreLoader v-if="isLoading"/>
-		<div class="head-title">Обновить профиль</div>
+		<div class="mob-profile-head head-title mob">
+			<img src="../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
+			<span>Обновить профиль</span>
+		</div>
 		<v-form ref="profileForm">
 			<div class="profile-avatar">
 				<div class="image">
@@ -172,8 +175,15 @@ export default {
 <style lang="scss">
 	.personal-info {
 		max-width: 60%;
+		@media #{$mob-view} {
+			max-width: none;
+		}
 		.v-form {
 			min-width: 500px;
+			@media #{$mob-view} {
+				min-width: auto;
+				padding: 0 15px 20px;
+			}
 			.profile-avatar {
 				margin: 20px 0;
 				display: flex;
