@@ -367,6 +367,7 @@ export default {
 				this.isLoading = true;
 				const res = await TourService.purchaseReservation(this.$route.params.bookId, this.payOrReserve);
 				window.location.href = res.data.redirectUrl;
+				this.isLoading = false;
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
