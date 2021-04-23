@@ -26,10 +26,6 @@
 					<div class="tour-detail__info">
 						<div class="top-title flex align-center justify-space-between">
 							<span class="tour-detail__name">{{tourDetail.name.ru}}</span>
-							<span class="tour-detail__favorite flex align-center web">
-								<img src="../../assets/icons/heart-blue.svg">
-								Сохранить
-							</span>
 						</div>
 						<div class="tour-detail__company-info flex align-center">
 							<img :src="showCompanyImage(tourDetail.company.logo)" class="company">
@@ -71,6 +67,20 @@
 									<span>Место сбора:</span>
 								</div>
 								<div class="value">{{tourDetail.meetingPoint.ru}}</div>
+							</div>
+							<div class="short-info">
+								<div class="item flex align-center">
+									<img src="../../assets/icons/people-icon.svg">
+									<span>Человек:</span>
+								</div>
+								<div class="value">{{payOrReserve.peopleCount}}</div>
+							</div>
+							<div class="short-info">
+								<div class="item flex align-center">
+									<img src="../../assets/icons/bank-card-icon.svg">
+									<span>Итого:</span>
+								</div>
+								<div class="value">{{totalPayPrice}}</div>
 							</div>
 						</div>
 						<!--Mobile end-->
@@ -149,7 +159,7 @@
 
 				<div class="tour-detail__right">
 					<div class="reserve-block">
-						<div class="head-block flex align-center justify-space-between">
+						<div class="head-block flex align-center justify-space-between web">
 							<div class="price">{{tourDetail.price}} сом</div>
 							<div class="date-place">
 								<div class="date web" v-html="formatDate(tourDetail.date)"></div>
@@ -199,22 +209,24 @@
 						<div class="agreement web">
 							Забронировав тур, я соглашаюсь с <span>Условиями предоставления услуг.</span>
 						</div>
-						<button
-							class="btn green-main"
-							v-if="checkIsTourBooked() || checkIsTourPending()"
-							@click="purchaseReservedTour"
-						>
-							Оплатить
-						</button>
-						<button class="btn white-color-red cancel" @click="cancelTourBooking(true)">
-							Отменить
-						</button>
+						<div class="pay-btn-block">
+							<button
+								class="btn green-main"
+								v-if="checkIsTourBooked() || checkIsTourPending()"
+								@click="purchaseReservedTour"
+							>
+								Оплатить
+							</button>
+							<button class="btn white-color-red cancel" @click="cancelTourBooking(true)">
+								Отменить
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!--CANCEL BOOKING MODAL-->
-		<modal name="cancel-book-modal" width="370px" height="200px">
+		<modal name="cancel-book-modal" :width="isMobileWindow ? '85%' : '370px'" height="200px">
 			<div class="modal-container">
 				<CloseIcon class="top-right" @click="$modal.hide('cancel-book-modal')"/>
 				<h3>Отменить бронь?</h3>
@@ -688,6 +700,7 @@ export default {
 					font-size: 14px;
 					color: #153243;
 					margin-top: 11px;
+					white-space: pre-line;
 				}
 			}
 		}
@@ -775,8 +788,20 @@ export default {
 		}
 	}
 	.reserve-block {
+		.pay-btn-block {
+			@media #{$mob-view} {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: row-reverse;
+			}
+		}
 		.btn.cancel {
 			margin-top: 15px;
+			@media #{$mob-view} {
+				margin: 0 10px 0 0;
+			}
 		}
 	}
 	.cancel-btn {
