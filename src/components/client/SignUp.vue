@@ -4,14 +4,14 @@
 		<template v-if="formStep == 'first'">
 			<v-form ref="registerForm">
 				<img src="../../assets/images/register-step-one.png" class="step">
-				<div class="masked-input" @click="inputDisabled = false">
+				<div class="masked-input">
 					<span class="label">Телефон</span>
 					<MaskedInput
 						mask="\+\996 (111) 11-11-11"
 						placeholder="Ваш номер телефона"
 						v-model="phoneView"
 						@input="registerObj.phoneNumber = arguments[1]"
-						:readonly="inputDisabled"
+						autocomplete="new-password"
 					/>
 					<v-text-field class="error-only" v-model="registerObj.phoneNumber" :rules="phoneRule"/>
 				</div>
@@ -104,7 +104,6 @@ export default {
 			formStep: 'first',
 			phoneView: '',
 			codeValue: '',
-			inputDisabled: true,
 			showBtn: true,
 			secretCode: '',
 			checkPassword: '',
