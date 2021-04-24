@@ -245,7 +245,8 @@
 			<modal
 				name="reserve-modal"
 				class="reserve-modal"
-				:width="isMobileWindow ? '100%' : '390px'" height="90%"
+				:width="isMobileWindow ? '100%' : '390px'"
+				:height="isMobileWindow ? '97%' : '90%'"
 				:clickToClose="false"
 				v-if="hasTour"
 			>
@@ -608,7 +609,6 @@ export default {
 			}
 		}
 		.single-center {
-			justify-content: space-between;
 			&.complete {
 				justify-content: center;
 			}
@@ -616,7 +616,7 @@ export default {
 				max-width: 165px;
 				height: 40px;
 				&:first-child {
-					margin-right: 10px;
+					margin-right: 20px;
 				}
 			}
 		}
