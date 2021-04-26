@@ -5,6 +5,7 @@ import {location} from './location.module';
 import {notification} from './notification.module';
 import {team} from './team.module';
 import {booking} from './booking.module';
+import {favorite} from './favorite.module';
 
 Vue.use(Vuex);
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
 		location,
 		notification,
 		team,
-		booking
+		booking,
+		favorite
 	},
 });
