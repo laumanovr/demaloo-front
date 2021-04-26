@@ -9,6 +9,7 @@ const state = {
 const actions = {
 	async checkCompanyNotifies({commit}) {
 		try {
+			commit('setNotifications', '');
 			const res = await NotificationService.fetchAll();
 			const newNotifies = res.data.notifications.filter((item) => !item.isRead);
 			if (newNotifies.length) {
@@ -20,6 +21,19 @@ const actions = {
 			commit('setError', err);
 		}
 	},
+
+	async checkClientNotifies({commit}) {
+		try {
+			commit('setNotifications', '');
+			const res = await NotificationService.fetchClientAll();
+			const newNotifies = res.data.notifications.filter((item) => !item.isRead);
+			if (newNotifies.length) {
+				commit('setNotifications', newNotifies);
+			}
+		} catch (err) {
+			commit('setError', err);
+		}
+	}
 };
 
 const mutations = {
