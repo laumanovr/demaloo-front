@@ -98,19 +98,11 @@ export default {
 				&:not(:last-child) {
 					border-bottom: 1px solid $gray-light;
 				}
-				svg {
+				svg, img {
 					margin-right: 13px;
 				}
-
 				&.profile-logout {
-					display: flex;
-					align-items: center;
-					font-size: 12px;
-					color: $blue-darkest;
 					margin-top: 5px;
-					img {
-						margin-right: 14px;
-					}
 				}
 			}
 		}
