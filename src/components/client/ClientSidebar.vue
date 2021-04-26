@@ -21,11 +21,11 @@
 					<inline-svg :src="require(`@/assets/icons/${item.icon}`)" :class="item.className"/>
 					<span>{{ item.name }}</span>
 				</div>
+				<div class="tab" @click="logOut">
+					<img src="../../assets/icons/person-logout.svg" class="logout-icon">
+					<span>Выход</span>
+				</div>
 			</div>
-		</div>
-		<div class="profile-logout" @click="logOut">
-			<img src="../../assets/icons/person-logout.svg" class="logout-icon">
-			Выход
 		</div>
 	</div>
 </template>
@@ -111,6 +111,9 @@ export default {
 				svg {
 					margin: 0 13px 0 10px;
 				}
+				.logout-icon {
+					margin: 0 15px 0 10px;
+				}
 				&.active {
 					background: rgba($green-main, 0.15);
 					color: $green-main;
@@ -131,21 +134,6 @@ export default {
 						}
 					}
 				}
-			}
-		}
-		.profile-logout {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 12px;
-			cursor: pointer;
-			color: $blue-darkest;
-			position: fixed;
-			bottom: 0;
-			padding: 15px 15px 15px 10px;
-			width: 250px;
-			img {
-				margin-right: 14px;
 			}
 		}
 	}
