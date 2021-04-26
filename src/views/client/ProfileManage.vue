@@ -44,7 +44,7 @@ export default {
 	}
 	&__content {
 		width: 100%;
-		padding: 52px 0 70px 25px;
+		padding: 0 0 70px 25px;
 		@media #{$mob-view} {
 			padding: 0;
 		}
