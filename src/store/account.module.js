@@ -39,6 +39,8 @@ const actions = {
 			const res = await UserService.loginClient(data.loginObj);
 			dispatch('setInitialUser', res);
 			dispatch('booking/getAllUserBookings', {}, {root: true});
+			dispatch('notification/checkClientNotifies', {}, {root: true});
+			dispatch('favorite/getAllFavoriteTours', {}, {root: true});
 			commit('setSuccess', 'success');
 			if (res.data.user.name) {
 				this.$router.push('/0#');
