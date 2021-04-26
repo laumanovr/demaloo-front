@@ -106,4 +106,9 @@ export class TourService {
 		const url = `${API_BASE_URL}/customers/favorites/tours`;
 		return sendGetRequest(url);
 	}
+
+	static deleteFavoriteTour(tourId) {
+		const url = `${API_BASE_URL}/customers/favorites/tours/${tourId}`;
+		return sendPatchRequest(url, {});
+	}
 }
