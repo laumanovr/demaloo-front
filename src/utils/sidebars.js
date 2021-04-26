@@ -46,22 +46,22 @@ export default {
 			className: 'single'
 		},
 		{
-			name: 'Мои отзывы',
-			route: '#',
-			icon: 'review-tab.svg',
-			className: 'single'
-		},
-		{
 			name: 'Уведомления',
-			route: '#',
+			route: '/profile-manage/notifications',
 			icon: 'notification-tab.svg',
 			className: 'multi'
 		},
 		{
 			name: 'Сохраненные туры',
-			route: '#',
+			route: '/profile-manage/favorites',
 			icon: 'favorite-tab.svg',
 			className: 'multi'
+		},
+		{
+			name: 'Мои отзывы',
+			route: '#',
+			icon: 'review-tab.svg',
+			className: 'single'
 		},
 		{
 			name: 'Сообщения',
