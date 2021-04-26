@@ -193,6 +193,7 @@ export default {
 
 <style lang="scss" scoped>
 .my-tours-container {
+	padding-top: 52px;
 	.tour-tabs {
 		display: flex;
 		align-items: center;
