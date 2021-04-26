@@ -91,8 +91,19 @@ export class TourService {
 		const url = `${API_BASE_URL}/customers/bookings/${bookId}`;
 		return sendGetRequest(url);
 	}
+
 	static cancelBooking(bookId) {
 		const url = `${API_BASE_URL}/customers/bookings/${bookId}/cancel`;
 		return sendPatchRequest(url, {});
+	}
+
+	static addFavoriteTour(tourId) {
+		const url = `${API_BASE_URL}/customers/favorites/tours/${tourId}`;
+		return sendPostRequest(url, {});
+	}
+
+	static fetchFavoriteTours() {
+		const url = `${API_BASE_URL}/customers/favorites/tours`;
+		return sendGetRequest(url);
 	}
 }
