@@ -27,10 +27,13 @@
 						<div class="tour-detail__info">
 							<div class="top-title flex align-center justify-space-between">
 								<span class="tour-detail__name">{{tourDetail.name.ru}}</span>
-								<span class="tour-detail__favorite flex align-center web">
-								<img src="../../assets/icons/heart-blue.svg">
-								Сохранить
-							</span>
+								<div class="tour-detail__favorite flex align-center web" @click="addToFavorite">
+									<inline-svg
+										:src="require('../../assets/icons/heart-blue.svg')"
+										:class="{'saved': checkIsAlreadyFavorite()}"
+									/>
+									<span>{{checkIsAlreadyFavorite() ? 'Сохранен' : 'Сохранить'}}</span>
+								</div>
 							</div>
 							<div class="tour-detail__company-info flex align-center">
 								<img :src="showCompanyImage(tourDetail.company.logo)" class="company">
@@ -410,6 +413,9 @@ export default {
 		},
 		userBookings() {
 			return this.$store.state.booking.userBookings;
+		},
+		favoriteTours() {
+			return this.$store.state.favorite.favoriteTours;
 		}
 	},
 	created() {
@@ -446,6 +452,11 @@ export default {
 			}
 		},
 
+		checkIsAlreadyFavorite() {
+			const favTour = this.favoriteTours.find((tour) => tour._id === this.$route.params.tourId);
+			return favTour ? favTour : '';
+		},
+
 		async getOtherTours(companyId) {
 			try {
 				const query = `&company=${companyId}`;
@@ -453,6 +464,22 @@ export default {
 				this.otherTours = res.data.tours.filter((i) => i._id !== this.$route.params.tourId).slice(0, 8);
 			} catch (err) {
 				this.$toast.error(err);
+			}
+		},
+
+		async addToFavorite() {
+			try {
+				this.isLoading = true;
+				if (this.checkIsAlreadyFavorite()) {
+					await TourService.deleteFavoriteTour(this.$route.params.tourId);
+				} else {
+					await TourService.addFavoriteTour(this.$route.params.tourId);
+				}
+				this.$store.dispatch('favorite/getAllFavoriteTours');
+				this.isLoading = false;
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
 			}
 		},
 
@@ -785,8 +812,15 @@ export default {
 		font-size: 14px;
 		color: $blue-darkest;
 		cursor: pointer;
-		img {
+		svg {
 			margin-right: 4px;
+			width: 18px;
+			height: 18px;
+			&.saved {
+				path {
+					fill: $red-primary;
+				}
+			}
 		}
 	}
 	&__company-info {
