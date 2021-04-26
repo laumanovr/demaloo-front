@@ -54,6 +54,11 @@ export class TourService {
 		const url = `${API_BASE_URL}/companies/tours/${tourId}/cancel`;
 		return sendPatchRequest(url, data);
 	}
+
+	static fetchTourRevenue(tourId) {
+		const url = `${API_BASE_URL}/companies/tours/${tourId}/revenue`;
+		return sendGetRequest(url);
+	}
 	// --------------COMPANY TOURS END------------------------------------------
 	// -----------------CLIENT TOURS START--------------------------------------
 
