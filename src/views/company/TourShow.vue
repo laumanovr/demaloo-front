@@ -46,6 +46,10 @@
 						<label>Транспорт:</label>
 						<span>{{selectedTour.transport.ru}}</span>
 					</div>
+					<div>
+						<label>Итого оплачено:</label>
+						<span>{{totalRevenue.fromDemaloo + totalRevenue.totalSum}} сом</span>
+					</div>
 				</div>
 				<v-form ref="editTourForm" class="info-fields right">
 					<div>
@@ -366,6 +370,7 @@ export default {
 			selectedTour: {},
 			tourBookings: [],
 			selectedBooking: {},
+			totalRevenue: {},
 			restPlaceCount: 0,
 			excelHeaders: [],
 			excelRows: [],
@@ -394,6 +399,7 @@ export default {
 				const res = await TourService.fetchTourById(tourId);
 				this.selectedTour = res.data.tour;
 				this.selectedTour.date = moment(this.selectedTour.date, 'YYYY-MM-DD').format('DD.MM.YYYY');
+				this.getTourRevenue();
 				this.getTourBookings();
 			} catch (err) {
 				this.$toast.error(err);
@@ -407,6 +413,18 @@ export default {
 				this.tourBookings = res.data.bookings;
 				this.isLoading = false;
 				this.restPlaceCount = this.selectedTour.peopleCount - this.selectedTour.bookingCount;
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
+		},
+
+		async getTourRevenue() {
+			try {
+				this.isLoading = true;
+				const res = await TourService.fetchTourRevenue(this.$route.params.tourId);
+				this.totalRevenue = res.data.revenue;
+				this.isLoading = false;
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
