@@ -47,8 +47,12 @@
 						<span>{{selectedTour.transport.ru}}</span>
 					</div>
 					<div>
+						<label>Оплаченные из Demaloo:</label>
+						<span>{{totalRevenue.fromDemaloo}} сом</span>
+					</div>
+					<div>
 						<label>Итого оплачено:</label>
-						<span>{{totalRevenue.fromDemaloo + totalRevenue.totalSum}} сом</span>
+						<span>{{totalRevenue.totalSum}} сом</span>
 					</div>
 				</div>
 				<v-form ref="editTourForm" class="info-fields right">
