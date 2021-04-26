@@ -1,8 +1,9 @@
-import {API_BASE_URL, sendGetRequest, sendPatchRequest} from './api.service';
+import {API_BASE_URL, sendGetRequest, sendPatchRequest, sendPostRequest} from './api.service';
 
 export class ReviewService {
 	constructor() {}
 
+	// --------------------------COMPANY----------------------------------------
 	static fetchCompanyAllReviews() {
 		const url = `${API_BASE_URL}/companies/toursWithReviewStats?limit=100`;
 		return sendGetRequest(url);
@@ -21,5 +22,11 @@ export class ReviewService {
 	static companyReply(reviewId, data) {
 		const url = `${API_BASE_URL}/companies/reviews/${reviewId}`;
 		return sendPatchRequest(url, data);
+	}
+
+	// ---------------------------CLIENT------------------------------------------------
+	static addClientReview(bookId, body) {
+		const url = `${API_BASE_URL}/customers/bookings/${bookId}/reviews`;
+		return sendPostRequest(url, body);
 	}
 }
