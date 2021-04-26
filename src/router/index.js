@@ -66,6 +66,22 @@ const routes = [
 						meta: {
 							requireAuth: true
 						}
+					},
+					{
+						path: 'notifications',
+						name: 'notifications',
+						component: loadComponent('client/Notifications'),
+						meta: {
+							requireAuth: true
+						}
+					},
+					{
+						path: 'favorites',
+						name: 'favorites',
+						component: loadComponent('client/MyFavorites'),
+						meta: {
+							requireAuth: true
+						}
 					}
 				]
 			}
