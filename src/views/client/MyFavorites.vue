@@ -44,60 +44,60 @@
 </template>
 
 <script>
-	import PreLoader from '@/components/general/PreLoader';
-	import {AWS_IMAGE_URL} from '@/services/api.service';
-	import {mapState} from 'vuex';
-	import {format} from 'date-fns';
-	import {ru} from 'date-fns/locale';
+import PreLoader from '@/components/general/PreLoader';
+import {AWS_IMAGE_URL} from '@/services/api.service';
+import {mapState} from 'vuex';
+import {format} from 'date-fns';
+import {ru} from 'date-fns/locale';
 
-	export default {
-		components: {
-			PreLoader
+export default {
+	components: {
+		PreLoader
+	},
+	data() {
+		return {
+			isLoading: false
+		};
+	},
+	computed: {
+		...mapState('favorite', ['favoriteTours', 'onSuccess', 'onError']),
+	},
+	created() {
+		this.isLoading = true;
+		this.$store.dispatch('favorite/getAllFavoriteTours');
+	},
+	methods: {
+		showTourPhoto(imgUrl) {
+			return `${AWS_IMAGE_URL}/images/` + imgUrl + '?w=300&q=100';
 		},
-		data() {
-			return {
-				isLoading: false
+
+		showCompanyPhoto(imgUrl) {
+			return `${AWS_IMAGE_URL}/logos/` + imgUrl + '?w=24';
+		},
+
+		formatDate(date) {
+			const dateNum = format(new Date(date), 'dd');
+			const month = format(new Date(date), 'LLLL', {locale: ru});
+			const weekD = format(new Date(date), 'eeeeee', {locale: ru});
+			return `<span>${dateNum}</span><span style="margin: 0 6px">${month},</span><span>${weekD}</span>`;
+		},
+	},
+	watch: {
+		onSuccess(msg) {
+			if (msg) {
+				this.$store.state.favorite.onSuccess = '';
+				this.isLoading = false;
 			}
 		},
-		computed: {
-			...mapState('favorite', ['favoriteTours', 'onSuccess', 'onError']),
-		},
-		created() {
-			this.isLoading = true;
-			this.$store.dispatch('favorite/getAllFavoriteTours');
-		},
-		methods: {
-			showTourPhoto(imgUrl) {
-				return `${AWS_IMAGE_URL}/images/` + imgUrl + '?w=300&q=100';
-			},
-
-			showCompanyPhoto(imgUrl) {
-				return `${AWS_IMAGE_URL}/logos/` + imgUrl + '?w=24';
-			},
-
-			formatDate(date) {
-				const dateNum = format(new Date(date), 'dd');
-				const month = format(new Date(date), 'LLLL', {locale: ru});
-				const weekD = format(new Date(date), 'eeeeee', {locale: ru});
-				return `<span>${dateNum}</span><span style="margin: 0 6px">${month},</span><span>${weekD}</span>`;
-			},
-		},
-		watch: {
-			onSuccess(msg) {
-				if (msg) {
-					this.$store.state.favorite.onSuccess = '';
-					this.isLoading = false;
-				}
-			},
-			onError(msg) {
-				if (msg) {
-					this.$toast.error(msg);
-					this.isLoading = false;
-					this.$store.state.favorite.onError = '';
-				}
+		onError(msg) {
+			if (msg) {
+				this.$toast.error(msg);
+				this.isLoading = false;
+				this.$store.state.favorite.onError = '';
 			}
 		}
 	}
+};
 </script>
 
 <style lang="scss" scoped>

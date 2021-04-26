@@ -31,7 +31,7 @@ export default {
 			if (newNotify) {
 				this.$toast.info('У вас новые уведомления!', {duration: 4500});
 				this.hasNewNotify = true;
-            }
+			}
 		},
 		onEmpty() {
 			this.hasNewNotify = false;

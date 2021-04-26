@@ -16,50 +16,50 @@
 </template>
 
 <script>
-	import {NotificationService} from '../../services/notification.service';
-	import PreLoader from '@/components/general/PreLoader';
-	import {format} from 'date-fns';
+import {NotificationService} from '../../services/notification.service';
+import PreLoader from '@/components/general/PreLoader';
+import {format} from 'date-fns';
 
-	export default {
-		components: {
-			PreLoader
-		},
-		data() {
-			return {
-				isLoading: false,
-				notifications: []
+export default {
+	components: {
+		PreLoader
+	},
+	data() {
+		return {
+			isLoading: false,
+			notifications: []
+		};
+	},
+	created() {
+		this.getClientNotifications();
+	},
+	methods: {
+		async getClientNotifications() {
+			try {
+				this.isLoading = true;
+				const res = await NotificationService.fetchClientAll();
+				this.notifications = res.data.notifications;
+				this.isLoading = false;
+				this.makeAllNotificationsRead();
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
 			}
 		},
-		created() {
-			this.getClientNotifications();
+
+		async makeAllNotificationsRead() {
+			try {
+				await NotificationService.makeClientAllRead();
+			} catch (err) {
+				this.$toast.error(err);
+			}
 		},
-		methods: {
-			async getClientNotifications() {
-				try {
-					this.isLoading = true;
-					const res = await NotificationService.fetchClientAll();
-					this.notifications = res.data.notifications;
-					this.isLoading = false;
-					this.makeAllNotificationsRead();
-				} catch (err) {
-					this.$toast.error(err);
-					this.isLoading = false;
-				}
-			},
 
-			async makeAllNotificationsRead() {
-				try {
-					await NotificationService.makeClientAllRead();
-				} catch (err) {
-					this.$toast.error(err);
-				}
-			},
-
-			formatDate(date) {
-				return format(new Date(date), "dd.MM.yyyy HH:mm");
-			},
-		}
+		formatDate(date) {
+			return format(new Date(date), "dd.MM.yyyy HH:mm");
+		},
 	}
+};
 </script>
 
 <style lang="scss">
