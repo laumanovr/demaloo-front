@@ -27,9 +27,11 @@ export default {
 		this.$store.dispatch('notification/checkCompanyNotifies');
 	},
 	watch: {
-		onNewNotifies() {
-			this.$toast.info('У вас новые уведомления!', {duration: 4500});
-			this.hasNewNotify = true;
+		onNewNotifies(newNotify) {
+			if (newNotify) {
+				this.$toast.info('У вас новые уведомления!', {duration: 4500});
+				this.hasNewNotify = true;
+            }
 		},
 		onEmpty() {
 			this.hasNewNotify = false;
