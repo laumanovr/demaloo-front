@@ -29,4 +29,9 @@ export class ReviewService {
 		const url = `${API_BASE_URL}/customers/bookings/${bookId}/reviews`;
 		return sendPostRequest(url, body);
 	}
+
+	static fetchAllClientReviews() {
+		const url = `${API_BASE_URL}/customers/reviews`;
+		return sendGetRequest(url);
+	}
 }
