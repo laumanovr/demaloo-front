@@ -3,7 +3,7 @@
 		<PreLoader v-if="isLoading"/>
 		<div class="login-image">
 			<router-link to="/">
-				<img src="../../assets/images/welcome.png" class="welcome" :class="{'sign-in': loginType == 'login'}">
+				<img src="../../assets/images/welcome-big.jpg" class="welcome">
 				<div class="logo-text">
 					<img src="../../assets/images/big-logo.svg">
 					<div class="title">
@@ -60,3 +60,56 @@ export default {
 	}
 };
 </script>
+
+<style lang="scss" scoped>
+	.company-sign-up-in-container {
+		display: flex;
+		background: #fff;
+		position: relative;
+		.login-image {
+			position: relative;
+			min-width: 45%;
+			.welcome {
+				width: 100%;
+				min-height: 100%;
+				object-fit: cover;
+			}
+			.logo-text {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				background: rgba($blue-darkest, 0.3);
+				.title {
+					display: inline-block;
+					margin: 28px 0 0 20px;
+					span {
+						display: block;
+						font-size: 14px;
+						color: #fff;
+						text-align: right;
+					}
+				}
+			}
+		}
+		.form-container {
+			min-width: 55%;
+			background: #fff;
+		}
+		.form-link {
+			text-align: center;
+			font-size: 14px;
+			color: $black-light;
+			padding-bottom: 25px;
+			span:last-child {
+				margin-left: 5px;
+				color: $red-primary;
+				cursor: pointer;
+			}
+		}
+	}
+</style>
