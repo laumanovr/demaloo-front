@@ -177,8 +177,16 @@ input {
   }
 }
 
-.v-text-field > .v-input__control > .v-input__slot {
-  background: #fff !important;
+.v-text-field {
+  .v-input__control > .v-input__slot {
+    background: #fff !important;
+    border-radius: 7px;
+  }
+  &.sm-h {
+    .v-input__slot {
+      min-height: 52px !important;
+    }
+  }
 }
 
 .border.v-text-field {
@@ -188,10 +196,6 @@ input {
     box-shadow: none !important;
     border-radius: 7px;
   }
-}
-
-.v-text-field .v-input__control > .v-input__slot {
-  border-radius: 7px;
 }
 
 .v-select-item {
