@@ -103,11 +103,16 @@ export default {
 <style lang="scss" scoped>
 	.favorite-tours-container {
 		padding-top: 26px;
+		@media #{$mob-view} {
+			padding: 0;
+		}
 		.tour-items {
 			display: flex;
 			flex-wrap: wrap;
 			@media #{$mob-view} {
 				justify-content: space-evenly;
+				padding-top: 25px;
+				background: #f5f5f5;
 			}
 			.tour-item {
 				color: $blue-darkest;
