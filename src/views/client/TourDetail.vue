@@ -27,7 +27,11 @@
 						<div class="tour-detail__info">
 							<div class="top-title flex align-center justify-space-between">
 								<span class="tour-detail__name">{{tourDetail.name.ru}}</span>
-								<div class="tour-detail__favorite flex align-center web" @click="addToFavorite">
+								<div
+									class="tour-detail__favorite flex align-center web"
+									@click="addToFavorite"
+									v-if="userLogged"
+								>
 									<inline-svg
 										:src="require('../../assets/icons/heart-blue.svg')"
 										:class="{'saved': checkIsAlreadyFavorite()}"
