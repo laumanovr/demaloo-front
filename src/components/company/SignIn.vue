@@ -8,8 +8,7 @@
 				label="Электронная почта"
 				:rules="emailRule"
 				v-model="loginObj.email"
-				:readonly="isDisabled"
-				@click="isDisabled = false"
+				autocomplete="new-password"
 			/>
 			<v-text-field
 				outlined
@@ -17,7 +16,7 @@
 				:rules="requiredRule"
 				v-model="loginObj.password"
 				type="password"
-				:readonly="isDisabled"
+				autocomplete="new-password"
 			/>
 			<button class="btn green-main next" @click.prevent="submitLogin">
 				Войти
@@ -34,7 +33,8 @@ export default {
 	data() {
 		return {
 			requiredRule: [(v) => !!v || 'Обязательное поле'],
-			emailRule: [
+			emailRule: [],
+			emailValidation: [
 				(v) => !!v || 'Email обязательный',
 				(v) => {
 					const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -44,8 +44,7 @@ export default {
 			loginObj: {
 				email: '',
 				password: '',
-			},
-			isDisabled: true
+			}
 		};
 	},
 	computed: {
@@ -56,10 +55,13 @@ export default {
 	},
 	methods: {
 		submitLogin() {
-			if (this.$refs.signInForm.validate()) {
-				this.$emit('loading', true);
-				this.$store.dispatch('account/companyLogin', this.loginObj);
-			}
+			this.emailRule = this.emailValidation;
+			this.$nextTick(() => {
+				if (this.$refs.signInForm.validate()) {
+					this.$emit('loading', true);
+					this.$store.dispatch('account/companyLogin', this.loginObj);
+				}
+			});
 		},
 	},
 	watch: {
