@@ -47,7 +47,7 @@
 						<span>{{selectedTour.transport.ru}}</span>
 					</div>
 					<div>
-						<label>Оплаченные из Demaloo:</label>
+						<label>Оплата Demaloo:</label>
 						<span>{{totalRevenue.fromDemaloo}} сом</span>
 					</div>
 					<div>
@@ -608,7 +608,7 @@ export default {
 			margin-top: 24px;
 			.info-fields {
 				label {
-					word-break: break-all;
+					word-break: break-word;
 					font-size: 16px;
 					color: $gray-dark;
 					display: inline-block;
