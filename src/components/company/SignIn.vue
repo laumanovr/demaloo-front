@@ -4,7 +4,7 @@
 		<span class="sign-up-in-text">Быстрый, легкий и максимально удобный поиск туров!</span>
 		<v-form ref="signInForm">
 			<v-text-field
-				class="no-border"
+				outlined
 				label="Электронная почта"
 				:rules="emailRule"
 				v-model="loginObj.email"
@@ -12,7 +12,7 @@
 				@click="isDisabled = false"
 			/>
 			<v-text-field
-				class="no-border"
+				outlined
 				label="Пароль"
 				:rules="requiredRule"
 				v-model="loginObj.password"
