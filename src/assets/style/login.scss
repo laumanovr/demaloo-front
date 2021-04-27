@@ -1,67 +1,7 @@
-.company-sign-up-in-container {
-  display: flex;
-  background: #fff;
-  position: relative;
-  .login-image {
-    position: relative;
-    .welcome {
-      height: 100%;
-      &.sign-in {
-        height: auto;
-      }
-    }
-    .logo-text {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: rgba($blue-darkest, 0.3);
-      .title {
-        display: inline-block;
-        margin: 28px 0 0 20px;
-        span {
-          display: block;
-          font-size: 14px;
-          color: #fff;
-          text-align: right;
-        }
-      }
-    }
-  }
-  .sign-up-in-text {
-    font-size: 14px;
-    color: $gray-dark;
-  }
-  .form-container {
-    min-width: 50%;
-    background: #fff;
-  }
-  .form-link {
-    text-align: center;
-    font-size: 14px;
-    color: $black-light;
-    padding-bottom: 25px;
-    span:last-child {
-      margin-left: 5px;
-      color: $red-primary;
-      cursor: pointer;
-    }
-  }
-}
 .company-sign-up-in {
   background: #fff;
   padding: 15px 45px;
   min-height: 80vh;
-  &.step-two {
-    height: 450px;
-    .next {
-      margin-top: 25px;
-    }
-  }
   .v-form {
     text-align: center;
   }
@@ -74,34 +14,7 @@
   .sign-up-in-text {
     display: inline-block;
     margin-bottom: 30px;
-  }
-  .sign-in-up-type {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 14px;
-    margin-bottom: 25px;
-    span {
-      color: $indigo-light;
-      padding-bottom: 6px;
-      border-bottom: 2px solid transparent;
-      &.selected {
-        color: $indigo-blue;
-        border-bottom: 2px solid $indigo-blue;
-      }
-      &.change {
-        cursor: pointer;
-      }
-    }
-  }
-  .next {
-    font-weight: 400;
-    font-size: 16px;
-    height: 44px;
-    margin-top: 15px;
-  }
-  .type-code {
-    margin-bottom: 15px;
+    color: $gray-dark;
   }
 }
 
