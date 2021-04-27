@@ -91,7 +91,9 @@
 								<div class="date" v-html="formatDate(book.tour.date)"></div>
 								<span class="price">{{book.tour.price}} сом</span>
 							</div>
-							<button class="btn gray-primary">Написать отзыв</button>
+							<button class="btn gray-primary" @click="toggleReviewPastTourModal(book._id)">
+								Написать отзыв
+							</button>
 						</div>
 					</div>
 				</div>
@@ -100,20 +102,49 @@
 				<span class="no-result">Здесь пока пусто</span>
 			</template>
 		</div>
+
+		<!--REVIEW PAST TOUR MODAL-->
+		<modal name="review-past-modal" height="380px" :adaptive="true">
+			<div class="modal-container review-comment">
+				<CloseIcon class="top-right" @click="toggleReviewPastTourModal"/>
+				<div class="review-comment__head">
+					<span>Оцените тур</span>
+					<span>Поделитесь своим мнением</span>
+				</div>
+				<div class="review-comment__stars">
+					<div class="default-star">
+						<img src="../../assets/icons/unfilled-star.svg" v-for="i in 5" :key="i">
+					</div>
+					<div class="rating-star">
+						<img
+							src="../../assets/icons/rating-icon.svg"
+							v-for="i in 5" :key="i"
+							@click="reviewObj.rating = i"
+							:class="{'selected': i <= reviewObj.rating}"
+						>
+					</div>
+				</div>
+				<v-textarea v-model="reviewObj.message" placeholder="Введите текст" rows="4" no-resize solo/>
+				<button class="btn green-main" @click="writeReviewForPastTour">Сохранить</button>
+			</div>
+		</modal>
 	</div>
 </template>
 
 <script>
 import {TourService} from '@/services/tour.service';
+import {ReviewService} from '../../services/review.service';
 import PreLoader from '@/components/general/PreLoader';
 import {format} from 'date-fns';
 import {ru} from 'date-fns/locale';
 import {AWS_IMAGE_URL} from '@/services/api.service';
 import {mapState} from 'vuex';
+import CloseIcon from '@/components/icons/CloseIcon';
 
 export default {
 	components: {
-		PreLoader
+		PreLoader,
+		CloseIcon
 	},
 	data() {
 		return {
@@ -127,7 +158,12 @@ export default {
 			isLoading: false,
 			pastBookings: [],
 			todayDate: format(new Date(), 'yyyy-MM-dd'),
-			activeTab: 'future'
+			activeTab: 'future',
+			selectedBookId: '',
+			reviewObj: {
+				message: '',
+				rating: 0
+			}
 		};
 	},
 	computed: {
@@ -172,6 +208,29 @@ export default {
 		getLastStage(stages) {
 			return stages[stages.length - 1];
 		},
+
+		toggleReviewPastTourModal(bookId) {
+			this.selectedBookId = bookId;
+			this.reviewObj = {rating: 0};
+			this.$modal.toggle('review-past-modal');
+		},
+
+		async writeReviewForPastTour() {
+			if (!this.reviewObj.message || !this.reviewObj.rating) {
+				this.$toast.error('Введите текст и поставьте оценку!');
+				return;
+			}
+			try {
+				this.isLoading = true;
+				await ReviewService.addClientReview(this.selectedBookId, this.reviewObj);
+				this.toggleReviewPastTourModal();
+				this.isLoading = false;
+				this.$toast.success('Отзыв успешно добавлен!');
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
+		}
 	},
 	watch: {
 		onSuccess(msg) {
@@ -522,6 +581,51 @@ export default {
 		text-align: center;
 		color: $blue-darkest;
 		padding: 25px 0;
+	}
+	.review-comment {
+		max-width: 435px;
+		margin: 0 auto;
+		&__head {
+			span {
+				display: block;
+				&:first-child {
+					font-weight: 600;
+					font-size: 14px;
+					color: $blue-darkest;
+					margin-bottom: 5px;
+				}
+				&:last-child {
+					font-size: 12px;
+					color: $gray-dark;
+				}
+			}
+		}
+		&__stars {
+			margin: 15px 0 20px;
+			position: relative;
+			img {
+				width: 16px;
+				height: 16px;
+			}
+			.default-star {
+				display: flex;
+				justify-content: space-between;
+			}
+			.rating-star {
+				display: flex;
+				justify-content: space-between;
+				position: absolute;
+				top: 0;
+				width: 100%;
+				img {
+					opacity: 0;
+					cursor: pointer;
+					&.selected {
+						opacity: 1;
+					}
+				}
+			}
+		}
 	}
 }
 </style>
