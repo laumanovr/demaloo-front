@@ -19,11 +19,19 @@ export default {
 		Footer,
 		LoginModal
 	},
-	created() {
-		this.$store.dispatch('notification/checkClientNotifies');
-	},
 	computed: {
-		...mapState('notification', ['onNewNotifies'])
+		...mapState('notification', ['onNewNotifies']),
+		userProfile() {
+			return this.$store.state.account.customer;
+		},
+		userLogged() {
+			return Object.values(this.userProfile).length > 0;
+		}
+	},
+	created() {
+		if (this.userLogged) {
+			this.$store.dispatch('notification/checkClientNotifies');
+		}
 	},
 	methods: {
 		openLoginModal() {
