@@ -8,33 +8,38 @@
 		<v-form ref="signUpForm">
 			<template v-if="formStep == 'one'">
 				<v-text-field
+					class="sm-h"
+					outlined
 					label="Введите вашу электронную почту"
 					placeholder="Email будет вашим логином"
-					class="no-border"
 					:rules="emailRule"
 					v-model="companyObj.email"
 				/>
 				<v-text-field
+					class="sm-h"
 					label="Название"
-					class="no-border"
+					outlined
 					:rules="required"
 					v-model="companyObj.name"
 				/>
 				<v-text-field
+					class="sm-h"
 					label="Название Юр.лица"
-					class="no-border"
+					outlined
 					:rules="required"
 					v-model="companyObj.osoo"
 				/>
 				<v-text-field
+					class="sm-h"
 					label="Введите город"
-					class="no-border"
+					outlined
 					:rules="required"
 					v-model="companyObj.city"
 				/>
 				<v-text-field
+					class="sm-h"
 					label="Ваш адрес"
-					class="no-border"
+					outlined
 					:rules="required"
 					v-model="companyObj.address"
 				/>
@@ -47,8 +52,9 @@
 					<v-text-field class="error-only" :rules="phoneRule" v-model="companyObj.phoneNumber"/>
 				</div>
 				<v-text-field
+					class="sm-h"
 					label="Пароль"
-					class="no-border"
+					outlined
 					type="password"
 					:rules="required"
 					v-model="companyObj.password"
@@ -56,8 +62,9 @@
 					@focus="isReadOnly=false"
 				/>
 				<v-text-field
+					class="sm-h"
 					label="Повторите пароль"
-					class="no-border"
+					outlined
 					type="password"
 					:rules="required"
 					v-model="repeatPass"
@@ -151,5 +158,12 @@ export default {
 		display: flex;
 		justify-content: center;
 		margin-top: 20px;
+	}
+	.masked-input {
+		margin: 5px 0;
+		input {
+			box-shadow: none;
+			border-color: $gray-dark;
+		}
 	}
 </style>
