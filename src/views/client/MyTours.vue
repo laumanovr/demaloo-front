@@ -91,7 +91,7 @@
 								<div class="date" v-html="formatDate(book.tour.date)"></div>
 								<span class="price">{{book.tour.price}} сом</span>
 							</div>
-							<button class="btn gray-primary reviewed" v-if="isAlreadyReviewed(book.tour._id)">
+							<button class="btn gray-primary reviewed" v-if="book.reviewsCount">
 								Отзыв оставлен
 							</button>
 							<button class="btn gray-primary" @click="toggleReviewPastTourModal(book._id)" v-else>
@@ -160,7 +160,6 @@ export default {
 			},
 			isLoading: false,
 			pastBookings: [],
-			allMyReviews: [],
 			todayDate: format(new Date(), 'yyyy-MM-dd'),
 			activeTab: 'future',
 			selectedBookId: '',
@@ -187,27 +186,11 @@ export default {
 				this.isLoading = true;
 				const res = await TourService.fetchMyTourBookings(`&date[lt]=${this.todayDate}`);
 				this.pastBookings = res.data.bookings;
-				this.getMyReviews();
-			} catch (err) {
-				this.$toast.error(err);
-				this.isLoading = false;
-			}
-		},
-
-		async getMyReviews() {
-			try {
-				const res = await ReviewService.fetchAllClientReviews();
-				this.allMyReviews = res.data.reviews;
 				this.isLoading = false;
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
 			}
-		},
-
-		isAlreadyReviewed(tourId) {
-			const foundReview = this.allMyReviews.find((i) => i.tour._id === tourId);
-			return foundReview ? foundReview : '';
 		},
 
 		showTourPhoto(imgUrl) {
