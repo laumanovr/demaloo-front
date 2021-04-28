@@ -31,7 +31,7 @@ export class ReviewService {
 	}
 
 	static fetchAllClientReviews() {
-		const url = `${API_BASE_URL}/customers/reviews`;
+		const url = `${API_BASE_URL}/customers/reviews?limit=200`;
 		return sendGetRequest(url);
 	}
 }

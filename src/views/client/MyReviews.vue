@@ -1,0 +1,141 @@
+<template>
+	<div class="all-reviews-container">
+		<PreLoader v-if="isLoading"/>
+		<div class="mob-profile-head head-title mob">
+			<img src="../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
+			<span>Мои отзывы</span>
+		</div>
+		<div class="reviews">
+			<div class="review" v-for="review in allMyReviews" :key="review._id">
+				<div class="review__tour-name">{{review.tour.name.ru}}</div>
+				<div class="review__company">
+					<img :src="showCompanyPhoto(review.company.logo)">
+					<div class="right">
+						<div class="name">{{review.company.name}}</div>
+						<div class="date">{{formatDate(review.tour.date)}}</div>
+					</div>
+				</div>
+				<div class="review__rating">
+					<img src="../../assets/icons/rating-icon.svg" v-for="i in review.rating" :key="i">
+				</div>
+				<div class="review__comment" v-if="review.messages.length">
+					{{review.messages[0].message}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+import {ReviewService} from '../../services/review.service';
+import PreLoader from '../../components/general/PreLoader';
+import {AWS_IMAGE_URL} from '../../services/api.service';
+import {format} from 'date-fns';
+
+export default {
+	components: {
+		PreLoader
+	},
+	data() {
+		return {
+			isLoading: false,
+			allMyReviews: []
+		};
+	},
+	created() {
+		this.isLoading = true;
+		this.getAllReviews();
+	},
+	methods: {
+		async getAllReviews() {
+			try {
+				const res = await ReviewService.fetchAllClientReviews();
+				this.allMyReviews = res.data.reviews;
+				this.isLoading = false;
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
+		},
+
+		showCompanyPhoto(imgUrl) {
+			return `${AWS_IMAGE_URL}/logos/` + imgUrl + '?w=100';
+		},
+
+		formatDate(date) {
+			return format(new Date(date), "dd.MM.yyyy");
+		},
+	},
+
+};
+</script>
+
+<style lang="scss" scoped>
+	.all-reviews-container {
+		.reviews {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			padding-top: 26px;
+			@media #{$mob-view} {
+				justify-content: space-evenly;
+			}
+			&:after {
+				content: '';
+				width: 273px;
+				height: 225px;
+			}
+			.review {
+				border: 1px solid #EDEDF0;
+				box-sizing: border-box;
+				border-radius: 7px;
+				padding: 20px;
+				margin-bottom: 25px;
+				width: 100%;
+				max-width: 273px;
+				height: 220px;
+				overflow-y: hidden;
+				color: $blue-darkest;
+				cursor: pointer;
+				&__tour-name {
+					font-weight: 600;
+					font-size: 14px;
+					max-height: 45px;
+					overflow-y: hidden;
+				}
+				&__company {
+					display: flex;
+					align-items: center;
+					margin: 6px 0 8px;
+					img {
+						width: 40px;
+						height: 40px;
+						object-fit: cover;
+						margin-right: 15px;
+					}
+					.right {
+						.name {
+							font-size: 14px;
+						}
+						.date {
+							font-size: 12px;
+							color: $gray-dark;
+						}
+					}
+				}
+				&__rating {
+					display: flex;
+					margin-bottom: 6px;
+					img {
+						margin-right: 5px;
+					}
+				}
+				&__comment {
+					font-size: 12px;
+					height: 70px;
+					overflow-y: hidden;
+				}
+			}
+		}
+	}
+</style>
