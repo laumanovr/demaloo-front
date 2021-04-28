@@ -18,8 +18,15 @@
 				<div class="review__rating">
 					<img src="../../assets/icons/rating-icon.svg" v-for="i in review.rating" :key="i">
 				</div>
-				<div class="review__comment" v-if="review.messages.length">
-					{{review.messages[0].message}}
+				<div class="review__comment">
+					<div v-for="(comment, i) in review.messages" :key="i" :class="comment.author">
+						<template v-if="comment.author == 'company'">
+							<span class="reply">Ответ оператора:</span>{{comment.message}}
+						</template>
+						<template v-else>
+							{{comment.message}}
+						</template>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -73,30 +80,17 @@ export default {
 <style lang="scss" scoped>
 	.all-reviews-container {
 		.reviews {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: space-between;
 			padding-top: 26px;
-			@media #{$mob-view} {
-				justify-content: space-evenly;
-			}
-			&:after {
-				content: '';
-				width: 273px;
-				height: 225px;
-			}
 			.review {
 				border: 1px solid #EDEDF0;
 				box-sizing: border-box;
 				border-radius: 7px;
 				padding: 20px;
 				margin-bottom: 25px;
-				width: 100%;
-				max-width: 273px;
-				height: 220px;
-				overflow-y: hidden;
 				color: $blue-darkest;
-				cursor: pointer;
+				@media #{$mob-view} {
+					margin: 0 10px 25px;
+				}
 				&__tour-name {
 					font-weight: 600;
 					font-size: 14px;
@@ -132,8 +126,17 @@ export default {
 				}
 				&__comment {
 					font-size: 12px;
-					height: 70px;
-					overflow-y: hidden;
+					.customer {
+						border-bottom: 1px solid $gray-light;
+						padding-bottom: 10px;
+					}
+					.company {
+						padding-top: 10px;
+						.reply {
+							color: $gray-dark;
+							margin-right: 8px;
+						}
+					}
 				}
 			}
 		}
