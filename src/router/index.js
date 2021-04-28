@@ -82,7 +82,15 @@ const routes = [
 						meta: {
 							requireAuth: true
 						}
-					}
+					},
+					{
+						path: 'reviews',
+						name: 'reviews',
+						component: loadComponent('client/MyReviews'),
+						meta: {
+							requireAuth: true
+						}
+					},
 				]
 			}
 		]
