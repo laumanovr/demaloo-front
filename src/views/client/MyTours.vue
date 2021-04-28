@@ -273,6 +273,9 @@ export default {
 <style lang="scss" scoped>
 .my-tours-container {
 	padding-top: 52px;
+	@media #{$mob-view} {
+		padding: 0;
+	}
 	.tour-tabs {
 		display: flex;
 		align-items: center;
