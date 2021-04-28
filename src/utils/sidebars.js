@@ -59,7 +59,7 @@ export default {
 		},
 		{
 			name: 'Мои отзывы',
-			route: '#',
+			route: '/profile-manage/reviews',
 			icon: 'review-tab.svg',
 			className: 'single'
 		},
