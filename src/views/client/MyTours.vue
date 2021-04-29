@@ -251,7 +251,7 @@ export default {
 				this.isLoading = true;
 				await ReviewService.addClientReview(this.selectedBook._id, this.reviewObj);
 				this.toggleReviewPastTourModal();
-				this.isLoading = false;
+				this.getPastBookings();
 				this.$toast.success('Отзыв успешно добавлен!');
 			} catch (err) {
 				this.$toast.error(err);
