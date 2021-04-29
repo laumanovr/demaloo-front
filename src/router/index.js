@@ -48,6 +48,22 @@ const routes = [
 				}
 			},
 			{
+				path: 'company-info/:companyId',
+				name: 'companyInfo',
+				component: loadComponent('client/CompanyInfo'),
+				meta: {
+					requireAuth: false
+				}
+			},
+			{
+				path: 'company-info-reviews/:companyId',
+				name: 'companyInfoReviews',
+				component: loadComponent('client/CompanyInfoReviews'),
+				meta: {
+					requireAuth: false
+				}
+			},
+			{
 				path: '/profile-manage',
 				component: loadComponent('client/ProfileManage'),
 				children: [
