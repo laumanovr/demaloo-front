@@ -41,7 +41,7 @@ export default {
 	watch: {
 		onNewNotifies(newNotify) {
 			if (newNotify) {
-				this.$toast.info('У вас новые уведомления!', {duration: 3500});
+				this.$toast.info('У вас новые уведомления!', {duration: 1500});
 			}
 		}
 	}

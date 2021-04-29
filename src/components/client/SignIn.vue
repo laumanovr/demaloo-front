@@ -69,7 +69,7 @@ export default {
 				this.$emit('loading', false);
 				this.$store.state.account.onSuccess = '';
 				this.$modal.hide('login-modal');
-				this.$toast.success('Вы вошли в систему');
+				this.$toast.success('Вы вошли в систему', {duration: 1000});
 			}
 		},
 		onError(msg) {
