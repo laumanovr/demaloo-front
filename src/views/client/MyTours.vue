@@ -261,7 +261,7 @@ export default {
 
 		toggleShowReviewModal(book) {
 			this.selectedBook = book;
-			this.$modal.toggle('show-review-modal')
+			this.$modal.toggle('show-review-modal');
 		}
 	},
 	watch: {
