@@ -84,7 +84,7 @@
 				<img src="../../assets/icons/checked-icon.svg">
 			</div>
 			<div class="btn-actions">
-				<button class="btn blue-primary">
+				<button class="btn green-main">
 					<router-link to="/" class="white--text">На главную</router-link>
 				</button>
 			</div>
