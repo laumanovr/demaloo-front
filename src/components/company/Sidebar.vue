@@ -31,9 +31,19 @@
 				<span class="new-notify" v-if="hasNewNotify && item.route == '/company-manage/notifications'"/>
 			</div>
 		</div>
-		<div class="sign-out" @click="logOut">
+		<div class="sign-out" @click="toggleLogoutModal">
 			<img src="../../assets/icons/logout.svg" class="logout-icon"><span>Выход</span>
 		</div>
+		<!--LOGOUT MODAL-->
+		<modal name="logout-modal" width="320px" height="auto">
+			<div class="modal-container">
+				<h3>Выйти?</h3>
+				<div class="btn-actions">
+					<button class="btn red-primary" @click="toggleLogoutModal">Отмена</button>
+					<button class="btn blue-primary" @click="logOut">Выход</button>
+				</div>
+			</div>
+		</modal>
 	</div>
 </template>
 
@@ -68,9 +78,12 @@ export default {
 		this.sidebars = Sidebars[this.role];
 	},
 	methods: {
+		toggleLogoutModal() {
+			this.$modal.toggle('logout-modal');
+		},
 		logOut() {
 			this.isLoading = true;
-			this.$store.dispatch('account/logout', true);
+			this.$store.dispatch('account/logout');
 		}
 	}
 };
