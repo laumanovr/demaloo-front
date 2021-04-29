@@ -91,10 +91,14 @@
 								<div class="date" v-html="formatDate(book.tour.date)"></div>
 								<span class="price">{{book.tour.price}} сом</span>
 							</div>
-							<button class="btn gray-primary reviewed" v-if="book.reviewsCount">
-								Отзыв оставлен
+							<button
+								class="btn gray-primary"
+								@click="toggleShowReviewModal(book)"
+								v-if="book.reviews.length"
+							>
+								Посмотреть отзыв
 							</button>
-							<button class="btn gray-primary" @click="toggleReviewPastTourModal(book._id)" v-else>
+							<button class="btn gray-primary" @click="toggleReviewPastTourModal(book)" v-else>
 								Написать отзыв
 							</button>
 						</div>
@@ -131,6 +135,23 @@
 				<button class="btn green-main" @click="writeReviewForPastTour">Сохранить</button>
 			</div>
 		</modal>
+
+		<!--SHOW REVIEW MODAL-->
+		<modal name="show-review-modal" height="180px" :adaptive="true">
+			<div class="modal-container" v-if="selectedBook.reviews.length">
+				<CloseIcon class="top-right" @click="toggleShowReviewModal"/>
+				<div class="show-comment">
+					<div v-for="(comment, i) in selectedBook.reviews[0].messages" :key="i" :class="comment.author">
+						<template v-if="comment.author == 'company'">
+							<span class="reply">Ответ оператора:</span>{{comment.message}}
+						</template>
+						<template v-else>
+							<span class="reply">{{userProfile.name}}:</span>{{comment.message}}
+						</template>
+					</div>
+				</div>
+			</div>
+		</modal>
 	</div>
 </template>
 
@@ -162,7 +183,7 @@ export default {
 			pastBookings: [],
 			todayDate: format(new Date(), 'yyyy-MM-dd'),
 			activeTab: 'future',
-			selectedBookId: '',
+			selectedBook: {reviews: []},
 			reviewObj: {
 				message: '',
 				rating: 0
@@ -171,6 +192,9 @@ export default {
 	},
 	computed: {
 		...mapState('booking', ['onSuccess', 'onError']),
+		userProfile() {
+			return this.$store.state.account.customer;
+		},
 		futureBookings() {
 			return this.$store.state.booking.userBookings;
 		}
@@ -212,8 +236,8 @@ export default {
 			return stages[stages.length - 1];
 		},
 
-		toggleReviewPastTourModal(bookId) {
-			this.selectedBookId = bookId;
+		toggleReviewPastTourModal(book) {
+			this.selectedBook = book;
 			this.reviewObj = {rating: 0};
 			this.$modal.toggle('review-past-modal');
 		},
@@ -225,7 +249,7 @@ export default {
 			}
 			try {
 				this.isLoading = true;
-				await ReviewService.addClientReview(this.selectedBookId, this.reviewObj);
+				await ReviewService.addClientReview(this.selectedBook._id, this.reviewObj);
 				this.toggleReviewPastTourModal();
 				this.isLoading = false;
 				this.$toast.success('Отзыв успешно добавлен!');
@@ -233,6 +257,11 @@ export default {
 				this.$toast.error(err);
 				this.isLoading = false;
 			}
+		},
+
+		toggleShowReviewModal(book) {
+			this.selectedBook = book;
+			this.$modal.toggle('show-review-modal')
 		}
 	},
 	watch: {
@@ -575,11 +604,6 @@ export default {
 				.btn {
 					height: 45px;
 					text-transform: none;
-					&.reviewed {
-						cursor: default;
-						outline: none;
-						opacity: 0.6;
-					}
 					@media #{$mob-view} {
 						margin-top: 5px;
 					}
@@ -636,6 +660,21 @@ export default {
 					}
 				}
 			}
+		}
+	}
+	.show-comment {
+		font-size: 12px;
+		color: $blue-darkest;
+		.reply {
+			color: $gray-dark;
+			margin-right: 8px;
+		}
+		.customer {
+			border-bottom: 1px solid $gray-light;
+			padding-bottom: 10px;
+		}
+		.company {
+			padding-top: 10px;
 		}
 	}
 }
