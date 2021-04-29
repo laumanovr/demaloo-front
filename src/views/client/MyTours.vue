@@ -665,6 +665,7 @@ export default {
 	.show-comment {
 		font-size: 12px;
 		color: $blue-darkest;
+		margin-top: 10px;
 		.reply {
 			color: $gray-dark;
 			margin-right: 8px;
