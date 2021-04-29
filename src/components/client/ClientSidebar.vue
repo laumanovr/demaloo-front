@@ -21,7 +21,7 @@
 					<inline-svg :src="require(`@/assets/icons/${item.icon}`)" :class="item.className"/>
 					<span>{{ item.name }}</span>
 				</div>
-				<div class="tab" @click="logOut">
+				<div class="tab" @click="$modal.show('logout-modal')">
 					<img src="../../assets/icons/person-logout.svg" class="logout-icon">
 					<span>Выход</span>
 				</div>
@@ -53,11 +53,6 @@ export default {
 	},
 	created() {
 		this.sidebars = Sidebars[this.role];
-	},
-	methods: {
-		logOut() {
-			this.$store.dispatch('account/logout');
-		}
 	}
 };
 </script>
