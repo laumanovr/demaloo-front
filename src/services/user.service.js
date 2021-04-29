@@ -13,14 +13,14 @@ export class UserService {
 		return sendPostRequest(url, data);
 	}
 
-	static fetchCompanyProfile() {
-		const url = `${API_BASE_URL}/companies/me`;
-		return sendGetRequest(url);
-	}
-
 	static updateCompanyProfile(body) {
 		const url = `${API_BASE_URL}/companies/updateMe`;
 		return sendPatchRequest(url, body);
+	}
+
+	static fetchCompanyById(id) {
+		const url = `${API_BASE_URL}/companies/${id}/info`;
+		return sendGetRequest(url);
 	}
 
 	static fetchAllCompanies() {
