@@ -4,6 +4,7 @@
 		<router-view/>
 		<Footer/>
 		<LoginModal/>
+		<LogoutModal/>
 	</div>
 </template>
 
@@ -11,13 +12,15 @@
 import Header from '@/components/general/Header';
 import Footer from '@/components/general/Footer';
 import LoginModal from '@/components/client/LoginModal';
+import LogoutModal from '@/components/client/LogoutModal';
 import {mapState} from 'vuex';
 
 export default {
 	components: {
 		Header,
 		Footer,
-		LoginModal
+		LoginModal,
+		LogoutModal
 	},
 	computed: {
 		...mapState('notification', ['onNewNotifies']),
