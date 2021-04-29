@@ -54,6 +54,7 @@
 				<v-text-field
 					class="sm-h"
 					label="Пароль"
+					placeholder="Минимум 6 символов"
 					outlined
 					type="password"
 					:rules="required"
@@ -64,6 +65,7 @@
 				<v-text-field
 					class="sm-h"
 					label="Повторите пароль"
+					placeholder="Минимум 6 символов"
 					outlined
 					type="password"
 					:rules="required"
