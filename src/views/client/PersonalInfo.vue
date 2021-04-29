@@ -14,25 +14,25 @@
 				<input type="file" id="ava" @change="selectPhoto">
 			</div>
 			<v-text-field
-				solo
+				outlined
 				label="Имя"
 				v-model="profileObj.name"
 				:rules="requiredRule"
 			/>
 			<v-text-field
-				solo
+				outlined
 				label="Фамилия"
 				v-model="profileObj.surname"
 				:rules="requiredRule"
 			/>
 			<v-text-field
-				solo
+				outlined
 				label="Email"
 				v-model="profileObj.email"
 				:rules="requiredRule"
 			/>
 			<v-select
-				solo
+				outlined
 				:items="genders"
 				label="Пол"
 				item-text="title"
@@ -41,6 +41,7 @@
 				:rules="requiredRule"
 			/>
 			<div class="masked-input">
+				<span class="label">Дата рождения</span>
 				<MaskedInput
 					mask="11.11.1111"
 					placeholder="Дата рождения: 15.03.1985"
@@ -217,6 +218,14 @@ export default {
 				margin: 50px 0 5px;
 				.btn {
 					height: 53px;
+				}
+			}
+			.masked-input {
+				margin: 0;
+				input {
+					border-color: $gray-dark;
+					box-shadow: none;
+					height: 52px;
 				}
 			}
 		}
