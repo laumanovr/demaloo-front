@@ -143,7 +143,7 @@
 				<div class="show-comment">
 					<div v-for="(comment, i) in selectedBook.reviews[0].messages" :key="i" :class="comment.author">
 						<template v-if="comment.author == 'company'">
-							<span class="reply">Ответ оператора:</span>{{comment.message}}
+							<span class="reply">{{selectedBook.tour.company.name}}:</span>{{comment.message}}
 						</template>
 						<template v-else>
 							<span class="reply">{{userProfile.name}}:</span>{{comment.message}}

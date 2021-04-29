@@ -21,10 +21,10 @@
 				<div class="review__comment">
 					<div v-for="(comment, i) in review.messages" :key="i" :class="comment.author">
 						<template v-if="comment.author == 'company'">
-							<span class="reply">Ответ оператора:</span>{{comment.message}}
+							<span class="reply">{{review.company.name}}:</span>{{comment.message}}
 						</template>
 						<template v-else>
-							{{comment.message}}
+							<span class="reply">{{userProfile.name}}:</span>{{comment.message}}
 						</template>
 					</div>
 				</div>
@@ -48,6 +48,11 @@ export default {
 			isLoading: false,
 			allMyReviews: []
 		};
+	},
+	computed: {
+		userProfile() {
+			return this.$store.state.account.customer;
+		}
 	},
 	created() {
 		this.isLoading = true;
@@ -126,16 +131,16 @@ export default {
 				}
 				&__comment {
 					font-size: 12px;
+					.reply {
+						color: $gray-dark;
+						margin-right: 8px;
+					}
 					.customer {
 						border-bottom: 1px solid $gray-light;
 						padding-bottom: 10px;
 					}
 					.company {
 						padding-top: 10px;
-						.reply {
-							color: $gray-dark;
-							margin-right: 8px;
-						}
 					}
 				}
 			}
