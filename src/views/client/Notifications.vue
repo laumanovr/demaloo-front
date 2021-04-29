@@ -6,7 +6,13 @@
 			<span>Уведомления</span>
 		</div>
 		<div class="notify__content">
-			<div class="notify__item" v-for="notify in notifications" :key="notify._id" :class="{'new': !notify.isRead}">
+			<div
+				class="notify__item"
+				v-for="notify in notifications"
+				:key="notify._id"
+				:class="{'new': !notify.isRead}"
+				@click="goToNotification(notify)"
+			>
 				<div class="notify__title">{{notify.title}}</div>
 				<div class="notify__text">{{notify.body}}</div>
 				<div class="notify__date">{{formatDate(notify.createdAt)}}</div>
@@ -58,6 +64,15 @@ export default {
 		formatDate(date) {
 			return format(new Date(date), "dd.MM.yyyy HH:mm");
 		},
+
+		goToNotification(notify) {
+			if (notify.type === 'tour_review_reply') {
+				this.$router.push('/profile-manage/reviews');
+			}
+			if (notify.type === 'tour_info_changed') {
+				this.$router.push({name: 'tourDetail', params: {tourId: notify.tour}});
+			}
+		}
 	}
 };
 </script>
@@ -74,6 +89,7 @@ export default {
 				border-radius: 7px;
 				padding: 0 20px;
 				margin-bottom: 15px;
+				cursor: pointer;
 				@media #{$mob-view} {
 					border-left: 0;
 					border-right: 0;
