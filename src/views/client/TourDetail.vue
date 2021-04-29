@@ -39,14 +39,17 @@
 									<span>{{checkIsAlreadyFavorite() ? 'Сохранен' : 'Сохранить'}}</span>
 								</div>
 							</div>
-							<div class="tour-detail__company-info flex align-center">
+							<router-link
+								:to="{name: 'companyInfo', params: {companyId: tourDetail.company._id}}"
+								class="tour-detail__company-info flex align-center"
+							>
 								<img :src="showCompanyImage(tourDetail.company.logo)" class="company">
 								{{tourDetail.company.name}}
 								<div class="rating flex">
 									<img src="../../assets/icons/rating-icon.svg">
 									<span>{{tourDetail.company.rating}}</span>
 								</div>
-							</div>
+							</router-link>
 							<div class="tour-detail__description">
 								{{tourDetail.description.ru}}
 							</div>
@@ -830,7 +833,7 @@ export default {
 	&__company-info {
 		font-weight: 600;
 		font-size: 14px;
-		color: $blue-darkest;
+		color: $blue-darkest !important;
 		margin: 10px 0;
 		.company-name {
 			max-width: 65%;
