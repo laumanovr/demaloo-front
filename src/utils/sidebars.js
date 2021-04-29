@@ -63,13 +63,11 @@ export default {
 			icon: 'review-tab.svg',
 			className: 'single'
 		},
-		{
-			name: 'Сообщения',
-			route: '#',
-			icon: 'message-tab.svg',
-			className: 'multi'
-		}
+		// {
+		// 	name: 'Сообщения',
+		// 	route: '#',
+		// 	icon: 'message-tab.svg',
+		// 	className: 'multi'
+		// }
 	],
-
-	superAdmin: []
 };

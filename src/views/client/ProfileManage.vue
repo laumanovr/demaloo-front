@@ -12,21 +12,6 @@ import ClientSidebar from '@/components/client/ClientSidebar';
 export default {
 	components: {
 		ClientSidebar
-	},
-	computed: {
-		isWebWindow() {
-			return window.innerWidth >= 1024;
-		}
-	},
-	mounted() {
-		if (this.isWebWindow) {
-			document.querySelector('.footer-container').style.display = 'none';
-		}
-	},
-	beforeDestroy() {
-		if (this.isWebWindow) {
-			document.querySelector('.footer-container').style.display = 'block';
-		}
 	}
 };
 </script>
