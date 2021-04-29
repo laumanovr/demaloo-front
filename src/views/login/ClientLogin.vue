@@ -31,7 +31,7 @@
 				</template>
 			</div>
 			<div class="policy">
-				By login into account, I agree to the Demaloo Terms of Use, Privacy Policy, and Demaloo Rewards Terms and Conditions.
+				После входа в учетную запись, я принимаю условия пользования, политику конфиденциальности и дальнейшие условия Demaloo.
 			</div>
 		</div>
 	</div>
