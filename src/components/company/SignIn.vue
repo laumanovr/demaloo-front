@@ -9,6 +9,7 @@
 				:rules="emailRule"
 				v-model="loginObj.email"
 				autocomplete="new-password"
+				validate-on-blur
 			/>
 			<v-text-field
 				outlined
@@ -33,9 +34,9 @@ export default {
 	data() {
 		return {
 			requiredRule: [(v) => !!v || 'Обязательное поле'],
-			emailRule: [],
-			emailValidation: [
+			emailRule: [
 				(v) => !!v || 'Email обязательный',
+				(v) => /^[a-zA-Z0-9()*_\-!#$%^&*,."'@\][]+$/.test(v) || 'Email должен быть на латинице',
 				(v) => {
 					const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 					return pattern.test(v) || 'Email должен быть валидным';
@@ -55,13 +56,10 @@ export default {
 	},
 	methods: {
 		submitLogin() {
-			this.emailRule = this.emailValidation;
-			this.$nextTick(() => {
-				if (this.$refs.signInForm.validate()) {
-					this.$emit('loading', true);
-					this.$store.dispatch('account/companyLogin', this.loginObj);
-				}
-			});
+			if (this.$refs.signInForm.validate()) {
+				this.$emit('loading', true);
+				this.$store.dispatch('account/companyLogin', this.loginObj);
+			}
 		},
 	},
 	watch: {
