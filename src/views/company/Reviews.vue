@@ -51,7 +51,7 @@ export default {
 	methods: {
 		async getCompanyReviews() {
 			try {
-				const res = await ReviewService.fetchCompanyAllReviews();
+				const res = await ReviewService.fetchCompanyAllReviewsWithStatus();
 				this.allReviews = res.data.tours;
 				this.isLoading = false;
 			} catch (err) {

@@ -4,13 +4,18 @@ export class ReviewService {
 	constructor() {}
 
 	// --------------------------COMPANY----------------------------------------
-	static fetchCompanyAllReviews() {
+	static fetchCompanyAllReviewsWithStatus() {
 		const url = `${API_BASE_URL}/companies/toursWithReviewStats?limit=100`;
 		return sendGetRequest(url);
 	}
 
 	static fetchCompanyTourReviews(tourId) {
 		const url = `${API_BASE_URL}/companies/tours/${tourId}/reviews`;
+		return sendGetRequest(url);
+	}
+
+	static fetchCompanyReviews(companyId, limit=300) {
+		const url = `${API_BASE_URL}/companies/${companyId}/reviews?limit=${limit}`;
 		return sendGetRequest(url);
 	}
 
