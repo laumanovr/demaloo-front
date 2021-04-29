@@ -7,11 +7,11 @@
 		</div>
 		<div class="reviews">
 			<div class="review" v-for="review in allMyReviews" :key="review._id">
-				<div class="review__tour-name">{{review.tour.name.ru}}</div>
+				<div class="review__tour-name">{{review.company.name}}</div>
 				<div class="review__company">
 					<img :src="showCompanyPhoto(review.company.logo)">
 					<div class="right">
-						<div class="name">{{review.company.name}}</div>
+						<div class="name">{{review.tour.name.ru}}</div>
 						<div class="date">{{formatDate(review.tour.date)}}</div>
 					</div>
 				</div>
