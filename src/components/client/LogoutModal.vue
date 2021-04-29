@@ -11,15 +11,15 @@
 </template>
 
 <script>
-	export default {
-		methods: {
-			closeModal() {
-				this.$modal.hide('logout-modal');
-			},
-			logOut() {
-				this.$store.dispatch('account/logout');
-				this.closeModal();
-			}
+export default {
+	methods: {
+		closeModal() {
+			this.$modal.hide('logout-modal');
+		},
+		logOut() {
+			this.$store.dispatch('account/logout');
+			this.closeModal();
 		}
 	}
+};
 </script>
