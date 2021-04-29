@@ -62,7 +62,7 @@ export default {
 		async getAllReviews() {
 			try {
 				const res = await ReviewService.fetchAllClientReviews();
-				this.allMyReviews = res.data.reviews;
+				this.allMyReviews = res.data.reviews.sort((a, b) => new Date(b.tour.date) - new Date(a.tour.date));
 				this.isLoading = false;
 			} catch (err) {
 				this.$toast.error(err);
@@ -111,6 +111,7 @@ export default {
 						height: 40px;
 						object-fit: cover;
 						margin-right: 15px;
+						border-radius: 30px;
 					}
 					.right {
 						.name {
@@ -134,10 +135,6 @@ export default {
 					.reply {
 						color: $gray-dark;
 						margin-right: 8px;
-					}
-					.customer {
-						border-bottom: 1px solid $gray-light;
-						padding-bottom: 10px;
 					}
 					.company {
 						padding-top: 10px;
