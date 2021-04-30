@@ -4,21 +4,24 @@
     <div class="main-content">
       <router-view></router-view>
     </div>
+    <LogoutModal/>
   </div>
 </template>
 
 <script>
 import Sidebar from '@/components/company/Sidebar';
+import LogoutModal from '@/components/general/LogoutModal';
 import {mapState} from 'vuex';
 
 export default {
+	components: {
+		Sidebar,
+		LogoutModal
+	},
 	data() {
 		return {
 			hasNewNotify: false
 		};
-	},
-	components: {
-		Sidebar,
 	},
 	computed: {
 		...mapState('notification', ['onNewNotifies', 'onEmpty', 'onError']),
@@ -29,7 +32,7 @@ export default {
 	watch: {
 		onNewNotifies(newNotify) {
 			if (newNotify) {
-				this.$toast.info('У вас новые уведомления!', {duration: 4500});
+				this.$toast.info('У вас новые уведомления!', {duration: 2500});
 				this.hasNewNotify = true;
 			}
 		},
