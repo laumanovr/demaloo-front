@@ -434,7 +434,7 @@ export default {
 		},
 
 		showCompanyPhoto(imgUrl) {
-			return `${AWS_IMAGE_URL}/logos/` + imgUrl + '?w=24';
+			return `${AWS_IMAGE_URL}/logos/` + imgUrl + '?w=100&q=100';
 		},
 
 		formatDate(date) {
