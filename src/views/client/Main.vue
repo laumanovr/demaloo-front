@@ -186,6 +186,9 @@
 										<div class="tour-item__description">
 											{{tour.description.ru}}
 										</div>
+										<div class="tour-item__location">
+											Локация: <span>{{tour.locations[0].place}}</span>
+										</div>
 										<div class="tour-item__date">
 											<span class="web">Дата тура:</span>
 											<div class="format-date" v-html="formatDate(tour.date)"></div>
@@ -427,7 +430,7 @@ export default {
 		},
 
 		showTourPhoto(imgUrl) {
-			return `${AWS_IMAGE_URL}/images/` + imgUrl + '?w=300&q=100';
+			return `${AWS_IMAGE_URL}/images/` + imgUrl + '?w=900&q=100';
 		},
 
 		showCompanyPhoto(imgUrl) {
@@ -438,7 +441,7 @@ export default {
 			const dateNum = format(new Date(date), 'dd');
 			const month = format(new Date(date), 'LLLL', {locale: ru});
 			const weekD = format(new Date(date), 'eeeeee', {locale: ru});
-			return `<span style="margin-left: 7px">${dateNum}</span><span style="margin: 0 6px">${month},</span><span>${weekD}</span>`;
+			return `<span>${dateNum}</span><span style="margin: 0 6px">${month},</span><span>${weekD}</span>`;
 		},
 
 		onMobileSearch() {
@@ -846,11 +849,16 @@ export default {
 						}
 						&__description {
 							font-size: 12px;
-							margin-bottom: 7px;
-							height: 54px;
+							margin-bottom: 5px;
+							height: 38px;
 							overflow-y: hidden;
-							@media #{$mob-view} {
-								margin-bottom: 28px;
+						}
+						&__location {
+							font-size: 14px;
+							color: $blue-darkest;
+							margin-bottom: 5px;
+							span {
+								font-weight: 600;
 							}
 						}
 						&__date {
@@ -865,6 +873,10 @@ export default {
 								font-weight: 600;
 								font-size: 16px;
 								text-transform: capitalize;
+								margin-left: 6px;
+								@media #{$mob-view} {
+									margin: 0;
+								}
 							}
 						}
 						&__free-place {
