@@ -218,11 +218,11 @@ export default {
 		},
 
 		showTourPhoto(imgUrl) {
-			return `${AWS_IMAGE_URL}/images/` + imgUrl + '?w=300&q=100';
+			return `${AWS_IMAGE_URL}/images/` + imgUrl + '?w=900&q=100';
 		},
 
 		showCompanyPhoto(imgUrl) {
-			return `${AWS_IMAGE_URL}/logos/` + imgUrl + '?w=24';
+			return `${AWS_IMAGE_URL}/logos/` + imgUrl + '?w=100';
 		},
 
 		formatDate(date) {
