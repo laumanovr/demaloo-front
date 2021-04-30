@@ -42,32 +42,33 @@
 						<img src="../../assets/icons/calendar-green.svg">
 						<div class="label">
 							<span>Дата</span>
-								<v-menu
-									v-model="showDatePicker"
-									:close-on-content-click="true"
-									:nudge-right="40"
-									transition="scale-transition"
-									offset-y
-									min-width="290px"
-								>
-									<template v-slot:activator="{ on, attrs }">
-										<input
-											placeholder="Выберите дату"
-											type="text"
-											readonly
-											v-model="pickerDate"
-											v-bind="attrs"
-											v-on="on"
-										>
-									</template>
-									<v-date-picker
-										locale="ru-RU"
-										v-model="searchObj.date"
-										:min="todayDate"
-										@input="onChangeSearchDate"
-										class="search-date"
-									/>
-								</v-menu>
+							<v-menu
+								v-model="showDatePicker"
+								:close-on-content-click="true"
+								:nudge-right="40"
+								transition="scale-transition"
+								offset-y
+								min-width="290px"
+							>
+								<template v-slot:activator="{ on, attrs }">
+									<input
+										placeholder="Выберите дату"
+										type="text"
+										readonly
+										v-model="pickerDate"
+										v-bind="attrs"
+										v-on="on"
+									>
+								</template>
+								<v-date-picker
+									locale="ru-RU"
+									v-model="searchObj.date"
+									:min="todayDate"
+									@input="onChangeSearchDate"
+									class="search-date"
+									color="#02D0AA"
+								/>
+							</v-menu>
 						</div>
 					</div>
 					<button class="btn green-main" @click="submitSearchTours">Найти</button>
