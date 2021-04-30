@@ -7,10 +7,13 @@
 				<div class="flex top justify-space-between flex-wrap">
 					<div class="company-info flex align-center">
 						<img :src="showCompanyImage(currentCompany.logo)" class="company">
-						<span class="company-name">{{currentCompany.name}}</span>
-						<div class="rating flex">
-							<img src="../../assets/icons/rating-icon.svg">
-							<span>{{currentCompany.rating}} ({{currentCompany.reviewCount}})</span>
+						<div>
+							<div class="company-name flex align-center">
+								<span>{{currentCompany.name}}</span>
+								<img src="../../assets/icons/rating-icon.svg" class="star">
+								<span class="rating">{{currentCompany.rating}} ({{currentCompany.reviewCount}})</span>
+							</div>
+							<div class="created-date">В Demaloo c {{formatDate(currentCompany.createdAt)}}</div>
 						</div>
 					</div>
 					<div class="right">
@@ -25,8 +28,8 @@
 						{{currentCompany.description}}
 					</div>
 					<div class="count">
-						<div class="item"><span>Частота ответов:</span> <span>97%</span></div>
-						<div class="item"><span>Время ответа:</span> <span>в течении дня</span></div>
+						<div class="item"><span>Активных туров:</span> <span>{{activeToursCount}}</span></div>
+						<div class="item"><span>Проведенных туров:</span> <span>{{pastToursCount}}</span></div>
 					</div>
 				</div>
 			</div>
@@ -116,7 +119,10 @@ export default {
 			isLoading: false,
 			currentCompany: {},
 			allCompanyReviews: [],
-			companyTours: []
+			companyTours: [],
+			activeToursCount: 0,
+			pastToursCount: 0,
+			todayDate: format(new Date(), 'yyyy-MM-dd')
 		};
 	},
 	async created() {
@@ -148,9 +154,13 @@ export default {
 
 		async getCompanyTours() {
 			try {
-				const query = `&company=${this.$route.params.companyId}`;
+				const query = `&company=${this.$route.params.companyId}&date[gt]=${this.todayDate}`;
 				const res = await TourService.fetchAllTours(query);
 				this.companyTours = res.data.tours.slice(0, 4);
+				this.activeToursCount = res.results;
+				const pastQuery = `&company=${this.$route.params.companyId}&date[lt]=${this.todayDate}`;
+				const pastRes = await TourService.fetchAllTours(pastQuery);
+				this.pastToursCount = pastRes.results;
 				this.isLoading = false;
 			} catch (err) {
 				this.$toast.error(err);
@@ -163,7 +173,9 @@ export default {
 		},
 
 		formatDate(date) {
-			return format(new Date(date), 'dd.MM.yyyy');
+			if (date) {
+				return format(new Date(date), 'dd.MM.yyyy');
+			}
 		},
 
 		openTourFromOther(tourId) {
@@ -194,7 +206,7 @@ export default {
 			padding-top: 25px;
 			.back {
 				cursor: pointer;
-				padding-bottom: 20px;
+				padding: 0 0 20px 20px;
 			}
 			.company {
 				&__description {
@@ -206,17 +218,41 @@ export default {
 						border-bottom: 1px solid $gray-light;
 						padding-bottom: 15px;
 					}
+					.company-info {
+						@media #{$mob-view} {
+							width: 95%;
+						}
+					}
 					img.company {
 						width: 72px;
 						height: 72px;
 						object-fit: cover;
-						border-radius: 20px;
+						border-radius: 40px;
+						@media #{$mob-view} {
+							width: 40px;
+							height: 40px;
+						}
 					}
 					.company-name {
 						font-weight: bold;
 						font-size: 20px;
 						margin: 0 10px;
 						font-family: $montserrat;
+						@media #{$mob-view} {
+							font-size: 14px;
+						}
+						.star {
+							margin: 0 5px 0 10px;
+						}
+						.rating {
+							font-weight: 400;
+							font-size: 14px;
+						}
+					}
+					.created-date {
+						font-size: 12px;
+						color: $gray-dark;
+						padding-left: 10px;
 					}
 					.right {
 						@media #{$mob-view} {
@@ -246,6 +282,7 @@ export default {
 								padding: 10px 0 0 0;
 								margin-top: 10px;
 								border-top: 1px solid $gray-light;
+								width: 100%;
 							}
 							.item {
 								font-size: 14px;
@@ -386,6 +423,9 @@ export default {
 					}
 					@media #{$mob-view} {
 						margin: 0 0 30px 0 !important;
+						box-shadow: 0 0 24px 0 rgb(0 0 0 / 20%);
+						padding: 10px;
+						max-width: 280px;
 					}
 					.tour-img {
 						width: 260px;
