@@ -9,8 +9,8 @@
 			<div class="footer__title">Отдых без забот</div>
 			
 			<div class="footer__links flex align-center justify-center">
-				<a href="#">Как устроено Demaloo</a>
-				<span class="dot"></span>
+				<!--<a href="#">Как устроено Demaloo</a>-->
+				<!--<span class="dot"></span>-->
 				<a href="#">Публичная оферта</a>
 				<span class="dot"></span>
 				<a href="#">Регистрация компании</a>
