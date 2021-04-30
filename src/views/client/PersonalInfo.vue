@@ -72,6 +72,7 @@ import {mapState} from 'vuex';
 import {format, parse, isValid} from 'date-fns';
 import {ImageService} from '@/services/image.service';
 import {AWS_IMAGE_URL} from '@/services/api.service';
+import {UserService} from '../../services/user.service';
 
 export default {
 	components: {
@@ -108,11 +109,22 @@ export default {
 		}
 	},
 	created() {
-		this.profileObj = JSON.parse(JSON.stringify(this.userProfile));
-		this.profileDob = this.profileObj.birthdate ? format(new Date(this.profileObj.birthdate), 'dd.MM.yyyy') : '';
-		this.avatarUrl =  `${AWS_IMAGE_URL}/photos/` + this.profileObj.photo;
+		this.isLoading = true;
+		this.getMyProfile();
 	},
 	methods: {
+		async getMyProfile() {
+			try {
+				const res = await UserService.fetchMyProfile();
+				this.profileObj = res.data.user;
+				this.profileDob = this.profileObj.birthdate ? format(new Date(this.profileObj.birthdate), 'dd.MM.yyyy') : '';
+				this.avatarUrl = `${AWS_IMAGE_URL}/photos/` + this.profileObj.photo;
+				this.isLoading = false;
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
+		},
 		async selectPhoto(e) {
 			const formats = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg', 'image/svg+xml'];
 			const file = e.target.files[0];

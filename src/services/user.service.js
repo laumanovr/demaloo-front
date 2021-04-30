@@ -43,4 +43,9 @@ export class UserService {
 		const url = `${API_BASE_URL}/customers/updateMe`;
 		return sendPatchRequest(url, body);
 	}
+
+	static fetchMyProfile() {
+		const url = `${API_BASE_URL}/customers/me`;
+		return sendGetRequest(url);
+	}
 }
