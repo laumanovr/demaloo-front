@@ -7,10 +7,13 @@
 		<div class="company-info-review-content">
 			<div class="company-info flex align-center">
 				<img :src="showCompanyImage(currentCompany.logo)" class="company">
-				<span class="company-name">{{currentCompany.name}}</span>
-				<div class="rating flex">
-					<img src="../../assets/icons/rating-icon.svg">
-					<span>{{currentCompany.rating}} ({{currentCompany.reviewCount}})</span>
+				<div>
+					<div class="company-name flex align-center">
+						<span>{{currentCompany.name}}</span>
+						<img src="../../assets/icons/rating-icon.svg" class="star">
+						<span class="rating">{{currentCompany.rating}} ({{currentCompany.reviewCount}})</span>
+					</div>
+					<div class="created-date">В Demaloo c {{formatDate(currentCompany.createdAt)}}</div>
 				</div>
 			</div>
 			<div class="reviews">
@@ -122,7 +125,7 @@ export default {
 		padding-bottom: 20px;
 		.back {
 			cursor: pointer;
-			padding: 15px 0 20px;
+			padding: 15px 0 20px 20px;
 			max-width: 1200px;
 			margin: 0 auto;
 		}
@@ -141,22 +144,40 @@ export default {
 				height: 72px;
 				object-fit: cover;
 				border-radius: 40px;
+				@media #{$mob-view} {
+					width: 40px;
+					height: 40px;
+				}
 			}
 			.company-name {
 				font-weight: bold;
 				font-size: 20px;
 				margin: 0 10px;
 				font-family: $montserrat;
+				@media #{$mob-view} {
+					font-size: 14px;
+				}
+				.star {
+					margin: 0 5px 0 10px;
+				}
+				.rating {
+					font-weight: 400;
+					font-size: 14px;
+				}
+			}
+			.created-date {
+				font-size: 12px;
+				color: $gray-dark;
+				padding-left: 10px;
 			}
 			.reviews {
 				padding-top: 26px;
 				.review {
-					box-sizing: border-box;
-					border-radius: 7px;
 					padding: 20px;
 					color: $blue-darkest;
+					border-bottom: 1px solid $gray-light;
 					@media #{$mob-view} {
-						margin: 0 10px 25px;
+						margin: 0 10px;
 					}
 					&__tour-name {
 						font-size: 12px;
