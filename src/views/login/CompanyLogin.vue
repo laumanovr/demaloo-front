@@ -17,9 +17,15 @@
 			<CompanyLogin
 				v-if="loginType == 'login'"
 				@loading="showLoader"
+				@recoverPass="loginType='recovery'"
 			/>
 			<CompanySignUp
 				v-if="loginType == 'signUp'"
+				@loading="showLoader"
+			/>
+			<RecoveryPassword
+				v-if="loginType == 'recovery'"
+				@restored="loginType='login'"
 				@loading="showLoader"
 			/>
 			<div class="form-link">
@@ -27,7 +33,7 @@
 					<span>Нет аккаунта?</span>
 					<span @click="loginType = 'signUp'">Зарегистрироваться</span>
 				</template>
-				<template v-if="loginType == 'signUp'">
+				<template v-if="loginType == 'signUp' || loginType == 'recovery'">
 					<span>Уже есть аккаунт?</span>
 					<span @click="loginType = 'login'">Войти</span>
 				</template>
@@ -39,12 +45,14 @@
 <script>
 import CompanySignUp from '@/components/company/SignUp';
 import CompanyLogin from '@/components/company/SignIn';
+import RecoveryPassword from '@/components/company/RecoveryPassword';
 import PreLoader from '@/components/general/PreLoader';
 
 export default {
 	components: {
 		CompanySignUp,
 		CompanyLogin,
+		RecoveryPassword,
 		PreLoader
 	},
 	data() {
