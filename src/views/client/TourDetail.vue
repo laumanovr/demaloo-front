@@ -498,7 +498,7 @@ export default {
 		},
 
 		showTourImage(imageLink) {
-			return `${AWS_IMAGE_URL}/images/` + imageLink + '?w=800';
+			return `${AWS_IMAGE_URL}/images/` + imageLink + '?w=1000&q=100';
 		},
 
 		showCompanyImage(imageLink) {
