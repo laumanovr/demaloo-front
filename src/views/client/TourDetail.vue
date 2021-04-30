@@ -41,7 +41,7 @@
 							</div>
 							<router-link
 								:to="{name: 'companyInfo', params: {companyId: tourDetail.company._id}}"
-								class="tour-detail__company-info flex align-center"
+								class="tour-detail__company-info link flex align-center"
 							>
 								<img :src="showCompanyImage(tourDetail.company.logo)" class="company">
 								{{tourDetail.company.name}}
@@ -227,7 +227,12 @@
 			</template>
 
 			<div class="other-tours web" v-if="hasTour && otherTours.length">
-				<div class="current-company-name"><span>Другие туры:</span><span>{{tourDetail.company.name}}</span></div>
+				<div class="current-company-name">
+					<span>Другие туры:</span>
+					<router-link :to="{name: 'companyInfo', params: {companyId: tourDetail.company._id}}">
+						{{tourDetail.company.name}}
+					</router-link>
+				</div>
 				<div class="tour-items">
 					<div class="tour-item" v-for="tour in otherTours" :key="tour._id" @click="openTourFromOther(tour._id)">
 						<div class="tour-img"><img :src="showTourImage(tour.images[0])" v-if="tour.images"></div>
@@ -676,19 +681,19 @@ export default {
 			.current-company-name {
 				margin: 0 0 20px 26px;
 				padding-top: 18px;
+				font-family: $montserrat;
 				span {
-					font-family: $montserrat;
-					&:first-child {
-						font-weight: bold;
-						font-size: 18px;
-						color: $blue-darkest;
-						margin-right: 10px;
-					}
-					&:last-child {
-						font-weight: 500;
-						font-size: 18px;
-						color: $green-main;
-					}
+					font-weight: bold;
+					font-size: 18px;
+					color: $blue-darkest;
+					margin-right: 10px;
+				}
+				a {
+					font-weight: 500;
+					font-size: 18px;
+					color: $green-main;
+					text-decoration: underline;
+					cursor: pointer;
 				}
 			}
 			.tour-items {
@@ -835,6 +840,9 @@ export default {
 		font-size: 14px;
 		color: $blue-darkest !important;
 		margin: 10px 0;
+		&.link {
+			text-decoration: underline;
+		}
 		.company-name {
 			max-width: 65%;
 			white-space: nowrap;
@@ -845,6 +853,8 @@ export default {
 			width: 24px;
 			height: 24px;
 			margin-right: 7px;
+			object-fit: cover;
+			border-radius: 4px;
 		}
 		.rating {
 			font-weight: normal;
