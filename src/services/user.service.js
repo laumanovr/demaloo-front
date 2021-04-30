@@ -27,6 +27,16 @@ export class UserService {
 		const url = `${API_BASE_URL}/companies`;
 		return sendGetRequest(url);
 	}
+
+	static sendRecoveryEmail(body) {
+		const url = `${API_BASE_URL}/companies/forgotPassword`;
+		return sendPatchRequest(url, body);
+	}
+
+	static resetCompanyPassword(body) {
+		const url = `${API_BASE_URL}/resetPassword`;
+		return sendPatchRequest(url, body);
+	}
 	// ---------------------------------------------------------------
 
 	static registerClient(body) {
