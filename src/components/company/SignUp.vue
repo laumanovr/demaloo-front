@@ -146,6 +146,9 @@ export default {
 					await UserService.registerCompany(this.companyObj);
 					this.formStep = 'complete';
 					this.$emit('loading', false);
+					this.$nextTick(() => {
+						window.scrollTo(0, 0);
+					});
 				} catch (err) {
 					this.$toast.error(err);
 					this.$emit('loading', false);
