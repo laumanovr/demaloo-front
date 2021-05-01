@@ -8,15 +8,15 @@
 
 			<div class="footer__title">Отдых без забот</div>
 			
-			<div class="footer__links flex align-center justify-center">
+			<!--<div class="footer__links flex align-center justify-center">-->
 				<!--<a href="#">Как устроено Demaloo</a>-->
 				<!--<span class="dot"></span>-->
-				<a href="#">Публичная оферта</a>
-				<span class="dot"></span>
-				<a href="#">Регистрация компании</a>
-				<span class="dot"></span>
-				<a href="#">Часто задаваемые вопросы</a>
-			</div>
+				<!--<a href="#">Публичная оферта</a>-->
+				<!--<span class="dot"></span>-->
+				<!--<a href="#">Регистрация компании</a>-->
+				<!--<span class="dot"></span>-->
+				<!--<a href="#">Часто задаваемые вопросы</a>-->
+			<!--</div>-->
 
 			<div class="footer__icons flex align-center justify-center">
 				<img src="../../assets/images/app-store.png">
@@ -39,7 +39,7 @@
 			</div>
 
 			<div class="footer__confident">
-				© LLC Demaloo, Все права защищены, Политика конфидециальности
+				© LLC Demaloo, Все права защищены, <a>Политика конфидециальности</a>, <a>Публичная оферта</a>
 			</div>
 		</div>
 	</div>
@@ -76,6 +76,7 @@
 				font-weight: 600;
 				font-size: 18px;
 				margin-top: 10px;
+				margin-bottom: 18px;
 			}
 			&__links {
 				margin: 35px 0;
