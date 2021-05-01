@@ -582,7 +582,9 @@ export default {
 				const res = await TourService.paymentForTour(this.payOrReserve);
 				this.toggleReserveModal();
 				window.location.href = res.data.redirectUrl;
-				this.isLoading = false;
+				setTimeout(() => {
+					this.isLoading = false;
+				}, 5000);
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;

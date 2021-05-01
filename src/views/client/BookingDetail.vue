@@ -282,9 +282,6 @@ export default {
 		this.isLoading = true;
 		this.getSelectedTour(this.$route.params.tourId);
 	},
-	beforeDestroy() {
-		this.isLoading = false;
-	},
 	methods: {
 		async getSelectedTour(tourId) {
 			try {
@@ -359,7 +356,7 @@ export default {
 				window.location.href = res.data.redirectUrl;
 				setTimeout(() => {
 					this.isLoading = false;
-				}, 1500);
+				}, 5000);
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
