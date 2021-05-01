@@ -112,7 +112,6 @@ export default {
 				phoneNumber: '',
 				password: ''
 			},
-
 		};
 	},
 	computed: {
