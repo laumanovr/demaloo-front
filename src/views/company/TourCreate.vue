@@ -525,21 +525,23 @@ export default {
 		},
 
 		async submitCreateTour() {
-			if (this.$refs.tourForm.validate()) {
-				if (!this.tourObj.images.length) {
-					this.$toast.info('Загрузите фотографии тура!');
-					return;
-				}
+			if (!this.$refs.tourForm.validate()) {
+                this.$toast.error('Вы не заполнили все поля!');
+                return;
+			}
+			if (!this.tourObj.images.length) {
+				this.$toast.info('Загрузите фотографии тура!');
+				return;
+			}
+			try {
 				this.isLoading = true;
-				try {
-					await TourService.createTour(this.tourObj);
-					await this.createNewPlaces();
-					this.$router.push('/company-manage');
-					this.$toast.success('Тур успешно создан!');
-				} catch (err) {
-					this.$toast.error(err);
-					this.isLoading = false;
-				}
+				await TourService.createTour(this.tourObj);
+				await this.createNewPlaces();
+				this.$router.push('/company-manage');
+				this.$toast.success('Тур успешно создан!');
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
 			}
 		},
 
