@@ -282,6 +282,9 @@ export default {
 		this.isLoading = true;
 		this.getSelectedTour(this.$route.params.tourId);
 	},
+	beforeDestroy() {
+		this.isLoading = false;
+	},
 	methods: {
 		async getSelectedTour(tourId) {
 			try {
@@ -292,11 +295,9 @@ export default {
 						this.slideImages.push(this.showTourImage(image));
 					});
 				}
-				this.$nextTick(() => {
-					setTimeout(() => {
-						this.getSelectedBooking(this.$route.params.bookId);
-					}, 100);
-				});
+				setTimeout(() => {
+					this.getSelectedBooking(this.$route.params.bookId);
+				}, 100);
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
@@ -356,7 +357,9 @@ export default {
 				this.isLoading = true;
 				const res = await TourService.purchaseReservation(this.$route.params.bookId, this.payOrReserve);
 				window.location.href = res.data.redirectUrl;
-				this.isLoading = false;
+				setTimeout(() => {
+					this.isLoading = false;
+				}, 1500);
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
