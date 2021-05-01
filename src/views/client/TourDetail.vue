@@ -28,7 +28,7 @@
 							<div class="top-title flex align-center justify-space-between">
 								<span class="tour-detail__name">{{tourDetail.name.ru}}</span>
 								<div
-									class="tour-detail__favorite flex align-center web"
+									class="tour-detail__favorite flex align-center"
 									@click="addToFavorite"
 									v-if="userLogged"
 								>
@@ -36,7 +36,7 @@
 										:src="require('../../assets/icons/heart-blue.svg')"
 										:class="{'saved': checkIsAlreadyFavorite()}"
 									/>
-									<span>{{checkIsAlreadyFavorite() ? 'Сохранен' : 'Сохранить'}}</span>
+									<span class="web">{{checkIsAlreadyFavorite() ? 'Сохранен' : 'Сохранить'}}</span>
 								</div>
 							</div>
 							<router-link
@@ -818,6 +818,9 @@ export default {
 		font-weight: bold;
 		font-size: 20px;
 		color: #00113C;
+		@media #{$mob-view} {
+			max-width: 85%;
+		}
 	}
 	&__favorite {
 		font-weight: 600;
