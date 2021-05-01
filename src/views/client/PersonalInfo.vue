@@ -54,7 +54,7 @@
 		</v-form>
 
 		<!--PROFILE INFO MODAL-->
-		<modal name="profile-info-modal" height="auto">
+		<modal name="profile-info-modal" height="auto" :adaptive="true">
 			<div class="modal-container">
 				<h3>Заполните пожалуйста все поля, <br> и нажмите сохранить!</h3>
 				<div class="single-center">
@@ -120,6 +120,9 @@ export default {
 				this.profileDob = this.profileObj.birthdate ? format(new Date(this.profileObj.birthdate), 'dd.MM.yyyy') : '';
 				this.avatarUrl = `${AWS_IMAGE_URL}/photos/` + this.profileObj.photo;
 				this.isLoading = false;
+				this.$nextTick(() => {
+					this.$refs.profileForm.reset();
+				});
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
