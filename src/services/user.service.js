@@ -58,4 +58,9 @@ export class UserService {
 		const url = `${API_BASE_URL}/customers/me`;
 		return sendGetRequest(url);
 	}
+
+	static resetClientPassword(body) {
+		const url = `${API_BASE_URL}/forgotPassword`;
+		return sendPatchRequest(url, body);
+	}
 }
