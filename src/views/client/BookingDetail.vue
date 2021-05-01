@@ -212,7 +212,7 @@
 						<div class="pay-btn-block">
 							<button
 								class="btn green-main"
-								v-if="checkIsTourBooked() || checkIsTourPending()"
+								v-if="checkIsTourBooked()"
 								@click="purchaseReservedTour"
 							>
 								Оплатить
@@ -323,13 +323,6 @@ export default {
 			}
 		},
 
-		checkIsTourPending() {
-			if (this.bookingDetail.stages) {
-				const status = this.bookingDetail.stages[this.bookingDetail.stages.length - 1].status;
-				return status === 'PENDING';
-			}
-		},
-
 		showTourImage(imageLink) {
 			return `${AWS_IMAGE_URL}/images/` + imageLink + '?w=800';
 		},
@@ -359,10 +352,6 @@ export default {
 		},
 
 		async purchaseReservedTour() {
-			if (this.checkIsTourPending()) {
-				window.location.href = this.bookingDetail.stages.find((i) => i.status === 'PENDING').redirectUrl;
-				return;
-			}
 			try {
 				this.isLoading = true;
 				const res = await TourService.purchaseReservation(this.$route.params.bookId, this.payOrReserve);
