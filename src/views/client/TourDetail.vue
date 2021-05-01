@@ -569,7 +569,7 @@ export default {
 				this.toggleCompleteModal();
 				setTimeout(() => {
 					this.$router.push('/profile-manage');
-				}, 3000);
+				}, 2000);
 			} catch (err) {
 				this.$toast.error(err);
 				this.isLoading = false;
