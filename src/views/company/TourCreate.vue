@@ -526,8 +526,8 @@ export default {
 
 		async submitCreateTour() {
 			if (!this.$refs.tourForm.validate()) {
-                this.$toast.error('Вы не заполнили все поля!');
-                return;
+				this.$toast.error('Вы не заполнили все поля!');
+				return;
 			}
 			if (!this.tourObj.images.length) {
 				this.$toast.info('Загрузите фотографии тура!');
