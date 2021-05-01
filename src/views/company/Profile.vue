@@ -126,16 +126,18 @@ export default {
 		},
 
 		async submitUpdate() {
-			if (this.$refs.profileForm.validate()) {
-				if (!this.previewUrl) {
-					this.$toast.info('Загрузите логотип!');
-					return;
-				}
-				this.isLoading = true;
-				const formData = new FormData();
-				Object.entries(this.profileObj).forEach((item) => formData.append(item[0], item[1]));
-				this.$store.dispatch('account/companyUpdate', formData);
+			if (!this.$refs.profileForm.validate()) {
+				this.$toast.error('Вы не заполнили все поля!');
+				return;
 			}
+			if (!this.previewUrl) {
+				this.$toast.info('Загрузите логотип!');
+				return;
+			}
+			this.isLoading = true;
+			const formData = new FormData();
+			Object.entries(this.profileObj).forEach((item) => formData.append(item[0], item[1]));
+			this.$store.dispatch('account/companyUpdate', formData);
 		}
 	},
 	watch: {
