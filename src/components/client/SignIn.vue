@@ -25,6 +25,7 @@
 			<button class="btn green-main next" @click.prevent="submitLogin">
 				Войти
 			</button>
+			<div class="forgot-password" @click="$emit('resetPass')">Забыли пароль?</div>
 		</v-form>
 	</div>
 </template>
