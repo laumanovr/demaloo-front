@@ -5,7 +5,7 @@
 			<router-link to="/">
 				<img src="../../assets/images/welcome-big.jpg" class="welcome">
 				<div class="logo-text">
-					<img src="../../assets/images/big-logo.svg">
+					<img src="../../assets/images/big-logo.svg" class="logo">
 					<div class="title">
 						<img src="../../assets/images/demaloo-text.png">
 						<span>Отдых без забот</span>
@@ -76,7 +76,7 @@ export default {
 		position: relative;
 		.login-image {
 			position: relative;
-			min-width: 45%;
+			min-width: 50%;
 			.welcome {
 				width: 100%;
 				min-height: 100%;
@@ -92,7 +92,11 @@ export default {
 				height: 100%;
 				width: 100%;
 				background: rgba($blue-darkest, 0.3);
+				img.logo {
+					transform: translateY(-15rem);
+				}
 				.title {
+					transform: translateY(-15rem);
 					display: inline-block;
 					margin: 28px 0 0 20px;
 					span {
@@ -105,7 +109,7 @@ export default {
 			}
 		}
 		.form-container {
-			min-width: 55%;
+			min-width: 50%;
 			background: #fff;
 		}
 		.form-link {
