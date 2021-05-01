@@ -15,22 +15,28 @@
 			<ClientSignIn
 				v-if="loginType == 'login'"
 				@loading="showLoader"
+				@resetPass="loginType='reset'"
 			/>
 			<ClientSignUp
 				v-if="loginType == 'signUp'"
 				@loading="showLoader"
 			/>
+			<ForgotPassword
+				v-if="loginType == 'reset'"
+				@loading="showLoader"
+				@restored="loginType='login'"
+			/>
 			<div class="form-link">
 				<template v-if="loginType == 'login'">
-					<div class="question">Вы еще не зарегистрированы?</div>
+					<div class="question">Еще не зарегистрированы?</div>
 					<span class="answer" @click="loginType = 'signUp'">Зарегистрироваться</span>
 				</template>
-				<template v-if="loginType == 'signUp'">
+				<template v-if="loginType == 'signUp' || loginType == 'reset'">
 					<div class="question">Уже есть аккаунт?</div>
 					<span class="answer" @click="loginType = 'login'">Войти</span>
 				</template>
 			</div>
-			<div class="policy">
+			<div class="policy" v-if="loginType == 'login'">
 				После входа в учетную запись, я принимаю условия пользования, политику конфиденциальности и дальнейшие условия Demaloo.
 			</div>
 		</div>
@@ -40,12 +46,14 @@
 <script>
 import ClientSignIn from '@/components/client/SignIn';
 import ClientSignUp from '@/components/client/SignUp';
+import ForgotPassword from '@/components/client/ForgotPassword';
 import PreLoader from '@/components/general/PreLoader';
 
 export default {
 	components: {
 		ClientSignUp,
 		ClientSignIn,
+		ForgotPassword,
 		PreLoader
 	},
 	data() {
@@ -106,7 +114,7 @@ export default {
 				.question {
 					font-size: 14px;
 					color: $gray-blue;
-					margin: 25px 0 6px;
+					margin: 12px 0 6px;
 				}
 				.answer {
 					font-weight: 600;
