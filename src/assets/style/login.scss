@@ -15,15 +15,15 @@
     margin-bottom: 30px;
     color: $gray-dark;
   }
-  .forgot-password {
-    margin-top: 15px;
-    font-size: 14px;
-    color: $gray-dark;
-    cursor: pointer;
-  }
 }
 
 .client-login {
+  .reset-pass-title {
+    font-size: 20px;
+    color: $blue-darkest;
+    text-align: center;
+    margin-bottom: 20px;
+  }
   .head-title {
     font-weight: bold;
     font-size: 20px;
@@ -73,7 +73,7 @@
   .btn-actions {
     margin: 20px 0 0 0;
     .btn {
-      height: 53px;
+      height: 50px;
     }
   }
   .set-pass {
@@ -92,4 +92,12 @@
       margin: 0 auto 15px;
     }
   }
+}
+
+.forgot-password {
+  margin-top: 15px;
+  font-size: 14px;
+  color: $gray-dark;
+  cursor: pointer;
+  text-align: center;
 }
