@@ -10,10 +10,10 @@
 						mask="\+\996 (111) 11-11-11"
 						placeholder="Ваш номер телефона"
 						v-model="phoneView"
-						@input="registerObj.phoneNumber = arguments[1]"
+						@input="rawPhoneValue = arguments[1]"
 						autocomplete="new-password"
 					/>
-					<v-text-field class="error-only" v-model="registerObj.phoneNumber" :rules="phoneRule"/>
+					<v-text-field class="error-only" v-model="rawPhoneValue" :rules="phoneRule"/>
 				</div>
 				<button class="btn green-main next" @click.prevent="sendPhoneNum" v-if="showBtn">
 					Получить код
@@ -104,6 +104,7 @@ export default {
 			formStep: 'first',
 			phoneView: '',
 			codeValue: '',
+			rawPhoneValue: '',
 			showBtn: true,
 			secretCode: '',
 			checkPassword: '',
@@ -124,7 +125,7 @@ export default {
 				try {
 					const recaptcha = new firebase.firebase_.auth.RecaptchaVerifier("recaptcha-container");
 					const provider = new firebase.firebase_.auth.PhoneAuthProvider();
-					this.secretCode = await provider.verifyPhoneNumber(`+996${this.registerObj.phoneNumber}`, recaptcha);
+					this.secretCode = await provider.verifyPhoneNumber(`+996${this.rawPhoneValue}`, recaptcha);
 					this.formStep = 'second';
 				} catch (err) {
 					this.$toast.error(err);
@@ -151,7 +152,7 @@ export default {
 				return;
 			}
 			this.$emit('loading', true);
-			this.registerObj.phoneNumber = `+996${this.registerObj.phoneNumber}`;
+			this.registerObj.phoneNumber = `+996${this.rawPhoneValue}`;
 			this.$store.dispatch('account/clientRegister', this.registerObj);
 		}
 	},
