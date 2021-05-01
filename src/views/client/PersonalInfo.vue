@@ -58,7 +58,7 @@
 			<div class="modal-container">
 				<h3>Заполните пожалуйста все поля, <br> и нажмите сохранить!</h3>
 				<div class="single-center">
-					<button class="btn blue-primary" @click="$modal.hide('profile-info-modal')">OK</button>
+					<button class="btn green-main" @click="$modal.hide('profile-info-modal')">OK</button>
 				</div>
 			</div>
 		</modal>
