@@ -25,11 +25,11 @@ export default {
 			route: '/company-manage/team',
 			icon: 'people.svg'
 		},
-		{
-			name: 'Чат',
-			route: '#',
-			icon: 'message.svg',
-		}
+		// {
+		// 	name: 'Чат',
+		// 	route: '#',
+		// 	icon: 'message.svg',
+		// }
 	],
 
 	client: [
@@ -52,16 +52,16 @@ export default {
 			className: 'multi'
 		},
 		{
-			name: 'Сохраненные туры',
-			route: '/profile-manage/favorites',
-			icon: 'favorite-tab.svg',
-			className: 'multi'
-		},
-		{
 			name: 'Мои отзывы',
 			route: '/profile-manage/reviews',
 			icon: 'review-tab.svg',
 			className: 'single'
+		},
+		{
+			name: 'Сохраненные туры',
+			route: '/profile-manage/favorites',
+			icon: 'favorite-tab.svg',
+			className: 'multi'
 		},
 		// {
 		// 	name: 'Сообщения',
