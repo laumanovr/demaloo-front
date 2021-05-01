@@ -186,8 +186,8 @@
 										<div class="tour-item__description">
 											{{tour.description.ru}}
 										</div>
-										<div class="tour-item__location">
-											Локация: <span>{{tour.locations && tour.locations[0].place}}</span>
+										<div class="tour-item__location" v-if="tour.locations">
+											Локация: <span>{{tour.locations.length && tour.locations[0].place}}</span>
 										</div>
 										<div class="tour-item__date">
 											<span class="web">Дата тура:</span>
