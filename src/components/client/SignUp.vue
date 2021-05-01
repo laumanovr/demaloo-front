@@ -3,7 +3,7 @@
 		<h3 class="head-title">Зарегистрироваться</h3>
 		<template v-if="formStep == 'first'">
 			<v-form ref="registerForm">
-				<img src="../../assets/images/register-step-one.png" class="step">
+				<img src="../../assets/images/register-step-one.svg" class="step">
 				<div class="masked-input">
 					<span class="label">Телефон</span>
 					<MaskedInput
@@ -23,7 +23,7 @@
 		</template>
 
 		<template v-if="formStep == 'second'">
-			<img src="../../assets/images/register-step-two.png" class="margin-bottom step">
+			<img src="../../assets/images/register-step-two.svg" class="margin-bottom step">
 			<div class="password">
 				<span class="label">Ваш номер телефона</span>
 				<v-text-field
@@ -49,7 +49,7 @@
 		</template>
 
 		<template v-if="formStep == 'last'">
-			<img src="../../assets/images/register-step-last.png" class="step margin-bottom">
+			<img src="../../assets/images/register-step-last.svg" class="step margin-bottom">
 			<div class="password">
 				<span class="label">Ваш номер телефона</span>
 				<v-text-field
