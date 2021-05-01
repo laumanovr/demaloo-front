@@ -5,11 +5,11 @@
 			<img src="../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
 			<span>Сохраненные туры</span>
 		</div>
-		<div class="tour-items">
-			<router-link
-				:to="{name: 'tourDetail', params: {tourId: tour._id}}"
-				v-for="tour in favoriteTours" :key="tour._id"
+		<div class="tour-items" v-if="favoriteTours.length">
+			<div
 				class="tour-item"
+				v-for="tour in favoriteTours" :key="tour._id"
+				@click="openOrRemoveFavoriteTour($event, tour._id)"
 			>
 				<div class="tour-img">
 					<img :src="showTourPhoto(tour.images[0])" class="main">
@@ -38,12 +38,14 @@
 						<span class="price">{{tour.price}} сом</span>
 					</div>
 				</div>
-			</router-link>
+			</div>
 		</div>
+		<div class="empty" v-else>Пусто</div>
 	</div>
 </template>
 
 <script>
+import {TourService} from '../../services/tour.service';
 import PreLoader from '@/components/general/PreLoader';
 import {AWS_IMAGE_URL} from '@/services/api.service';
 import {mapState} from 'vuex';
@@ -80,6 +82,21 @@ export default {
 			const month = format(new Date(date), 'LLLL', {locale: ru});
 			const weekD = format(new Date(date), 'eeeeee', {locale: ru});
 			return `<span>${dateNum}</span><span style="margin: 0 6px">${month},</span><span>${weekD}</span>`;
+		},
+
+		async openOrRemoveFavoriteTour(e, tourId) {
+			if (e.target.className === 'heart') {
+				try {
+					this.isLoading = true;
+					await TourService.deleteFavoriteTour(tourId);
+					this.$store.dispatch('favorite/getAllFavoriteTours');
+				} catch (err) {
+					this.$toast.error(err);
+					this.isLoading = false;
+				}
+			} else {
+				this.$router.push({name: 'tourDetail', params: {tourId: tourId}});
+			}
 		},
 	},
 	watch: {
@@ -216,6 +233,10 @@ export default {
 					}
 				}
 			}
+		}
+		.empty {
+			text-align: center;
+			color: $blue-darkest;
 		}
 	}
 </style>
