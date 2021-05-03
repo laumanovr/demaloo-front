@@ -6,7 +6,7 @@
 			<div class="bg-text">
 				<div class="bg-text__block">
 					<div class="bg-text__top">Начало незабываемого отдыха</div>
-					<div class="bg-text__bottom">Найдите самый подходящий тур среди 1,200 туров.</div>
+					<div class="bg-text__bottom">Быстрый и удобный поиск туров по всему Кыргызстану.</div>
 				</div>
 			</div>
 		</div>
