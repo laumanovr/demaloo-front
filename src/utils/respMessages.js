@@ -24,5 +24,6 @@ export default {
 	'review is not found': 'Отзыв не найден',
 	'file is not an image': 'Файл не похож на картинку',
 	'company is not verified': 'Аккаунт еще непроверен',
-	'booking can not be cancelled': 'Бронь нельзя отменить'
+	'booking can not be cancelled': 'Бронь нельзя отменить',
+	'document already exists': 'Такой Email уже существует'
 };
