@@ -26,7 +26,7 @@
 			<div class="footer__contacts flex align-center justify-center">
 				<div class="contact flex align-center">
 					<img src="../../assets/icons/cell-phone.png" class="phone">
-					<span>+996 706 100 901</span>
+					<span>+996 500 100 901</span>
 				</div>
 				<div class="contact address flex align-center">
 					<img src="../../assets/icons/marker-dark.png" class="street">
@@ -39,7 +39,9 @@
 			</div>
 
 			<div class="footer__confident">
-				© LLC Demaloo, Все права защищены, <a>Политика конфиденциальности</a>, <a>Публичная оферта</a>
+				© LLC Demaloo, Все права защищены,
+				<a href="/docs/policy.pdf" target="_blank">Политика конфиденциальности</a>,
+				<a href="/docs/condition.pdf" target="_blank">Публичная оферта</a>
 			</div>
 		</div>
 	</div>
@@ -134,6 +136,13 @@
 			&__confident {
 				font-size: 14px;
 				color: #A6ACBB;
+				a {
+					color: #A6ACBB;
+					text-decoration: underline;
+					&:hover {
+						text-decoration: none;
+					}
+				}
 			}
 		}
 	}
