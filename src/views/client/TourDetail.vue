@@ -205,7 +205,8 @@
 								<span>{{totalPayPrice}} сом</span>
 							</div>
 							<div class="agreement web">
-								Забронировав тур, я соглашаюсь с <span>Условиями предоставления услуг.</span>
+								Забронировав тур, я соглашаюсь с
+								<a href="/docs/condition.pdf" target="_blank">Условиями предоставления услуг.</a>
 							</div>
 							<button
 								disabled
@@ -344,7 +345,8 @@
 						<div class="value reserve">{{totalPayPrice}} сом</div>
 					</div>
 					<div class="agreement mob">
-						Забронировав тур, я соглашаюсь с <span>Условиями предоставления услуг.</span>
+						Забронировав тур, я соглашаюсь с
+						<a href="/docs/condition.pdf" target="_blank">Условиями предоставления услуг.</a>
 					</div>
 					<div class="single-center">
 						<button
@@ -1076,8 +1078,12 @@ export default {
 	font-size: 12px;
 	text-align: center;
 	margin-bottom: 20px;
-	span {
+	a {
 		color: $green-main;
+		text-decoration: underline;
+		&:hover {
+			text-decoration: none;
+		}
 	}
 }
 
