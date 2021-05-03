@@ -121,7 +121,7 @@ export default {
 				this.avatarUrl = `${AWS_IMAGE_URL}/photos/` + this.profileObj.photo;
 				this.isLoading = false;
 				this.$nextTick(() => {
-					this.$refs.profileForm.reset();
+					this.$refs.profileForm.resetValidation();
 				});
 			} catch (err) {
 				this.$toast.error(err);
