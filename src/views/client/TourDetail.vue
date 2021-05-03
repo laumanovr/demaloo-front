@@ -13,7 +13,7 @@
 								@page-change="changeImage"
 							>
 								<slide v-for="imageUrl in slideImages" :key="imageUrl">
-									<img class="main-img" :src="imageUrl">
+									<img class="main-img" :src="imageUrl" @click="openFullSizeModal">
 								</slide>
 							</carousel>
 							<div class="arrows">
@@ -381,12 +381,19 @@
 				</div>
 			</modal>
 		</div>
+		<!--FOR MOBILE FULL SIZE VIEW IMAGES-->
+		<FullSizeSliderModal
+			:imgIndex="imgIndex"
+			:slideImages="slideImages"
+			:tourImagesCount="tourDetail.images && tourDetail.images.length"
+		/>
 	</div>
 </template>
 
 <script>
 import {TourService} from '@/services/tour.service';
 import PreLoader from '@/components/general/PreLoader';
+import FullSizeSliderModal from '@/components/client/FullSizeSliderModal';
 import {AWS_IMAGE_URL} from '@/services/api.service';
 import {Carousel, Slide} from 'vue-carousel';
 import {format} from 'date-fns';
@@ -396,7 +403,8 @@ export default {
 	components: {
 		PreLoader,
 		Carousel,
-		Slide
+		Slide,
+		FullSizeSliderModal
 	},
 	data() {
 		return {
@@ -523,6 +531,12 @@ export default {
 
 		changeImage(slidePage) {
 			this.imgIndex = slidePage + 1;
+		},
+
+		openFullSizeModal() {
+			if (this.isMobileWindow) {
+				this.$modal.show('big-slider-modal');
+			}
 		},
 
 		showFreeCancelDate() {
@@ -1150,25 +1164,5 @@ export default {
 			margin: 0;
 		}
 	}
-}
-
-.fade-enter-active,
-.fade-leave-active {
-	transition: all 0.8s ease;
-	overflow: hidden;
-	visibility: visible;
-	position: absolute;
-	left: 0;
-	width: 100%;
-	opacity: 1;
-	@media #{$mob-view} {
-		padding: 0 20px;
-	}
-}
-.fade-enter,
-.fade-leave-to {
-	visibility: hidden;
-	width: 100%;
-	opacity: 0;
 }
 </style>
