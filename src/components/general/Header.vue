@@ -7,12 +7,12 @@
 			<div class="links">
 				<template v-if="$route.path == '/'">
 					<!--mobile-->
-					<svg @click="showMobileSearch" class="mob" :class="{'searchOpen': isSearchOpen}">
+					<svg @click="showMobileSearch" class="mob search" :class="{'searchOpen': isSearchOpen}">
 						<use href="../../assets/icons/svg-sprite/loupe-icon.svg#loupe"/>
 					</svg>
-					<img src="../../assets/icons/sort-icon.svg" class="mob sort">
+					<!--<img src="../../assets/icons/sort-icon.svg" class="mob sort">-->
 				</template>
-				<a href="#" class="web">Поддержка</a>
+				<a href="#" class="web">Контакты</a>
 				<template v-if="userLogged">
 					<div class="profile web" @click="$router.push('/profile-manage')">
 						<span class="name">{{userProfile.name}}</span>
@@ -138,6 +138,9 @@ export default {
 		}
 		@media #{$mob-view} {
 			.links {
+				.search {
+					margin-right: 18px;
+				}
 				img.sort {
 					margin: 0 18px;
 				}
