@@ -67,7 +67,7 @@
 										<img src="../../assets/icons/duration-icon.svg">
 										<span>Длительность:</span>
 									</div>
-									<div class="value">{{tourDetail.duration}} дней</div>
+									<div class="value">{{tourDetail.duration}} {{showDayTitle()}}</div>
 								</div>
 								<div class="short-info">
 									<div class="item flex align-center">
@@ -295,7 +295,7 @@
 							<img src="../../assets/icons/duration-icon.svg">
 							<span class="reserve">Длительность:</span>
 						</div>
-						<div class="value reserve">{{tourDetail.duration}} дней</div>
+						<div class="value reserve">{{tourDetail.duration}} {{showDayTitle()}}</div>
 					</div>
 					<div class="short-info">
 						<div class="item flex align-center">
