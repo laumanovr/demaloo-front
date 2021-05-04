@@ -174,7 +174,7 @@
 									<img src="../../assets/icons/duration-icon.svg">
 									<span>Длительность:</span>
 								</div>
-								<div class="value">{{tourDetail.duration}} дней</div>
+								<div class="value">{{tourDetail.duration}} {{showDayTitle()}}</div>
 							</div>
 							<div class="short-info web">
 								<div class="item flex align-center">
@@ -518,6 +518,16 @@ export default {
 
 		showCompanyImage(imageLink) {
 			return `${AWS_IMAGE_URL}/logos/` + imageLink;
+		},
+
+		showDayTitle() {
+			if (this.tourDetail.duration === 1) {
+				return 'день';
+			}
+			if (this.tourDetail.duration >= 5) {
+				return 'дней';
+			}
+			return 'дня';
 		},
 
 		addSubtractQuantity(type) {
