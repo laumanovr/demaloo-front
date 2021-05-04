@@ -579,7 +579,7 @@ export default {
                 display: flex;
                 align-items: center;
                 img {
-                    margin: 0 10px 0 30px;
+                    margin: 0 10px;
                 }
                 span {
                     font-size: 14px;
