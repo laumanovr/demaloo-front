@@ -925,6 +925,9 @@ export default {
 				top: 50%;
 				left: 50px;
 				transform: translateY(-50%);
+				@media #{$mob-view} {
+					left: 14px;
+				}
 			}
 			&__title {
 				font-weight: bold;
@@ -932,7 +935,8 @@ export default {
 				color: #fff;
 				margin-bottom: 50px;
 				@media #{$mob-view} {
-					font-size: 14px;
+					font-size: 13px;
+					margin-bottom: 30px;
 				}
 			}
 			.app-icons {
