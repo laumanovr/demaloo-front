@@ -140,12 +140,17 @@ export default {
 				this.$toast.error('Введите все 6 цифр!');
 				return;
 			}
-			this.$emit('loading', true);
-			const credential = await firebase.firebase_.auth.PhoneAuthProvider.credential(this.secretCode, this.codeValue);
-			await firebase.auth().signInWithCredential(credential);
-			this.registerObj.idToken = await firebase.auth().currentUser.getIdToken();
-			this.formStep = 'last';
-			this.$emit('loading', false);
+			try {
+				this.$emit('loading', true);
+				const credential = await firebase.firebase_.auth.PhoneAuthProvider.credential(this.secretCode, this.codeValue);
+				await firebase.auth().signInWithCredential(credential);
+				this.registerObj.idToken = await firebase.auth().currentUser.getIdToken();
+				this.formStep = 'last';
+				this.$emit('loading', false);
+			} catch (err) {
+				this.$toast.error(err);
+				this.$emit('loading', false);
+			}
 		},
 
 		async submitReset() {
