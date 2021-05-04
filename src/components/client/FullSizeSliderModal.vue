@@ -1,9 +1,9 @@
 <template>
 	<modal
 		name="big-slider-modal"
+		class="full-size-slider"
 		height="auto"
 		:adaptive="true"
-		class="full-size-slider"
 		:class="{'show': isShow}"
 		@before-open="onShow"
 		@before-close="isShow=false"
@@ -82,6 +82,7 @@ export default {
 		}
 		.vm--modal {
 			opacity: 0;
+			max-height: 450px;
 		}
 		&.show {
 			.vm--modal {
