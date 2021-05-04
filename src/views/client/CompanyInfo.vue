@@ -11,16 +11,16 @@
 							<div class="company-name flex align-center">
 								<span>{{currentCompany.name}}</span>
 								<img src="../../assets/icons/rating-icon.svg" class="star">
-								<span class="rating">{{currentCompany.rating}} ({{currentCompany.reviewCount}})</span>
+								<span class="rating">{{currentCompany.rating}}</span>
 							</div>
 							<div class="created-date">В Demaloo c {{formatDate(currentCompany.createdAt)}}</div>
 						</div>
 					</div>
 					<div class="right">
-						<div class="chat-btn flex align-center">
-							<img src="../../assets/icons/envelope-dark.png">
-							<span>Написать</span>
-						</div>
+						<!--<div class="chat-btn flex align-center">-->
+							<!--<img src="../../assets/icons/envelope-dark.png">-->
+							<!--<span>Написать</span>-->
+						<!--</div>-->
 					</div>
 				</div>
 				<div class="flex bottom flex-wrap">
@@ -28,8 +28,8 @@
 						{{currentCompany.description}}
 					</div>
 					<div class="count">
-						<div class="item"><span>Активных туров:</span> <span>{{activeToursCount}}</span></div>
-						<div class="item"><span>Проведенных туров:</span> <span>{{pastToursCount}}</span></div>
+						<div class="item"><span>Предстоящих туров:</span> <span>{{activeToursCount}}</span></div>
+						<div class="item"><span>Прошедших туров:</span> <span>{{pastToursCount}}</span></div>
 					</div>
 				</div>
 			</div>
@@ -37,11 +37,11 @@
 			<div class="company__review">
 				<div class="review-title flex justify-space-between">
 					<div class="flex align-center">
-						<span class="top-title">Отзывы</span>
-						<div class="rating flex align-center">
-							<img src="../../assets/icons/rating-icon.svg">
-							<span>{{currentCompany.rating}} ({{currentCompany.reviewCount}})</span>
-						</div>
+						<span class="top-title">Отзывы ({{currentCompany.reviewCount}})</span>
+						<!--<div class="rating flex align-center">-->
+							<!--<img src="../../assets/icons/rating-icon.svg">-->
+							<!--<span>{{currentCompany.rating}}</span>-->
+						<!--</div>-->
 					</div>
 					<router-link
 						:to="{name: 'companyInfoReviews', params: {companyId: $route.params.companyId}}"

@@ -11,7 +11,7 @@
 					<div class="company-name flex align-center">
 						<span>{{currentCompany.name}}</span>
 						<img src="../../assets/icons/rating-icon.svg" class="star">
-						<span class="rating">{{currentCompany.rating}} ({{currentCompany.reviewCount}})</span>
+						<span class="rating">{{currentCompany.rating}}</span>
 					</div>
 					<div class="created-date">В Demaloo c {{formatDate(currentCompany.createdAt)}}</div>
 				</div>
@@ -75,6 +75,9 @@ export default {
 			return this.$store.state.account.customer;
 		}
 	},
+	beforeCreate() {
+		this.isLoading = true;
+	},
 	async created() {
 		this.isLoading = true;
 		await this.getCompanyInfo();
@@ -107,7 +110,9 @@ export default {
 		},
 
 		formatDate(date) {
-			return format(new Date(date), 'dd.MM.yyyy');
+			if (date) {
+				return format(new Date(date), 'dd.MM.yyyy');
+			}
 		},
 
 		showCompanyImage(imageLink) {
