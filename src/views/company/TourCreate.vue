@@ -3,7 +3,7 @@
         <PreLoader v-if="isLoading"/>
         <div class="header-create">
             <div class="head-title">
-                <img src="../../assets/icons/left-arrow.svg" @click="$router.go(-1)"/>Создайте тур
+                Создайте тур
             </div>
             <div class="create-step">
                 <template v-if="formStep == 'first'">
