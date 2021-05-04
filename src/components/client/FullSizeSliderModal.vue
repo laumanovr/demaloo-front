@@ -63,7 +63,9 @@ export default {
 <style lang="scss">
 	.full-size-slider {
 		.slide-img {
+			width: 100%;
 			min-height: 360px;
+			object-fit: cover;
 		}
 		.image-count {
 			position: absolute;
