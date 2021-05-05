@@ -100,5 +100,6 @@ export default {
 <style lang="scss" scoped>
 	.recovery-pass-container {
 		padding: 30px 25px;
+		margin-top: 15%;
 	}
 </style>
