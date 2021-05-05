@@ -799,9 +799,10 @@ export default {
 			min-width: 100%;
 			height: 453px;
 			border-radius: 6px;
-			object-fit: cover;
+			object-fit: contain;
 			@media #{$mob-view} {
 				height: 220px;
+				object-fit: cover;
 			}
 		}
 		.arrows {
