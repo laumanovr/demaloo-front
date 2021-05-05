@@ -1,6 +1,9 @@
 .company-sign-up-in {
   background: #fff;
   padding: 15px 45px;
+  &.login {
+    margin-top: 15%;
+  }
   .v-form {
     text-align: center;
   }

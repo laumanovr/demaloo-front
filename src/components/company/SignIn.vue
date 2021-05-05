@@ -1,5 +1,5 @@
 <template>
-	<div class="company-sign-up-in">
+	<div class="company-sign-up-in login">
 		<h3 class="head-title">Добро пожаловать!</h3>
 		<span class="sign-up-in-text">Быстрый, легкий и максимально удобный поиск туров!</span>
 		<v-form ref="signInForm">
