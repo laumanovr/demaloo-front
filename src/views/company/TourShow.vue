@@ -361,7 +361,8 @@ export default {
 				PENDING: 'В ожидании',
 				PAID: 'Оплачено',
 				ADDED: 'Добавлен',
-				CANCELLED: 'Отменен'
+				CANCELLED: 'Отменен',
+				REFUNDED: 'Возврат'
 			},
 			newClient: {
 				name: '',
