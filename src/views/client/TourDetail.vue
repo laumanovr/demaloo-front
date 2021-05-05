@@ -1104,7 +1104,7 @@ export default {
 	text-align: center;
 	margin-bottom: 20px;
 	a {
-		color: $green-main;
+		color: $green-main !important;
 		text-decoration: underline;
 		&:hover {
 			text-decoration: none;
