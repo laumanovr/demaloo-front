@@ -64,8 +64,11 @@ export default {
 	.full-size-slider {
 		.slide-img {
 			width: 100%;
-			min-height: 360px;
+			height: 380px;
 			object-fit: cover;
+			@media screen and (min-width: 700px)  {
+				object-fit: contain;
+			}
 		}
 		.image-count {
 			position: absolute;
@@ -82,7 +85,8 @@ export default {
 		}
 		.vm--modal {
 			opacity: 0;
-			max-height: 450px;
+			max-height: 380px;
+			background: rgb(0 0 0 / 80%);
 		}
 		&.show {
 			.vm--modal {
