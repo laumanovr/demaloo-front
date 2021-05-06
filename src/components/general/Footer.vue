@@ -19,8 +19,12 @@
 			<!--</div>-->
 
 			<div class="footer__icons flex align-center justify-center">
-				<img src="../../assets/images/app-store.png">
-				<img src="../../assets/images/play-market.png">
+				<a href="https://apps.apple.com/us/app/demaloo/id1560957584">
+					<img src="../../assets/images/app-store.png">
+				</a>
+				<a href="https://play.google.com/store/apps/details?id=kg.demaloo">
+					<img src="../../assets/images/play-market.png">
+				</a>
 			</div>
 
 			<div class="footer__contacts flex align-center justify-center">
@@ -99,11 +103,11 @@
 				}
 			}
 			&__icons {
+				a:first-child {
+					margin-right: 30px;
+				}
 				img {
 					width: 145px;
-					&:first-child {
-						margin-right: 30px;
-					}
 				}
 			}
 			&__contacts {
