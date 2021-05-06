@@ -138,7 +138,7 @@
 
 		<!--SHOW REVIEW MODAL-->
 		<modal name="show-review-modal" height="180px" :adaptive="true">
-			<div class="modal-container" v-if="selectedBook.reviews.length">
+			<div class="modal-container" v-if="selectedBook.reviews && selectedBook.reviews.length">
 				<CloseIcon class="top-right" @click="toggleShowReviewModal"/>
 				<div class="show-comment">
 					<div v-for="(comment, i) in selectedBook.reviews[0].messages" :key="i" :class="comment.author">
@@ -237,7 +237,7 @@ export default {
 		},
 
 		toggleReviewPastTourModal(book) {
-			this.selectedBook = book;
+			this.selectedBook = book ? book : {};
 			this.reviewObj = {rating: 0};
 			this.$modal.toggle('review-past-modal');
 		},
@@ -260,7 +260,7 @@ export default {
 		},
 
 		toggleShowReviewModal(book) {
-			this.selectedBook = book;
+			this.selectedBook = book ? book : {};
 			this.$modal.toggle('show-review-modal');
 		}
 	},
