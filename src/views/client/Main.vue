@@ -221,8 +221,12 @@
 			<div class="banner__text">
 				<div class="banner__title">Скачивайте приложение <br> для мобильных устройств</div>
 				<div class="app-icons web">
-					<img src="../../assets/images/app-store.png">
-					<img src="../../assets/images/play-market.png">
+					<a href="https://apps.apple.com/us/app/demaloo/id1560957584">
+						<img src="../../assets/images/app-store.png">
+					</a>
+					<a href="https://play.google.com/store/apps/details?id=kg.demaloo">
+						<img src="../../assets/images/play-market.png">
+					</a>
 				</div>
 			</div>
 		</div>
@@ -942,11 +946,11 @@ export default {
 			.app-icons {
 				display: flex;
 				align-items: center;
+				a:first-child {
+					margin-right: 30px;
+				}
 				img {
 					width: 175px;
-					&:first-child {
-						margin-right: 30px;
-					}
 				}
 			}
 		}
