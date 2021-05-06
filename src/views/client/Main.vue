@@ -207,7 +207,7 @@
 						</router-link>
 					</div>
 					<div class="single-center">
-						<button class="btn green-main" v-if="tourList.length" @click="showMore">
+						<button class="btn green-main" @click="showMore" v-if="tourList.length < totalToursCount">
 							Показать еще
 						</button>
 						<h2 v-if="!tourList.length">Ничего не найдено</h2>
@@ -292,7 +292,8 @@ export default {
 			datePriceSort: '',
 			typingTimer: null,
 			locationTimer: null,
-			showMobSearch: false
+			showMobSearch: false,
+			totalToursCount: 0
 		};
 	},
 	created() {
@@ -408,6 +409,7 @@ export default {
 			try {
 				this.isLoading = true;
 				const res = await TourService.fetchAllTours(this.queryParam);
+				this.totalToursCount = res.results;
 				if (isPaginate) {
 					this.tourList = [...this.tourList, ...res.data.tours];
 				} else {
