@@ -62,7 +62,7 @@ export default {
 		async getAllReviews() {
 			try {
 				const res = await ReviewService.fetchAllClientReviews();
-				this.allMyReviews = res.data.reviews.sort((a, b) => new Date(b.tour.date) - new Date(a.tour.date));
+				this.allMyReviews = res.data.reviews;
 				this.isLoading = false;
 			} catch (err) {
 				this.$toast.error(err);
