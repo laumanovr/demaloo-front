@@ -166,6 +166,7 @@ export default {
 			if (msg) {
 				this.$modal.hide('login-modal');
 				this.$store.state.account.onSuccess = '';
+				this.$toast.success('Вы успешно зарегистрировались, осталось заполнить профиль', {duration: 3500});
 			}
 		},
 		onError(message) {
