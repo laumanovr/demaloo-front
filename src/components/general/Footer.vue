@@ -6,7 +6,7 @@
 				<span>Demaloo</span>
 			</div>
 
-			<div class="footer__title">Отдых без забот</div>
+			<div class="footer__title">Впечатления начинаются здесь</div>
 			
 			<!--<div class="footer__links flex align-center justify-center">-->
 				<!--<a href="#">Как устроено Demaloo</a>-->
