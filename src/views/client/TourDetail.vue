@@ -164,7 +164,7 @@
 								<div class="price">{{tourDetail.price}} сом</div>
 								<div class="date-place">
 									<div class="date web" v-html="formatDate(tourDetail.date)"></div>
-									<div class="place" v-if="tourDetail.bookingCount > 0">
+									<div class="place" v-if="tourDetail.bookingCount > -1">
 										Осталось мест: {{tourDetail.bookingCount}}
 									</div>
 								</div>
@@ -532,7 +532,9 @@ export default {
 
 		addSubtractQuantity(type) {
 			if (type === 'add') {
-				this.payOrReserve.count += 1;
+				if (this.tourDetail.bookingCount === -1 || this.payOrReserve.count < this.tourDetail.bookingCount) {
+					this.payOrReserve.count += 1;
+				}
 			} else if (type === 'minus' && this.payOrReserve.count > 1) {
 				this.payOrReserve.count -= 1;
 			}
