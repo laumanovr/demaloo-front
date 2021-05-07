@@ -2,11 +2,11 @@
 	<div class="main-container">
 		<PreLoader v-if="isLoading"/>
 		<div class="main-top-bg web">
-			<img src="https://sites.google.com/site/prirodanasevseegooglgfgf/_/rsrc/1463456237313/home/priroda_gory_nebo_ozero_oblaka_81150_1920x1080.jpg">
+			<img src="../../assets/images/main-page-bg.png">
 			<div class="bg-text">
 				<div class="bg-text__block">
-					<div class="bg-text__top">Начало незабываемого отдыха</div>
-					<div class="bg-text__bottom">Быстрый и удобный поиск туров по всему Кыргызстану.</div>
+					<div class="bg-text__top">Впечатления начинаются здесь</div>
+					<div class="bg-text__bottom">Начало незабываемого отдыха.</div>
 				</div>
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 							>
 								<template v-slot:activator="{ on, attrs }">
 									<input
-										placeholder="Выберите дату"
+										placeholder="Выберите дату начиная с ..."
 										type="text"
 										readonly
 										v-model="pickerDate"
@@ -67,6 +67,8 @@
 									@input="onChangeSearchDate"
 									class="search-date"
 									color="#02D0AA"
+									:show-week="false"
+									:year-format="showPickerTitle"
 								/>
 							</v-menu>
 						</div>
@@ -217,7 +219,7 @@
 		</div>
 
 		<div class="banner">
-			<img src="../../assets/images/app-bg.jpg" class="bg">
+			<img src="../../assets/images/app-bg.png" class="bg">
 			<div class="banner__text">
 				<div class="banner__title">Скачивайте приложение <br> для мобильных устройств</div>
 				<div class="app-icons web">
@@ -304,6 +306,10 @@ export default {
 		this.onMobileSearch();
 	},
 	methods: {
+		showPickerTitle() {
+			return 'Выберите дату начиная с ...';
+		},
+
 		async autoCompleteLocation(e) {
 			if (!e.target.value.length) {
 				this.searchLocations = [];
@@ -937,7 +943,7 @@ export default {
 			}
 			&__title {
 				font-weight: bold;
-				font-size: 45px;
+				font-size: 44px;
 				color: #fff;
 				margin-bottom: 50px;
 				@media #{$mob-view} {
@@ -960,6 +966,11 @@ export default {
 	.search-date {
 		.v-picker__title {
 			background: $green-main !important;
+		}
+		.v-date-picker-title__year {
+			color: #fff !important;
+			opacity: 1 !important;
+			pointer-events: none !important;
 		}
 	}
 </style>
