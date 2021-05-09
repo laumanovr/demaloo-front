@@ -65,9 +65,8 @@
 <script>
 import {ReviewService} from '@/services/review.service';
 import {TourService} from '@/services/tour.service';
-import moment from 'moment';
-import {formatDate} from '@/utils/dateFormatter';
 import PreLoader from '@/components/general/PreLoader';
+import {format} from 'date-fns';
 
 export default {
 	components: {
@@ -92,8 +91,6 @@ export default {
 		this.makeAllCommentsRead(this.$route.params.tourId);
 	},
 	methods: {
-		formatDate: formatDate,
-
 		async getSelectedTourInfo(tourId) {
 			try {
 				const res = await TourService.fetchTourById(tourId);
@@ -130,8 +127,16 @@ export default {
 			return review[author].name;
 		},
 
+		formatDate(date) {
+			if (date) {
+				return format(new Date(date), 'dd.MM.yyyy');
+			}
+		},
+
 		formatCommentDate(date) {
-			return moment(date).format('DD.MM.YYYY HH:mm');
+			if (date) {
+				return format(new Date(date), 'dd.MM.yyyy HH:mm');
+			}
 		},
 
 		async submitReplyComment(review) {
