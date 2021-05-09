@@ -327,7 +327,6 @@
 
 <script>
 import VueTimepicker from 'vue2-timepicker';
-import moment from 'moment';
 import {TourService} from '@/services/tour.service';
 import {LocationService} from '@/services/location.service';
 import PlusIcon from '@/components/icons/PlusIcon';
@@ -336,6 +335,7 @@ import PreLoader from '@/components/general/PreLoader';
 import {AWS_IMAGE_URL} from '@/services/api.service';
 import {CategoryService} from '@/services/category.service';
 import {ImageService} from '@/services/image.service';
+import {format} from 'date-fns';
 
 export default {
 	components: {
@@ -387,7 +387,7 @@ export default {
 			showDatePicker: false,
 			formStep: 'first',
 			pickerDate: '',
-			todayDate: moment().format('YYYY-MM-DD'),
+			todayDate: format(new Date(), 'yyyy-MM-dd'),
 			selectRegion: {},
 			previewImages: [],
 			isAddTourPlace: false,
@@ -460,7 +460,7 @@ export default {
 		},
 
 		onChangeDate() {
-			this.pickerDate = moment(this.tourObj.date, 'YYYY-MM-DD').format('DD.MM.YYYY');
+			this.pickerDate = format(new Date(this.tourObj.date), 'dd.MM.yyyy');
 			this.showDatePicker = false;
 		},
 
