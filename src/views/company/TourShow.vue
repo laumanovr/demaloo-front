@@ -317,13 +317,13 @@
 <script>
 import {TourService} from '@/services/tour.service';
 import PreLoader from '@/components/general/PreLoader';
-import moment from 'moment';
 import VueTimepicker from 'vue2-timepicker';
 import MaskedInput from 'vue-masked-input';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import EditIcon from '@/components/icons/EditIcon';
 import ExcelExport from '@/components/general/ExcelJs';
 import CloseIcon from '@/components/icons/CloseIcon';
+import {format} from 'date-fns';
 
 export default {
 	components: {
@@ -403,7 +403,7 @@ export default {
 			try {
 				const res = await TourService.fetchTourById(tourId);
 				this.selectedTour = res.data.tour;
-				this.selectedTour.date = moment(this.selectedTour.date, 'YYYY-MM-DD').format('DD.MM.YYYY');
+				this.selectedTour.date = format(new Date(this.selectedTour.date), 'dd.MM.yyyy');
 				this.getTourRevenue();
 				this.getTourBookings();
 			} catch (err) {
@@ -441,7 +441,7 @@ export default {
 		},
 
 		getReservedDate(date) {
-			return moment(date).format("DD.MM.YYYY HH:mm");
+			return format(new Date(date), 'dd.MM.yyyy HH:mm');
 		},
 
 		showSource(source) {
