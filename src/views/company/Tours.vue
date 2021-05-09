@@ -75,21 +75,20 @@
 
 <script>
 import {TourService} from '@/services/tour.service';
-//import EditIcon from '@/components/icons/EditIcon';
 import RefreshIcon from '@/components/icons/RefreshIcon';
 import PreLoader from '@/components/general/PreLoader';
-import moment from 'moment';
+import {format} from 'date-fns';
+
 
 export default {
 	components: {
-		//		EditIcon,
 		RefreshIcon,
 		PreLoader
 	},
 	data() {
 		return {
 			isLoading: false,
-			todayDate: moment().format('YYYY-MM-DD'),
+			todayDate: format(new Date(), 'yyyy-MM-dd'),
 			filterType: 'present',
 			presentToursCount: 0,
 			pastToursCount: '-',
@@ -192,8 +191,10 @@ export default {
 			return 'Прошедший';
 		},
 
-		formatDate(data) {
-			return moment(data, 'YYYY-MM-DD').format('DD.MM.YYYY');
+		formatDate(date) {
+			if (date) {
+				return format(new Date(date), 'dd.MM.yyyy');
+			}
 		},
 	},
 };
