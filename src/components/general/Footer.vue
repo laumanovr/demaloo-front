@@ -34,7 +34,7 @@
 				</div>
 				<div class="contact address flex align-center">
 					<img src="../../assets/icons/marker-dark.png" class="street">
-					<span>г. Бишкек, ул. Советская 37, 789065</span>
+					<span>г. Бишкек, ул. Байтик Батыра 37, 789065</span>
 				</div>
 				<div class="contact flex align-center">
 					<img src="../../assets/icons/envelope-dark.png" class="email">
