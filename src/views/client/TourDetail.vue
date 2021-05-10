@@ -984,6 +984,10 @@ export default {
 			font-weight: 600;
 			font-size: 18px;
 			color: $blue-darkest;
+			@media #{$mob-view} {
+				min-width: 50%;
+				font-size: 16px;
+			}
 			img {
 				margin-right: 8px;
 			}
