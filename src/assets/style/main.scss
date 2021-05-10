@@ -30,6 +30,14 @@ input {
   padding: 20px;
   height: 100%;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 3px;
+    height: 0;
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $green-main;
+  }
   h3 {
     text-align: center;
     font-weight: bold;
