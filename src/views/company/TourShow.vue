@@ -158,6 +158,7 @@
 					<th>Кол-во брони</th>
 					<th>Общая сумма</th>
 					<th>Статус</th>
+					<th>Коммент</th>
 					<th>-</th>
 				</tr>
 				</thead>
@@ -171,6 +172,12 @@
 					<td>{{ client.peopleCount }}</td>
 					<td>{{ client.total }} сом</td>
 					<td>{{ statuses[getLastStage(client.stages).status] }}</td>
+					<td class="comment-block">
+						<template v-if="client.comment">
+							<span class="preview-comment">{{client.comment}}</span>
+							<span class="full-view">{{client.comment}}</span>
+						</template>
+					</td>
 					<td class="cancel">
 						<template v-if="client.stages[0].status == 'ADDED'">
 							<EditIcon @click="submitUpdateBooking(client, true)"/>
@@ -235,6 +242,11 @@
 						v-model.number="newClient.total"
 						:rules="numberRule"
 						type="number"
+					/>
+					<v-text-field
+						outlined
+						label="Комментарий клиента"
+						v-model="newClient.comment"
 					/>
 					<div class="btn-actions">
 						<button class="btn red-primary" @click.prevent="toggleAddClientModal">Отмена</button>
@@ -370,7 +382,8 @@ export default {
 				phoneNumber: '',
 				count: '',
 				total: '',
-				source: ''
+				source: '',
+				comment: ''
 			},
 			selectedTour: {},
 			tourBookings: [],
@@ -695,6 +708,34 @@ export default {
 			text-align: right;
 			div {
 				margin-right: 5px;
+			}
+		}
+		.comment-block {
+			position: relative;
+			.preview-comment {
+				display: inline-block;
+				max-width: 100px;
+				white-space: nowrap;
+				overflow-x: hidden;
+				text-overflow: ellipsis;
+				text-decoration: underline;
+				cursor: pointer;
+			}
+			.full-view {
+				display: none;
+				position: absolute;
+				top: 2px;
+				left: -100px;
+				background: #fff;
+				border: 1px solid $gray-dark;
+				border-radius: 5px;
+				width: 250px;
+				min-height: 35px;
+			}
+			&:hover {
+				.full-view {
+					display: block;
+				}
 			}
 		}
 	}
