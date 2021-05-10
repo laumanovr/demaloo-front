@@ -491,6 +491,7 @@ export default {
 		onSelectRegion(region) {
 			this.tourObj.locations[0].country = region.country;
 			this.tourObj.locations[0].region = region.code;
+			this.isAddTourPlace = false;
 		},
 
 		showRegionTitle(region) {
