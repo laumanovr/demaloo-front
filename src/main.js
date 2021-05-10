@@ -6,6 +6,7 @@ import VModal from 'vue-js-modal';
 import VueToast from 'vue-toast-notification';
 import vuetify from './plugins/vuetify';
 import InlineSvg from 'vue-inline-svg';
+import './plugins/google-analytics';
 import '@/assets/style/main.scss';
 
 Vue.config.productionTip = false;
