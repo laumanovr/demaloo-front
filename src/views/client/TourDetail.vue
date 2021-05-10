@@ -262,7 +262,7 @@
 				name="reserve-modal"
 				class="reserve-modal"
 				:width="isMobileWindow ? '100%' : '390px'"
-				:height="isMobileWindow ? '97%' : '90%'"
+				height="97%"
 				:clickToClose="false"
 				v-if="hasTour"
 			>
@@ -344,6 +344,14 @@
 						</div>
 						<div class="value reserve">{{totalPayPrice}} сом</div>
 					</div>
+					<div class="short-info comment">
+						<v-text-field
+							outlined
+							class="book-comment no-detail"
+							label="Комментарии для туроператора..."
+							v-model="payOrReserve.comment"
+						/>
+					</div>
 					<div class="agreement mob">
 						Забронировав тур, я соглашаюсь с
 						<a href="/docs/condition.pdf" target="_blank">Условиями предоставления услуг.</a>
@@ -415,7 +423,8 @@ export default {
 			totalPayPrice: 0,
 			payOrReserve: {
 				count: 1,
-				tourId: ''
+				tourId: '',
+				comment: ''
 			},
 			slideImages: []
 		};
@@ -649,6 +658,9 @@ export default {
 			justify-content: space-between;
 			font-size: 14px;
 			margin-bottom: 22px;
+			&.comment {
+				margin-bottom: 0;
+			}
 			.item {
 				img {
 					width: 16px;
@@ -674,6 +686,16 @@ export default {
 				}
 				&.reserve {
 					font-weight: 600;
+				}
+			}
+			.book-comment {
+				.v-input__slot {
+					font-size: 13px;
+					min-height: 40px !important;
+					.v-label {
+						top: 11px;
+						font-size: 14px;
+					}
 				}
 			}
 		}
