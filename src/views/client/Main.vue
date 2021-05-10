@@ -5,8 +5,8 @@
 			<img src="../../assets/images/main-page-bg.png">
 			<div class="bg-text">
 				<div class="bg-text__block">
-					<div class="bg-text__top">Впечатления начинаются здесь</div>
-					<div class="bg-text__bottom">Начало незабываемого отдыха.</div>
+					<div class="bg-text__top">Начало незабываемого отдыха</div>
+					<div class="bg-text__bottom">Быстрый и удобный поиск туров по всему Кыргызстану.</div>
 				</div>
 			</div>
 		</div>
