@@ -325,6 +325,13 @@
 						</div>
 						<div class="value reserve">{{payOrReserve.count}}</div>
 					</div>
+					<div class="short-info">
+						<div class="item flex align-center">
+							<img src="../../assets/icons/bank-card-icon.svg">
+							<span class="reserve">Итого:</span>
+						</div>
+						<div class="value reserve">{{totalPayPrice}} сом</div>
+					</div>
 					<!--mobile-->
 					<div class="short-info mob">
 						<div class="item">
@@ -337,13 +344,6 @@
 						</div>
 					</div>
 					<!--mobile-->
-					<div class="short-info">
-						<div class="item flex align-center">
-							<img src="../../assets/icons/bank-card-icon.svg">
-							<span class="reserve">Итого:</span>
-						</div>
-						<div class="value reserve">{{totalPayPrice}} сом</div>
-					</div>
 					<div class="short-info comment">
 						<v-text-field
 							outlined
