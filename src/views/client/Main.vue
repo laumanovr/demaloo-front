@@ -90,7 +90,7 @@
 							item-text="name"
 							item-value="_id"
 							v-model="sortCompany"
-							@change="filterBySidebar"
+							@change="selectFilterCompany"
 						/>
 					</div>
 					<div class="filter-item">
@@ -352,6 +352,11 @@ export default {
 		sortByPrice(sortType) {
 			this.sortPage = 1;
 			this.datePriceSort = sortType;
+			this.filterBySidebar();
+		},
+
+		selectFilterCompany() {
+			this.sortPage = 1;
 			this.filterBySidebar();
 		},
 
