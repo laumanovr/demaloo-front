@@ -15,6 +15,10 @@
 					<inline-svg :src="require(`@/assets/icons/${item.icon}`)"/>
 					<span>{{ item.name }}</span>
 				</div>
+				<div class="tab about" @click="$router.push({name: 'contacts'})">
+					<img src="../../assets/icons/info-icon.svg">
+					<span>О нас</span>
+				</div>
 				<div class="tab profile-logout" @click="$modal.show('logout-modal')">
 					<img src="../../assets/icons/person-logout.svg" class="logout-icon">
 					Выход
