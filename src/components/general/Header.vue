@@ -12,7 +12,7 @@
 					</svg>
 					<!--<img src="../../assets/icons/sort-icon.svg" class="mob sort">-->
 				</template>
-				<a href="#" class="web">Контакты</a>
+				<router-link :to="{name: 'contacts'}" class="web contact">Контакты</router-link>
 				<template v-if="userLogged">
 					<div class="profile web" @click="$router.push('/profile-manage')">
 						<span class="name">{{userProfile.name}}</span>
@@ -104,6 +104,9 @@ export default {
 						border: 1px solid;
 						border-radius: 20px;
 						padding: 4px 15px;
+					}
+					&.router-link-exact-active {
+						color: $green-main;
 					}
 				}
 				.profile {
