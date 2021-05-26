@@ -32,6 +32,14 @@ const routes = [
 				}
 			},
 			{
+				path: 'contacts',
+				name: 'contacts',
+				component: loadComponent('client/Contacts'),
+				meta: {
+					requireAuth: false
+				}
+			},
+			{
 				path: 'booking-detail/:tourId/:bookId',
 				name: 'bookingDetail',
 				component: loadComponent('client/BookingDetail'),
