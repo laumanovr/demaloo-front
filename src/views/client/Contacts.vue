@@ -6,14 +6,20 @@
 				<img src="../../assets/images/logo-text.svg">
 			</div>
 
-			<div class="purpose"><span>Мы путешественники.</span> Мы верим, что путешествия меняют жизнь.</div>
-			<div class="purpose middle"><span>Наша цель,</span> создать отличный продукт и облегчить связь между
-				путешественниками и туроператорами, которые дарят нам незабываемые эмоции.
+			<div class="purpose first"><span>Demaloo</span> - впечатления начинаются здесь.</div>
+			<div class="purpose">
+				Мы предоставляем пользователям возможность забронировать, оплатить, прочитать отзывы,
+				посмотреть материалы тура и узнать всю необходимую информацию о понравившемся туре.
+			</div>
+			<div class="purpose middle">
+				<span>Наша цель,</span>
+				облегчить процесс взаимоотношений между путешественниками и туроператорами и популяризировать
+				активный отдых среди людей.
 			</div>
 			<div class="purpose">
-				Инвестируя в технологии, которые помогают путешествовать без забот,
+				Используя технологии, которые помогают путешествовать без забот,
 				<a href="https://demaloo.com/">Demaloo.com</a>
-				предлагает путешественникам потрясающие варианты туров.
+				предлагает путешественникам потрясающие варианты внутренних туров.
 			</div>
 
 			<div class="phone-contacts text-center">
@@ -44,17 +50,23 @@
 		min-height: 70vh;
 		.content-block {
 			max-width: 1200px;
-			max-height: 675px;
+			max-height: 680px;
 			margin: 20px auto;
 			background: #fff;
 			padding: 25px 25px 70px;
 			font-size: 16px;
 			color: #153243;
 			border-radius: 7px;
+			@media #{$mob-view} {
+				max-height: 870px;
+			}
 			.logo {
 				margin-bottom: 50px;
 			}
 			.purpose {
+				&.first {
+					margin-bottom: 15px;
+				}
 				&.middle {
 					margin: 20px 0;
 				}
