@@ -156,7 +156,7 @@ export default {
 			try {
 				const query = `&company=${this.$route.params.companyId}&date[gt]=${this.todayDate}`;
 				const res = await TourService.fetchAllTours(query);
-				this.companyTours = res.data.tours.slice(0, 4);
+				this.companyTours = res.data.tours;
 				this.activeToursCount = res.results;
 				const pastQuery = `&company=${this.$route.params.companyId}&date[lt]=${this.todayDate}`;
 				const pastRes = await TourService.fetchAllTours(pastQuery);
