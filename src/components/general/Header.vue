@@ -10,7 +10,7 @@
 					<svg @click="showMobileSearch" class="mob search" :class="{'searchOpen': isSearchOpen}">
 						<use href="../../assets/icons/svg-sprite/loupe-icon.svg#loupe"/>
 					</svg>
-					<!--<img src="../../assets/icons/sort-icon.svg" class="mob sort">-->
+					<img src="../../assets/icons/sort-icon.svg" class="mob sort" @click="openMobileFilter">
 				</template>
 				<router-link :to="{name: 'contacts'}" class="web contact">Контакты</router-link>
 				<template v-if="userLogged">
@@ -59,6 +59,10 @@ export default {
 		showMobileSearch() {
 			this.isSearchOpen = !this.isSearchOpen;
 			CustomEventEmitter.$emit('onShowSearch');
+		},
+
+		openMobileFilter() {
+			CustomEventEmitter.$emit('onOpenFilter');
 		}
 	}
 };
@@ -141,11 +145,8 @@ export default {
 		}
 		@media #{$mob-view} {
 			.links {
-				.search {
-					margin-right: 18px;
-				}
 				img.sort {
-					margin: 0 18px;
+					margin: 0 20px;
 				}
 				svg {
 					fill: $blue-darkest;
