@@ -232,6 +232,16 @@
 				</div>
 			</div>
 		</div>
+
+		<!--MOBILE FILTER MODAL-->
+		<MobileTourFilter
+			ref="mobileFilter"
+			:sortItems="sortItems"
+			:allCompanies="allCompanies"
+			:allDurations="allDurations"
+			:categories="categories"
+			@onSubmit="onSubmitMobFilter"
+		/>
 	</div>
 </template>
 
@@ -247,12 +257,14 @@ import {UserService} from '@/services/user.service';
 import {LocationService} from '@/services/location.service';
 import {CustomEventEmitter} from '@/utils/customEventEmitter';
 import PlusIcon from '@/components/icons/PlusIcon';
+import MobileTourFilter from '@/components/client/MobileTourFilter';
 
 export default {
 	components: {
 		PreLoader,
 		PlusIcon,
-		SmallLoader
+		SmallLoader,
+		MobileTourFilter
 	},
 	data() {
 		return {
@@ -304,6 +316,7 @@ export default {
 		this.getAllTours();
 		this.getAllCategories();
 		this.onMobileSearch();
+		this.onMobileFilter();
 	},
 	methods: {
 		showPickerTitle() {
@@ -465,6 +478,22 @@ export default {
 			CustomEventEmitter.$on('onShowSearch', () => {
 				this.showMobSearch = !this.showMobSearch;
 			});
+		},
+
+		onMobileFilter() {
+			CustomEventEmitter.$on('onOpenFilter', () => {
+				this.$refs.mobileFilter.toggleFilterModal();
+			});
+		},
+
+		onSubmitMobFilter(filterObj) {
+			for (let key in filterObj) {
+				if (Object.prototype.hasOwnProperty.call(filterObj, key)) {
+					this[key] = filterObj[key];
+				}
+			}
+			this.filterBySidebar();
+			this.$refs.mobileFilter.toggleFilterModal();
 		}
 	},
 };
