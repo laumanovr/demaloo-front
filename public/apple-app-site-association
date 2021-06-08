@@ -1,0 +1,11 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "7Q2VH8PR2B.kg.demaloo",
+                "paths": [ "/*", "/tour-detail/*"]
+            }
+        ]
+    }
+}
