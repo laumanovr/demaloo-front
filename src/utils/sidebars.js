@@ -25,11 +25,11 @@ export default {
 			route: '/company-manage/team',
 			icon: 'people.svg'
 		},
-		// {
-		// 	name: 'Чат',
-		// 	route: '#',
-		// 	icon: 'message.svg',
-		// }
+		{
+			name: 'Сообщения',
+			route: '/company-manage/messages',
+			icon: 'message.svg',
+		}
 	],
 
 	client: [
@@ -63,11 +63,11 @@ export default {
 			icon: 'favorite-tab.svg',
 			className: 'multi'
 		},
-		// {
-		// 	name: 'Сообщения',
-		// 	route: '#',
-		// 	icon: 'message-tab.svg',
-		// 	className: 'multi'
-		// }
+		{
+			name: 'Сообщения',
+			route: '/profile-manage/messages',
+			icon: 'message-tab.svg',
+			className: 'multi'
+		}
 	],
 };
