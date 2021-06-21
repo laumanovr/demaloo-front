@@ -115,6 +115,14 @@ const routes = [
 							requireAuth: true
 						}
 					},
+					{
+						path: 'messages',
+						name: 'chat',
+						component: loadComponent('client/ClientChat'),
+						meta: {
+							requireAuth: true
+						}
+					}
 				]
 			}
 		]
@@ -197,6 +205,14 @@ const routes = [
 				path: 'team',
 				name: 'companyTeam',
 				component: loadComponent('company/Team'),
+				meta: {
+					requireAuth: true
+				}
+			},
+			{
+				path: 'messages',
+				name: 'message',
+				component: loadComponent('company/CompanyChat'),
 				meta: {
 					requireAuth: true
 				}
