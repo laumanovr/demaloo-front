@@ -1,3 +1,4 @@
+const user = JSON.parse(window.localStorage.getItem('demalooUser'));
 export const authHeader = () => {
 	const user = JSON.parse(window.localStorage.getItem('demalooUser'));
 	if (user && user.token) {
@@ -5,3 +6,5 @@ export const authHeader = () => {
 	}
 	return {};
 };
+
+export const userToken = user ? user.token : '';
