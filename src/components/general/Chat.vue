@@ -215,7 +215,8 @@ export default {
 	},
 
 	beforeDestroy() {
-		this.socket.disconnect();
+		this.socket.disconnect(true);
+		this.socket.close();
 	}
 };
 </script>
