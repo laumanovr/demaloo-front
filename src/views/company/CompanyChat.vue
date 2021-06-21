@@ -1,6 +1,6 @@
 <template>
 	<div class="company-chat-container">
-		<Chat/>
+		<Chat :currentProfile="companyProfile"/>
 	</div>
 </template>
 
@@ -10,6 +10,11 @@ import Chat from '@/components/general/Chat';
 export default {
 	components: {
 		Chat
-	}
+	},
+	computed: {
+		companyProfile() {
+			return this.$store.state.account.company;
+		}
+	},
 };
 </script>
