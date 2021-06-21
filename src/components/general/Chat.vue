@@ -45,7 +45,7 @@
 					</div>
 					<div class="msg_history" ref="msgHistory">
 						<template v-for="msg in messages">
-							<div class="outgoing_msg" v-if="userProfile._id === msg.from._id" :key="msg._id">
+							<div class="outgoing_msg" v-if="currentProfile._id === msg.from._id" :key="msg._id">
 								<div class="user-name right">{{msg.from.name+' '}}{{msg.from.surname || ''}}</div>
 								<div class="sent_msg d-flex">
 									<span class="time_date out">{{ formatTime(msg.createdAt) }}</span>
@@ -93,6 +93,9 @@ import {io} from 'socket.io-client';
 import {userToken} from '../../utils/authHeader';
 
 export default {
+	props: {
+		currentProfile: Object
+	},
 	data() {
 		return {
 			isLoading: false,
@@ -102,11 +105,6 @@ export default {
 			selectedRoom: '',
 			inputValue: ''
 		};
-	},
-	computed: {
-		userProfile() {
-			return this.$store.state.account.customer;
-		},
 	},
 	async created() {
 		this.isLoading = true;
@@ -195,7 +193,7 @@ export default {
 		},
 
 		playSound(msgObj) {
-			if (msgObj.from._id !== this.userProfile._id) {
+			if (msgObj.from._id !== this.currentProfile._id) {
 				const sound = new Audio(require('@/assets/sounds/notify-sound.mp3'));
 				sound.play();
 			}
