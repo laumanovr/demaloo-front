@@ -26,7 +26,7 @@ export class TourService {
 	}
 
 	static fetchCompanyTours(queryParams='') {
-		const url = `${API_BASE_URL}/companies/tours?sort=date${queryParams}`;
+		const url = `${API_BASE_URL}/companies/tours?${queryParams}`;
 		return sendGetRequest(url);
 	}
 

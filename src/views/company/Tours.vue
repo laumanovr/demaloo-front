@@ -115,7 +115,7 @@ export default {
 		async getPresentTours() {
 			try {
 				this.isLoading = true;
-				const res = await TourService.fetchCompanyTours(`&date[gte]=${this.todayDate}`);
+				const res = await TourService.fetchCompanyTours(`sort=date&date[gte]=${this.todayDate}`);
 				this.presentToursCount = res.results;
 				this.tourList = res.data.tours.map((i, num) => ({...i, num: num + 1}));
 				this.isLoading = false;
@@ -128,7 +128,7 @@ export default {
 		async getPastTours(bool = true) {
 			try {
 				this.isLoading = true;
-				const res = await TourService.fetchCompanyTours(`&date[lt]=${this.todayDate}`);
+				const res = await TourService.fetchCompanyTours(`sort=-date&date[lt]=${this.todayDate}`);
 				this.pastToursCount = res.results;
 				this.isLoading = false;
 				if (bool) {
@@ -144,7 +144,7 @@ export default {
 			this.filterType = '';
 			try {
 				this.isLoading = true;
-				const res = await TourService.fetchCompanyTours(`&search=${this.searchQuery}`);
+				const res = await TourService.fetchCompanyTours(`sort=-date&search=${this.searchQuery}`);
 				this.tourList = res.data.tours;
 				this.isLoading = false;
 			} catch (err) {
@@ -164,8 +164,8 @@ export default {
 		async showMoreTours() {
 			this.searchQuery = '';
 			this.page += 1;
-			const presentDates = `&date[gte]=${this.todayDate}`;
-			const pastDates = `&date[lt]=${this.todayDate}`;
+			const presentDates = `sort=date&date[gte]=${this.todayDate}`;
+			const pastDates = `sort=-date&date[lt]=${this.todayDate}`;
 			const paginateDate = this.filterType === 'present' ? presentDates : pastDates;
 			const query = `${paginateDate}&page=${this.page}`;
 			try {
