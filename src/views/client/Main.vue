@@ -166,12 +166,19 @@
 							<div class="tour-item__image">
 								<img :src="showTourPhoto(tour.images[0])" v-if="tour.images">
 								<img src="../../assets/images/no-image.png" v-else>
+								<div
+									class="tour-item__campaigns mob"
+									v-for="item in tour.campaigns"
+									:key="item.id"
+									:class="item.color"
+								>
+									{{item.name.ru}}
+								</div>
 							</div>
 							<div class="tour-item__info">
-								<div class="tour-item__name">{{tour.name.ru}}</div>
-
 								<div class="tour-item__right">
 									<div class="tour-item__desc-block">
+										<div class="tour-item__name">{{tour.name.ru}}</div>
 										<div class="tour-item__company">
 											<img :src="showCompanyPhoto(tour.company.logo)">
 											{{tour.company.name}}
@@ -197,6 +204,14 @@
 										</div>
 									</div>
 									<div class="tour-item__price-block">
+										<div
+											class="tour-item__campaigns web"
+											v-for="item in tour.campaigns"
+											:key="item.id"
+											:class="item.color"
+										>
+											{{item.name.ru}}
+										</div>
 										<div class="tour-item__free-place">
 											<template v-if="tour.bookingCount > 0">
 												Осталось мест: {{tour.bookingCount}}
@@ -814,6 +829,7 @@ export default {
 								border-radius: 7px 0 0 7px;
 							}
 							@media #{$mob-view} {
+								position: relative;
 								max-width: 336px;
 								height: 200px;
 								img {
@@ -942,6 +958,21 @@ export default {
 							font-family: $montserrat;
 							@media #{$mob-view} {
 								font-size: 18px;
+							}
+						}
+						&__campaigns {
+							font-size: 12px;
+							color: $blue-darkest;
+							border-radius: 25px;
+							padding: 6px 0;
+							text-align: center;
+							transform: translateY(-8px);
+							margin-bottom: 5px;
+							@media #{$mob-view} {
+								position: absolute;
+								bottom: 0;
+								right: 8px;
+								padding: 6px;
 							}
 						}
 					}
