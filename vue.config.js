@@ -17,5 +17,11 @@ module.exports = {
 			preProcessor: 'scss',
 			patterns: [path.resolve(__dirname, './src/assets/style/vars.scss')],
 		},
+		i18n: {
+			locale: 'en',
+			fallbackLocale: 'en',
+			localeDir: 'locales',
+			enableInSFC: false
+		}
 	},
 };
