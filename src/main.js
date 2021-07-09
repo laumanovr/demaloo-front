@@ -7,6 +7,7 @@ import VueToast from 'vue-toast-notification';
 import vuetify from './plugins/vuetify';
 import InlineSvg from 'vue-inline-svg';
 import PreLoader from '@/components/general/PreLoader';
+import i18n from './i18n';
 import './plugins/google-analytics';
 import '@/assets/style/main.scss';
 
@@ -20,5 +21,6 @@ new Vue({
 	router,
 	store,
 	vuetify,
+	i18n,
 	render: (h) => h(App),
 }).$mount('#app');
