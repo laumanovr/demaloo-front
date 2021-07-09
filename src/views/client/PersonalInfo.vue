@@ -3,25 +3,25 @@
 		<PreLoader v-if="isLoading"/>
 		<div class="mob-profile-head head-title mob">
 			<img src="../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
-			<span>Обновить профиль</span>
+			<span>{{$t('profile.updateProfile')}}</span>
 		</div>
 		<v-form ref="profileForm">
 			<div class="profile-avatar">
 				<div class="image">
 					<img :src="avatarUrl" @error="$event.target.src = require('@/assets/icons/profile-tab.svg')">
 				</div>
-				<label for="ava">Изменить фото</label>
+				<label for="ava">{{$t('profile.changePhoto')}}</label>
 				<input type="file" id="ava" @change="selectPhoto">
 			</div>
 			<v-text-field
 				outlined
-				label="Имя"
+				:label="$t('profile.name')"
 				v-model="profileObj.name"
 				:rules="requiredRule"
 			/>
 			<v-text-field
 				outlined
-				label="Фамилия"
+				:label="$t('profile.surname')"
 				v-model="profileObj.surname"
 				:rules="requiredRule"
 			/>
@@ -34,14 +34,14 @@
 			<v-select
 				outlined
 				:items="genders"
-				label="Пол"
+				:label="$t('profile.gender')"
 				item-text="title"
 				item-value="value"
 				v-model="profileObj.gender"
 				:rules="requiredRule"
 			/>
 			<div class="masked-input">
-				<span class="label">Дата рождения</span>
+				<span class="label">{{$t('profile.dateOfBirth')}}</span>
 				<MaskedInput
 					mask="11.11.1111"
 					placeholder="Дата рождения: 15.03.1985"
@@ -49,14 +49,14 @@
 				/>
 			</div>
 			<div class="single-center">
-				<button class="btn green-main" @click.prevent="submitProfileInfo">Сохранить</button>
+				<button class="btn green-main" @click.prevent="submitProfileInfo">{{$t('button.save')}}</button>
 			</div>
 		</v-form>
 
 		<!--PROFILE INFO MODAL-->
 		<modal name="profile-info-modal" height="auto" :adaptive="true">
 			<div class="modal-container">
-				<h3>Заполните пожалуйста все поля, <br> и нажмите сохранить!</h3>
+				<h3>{{$t('profile.fillInfoWarning')}}!</h3>
 				<div class="single-center">
 					<button class="btn green-main" @click="$modal.hide('profile-info-modal')">OK</button>
 				</div>
@@ -82,7 +82,7 @@ export default {
 	data() {
 		return {
 			isLoading: false,
-			requiredRule: [(v) => !!v || 'Обязательное поле'],
+			requiredRule: [(v) => !!v || this.$t('requiredField')],
 			genders: [
 				{title: 'Мужской', value: 'male'},
 				{title: 'Женский', value: 'female'}

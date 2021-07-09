@@ -21,7 +21,7 @@
 				</div>
 				<div class="tab profile-logout" @click="$modal.show('logout-modal')">
 					<img src="../../assets/icons/person-logout.svg" class="logout-icon">
-					Выход
+					{{$t('logout')}}
 				</div>
 			</div>
 		</div>

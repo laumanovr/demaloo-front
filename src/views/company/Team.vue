@@ -103,7 +103,7 @@ export default {
 	},
 	data() {
 		return {
-			requiredRule: [(v) => !!v || 'Обязательное поле'],
+			requiredRule: [(v) => !!v || this.$t('requiredField')],
 			occupations: [
 				{title: 'Водитель', value: 'driver'},
 				{title: 'Гид', value: 'guide'}

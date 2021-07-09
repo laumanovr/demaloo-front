@@ -350,17 +350,17 @@ export default {
 	data() {
 		return {
 			isLoading: false,
-			requiredRule: [(v) => !!v || 'Обязательное поле'],
+			requiredRule: [(v) => !!v || this.$t('requiredField')],
 			countQuantityRule: [
-				v => !!v || 'Обязательное поле',
+				v => !!v || this.$t('requiredField'),
 				v => (v && v > 0 && v <= this.restPlaceCount) || 'Неправильно указано кол-во мест'
 			],
 			numberRule: [
-				(v) => !!v || 'Обязательное поле',
+				(v) => !!v || this.$t('requiredField'),
 				(v) => (v && v > 0 && v <= 50000) || 'Неправильное значение'
 			],
 			phoneRule: [
-				v => !!v || 'Обязательное поле',
+				v => !!v || this.$t('requiredField'),
 				v => ( v && !v.includes('_') ) || 'Введите правильный номер телефона'
 			],
 			sources: [

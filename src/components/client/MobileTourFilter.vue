@@ -7,15 +7,15 @@
 	>
 		<div class="modal-container">
 			<div class="head flex align-center justify-space-between">
-				<span class="clear" @click="clearFilter">Очистить</span>
-				<span class="title">Фильтры</span>
+				<span class="clear" @click="clearFilter">{{$t('button.clear')}}</span>
+				<span class="title">{{$t('filter.filters')}}</span>
 				<CloseIcon class="close" @click="toggleFilterModal"/>
 			</div>
 			<div class="filters">
 				<div class="filter-item">
 					<v-select
 						outlined
-						label="Тур компания"
+						:label="$t('filter.tourCompany')"
 						class="no-detail"
 						:items="allCompanies"
 						item-text="name"
@@ -26,7 +26,7 @@
 				<div class="filter-item">
 					<v-select
 						outlined
-						label="Длительность (дней)"
+						:label="$t('filter.duration')+$t('filter.days')"
 						class="no-detail"
 						:items="allDurations"
 						item-text="name"
@@ -37,21 +37,21 @@
 				<div class="filter-item d-flex align-center justify-space-between">
 					<v-text-field
 						outlined
-						label="Цена От"
+						:label="$t('filter.from')"
 						class="no-detail from"
 						type="number"
 						v-model="filter.sortPriceFrom"
 					/>
 					<v-text-field
 						outlined
-						label="Цена До"
+						:label="$t('filter.to')"
 						class="no-detail to"
 						type="number"
 						v-model="filter.sortPriceTo"
 					/>
 				</div>
 				<div class="filter-item category">
-					<span class="label">Категории</span>
+					<span class="label">{{$t('filter.categories')}}</span>
 					<div class="check-boxes">
 						<label class="box" v-for="(item, i) in allCategories" :key="i" :for="item.id+'-box'">
 							<input type="checkbox" v-model="item.checked" @change="chooseCategory($event, item)" :id="item.id+'-box'">
@@ -61,7 +61,7 @@
 				</div>
 			</div>
 			<div class="d-flex justify-center submit-btn">
-				<button class="btn green-main" @click="submitFilter">Применить</button>
+				<button class="btn green-main" @click="submitFilter">{{$t('button.submit')}}</button>
 			</div>
 		</div>
 	</modal>

@@ -34,7 +34,7 @@ export default {
 	components: {},
 	data() {
 		return {
-			requiredRule: [(v) => !!v || 'Обязательное поле'],
+			requiredRule: [(v) => !!v || this.$t('requiredField')],
 			emailRule: [
 				(v) => !!v || 'Email обязательный',
 				(v) => /^[a-zA-Z0-9()*_\-!#$%^&*,."'@\][]+$/.test(v) || 'Email должен быть на латинице',

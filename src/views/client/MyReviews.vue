@@ -3,7 +3,7 @@
 		<PreLoader v-if="isLoading"/>
 		<div class="mob-profile-head head-title mob">
 			<img src="../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
-			<span>Мои отзывы</span>
+			<span>{{$t('myReviews')}}</span>
 		</div>
 		<div class="reviews">
 			<div class="review" v-for="review in allMyReviews" :key="review._id">

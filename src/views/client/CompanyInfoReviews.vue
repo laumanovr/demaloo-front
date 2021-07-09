@@ -13,7 +13,7 @@
 						<img src="../../assets/icons/rating-icon.svg" class="star">
 						<span class="rating">{{currentCompany.rating}}</span>
 					</div>
-					<div class="created-date">В Demaloo c {{formatDate(currentCompany.createdAt)}}</div>
+					<div class="created-date">{{$t('companyInfo.inDemalooFrom')}} {{formatDate(currentCompany.createdAt)}}</div>
 				</div>
 			</div>
 			<div class="reviews">

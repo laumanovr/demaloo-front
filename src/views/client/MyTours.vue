@@ -3,15 +3,15 @@
 		<PreLoader v-if="isLoading"/>
 		<div class="mob-profile-head head-title mob">
 			<img src="../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
-			<span>Поездки</span>
+			<span>{{$t('myTour.trips')}}</span>
 		</div>
 
 		<div class="tour-tabs">
 			<div class="tab" @click="activeTab='future'" :class="{'active': activeTab == 'future'}">
-				Предстоящие
+				{{$t('myTour.upComing')}}
 			</div>
 			<div class="tab" @click="getPastBookings" :class="{'active': activeTab == 'past'}">
-				Прошедшие
+				{{$t('myTour.past')}}
 			</div>
 		</div>
 
@@ -53,19 +53,19 @@
 								</span>
 								</div>
 								<div class="tour-item__date">
-									<span class="web">Дата тура:</span>
+									<span class="web">{{$t('tourDate')}}:</span>
 									<div class="format-date" v-html="formatDate(book.tour.date)"></div>
 								</div>
 							</div>
 							<div class="tour-item__price-block">
-								<span class="tour-item__price">{{book.tour.price}} сом</span>
+								<span class="tour-item__price">{{book.tour.price}} {{$t('tourBooking.som')}}</span>
 							</div>
 						</div>
 					</div>
 				</router-link>
 			</template>
 			<template v-else>
-				<span class="no-result">Здесь пока пусто</span>
+				<span class="no-result">{{$t('empty')}}</span>
 			</template>
 		</div>
 
@@ -89,24 +89,24 @@
 							</div>
 							<div class="date-price flex align-center justify-space-between">
 								<div class="date" v-html="formatDate(book.tour.date)"></div>
-								<span class="price">{{book.tour.price}} сом</span>
+								<span class="price">{{book.tour.price}} {{$t('tourBooking.som')}}</span>
 							</div>
 							<button
 								class="btn gray-primary"
 								@click="toggleShowReviewModal(book)"
 								v-if="book.reviews.length"
 							>
-								Посмотреть отзыв
+								{{$t('myTour.showReview')}}
 							</button>
 							<button class="btn gray-primary" @click="toggleReviewPastTourModal(book)" v-else>
-								Написать отзыв
+								{{$t('myTour.writeReview')}}
 							</button>
 						</div>
 					</div>
 				</div>
 			</template>
 			<template v-else>
-				<span class="no-result">Здесь пока пусто</span>
+				<span class="no-result">{{$t('empty')}}</span>
 			</template>
 		</div>
 
@@ -115,8 +115,8 @@
 			<div class="modal-container review-comment">
 				<CloseIcon class="top-right" @click="toggleReviewPastTourModal"/>
 				<div class="review-comment__head">
-					<span>Оцените тур</span>
-					<span>Поделитесь своим мнением</span>
+					<span>{{$t('myTour.rateTour')}}</span>
+					<span>{{$t('myTour.shareOpinion')}}</span>
 				</div>
 				<div class="review-comment__stars">
 					<div class="default-star">
@@ -132,7 +132,7 @@
 					</div>
 				</div>
 				<v-textarea v-model="reviewObj.message" placeholder="Введите текст" rows="4" no-resize solo/>
-				<button class="btn green-main" @click="writeReviewForPastTour">Сохранить</button>
+				<button class="btn green-main" @click="writeReviewForPastTour">{{$t('button.save')}}</button>
 			</div>
 		</modal>
 

@@ -19,11 +19,11 @@
 					@click="$router.push(item.route)"
 				>
 					<inline-svg :src="require(`@/assets/icons/${item.icon}`)" :class="item.className"/>
-					<span>{{ item.name }}</span>
+					<span>{{ $t(item.name) }}</span>
 				</div>
 				<div class="tab" @click="$modal.show('logout-modal')">
 					<img src="../../assets/icons/person-logout.svg" class="logout-icon">
-					<span>Выход</span>
+					<span>{{$t('logout')}}</span>
 				</div>
 			</div>
 		</div>

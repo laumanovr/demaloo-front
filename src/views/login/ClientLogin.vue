@@ -7,7 +7,7 @@
 				<img src="../../assets/images/big-logo.svg">
 				<div class="title">
 					<img src="../../assets/images/demaloo-text.png">
-					<span>Отдых без забот</span>
+					<span>{{$t('slogan2')}}</span>
 				</div>
 			</div>
 		</div>
@@ -28,16 +28,16 @@
 			/>
 			<div class="form-link">
 				<template v-if="loginType == 'login'">
-					<div class="question">Еще не зарегистрированы?</div>
-					<span class="answer" @click="loginType = 'signUp'">Зарегистрироваться</span>
+					<div class="question">{{$t('signUp.noAccount')}}?</div>
+					<span class="answer" @click="loginType = 'signUp'">{{$t('signUp.title')}}</span>
 				</template>
 				<template v-if="loginType == 'signUp' || loginType == 'reset'">
-					<div class="question">Уже есть аккаунт?</div>
-					<span class="answer" @click="loginType = 'login'">Войти</span>
+					<div class="question">{{$t('signUp.hasAccount')}}?</div>
+					<span class="answer" @click="loginType = 'login'">{{$t('button.login')}}</span>
 				</template>
 			</div>
 			<div class="policy" v-if="loginType == 'login'">
-				После входа в учетную запись, я принимаю условия пользования, политику конфиденциальности и дальнейшие условия Demaloo.
+				{{$t('signUp.termsOfUse')}}.
 			</div>
 		</div>
 	</div>

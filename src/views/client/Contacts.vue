@@ -6,7 +6,7 @@
 				<img src="../../assets/images/logo-text.svg">
 			</div>
 
-			<div class="purpose first"><span>Demaloo</span> - впечатления начинаются здесь.</div>
+			<div class="purpose first"><span>Demaloo</span> - {{$t('slogan')}}.</div>
 			<div class="purpose">
 				Мы предоставляем пользователям возможность забронировать, оплатить, прочитать отзывы,
 				посмотреть материалы тура и узнать всю необходимую информацию о понравившемся туре.

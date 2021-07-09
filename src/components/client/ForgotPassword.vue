@@ -1,19 +1,19 @@
 <template>
 	<div class="client-login sign-up">
 		<div class="reset-pass-title">
-			<div>Восстановление пароля</div>
-			<div v-if="formStep == 'first'">Введите ваш номер телефона</div>
-			<div v-if="formStep == 'second'">Введите код</div>
-			<div v-if="formStep == 'last'">Задайте новый пароль</div>
+			<div>{{$t('forgotPass.recoverPassword')}}</div>
+			<div v-if="formStep == 'first'">{{$t('forgotPass.enterPhone')}}</div>
+			<div v-if="formStep == 'second'">{{$t('forgotPass.enterCode')}}</div>
+			<div v-if="formStep == 'last'">{{$t('forgotPass.setNewPassword')}}</div>
 		</div>
 		<template v-if="formStep == 'first'">
 			<v-form ref="resetPassForm">
 				<img src="../../assets/images/register-step-one.svg" class="step">
 				<div class="masked-input">
-					<span class="label">Телефон</span>
+					<span class="label">{{$t('phone')}}</span>
 					<MaskedInput
 						mask="\+\996 (111) 11-11-11"
-						placeholder="Ваш номер телефона"
+						:placeholder="$t('phoneNumber')"
 						v-model="phoneView"
 						@input="rawPhoneValue = arguments[1]"
 						autocomplete="new-password"
@@ -21,7 +21,7 @@
 					<v-text-field class="error-only" v-model="rawPhoneValue" :rules="phoneRule"/>
 				</div>
 				<button class="btn green-main next" @click.prevent="sendPhoneNum" v-if="showBtn">
-					Получить код
+					{{$t('getCode')}}
 				</button>
 				<div id="recaptcha-container"></div>
 			</v-form>
@@ -30,7 +30,7 @@
 		<template v-if="formStep == 'second'">
 			<img src="../../assets/images/register-step-two.svg" class="margin-bottom step">
 			<div class="password">
-				<span class="label">Ваш номер телефона</span>
+				<span class="label">{{$t('phoneNumber')}}</span>
 				<v-text-field
 					solo
 					v-model="phoneView"
@@ -40,7 +40,7 @@
 				/>
 			</div>
 			<div class="masked-input text-lg-center code">
-				<span class="label d-block">Код подтверждения</span>
+				<span class="label d-block">{{$t('confirmationCode')}}</span>
 				<MaskedInput
 					mask="1•1•1•1•1•1"
 					@input="codeValue = arguments[1]"
@@ -48,15 +48,15 @@
 				/>
 			</div>
 			<div class="btn-actions">
-				<button class="btn white-color-green" @click="formStep='first';showBtn=true">Назад</button>
-				<button class="btn green-main next" @click="sendReceivedSmsCode">Далее</button>
+				<button class="btn white-color-green" @click="formStep='first';showBtn=true">{{$t('button.back')}}</button>
+				<button class="btn green-main next" @click="sendReceivedSmsCode">{{$t('button.next')}}</button>
 			</div>
 		</template>
 
 		<template v-if="formStep == 'last'">
 			<img src="../../assets/images/register-step-last.svg" class="step margin-bottom">
 			<div class="password">
-				<span class="label">Ваш номер телефона</span>
+				<span class="label">{{$t('phoneNumber')}}</span>
 				<v-text-field
 					solo
 					v-model="phoneView"
@@ -67,7 +67,7 @@
 			</div>
 			<div class="set-pass">
 				<div class="password first-pass">
-					<span class="label">Пароль</span>
+					<span class="label">{{$t('password')}}</span>
 					<v-text-field
 						solo
 						type="password"
@@ -76,7 +76,7 @@
 					/>
 				</div>
 				<div class="password">
-					<span class="label">Повторите пароль</span>
+					<span class="label">{{$t('forgotPass.retypePassword')}}</span>
 					<v-text-field
 						solo
 						type="password"
@@ -85,7 +85,7 @@
 					/>
 				</div>
 			</div>
-			<button class="btn green-main next" @click.prevent="submitReset">Подтвердить</button>
+			<button class="btn green-main next" @click.prevent="submitReset">{{$t('button.confirm')}}</button>
 		</template>
 	</div>
 </template>
@@ -101,10 +101,10 @@ export default {
 	},
 	data() {
 		return {
-			requiredRule: [(v) => !!v || 'Обязательное поле'],
+			requiredRule: [(v) => !!v || this.$t('requiredField')],
 			phoneRule: [
-				v => !!v || 'Обязательное поле',
-				v => ( v && !v.includes('_') ) || 'Введите правильный номер телефона'
+				v => !!v || this.$t('requiredField'),
+				v => ( v && !v.includes('_') ) || this.$t('forgotPass.enterRightPhone')
 			],
 			formStep: 'first',
 			phoneView: '',

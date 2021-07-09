@@ -3,7 +3,7 @@
 		<PreLoader v-if="isLoading"/>
 		<div class="mob-profile-head head-title mob">
 			<img src="../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
-			<span>Сохраненные туры</span>
+			<span>{{$t('favoriteTours')}}</span>
 		</div>
 		<div class="tour-items" v-if="favoriteTours.length">
 			<div
@@ -30,17 +30,17 @@
 					</div>
 					<div class="free-place">
 						<template v-if="tour.bookingCount > 0">
-							Осталось мест: {{tour.bookingCount}}
+							{{$t('tourBooking.remainPlace')}}: {{tour.bookingCount}}
 						</template>
 					</div>
 					<div class="date-price flex align-center justify-space-between">
 						<div class="date" v-html="formatDate(tour.date)"></div>
-						<span class="price">{{tour.price}} сом</span>
+						<span class="price">{{tour.price}} {{$t('tourBooking.som')}}</span>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="empty" v-else>Пусто</div>
+		<div class="empty" v-else>{{$t('empty')}}</div>
 	</div>
 </template>
 

@@ -81,7 +81,7 @@ export default {
 				(v) => !!v || 'Email обязательный',
 				(v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Email должен быть валидным',
 			],
-			requiredRule: [(v) => !!v || 'Обязательное поле'],
+			requiredRule: [(v) => !!v || this.$t('requiredField')],
 			profileObj: {},
 			previewUrl: '',
 			isLoading: false

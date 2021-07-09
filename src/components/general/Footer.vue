@@ -6,7 +6,7 @@
 				<span>Demaloo</span>
 			</div>
 
-			<div class="footer__title">Впечатления начинаются здесь</div>
+			<div class="footer__title">{{$t('slogan')}}</div>
 			
 			<!--<div class="footer__links flex align-center justify-center">-->
 				<!--<a href="#">Как устроено Demaloo</a>-->
@@ -34,7 +34,7 @@
 				</div>
 				<div class="contact address flex align-center">
 					<img src="../../assets/icons/marker-dark.png" class="street">
-					<span>г. Бишкек, ул. Байтик Батыра 37, 789065</span>
+					<span>{{$t('officeAddress')}}, 789065</span>
 				</div>
 				<div class="contact flex align-center">
 					<img src="../../assets/icons/envelope-dark.png" class="email">
@@ -43,9 +43,9 @@
 			</div>
 
 			<div class="footer__confident">
-				© LLC Demaloo, Все права защищены,
-				<a href="/docs/policy.pdf" target="_blank">Политика конфиденциальности</a>,
-				<a href="/docs/condition.pdf" target="_blank">Публичная оферта</a>
+				© LLC Demaloo, {{$t('allRightsReserved')}},
+				<a href="/docs/policy.pdf" target="_blank">{{$t('privacyPolicy')}}</a>,
+				<a href="/docs/condition.pdf" target="_blank">{{$t('publicOffer')}}</a>
 			</div>
 		</div>
 	</div>

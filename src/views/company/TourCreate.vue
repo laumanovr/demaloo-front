@@ -348,10 +348,10 @@ export default {
 		return {
 			isLoading: false,
 			apiImageUrl: `${AWS_IMAGE_URL}/images/`,
-			requiredRule: [(v) => !!v || 'Обязательное поле'],
-			multipleRule: [(v) => v.length > 0 || 'Обязательное поле'],
+			requiredRule: [(v) => !!v || this.$t('requiredField')],
+			multipleRule: [(v) => v.length > 0 || this.$t('requiredField')],
 			numberRule: [
-				(v) => !!v || 'Обязательное поле',
+				(v) => !!v || this.$t('requiredField'),
 				(v) => (v && v > 0 && v <= 50000) || 'Неправильное значение'
 			],
 			tourObj: {
