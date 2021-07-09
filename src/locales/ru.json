@@ -47,7 +47,10 @@
     "from": "От",
     "to": "До",
     "sorting": "Сортировка",
-    "categories": "Категории"
+    "categories": "Категории",
+    "chooseDate": "Выберите дату начиная с",
+    "byPrice": "По цене",
+    "byDate": "По дате"
   },
   "signIn": {
     "loginTitle": "Войти в учетную запись",

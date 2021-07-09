@@ -47,7 +47,10 @@
     "from": "From",
     "to": "To",
     "sorting": "Sorting",
-    "categories": "Categories"
+    "categories": "Categories",
+    "chooseDate": "Choose date",
+    "byPrice": "By price",
+    "byDate": "By date"
   },
   "signIn": {
     "loginTitle": "Login to your account",
