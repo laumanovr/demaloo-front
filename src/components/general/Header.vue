@@ -5,6 +5,10 @@
 				<img src="../../assets/images/logo-text.svg">
 			</div>
 			<div class="links">
+				<select v-model="currentLang" class="lang-select" @change="changeLang(currentLang)">
+					<option value="en">EN</option>
+					<option value="ru">РУ</option>
+				</select>
 				<template v-if="$route.path == '/'">
 					<!--mobile-->
 					<svg @click="showMobileSearch" class="mob search" :class="{'searchOpen': isSearchOpen}">
@@ -12,7 +16,7 @@
 					</svg>
 					<img src="../../assets/icons/sort-icon.svg" class="mob sort" @click="openMobileFilter">
 				</template>
-				<router-link :to="{name: 'contacts'}" class="web contact">Контакты</router-link>
+				<router-link :to="{name: 'contacts'}" class="web contact">{{$t('contact.about7')}}</router-link>
 				<template v-if="userLogged">
 					<div class="profile web" @click="$router.push('/profile-manage')">
 						<span class="name">{{userProfile.name}}</span>
@@ -24,8 +28,8 @@
 					</div>
 				</template>
 				<template v-else>
-					<router-link :to="{name: 'companyLogin'}" class="web">Для туроператоров</router-link>
-					<a class="login web" @click="$emit('onLogin')">Войти</a>
+					<router-link :to="{name: 'companyLogin'}" class="web">{{$t('forOperators')}}</router-link>
+					<a class="login web" @click="$emit('onLogin')">{{$t('button.login')}}</a>
 					<!--mobile-->
 					<img src="../../assets/icons/circle-person.svg" @click="$emit('onLogin')" class="mob">
 				</template>
@@ -41,8 +45,14 @@ import {CustomEventEmitter} from '@/utils/customEventEmitter';
 export default {
 	data() {
 		return {
-			isSearchOpen: false
+			isSearchOpen: false,
+			currentLang: 'en'
 		};
+	},
+	created() {
+		const selected = JSON.parse(window.localStorage.getItem('demalooLang'));
+		this.currentLang = selected ? selected : 'en';
+		this.$root.$i18n.locale = this.currentLang;
 	},
 	computed: {
 		userProfile() {
@@ -63,6 +73,12 @@ export default {
 
 		openMobileFilter() {
 			CustomEventEmitter.$emit('onOpenFilter');
+		},
+
+		changeLang(selectedLang) {
+			this.$root.$i18n.locale = selectedLang;
+			window.localStorage.setItem('demalooLang', JSON.stringify(selectedLang));
+			window.location.reload();
 		}
 	}
 };
@@ -120,7 +136,7 @@ export default {
 					display: flex;
 					align-items: center;
 					padding: 2px 5px 2px 20px;
-					margin-left: 50px;
+					margin-left: 30px;
 					@media #{$mob-view} {
 						border: 0;
 						padding: 0;
@@ -141,6 +157,15 @@ export default {
 						margin-right: 10px;
 					}
 				}
+				.lang-select {
+					outline: none;
+					cursor: pointer;
+					border: 1px solid $blue-darkest;
+					color: $blue-darkest;
+					border-radius: 5px;
+					padding: 0 5px;
+					margin-left: 30px;
+				}
 			}
 		}
 		@media #{$mob-view} {
@@ -153,6 +178,9 @@ export default {
 					&.searchOpen {
 						fill: #0ACF83;
 					}
+				}
+				.lang-select {
+					margin-right: 25px;
 				}
 			}
 		}
