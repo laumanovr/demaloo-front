@@ -1,10 +1,10 @@
 <template>
 	<modal name="logout-modal" width="320px" height="auto">
 		<div class="modal-container">
-			<h3>Выйти?</h3>
+			<h3>{{$t('logout')}}?</h3>
 			<div class="btn-actions">
-				<button class="btn red-primary" @click="closeModal">Отмена</button>
-				<button class="btn green-main" @click="logOut">Выход</button>
+				<button class="btn red-primary" @click="closeModal">{{$t('button.cancel')}}</button>
+				<button class="btn green-main" @click="logOut">{{$t('logout')}}</button>
 			</div>
 		</div>
 	</modal>
