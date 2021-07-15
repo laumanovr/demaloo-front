@@ -5,10 +5,17 @@
 				<img src="../../assets/images/logo-text.svg">
 			</div>
 			<div class="links">
-				<select v-model="currentLang" class="lang-select" @change="changeLang(currentLang)">
-					<option value="en">EN</option>
-					<option value="ru">РУ</option>
-				</select>
+				<div class="lang-select d-flex align-center">
+					<inline-svg :src="require('@/assets/icons/globus.svg')" fill="#102542"/>
+					<v-select
+						class="no-detail"
+						:items="languages"
+						item-text="title"
+						item-value="value"
+						v-model="currentLang"
+						@change="changeLang"
+					/>
+				</div>
 				<template v-if="$route.path == '/'">
 					<!--mobile-->
 					<svg @click="showMobileSearch" class="mob search" :class="{'searchOpen': isSearchOpen}">
@@ -46,7 +53,11 @@ export default {
 	data() {
 		return {
 			isSearchOpen: false,
-			currentLang: 'en'
+			currentLang: 'en',
+			languages: [
+				{title: 'English', value: 'en'},
+				{title: 'Русский', value: 'ru'}
+			]
 		};
 	},
 	created() {
@@ -160,11 +171,22 @@ export default {
 				.lang-select {
 					outline: none;
 					cursor: pointer;
-					border: 1px solid $blue-darkest;
 					color: $blue-darkest;
-					border-radius: 5px;
 					padding: 0 5px;
-					margin-left: 30px;
+					svg {
+						margin-right: 5px;
+					}
+					.no-detail {
+						max-width: 97px;
+						margin: 0;
+						padding-top: 8px;
+						.v-input__slot:before {
+							content: none;
+						}
+						.v-input__append-inner {
+							transform: translateX(-10px);
+						}
+					}
 				}
 			}
 		}
@@ -178,9 +200,6 @@ export default {
 					&.searchOpen {
 						fill: #0ACF83;
 					}
-				}
-				.lang-select {
-					margin-right: 25px;
 				}
 			}
 		}
