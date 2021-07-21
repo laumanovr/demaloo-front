@@ -37,7 +37,6 @@
                     <span class="label">Цена:</span>
                     <v-text-field
                         v-model.number="tourObj.price"
-                        :rules="numberRule"
                         placeholder="Сом / за человека"
                         solo
                         type="number"
