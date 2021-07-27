@@ -111,7 +111,7 @@
 						<div class="check-boxes">
 							<label class="box" v-for="(item, i) in categories" :key="i" :for="item.id" ref="boxes">
 								<input :id="item.id" type="checkbox" @change="selectCategory($event, item)">
-								<span>{{item.ru}}</span>
+								<span>{{item[currentLang]}}</span>
 							</label>
 						</div>
 					</div>
@@ -141,7 +141,7 @@
 					<div class="sort-price-chip web">
 						<div class="chips">
 							<div class="chip" v-for="chip in sortCategories" :key="chip.id">
-								{{chip.ru}}
+								{{chip[currentLang]}}
 								<PlusIcon @click="selectCategory({currentTarget: {}}, chip)"/>
 							</div>
 						</div>
@@ -309,6 +309,11 @@ export default {
 			showMobSearch: false,
 			totalToursCount: 0
 		};
+	},
+	computed: {
+		currentLang() {
+			return this.$root.$i18n.locale;
+		}
 	},
 	created() {
 		this.isLoading = true;
