@@ -55,7 +55,7 @@
 					<div class="check-boxes">
 						<label class="box" v-for="(item, i) in allCategories" :key="i" :for="item.id+'-box'">
 							<input type="checkbox" v-model="item.checked" @change="chooseCategory($event, item)" :id="item.id+'-box'">
-							<span>{{item.ru}}</span>
+							<span>{{item[currentLang]}}</span>
 						</label>
 					</div>
 				</div>
@@ -93,6 +93,11 @@ export default {
 			sortCategories: [],
 			allCategories: []
 		};
+	},
+	computed: {
+		currentLang() {
+			return this.$root.$i18n.locale;
+		}
 	},
 	methods: {
 		setSomeData() {
