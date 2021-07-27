@@ -402,7 +402,7 @@ export default {
 			} else {
 				let index = this.sortCategories.findIndex((i) => i.id === category.id);
 				this.sortCategories.splice(index, 1);
-				let box = this.$refs.boxes.find((i) => i.innerText === category.ru);
+				let box = this.$refs.boxes.find((i) => i.innerText === category[this.currentLang]);
 				box.querySelector('input').checked = false;
 			}
 			this.sortCategories.forEach((category) => {
