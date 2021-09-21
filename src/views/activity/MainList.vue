@@ -89,9 +89,9 @@
                         </router-link>
                     </div>
                     <div class="single-center">
-                        <button class="btn green-main">
-                            {{$t('button.showMore')}}
-                        </button>
+                        <!--<button class="btn green-main">-->
+                        <!--{{$t('button.showMore')}}-->
+                        <!--</button>-->
                         <h2 v-if="!activityList.length">{{$t('mainPage.notFound')}}</h2>
                     </div>
                 </div>
