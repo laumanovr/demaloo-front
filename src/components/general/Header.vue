@@ -53,7 +53,7 @@ export default {
 	data() {
 		return {
 			isSearchOpen: false,
-			currentLang: 'en',
+			currentLang: 'ru',
 			languages: [
 				{title: 'English', value: 'en'},
 				{title: 'Русский', value: 'ru'}
@@ -62,7 +62,7 @@ export default {
 	},
 	created() {
 		const selected = JSON.parse(window.localStorage.getItem('demalooLang'));
-		this.currentLang = selected ? selected : 'en';
+		this.currentLang = selected ? selected : 'ru';
 		this.$root.$i18n.locale = this.currentLang;
 	},
 	computed: {
