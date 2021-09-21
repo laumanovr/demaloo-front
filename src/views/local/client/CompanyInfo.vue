@@ -1,7 +1,7 @@
 <template>
 	<div class="client-company-info-container">
 		<div class="client-company-info">
-			<img src="../../assets/icons/arrow-dark.svg" @click="$router.go(-1)" class="back"/>
+			<img src="../../../assets/icons/arrow-dark.svg" @click="$router.go(-1)" class="back"/>
 			<PreLoader v-if="isLoading"/>
 			<div class="company__description">
 				<div class="flex top justify-space-between flex-wrap">
@@ -10,7 +10,7 @@
 						<div>
 							<div class="company-name flex align-center">
 								<span>{{currentCompany.name}}</span>
-								<img src="../../assets/icons/rating-icon.svg" class="star">
+								<img src="../../../assets/icons/rating-icon.svg" class="star">
 								<span class="rating">{{currentCompany.rating}}</span>
 							</div>
 							<div class="created-date">{{$t('companyInfo.inDemalooFrom')}} {{formatDate(currentCompany.createdAt)}}</div>
@@ -63,7 +63,7 @@
 							</div>
 						</div>
 						<div class="review__rating">
-							<img src="../../assets/icons/rating-icon.svg" v-for="i in review.rating" :key="i">
+							<img src="../../../assets/icons/rating-icon.svg" v-for="i in review.rating" :key="i">
 						</div>
 						<div class="review__comment">
 							{{review.messages[0].message}}
@@ -84,7 +84,7 @@
 							<img :src="showCompanyImage(tour.company.logo)" class="company">
 							<span class="company-name">{{tour.company.name}}</span>
 							<div class="rating flex">
-								<img src="../../assets/icons/rating-icon.svg">
+								<img src="../../../assets/icons/rating-icon.svg">
 								<span>{{tour.company.rating}} ({{tour.company.reviewCount}})</span>
 							</div>
 						</div>
@@ -103,11 +103,11 @@
 </template>
 
 <script>
-import {UserService} from '../../services/user.service';
+import {UserService} from '../../../services/user.service';
 import PreLoader from '@/components/general/PreLoader';
-import {AWS_IMAGE_URL} from '../../services/api.service';
-import {ReviewService} from '../../services/review.service';
-import {TourService} from '../../services/tour.service';
+import {AWS_IMAGE_URL} from '../../../services/api.service';
+import {ReviewService} from '../../../services/review.service';
+import {TourService} from '../../../services/tour.service';
 import {format} from 'date-fns';
 
 export default {
