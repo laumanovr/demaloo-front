@@ -2,7 +2,7 @@
 	<div class="all-reviews-container">
 		<PreLoader v-if="isLoading"/>
 		<div class="mob-profile-head head-title mob">
-			<img src="../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
+			<img src="../../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
 			<span>{{$t('myReviews')}}</span>
 		</div>
 		<div class="reviews">
@@ -16,7 +16,7 @@
 					</div>
 				</div>
 				<div class="review__rating">
-					<img src="../../assets/icons/rating-icon.svg" v-for="i in review.rating" :key="i">
+					<img src="../../../assets/icons/rating-icon.svg" v-for="i in review.rating" :key="i">
 				</div>
 				<div class="review__comment">
 					<div v-for="(comment, i) in review.messages" :key="i" :class="comment.author">
@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import {ReviewService} from '../../services/review.service';
-import PreLoader from '../../components/general/PreLoader';
-import {AWS_IMAGE_URL} from '../../services/api.service';
+import {ReviewService} from '../../../services/review.service';
+import PreLoader from '../../../components/general/PreLoader';
+import {AWS_IMAGE_URL} from '../../../services/api.service';
 import {format} from 'date-fns';
 
 export default {

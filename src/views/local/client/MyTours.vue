@@ -2,7 +2,7 @@
 	<div class="my-tours-container">
 		<PreLoader v-if="isLoading"/>
 		<div class="mob-profile-head head-title mob">
-			<img src="../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
+			<img src="../../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
 			<span>{{$t('myTour.trips')}}</span>
 		</div>
 
@@ -24,7 +24,7 @@
 				>
 					<div class="tour-item__image">
 						<img :src="showTourPhoto(book.tour.images[0])" v-if="book.tour.images">
-						<img src="../../assets/images/no-image.png" v-else>
+						<img src="../../../assets/images/no-image.png" v-else>
 					</div>
 					<div class="tour-item__info">
 						<div class="tour-item__name">{{book.tour.name.ru}}</div>
@@ -34,7 +34,7 @@
 									<img :src="showCompanyPhoto(book.tour.company.logo)">
 									{{book.tour.company.name}}
 									<div class="rating">
-										<img src="../../assets/icons/rating-icon.svg">
+										<img src="../../../assets/icons/rating-icon.svg">
 										<span>
 										{{book.tour.company.rating}}
 										<template v-if="book.tour.company.reviewCount">
@@ -80,7 +80,7 @@
 								<img :src="showCompanyPhoto(book.tour.company.logo)" class="company">
 								<span class="company-name">{{book.tour.company.name}}</span>
 								<div class="rating flex">
-									<img src="../../assets/icons/rating-icon.svg">
+									<img src="../../../assets/icons/rating-icon.svg">
 									<span>{{book.tour.company.rating}} ({{book.tour.company.reviewCount}})</span>
 								</div>
 							</div>
@@ -120,11 +120,11 @@
 				</div>
 				<div class="review-comment__stars">
 					<div class="default-star">
-						<img src="../../assets/icons/unfilled-star.svg" v-for="i in 5" :key="i">
+						<img src="../../../assets/icons/unfilled-star.svg" v-for="i in 5" :key="i">
 					</div>
 					<div class="rating-star">
 						<img
-							src="../../assets/icons/rating-icon.svg"
+							src="../../../assets/icons/rating-icon.svg"
 							v-for="i in 5" :key="i"
 							@click="reviewObj.rating = i"
 							:class="{'selected': i <= reviewObj.rating}"
@@ -157,7 +157,7 @@
 
 <script>
 import {TourService} from '@/services/tour.service';
-import {ReviewService} from '../../services/review.service';
+import {ReviewService} from '../../../services/review.service';
 import PreLoader from '@/components/general/PreLoader';
 import {format} from 'date-fns';
 import {ru} from 'date-fns/locale';

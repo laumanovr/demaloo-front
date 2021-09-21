@@ -7,11 +7,11 @@
             </div>
             <div class="create-step">
                 <template v-if="formStep == 'first'">
-                    <img src="../../assets/icons/icon-process.svg"/>
+                    <img src="../../../assets/icons/icon-process.svg"/>
                     <span class="label">Заполните основную информацию</span>
                 </template>
                 <template v-if="formStep == 'last'">
-                    <img src="../../assets/icons/icon-process2.svg"/>
+                    <img src="../../../assets/icons/icon-process2.svg"/>
                     <span class="label">
                         Вы почти у цели. Заполните что входит в тур и загрузите фотографии вашего тура
                     </span>

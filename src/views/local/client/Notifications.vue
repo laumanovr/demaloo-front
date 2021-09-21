@@ -2,7 +2,7 @@
 	<div class="client-notifications">
 		<PreLoader v-if="isLoading"/>
 		<div class="mob-profile-head head-title mob">
-			<img src="../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
+			<img src="../../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
 			<span>{{$t('notifications')}}</span>
 		</div>
 		<div class="notify__content">
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import {NotificationService} from '../../services/notification.service';
+import {NotificationService} from '../../../services/notification.service';
 import PreLoader from '@/components/general/PreLoader';
 import {format} from 'date-fns';
 

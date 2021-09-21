@@ -2,7 +2,7 @@
 	<div class="company-profile">
 		<PreLoader v-if="isLoading"/>
 		<div class="head-title">
-			<img src="../../assets/icons/left-arrow.svg" @click="$router.go(-1)"/>Профиль
+			<img src="../../../assets/icons/left-arrow.svg" @click="$router.go(-1)"/>Профиль
 		</div>
 		<v-form ref="profileForm">
 			<div class="form-field">

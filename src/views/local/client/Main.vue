@@ -2,11 +2,21 @@
 	<div class="main-container">
 		<PreLoader v-if="isLoading"/>
 		<div class="main-top-bg web">
-			<img src="../../assets/images/main-page-bg.png">
+			<img src="../../../assets/images/main-page-bg.png">
 			<div class="bg-text">
 				<div class="bg-text__block">
 					<div class="bg-text__top">{{$t('mainPage.bannerTopTitle')}}</div>
 					<div class="bg-text__bottom">{{$t('mainPage.bannerBottomTitle')}}.</div>
+					<div class="d-flex justify-center switchers">
+						<router-link to="/" class="d-flex align-center switcher active">
+							<img src="../../../assets/icons/local-tour.svg">
+							Туры
+						</router-link>
+						<router-link to="/activities" class="d-flex align-center switcher">
+							<img src="../../../assets/icons/activity.svg">
+							Развлечения
+						</router-link>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -14,7 +24,7 @@
 			<div class="search" :class="{'mob-search': showMobSearch}">
 				<div class="search__filter">
 					<div class="search__form-field location">
-						<img src="../../assets/icons/marker-green.svg">
+						<img src="../../../assets/icons/marker-green.svg">
 						<div class="label">
 							<span>{{$t('mainPage.location')}}</span>
 							<input
@@ -39,7 +49,7 @@
 						<div class="not-found drop-down-result" v-if="noResult">{{$t('mainPage.notFound')}}</div>
 					</div>
 					<div class="search__form-field date">
-						<img src="../../assets/icons/calendar-green.svg">
+						<img src="../../../assets/icons/calendar-green.svg">
 						<div class="label">
 							<span>{{$t('date')}}</span>
 							<v-menu
@@ -165,7 +175,7 @@
 						>
 							<div class="tour-item__image">
 								<img :src="showTourPhoto(tour.images[0])" v-if="tour.images">
-								<img src="../../assets/images/no-image.png" v-else>
+								<img src="../../../assets/images/no-image.png" v-else>
 							</div>
 							<div class="tour-item__info">
 								<div class="tour-item__name">{{tour.name.ru}}</div>
@@ -176,7 +186,7 @@
 											<img :src="showCompanyPhoto(tour.company.logo)">
 											{{tour.company.name}}
 											<div class="rating">
-												<img src="../../assets/icons/rating-icon.svg">
+												<img src="../../../assets/icons/rating-icon.svg">
 												<span>
 													{{tour.company.rating}}
 													<template v-if="tour.company.reviewCount">
@@ -219,15 +229,15 @@
 		</div>
 
 		<div class="banner">
-			<img src="../../assets/images/app-bg.png" class="bg">
+			<img src="../../../assets/images/app-bg.png" class="bg">
 			<div class="banner__text">
 				<div class="banner__title">{{$t('mainPage.downloadApp')}} <br> {{$t('mainPage.forMobile')}}</div>
 				<div class="app-icons web">
 					<a href="https://apps.apple.com/us/app/demaloo/id1560957584">
-						<img src="../../assets/images/app-store.png">
+						<img src="../../../assets/images/app-store.png">
 					</a>
 					<a href="https://play.google.com/store/apps/details?id=kg.demaloo">
-						<img src="../../assets/images/play-market.png">
+						<img src="../../../assets/images/play-market.png">
 					</a>
 				</div>
 			</div>
@@ -538,6 +548,27 @@ export default {
 					font-weight: 500;
 					font-size: 22px;
 					font-family: $montserrat;
+				}
+				.switchers {
+					transform: translateY(25px);
+					.switcher {
+						color: $blue-darkest;
+						padding: 15px 30px;
+						border-radius: 7px;
+						background: #fff;
+						font-size: 14px;
+						font-weight: 600;
+						cursor: pointer;
+						&:first-child {
+							margin-right: 20px;
+						}
+						img {
+							margin-right: 8px;
+						}
+						&.active {
+							color: $green-main;
+						}
+					}
 				}
 			}
 		}

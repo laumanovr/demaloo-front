@@ -2,7 +2,7 @@
 	<div class="personal-info">
 		<PreLoader v-if="isLoading"/>
 		<div class="mob-profile-head head-title mob">
-			<img src="../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
+			<img src="../../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
 			<span>{{$t('profile.updateProfile')}}</span>
 		</div>
 		<v-form ref="profileForm">
@@ -72,7 +72,7 @@ import {mapState} from 'vuex';
 import {format, parse, isValid} from 'date-fns';
 import {ImageService} from '@/services/image.service';
 import {AWS_IMAGE_URL} from '@/services/api.service';
-import {UserService} from '../../services/user.service';
+import {UserService} from '../../../services/user.service';
 
 export default {
 	components: {
