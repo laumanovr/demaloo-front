@@ -3,10 +3,10 @@
 		<div class="content-block">
 			<div class="head-title">О нас</div>
 			<div class="d-flex justify-center logo">
-				<img src="../../assets/images/logo-text.svg">
+				<img src="../../../assets/images/logo-text.svg">
 			</div>
 
-			<div class="purpose first"><span>Demaloo</span> - впечатления начинаются здесь.</div>
+			<div class="purpose first"><span>Demaloo</span> - {{$t('slogan')}}.</div>
 			<div class="purpose">
 				Мы предоставляем пользователям возможность забронировать, оплатить, прочитать отзывы,
 				посмотреть материалы тура и узнать всю необходимую информацию о понравившемся туре.
@@ -26,15 +26,15 @@
 				<p class="font-bold phone">Контакты</p>
 				<div class="d-flex align-center justify-center flex-wrap">
 					<div class="d-flex align-center">
-						<img src="../../assets/icons/whatsapp-icon.svg">
+						<img src="../../../assets/icons/whatsapp-icon.svg">
 						<span>+996 500 100 901</span>
 					</div>
 					<div class="d-flex align-center second">
-						<img src="../../assets/icons/contact-icon.svg">
+						<img src="../../../assets/icons/contact-icon.svg">
 						<span>+996 500 100 901</span>
 					</div>
 					<div class="d-flex align-center">
-						<img src="../../assets/icons/telegram-icon.svg">
+						<img src="../../../assets/icons/telegram-icon.svg">
 						<span>@Akyl_1</span>
 					</div>
 				</div>

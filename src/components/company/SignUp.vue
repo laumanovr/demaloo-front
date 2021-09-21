@@ -104,7 +104,7 @@ export default {
 	},
 	data() {
 		return {
-			required: [(v) => !!v || 'Обязательное поле'],
+			required: [(v) => !!v || this.$t('requiredField')],
 			emailRule: [
 				(v) => !!v || 'Email обязательный',
 				(v) => /^[a-zA-Z0-9()*_\-!#$%^&*,."'@\][]+$/.test(v) || 'Email должен быть на латинице',
@@ -114,7 +114,7 @@ export default {
 				}
 			],
 			phoneRule: [
-				v => !!v || 'Обязательное поле',
+				v => !!v || this.$t('requiredField'),
 				v => ( v && !v.includes('_') ) || 'Введите правильный номер телефона'
 			],
 			formStep: 'one',

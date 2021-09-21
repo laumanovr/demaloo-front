@@ -17,8 +17,8 @@
 								</slide>
 							</carousel>
 							<div class="arrows">
-								<img src="../../assets/icons/circle-arrow-left.svg">
-								<img src="../../assets/icons/circle-arrow-right.svg">
+								<img src="../../../assets/icons/circle-arrow-left.svg">
+								<img src="../../../assets/icons/circle-arrow-right.svg">
 							</div>
 							<div class="image-count" v-if="tourDetail.images">
 								{{imgIndex}}/{{tourDetail.images.length}}
@@ -33,10 +33,10 @@
 									v-if="userLogged"
 								>
 									<inline-svg
-										:src="require('../../assets/icons/heart-blue.svg')"
+										:src="require('../../../assets/icons/heart-blue.svg')"
 										:class="{'saved': checkIsAlreadyFavorite()}"
 									/>
-									<span class="web">{{checkIsAlreadyFavorite() ? 'Сохранен' : 'Сохранить'}}</span>
+									<span class="web">{{checkIsAlreadyFavorite() ? $t('button.favorited') : $t('button.save')}}</span>
 								</div>
 							</div>
 							<router-link
@@ -46,7 +46,7 @@
 								<img :src="showCompanyImage(tourDetail.company.logo)" class="company">
 								{{tourDetail.company.name}}
 								<div class="rating flex">
-									<img src="../../assets/icons/rating-icon.svg">
+									<img src="../../../assets/icons/rating-icon.svg">
 									<span>{{tourDetail.company.rating}}</span>
 								</div>
 							</router-link>
@@ -57,29 +57,29 @@
 							<div class="mob detail">
 								<div class="short-info">
 									<div class="item flex align-center">
-										<img src="../../assets/icons/calendar-blue.svg">
-										<span>Дата:</span>
+										<img src="../../../assets/icons/calendar-blue.svg">
+										<span>{{$t('date')}}:</span>
 									</div>
 									<div class="value" v-html="formatDate(tourDetail.date)"></div>
 								</div>
 								<div class="short-info">
 									<div class="item flex align-center">
-										<img src="../../assets/icons/duration-icon.svg">
-										<span>Длительность:</span>
+										<img src="../../../assets/icons/duration-icon.svg">
+										<span>{{$t('filter.duration')}}:</span>
 									</div>
 									<div class="value">{{tourDetail.duration}} {{showDayTitle()}}</div>
 								</div>
 								<div class="short-info">
 									<div class="item flex align-center">
-										<img src="../../assets/icons/timer-icon.svg">
-										<span>Время сбора:</span>
+										<img src="../../../assets/icons/timer-icon.svg">
+										<span>{{$t('tourBooking.meetingTime')}}:</span>
 									</div>
 									<div class="value">{{tourDetail.meetingTime}}</div>
 								</div>
 								<div class="short-info">
 									<div class="item flex align-center">
-										<img src="../../assets/icons/marker-dark.png">
-										<span>Место сбора:</span>
+										<img src="../../../assets/icons/marker-dark.png">
+										<span>{{$t('tourBooking.meetingPlace')}}:</span>
 									</div>
 									<div class="value">{{tourDetail.meetingPoint.ru}}</div>
 								</div>
@@ -89,8 +89,8 @@
 								<div class="includes">
 									<div class="data-block">
 										<div class="block-title flex">
-											<img src="../../assets/icons/include-icon.svg">
-											<span>Включено</span>
+											<img src="../../../assets/icons/include-icon.svg">
+											<span>{{$t('tourBooking.includes')}}</span>
 										</div>
 										<div class="block-item" v-for="(item, i) in tourDetail.includedInCost" :key="i">
 											<span class="dot"></span>
@@ -99,8 +99,8 @@
 									</div>
 									<div class="data-block additional">
 										<div class="block-title flex">
-											<img src="../../assets/icons/additional-icon.svg">
-											<span>Дополнительно</span>
+											<img src="../../../assets/icons/additional-icon.svg">
+											<span>{{$t('tourBooking.additional')}}</span>
 										</div>
 										<div class="block-item" v-for="(item, i) in tourDetail.additional" :key="i">
 											<span class="dot"></span>
@@ -111,8 +111,8 @@
 								<div class="not-include">
 									<div class="data-block">
 										<div class="block-title flex">
-											<img src="../../assets/icons/not-include-icon.svg">
-											<span>Взять с собой</span>
+											<img src="../../../assets/icons/not-include-icon.svg">
+											<span>{{$t('tourBooking.notIncludes')}}</span>
 										</div>
 										<div class="block-item" v-for="(item, i) in tourDetail.notIncludedInCost" :key="i">
 											<span class="dot"></span>
@@ -124,15 +124,15 @@
 							<div class="tour-detail__transport-block">
 								<div class="transport flex align-center">
 									<div class="label flex align-center"><img
-										src="../../assets/icons/transport-icon.svg">Транспорт:
+										src="../../../assets/icons/transport-icon.svg">{{$t('tourBooking.transport')}}:
 									</div>
 									<span>{{tourDetail.transport.ru}}</span>
 								</div>
 								<div class="distance label flex align-center"><img
-									src="../../assets/icons/double-marker.svg">Дистанция
+									src="../../../assets/icons/double-marker.svg">{{$t('tourBooking.distance')}}
 								</div>
 								<div class="kilometer">
-									<img src="../../assets/images/distance-image.png">
+									<img src="../../../assets/images/distance-image.png">
 									<div class="avto-foot flex justify-space-between">
 										<span>{{tourDetail.distance.transportDistance}} км</span>
 										<span>{{tourDetail.distance.walkDistance}} км</span>
@@ -141,14 +141,14 @@
 							</div>
 							<div class="tour-detail__program-block">
 								<div class="program-title flex align-center">
-									<img src="../../assets/icons/program-icon.svg">
-									<span>Программа</span>
+									<img src="../../../assets/icons/program-icon.svg">
+									<span>{{$t('tourBooking.program')}}</span>
 								</div>
 
 								<div class="program-item" v-for="program in tourDetail.program" :key="program.day">
 									<div class="day flex align-center">
-										<img src="../../assets/icons/calendar-green.svg">
-										<span>День {{program.day}}</span>
+										<img src="../../../assets/icons/calendar-green.svg">
+										<span>{{$t('tourBooking.day')}} {{program.day}}</span>
 									</div>
 									<div class="text">
 										{{program.description.ru}}
@@ -161,66 +161,66 @@
 					<div class="tour-detail__right">
 						<div class="reserve-block">
 							<div class="head-block flex align-center justify-space-between">
-								<div class="price">{{tourDetail.price}} сом</div>
+								<div class="price">{{tourDetail.price}} {{$t('tourBooking.som')}}</div>
 								<div class="date-place">
 									<div class="date web" v-html="formatDate(tourDetail.date)"></div>
 									<div class="place" v-if="tourDetail.bookingCount > -1">
-										Осталось мест: {{tourDetail.bookingCount}}
+										{{$t('tourBooking.remainPlace')}}: {{tourDetail.bookingCount}}
 									</div>
 								</div>
 							</div>
 							<div class="short-info web">
 								<div class="item flex align-center">
-									<img src="../../assets/icons/duration-icon.svg">
-									<span>Длительность:</span>
+									<img src="../../../assets/icons/duration-icon.svg">
+									<span>{{$t('filter.duration')}}:</span>
 								</div>
 								<div class="value">{{tourDetail.duration}} {{showDayTitle()}}</div>
 							</div>
 							<div class="short-info web">
 								<div class="item flex align-center">
-									<img src="../../assets/icons/timer-icon.svg">
-									<span>Время сбора:</span>
+									<img src="../../../assets/icons/timer-icon.svg">
+									<span>{{$t('tourBooking.meetingTime')}}:</span>
 								</div>
 								<div class="value">{{tourDetail.meetingTime}}</div>
 							</div>
 							<div class="short-info web">
 								<div class="item flex align-center">
-									<img src="../../assets/icons/marker-dark.png">
-									<span>Место сбора:</span>
+									<img src="../../../assets/icons/marker-dark.png">
+									<span>{{$t('tourBooking.meetingPlace')}}:</span>
 								</div>
 								<div class="value">{{tourDetail.meetingPoint.ru}}</div>
 							</div>
 							<div class="short-info web">
 								<div class="item">
-									<span>Человек:</span>
+									<span>{{$t('tourBooking.person')}}:</span>
 								</div>
 								<div class="value flex align-center">
-									<img src="../../assets/icons/circle-minus.svg" @click="addSubtractQuantity('minus')">
+									<img src="../../../assets/icons/circle-minus.svg" @click="addSubtractQuantity('minus')">
 									<span>{{payOrReserve.count}}</span>
-									<img src="../../assets/icons/circle-plus.svg" @click="addSubtractQuantity('add')">
+									<img src="../../../assets/icons/circle-plus.svg" @click="addSubtractQuantity('add')">
 								</div>
 							</div>
 							<div class="total flex align-center justify-space-between web">
-								<span>Итого:</span>
-								<span>{{totalPayPrice}} сом</span>
+								<span>{{$t('tourBooking.total')}}:</span>
+								<span>{{totalPayPrice}} {{$t('tourBooking.som')}}</span>
 							</div>
 							<div class="agreement web">
-								Забронировав тур, я соглашаюсь с
-								<a href="/docs/condition.pdf" target="_blank">Условиями предоставления услуг.</a>
+								{{$t('tourBooking.bookTermFirst')}}
+								<a href="/docs/condition.pdf" target="_blank">{{$t('tourBooking.bookTermLast')}}.</a>
 							</div>
 							<button
 								disabled
 								class="btn gray-primary disabled"
 								v-if="checkIsAlreadyBooked() && userLogged"
 							>
-								Уже забронирован
+								{{$t('tourBooking.alreadyBooked')}}
 							</button>
 							<button
 								class="btn green-main"
 								@click="toggleReserveModal"
 								v-else
 							>
-								Забронировать
+								{{$t('button.book')}}
 							</button>
 						</div>
 					</div>
@@ -229,7 +229,7 @@
 
 			<div class="other-tours web" v-if="hasTour && otherTours.length">
 				<div class="current-company-name">
-					<span>Другие туры:</span>
+					<span>{{$t('otherTours')}}:</span>
 					<router-link :to="{name: 'companyInfo', params: {companyId: tourDetail.company._id}}">
 						{{tourDetail.company.name}}
 					</router-link>
@@ -242,7 +242,7 @@
 							<img :src="showCompanyImage(tour.company.logo)" class="company">
 							<span class="company-name">{{tour.company.name}}</span>
 							<div class="rating flex">
-								<img src="../../assets/icons/rating-icon.svg">
+								<img src="../../../assets/icons/rating-icon.svg">
 								<span>{{tour.company.rating}} ({{tour.company.reviewCount}})</span>
 							</div>
 						</div>
@@ -251,7 +251,7 @@
 						</div>
 						<div class="date-price flex align-center justify-space-between">
 							<div class="date" v-html="formatDate(tour.date)"></div>
-							<span class="price">{{tour.price}} сом</span>
+							<span class="price">{{tour.price}} {{$t('tourBooking.som')}}</span>
 						</div>
 					</div>
 				</div>
@@ -268,8 +268,8 @@
 			>
 				<div class="modal-container">
 					<div class="reserve__title flex align-center justify-end">
-						<span>Детали брони</span>
-						<img src="../../assets/icons/close.svg" @click="toggleReserveModal">
+						<span>{{$t('tourBooking.bookDetail')}}</span>
+						<img src="../../../assets/icons/close.svg" @click="toggleReserveModal">
 					</div>
 					<div class="reserve__tour-title">{{tourDetail.name.ru}}</div>
 					<div class="reserve__company-date flex align-center justify-space-between">
@@ -277,70 +277,70 @@
 							<img :src="showCompanyImage(tourDetail.company.logo)" class="company">
 							{{tourDetail.company.name}}
 							<div class="rating flex">
-								<img src="../../assets/icons/rating-icon.svg">
+								<img src="../../../assets/icons/rating-icon.svg">
 								<span>{{tourDetail.company.rating}}</span>
 							</div>
 						</div>
 						<div class="date flex text-capitalize" v-html="formatDate(tourDetail.date)"></div>
 					</div>
 					<div class="reserve__free-cancel flex align-center">
-						<img src="../../assets/icons/calendar-green.svg">
+						<img src="../../../assets/icons/calendar-green.svg">
 						<div>
-							<div class="free-text">Бесплатная отмена брони до</div>
+							<div class="free-text">{{$t('tourBooking.freeBookCancelTill')}}</div>
 							<div class="free-date">{{showFreeCancelDate()}}</div>
 						</div>
 					</div>
 					<div class="short-info">
 						<div class="item flex align-center">
-							<img src="../../assets/icons/duration-icon.svg">
-							<span class="reserve">Длительность:</span>
+							<img src="../../../assets/icons/duration-icon.svg">
+							<span class="reserve">{{$t('filter.duration')}}:</span>
 						</div>
 						<div class="value reserve">{{tourDetail.duration}} {{showDayTitle()}}</div>
 					</div>
 					<div class="short-info">
 						<div class="item flex align-center">
-							<img src="../../assets/icons/timer-icon.svg">
-							<span class="reserve">Время сбора:</span>
+							<img src="../../../assets/icons/timer-icon.svg">
+							<span class="reserve">{{$t('tourBooking.meetingTime')}}:</span>
 						</div>
 						<div class="value reserve">{{tourDetail.meetingTime}}</div>
 					</div>
 					<div class="short-info">
 						<div class="item flex align-center">
-							<img src="../../assets/icons/marker-dark.png">
-							<span class="reserve">Место сбора:</span>
+							<img src="../../../assets/icons/marker-dark.png">
+							<span class="reserve">{{$t('tourBooking.meetingPlace')}}:</span>
 						</div>
 						<div class="value reserve">{{tourDetail.meetingPoint.ru}}</div>
 					</div>
 					<div class="short-info">
 						<div class="item flex align-center">
-							<img src="../../assets/icons/person-icon.svg">
-							<span class="reserve">Гость:</span>
+							<img src="../../../assets/icons/person-icon.svg">
+							<span class="reserve">{{$t('tourBooking.guest')}}:</span>
 						</div>
 						<div class="value reserve">{{userProfile.surname + ' ' + userProfile.name}}</div>
 					</div>
 					<div class="short-info web">
 						<div class="item flex align-center">
-							<img src="../../assets/icons/people-icon.svg">
-							<span class="reserve">Количество мест:</span>
+							<img src="../../../assets/icons/people-icon.svg">
+							<span class="reserve">{{$t('tourBooking.placeCount')}}:</span>
 						</div>
 						<div class="value reserve">{{payOrReserve.count}}</div>
 					</div>
 					<div class="short-info">
 						<div class="item flex align-center">
-							<img src="../../assets/icons/bank-card-icon.svg">
-							<span class="reserve">Итого:</span>
+							<img src="../../../assets/icons/bank-card-icon.svg">
+							<span class="reserve">{{$t('tourBooking.total')}}:</span>
 						</div>
-						<div class="value reserve">{{totalPayPrice}} сом</div>
+						<div class="value reserve">{{totalPayPrice}} {{$t('tourBooking.som')}}</div>
 					</div>
 					<!--mobile-->
 					<div class="short-info mob">
 						<div class="item">
-							<span>Человек:</span>
+							<span>{{$t('tourBooking.person')}}:</span>
 						</div>
 						<div class="value flex align-center">
-							<img src="../../assets/icons/circle-minus.svg" @click="addSubtractQuantity('minus')">
+							<img src="../../../assets/icons/circle-minus.svg" @click="addSubtractQuantity('minus')">
 							<span>{{payOrReserve.count}}</span>
-							<img src="../../assets/icons/circle-plus.svg" @click="addSubtractQuantity('add')">
+							<img src="../../../assets/icons/circle-plus.svg" @click="addSubtractQuantity('add')">
 						</div>
 					</div>
 					<!--mobile-->
@@ -348,7 +348,7 @@
 						<v-text-field
 							outlined
 							class="book-comment no-detail"
-							label="Комментарии для туроператора..."
+							:label="$t('tourBooking.commentForOperator')+'...'"
 							v-model="payOrReserve.comment"
 						/>
 					</div>
@@ -361,7 +361,7 @@
 							class="btn green-main"
 							@click="makePaymentForTour"
 						>
-							Оплатить
+							{{$t('button.pay')}}
 						</button>
 						<button
 							class="btn white-color-green"
@@ -369,7 +369,7 @@
 							@click="makeReservation"
 							:disabled="!isReservable()"
 						>
-							Забронировать
+							{{$t('button.book')}}
 						</button>
 					</div>
 				</div>
@@ -378,13 +378,12 @@
 			<!--COMPLETE RESERVE MODAL-->
 			<modal name="complete-reserve-modal" width="380px" height="auto">
 				<div class="modal-container">
-					<div class="warn-img"><img src="../../assets/icons/checked-icon.svg"></div>
+					<div class="warn-img"><img src="../../../assets/icons/checked-icon.svg"></div>
 					<div class="warn-title">
-						Тур забронирован. <br>
-						Пожалуйста, не забудьте оплатить. <br> По истечении 12 часов ваша бронь обнуляется.
+						{{$t('tourBooking.bookPayReminder')}}
 					</div>
 					<div class="single-center complete">
-						<button class="btn green-main" @click="toggleCompleteModal">Готово</button>
+						<button class="btn green-main" @click="toggleCompleteModal">{{$t('button.ready')}}</button>
 					</div>
 				</div>
 			</modal>

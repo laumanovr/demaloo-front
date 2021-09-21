@@ -5,6 +5,17 @@
 				<img src="../../assets/images/logo-text.svg">
 			</div>
 			<div class="links">
+				<div class="lang-select d-flex align-center">
+					<inline-svg :src="require('@/assets/icons/globus.svg')" fill="#102542"/>
+					<v-select
+						class="no-detail"
+						:items="languages"
+						item-text="title"
+						item-value="value"
+						v-model="currentLang"
+						@change="changeLang"
+					/>
+				</div>
 				<template v-if="$route.path == '/'">
 					<!--mobile-->
 					<svg @click="showMobileSearch" class="mob search" :class="{'searchOpen': isSearchOpen}">
@@ -12,7 +23,7 @@
 					</svg>
 					<img src="../../assets/icons/sort-icon.svg" class="mob sort" @click="openMobileFilter">
 				</template>
-				<router-link :to="{name: 'contacts'}" class="web contact">Контакты</router-link>
+				<router-link :to="{name: 'contacts'}" class="web contact">{{$t('contact.about7')}}</router-link>
 				<template v-if="userLogged">
 					<div class="profile web" @click="$router.push('/profile-manage')">
 						<span class="name">{{userProfile.name}}</span>
@@ -24,8 +35,8 @@
 					</div>
 				</template>
 				<template v-else>
-					<router-link :to="{name: 'companyLogin'}" class="web">Для туроператоров</router-link>
-					<a class="login web" @click="$emit('onLogin')">Войти</a>
+					<router-link :to="{name: 'companyLogin'}" class="web">{{$t('forOperators')}}</router-link>
+					<a class="login web" @click="$emit('onLogin')">{{$t('button.login')}}</a>
 					<!--mobile-->
 					<img src="../../assets/icons/circle-person.svg" @click="$emit('onLogin')" class="mob">
 				</template>
@@ -41,8 +52,18 @@ import {CustomEventEmitter} from '@/utils/customEventEmitter';
 export default {
 	data() {
 		return {
-			isSearchOpen: false
+			isSearchOpen: false,
+			currentLang: 'ru',
+			languages: [
+				{title: 'English', value: 'en'},
+				{title: 'Русский', value: 'ru'}
+			]
 		};
+	},
+	created() {
+		const selected = JSON.parse(window.localStorage.getItem('demalooLang'));
+		this.currentLang = selected ? selected : 'ru';
+		this.$root.$i18n.locale = this.currentLang;
 	},
 	computed: {
 		userProfile() {
@@ -63,6 +84,12 @@ export default {
 
 		openMobileFilter() {
 			CustomEventEmitter.$emit('onOpenFilter');
+		},
+
+		changeLang(selectedLang) {
+			this.$root.$i18n.locale = selectedLang;
+			window.localStorage.setItem('demalooLang', JSON.stringify(selectedLang));
+			window.location.reload();
 		}
 	}
 };
@@ -120,7 +147,7 @@ export default {
 					display: flex;
 					align-items: center;
 					padding: 2px 5px 2px 20px;
-					margin-left: 50px;
+					margin-left: 30px;
 					@media #{$mob-view} {
 						border: 0;
 						padding: 0;
@@ -139,6 +166,26 @@ export default {
 						font-size: 12px;
 						color: $blue-darkest;
 						margin-right: 10px;
+					}
+				}
+				.lang-select {
+					outline: none;
+					cursor: pointer;
+					color: $blue-darkest;
+					padding: 0 5px;
+					svg {
+						margin-right: 5px;
+					}
+					.no-detail {
+						max-width: 97px;
+						margin: 0;
+						padding-top: 8px;
+						.v-input__slot:before {
+							content: none;
+						}
+						.v-input__append-inner {
+							transform: translateX(-10px);
+						}
 					}
 				}
 			}

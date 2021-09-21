@@ -1,9 +1,9 @@
 <template>
 	<div class="client-login">
-		<h3 class="head-title">Войти в учетную запись</h3>
+		<h3 class="head-title">{{$t('signIn.loginTitle')}}</h3>
 		<v-form ref="signInForm">
 			<div class="masked-input">
-				<span class="label">Телефон</span>
+				<span class="label">{{$t('phone')}}</span>
 				<MaskedInput
 					mask="\+\996 (111) 11-11-11"
 					placeholder="+996(555)12-34-56"
@@ -12,10 +12,10 @@
 				/>
 			</div>
 			<div class="password">
-				<span class="label">Пароль</span>
+				<span class="label">{{$t('password')}}</span>
 				<v-text-field
 					solo
-					label="Пароль"
+					:label="$t('password')"
 					type="password"
 					:rules="requiredRule"
 					v-model="loginObj.password"
@@ -23,9 +23,9 @@
 				/>
 			</div>
 			<button class="btn green-main next" @click.prevent="submitLogin">
-				Войти
+				{{$t('button.login')}}
 			</button>
-			<div class="forgot-password" @click="$emit('resetPass')">Забыли пароль?</div>
+			<div class="forgot-password" @click="$emit('resetPass')">{{$t('signIn.forgotPassLink')}}?</div>
 		</v-form>
 	</div>
 </template>
@@ -43,7 +43,7 @@ export default {
 	},
 	data() {
 		return {
-			requiredRule: [(v) => !!v || 'Обязательное поле'],
+			requiredRule: [(v) => !!v || this.$t('requiredField')],
 			phoneValue: '',
 			loginObj: {
 				phoneNumber: '',

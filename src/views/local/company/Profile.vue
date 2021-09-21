@@ -2,7 +2,7 @@
 	<div class="company-profile">
 		<PreLoader v-if="isLoading"/>
 		<div class="head-title">
-			<img src="../../assets/icons/left-arrow.svg" @click="$router.go(-1)"/>Профиль
+			<img src="../../../assets/icons/left-arrow.svg" @click="$router.go(-1)"/>Профиль
 		</div>
 		<v-form ref="profileForm">
 			<div class="form-field">
@@ -81,7 +81,7 @@ export default {
 				(v) => !!v || 'Email обязательный',
 				(v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Email должен быть валидным',
 			],
-			requiredRule: [(v) => !!v || 'Обязательное поле'],
+			requiredRule: [(v) => !!v || this.$t('requiredField')],
 			profileObj: {},
 			previewUrl: '',
 			isLoading: false

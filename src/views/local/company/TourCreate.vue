@@ -7,11 +7,11 @@
             </div>
             <div class="create-step">
                 <template v-if="formStep == 'first'">
-                    <img src="../../assets/icons/icon-process.svg"/>
+                    <img src="../../../assets/icons/icon-process.svg"/>
                     <span class="label">Заполните основную информацию</span>
                 </template>
                 <template v-if="formStep == 'last'">
-                    <img src="../../assets/icons/icon-process2.svg"/>
+                    <img src="../../../assets/icons/icon-process2.svg"/>
                     <span class="label">
                         Вы почти у цели. Заполните что входит в тур и загрузите фотографии вашего тура
                     </span>
@@ -347,10 +347,10 @@ export default {
 		return {
 			isLoading: false,
 			apiImageUrl: `${AWS_IMAGE_URL}/images/`,
-			requiredRule: [(v) => !!v || 'Обязательное поле'],
-			multipleRule: [(v) => v.length > 0 || 'Обязательное поле'],
+			requiredRule: [(v) => !!v || this.$t('requiredField')],
+			multipleRule: [(v) => v.length > 0 || this.$t('requiredField')],
 			numberRule: [
-				(v) => !!v || 'Обязательное поле',
+				(v) => !!v || this.$t('requiredField'),
 				(v) => (v && v > 0 && v <= 50000) || 'Неправильное значение'
 			],
 			tourObj: {

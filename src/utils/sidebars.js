@@ -25,49 +25,49 @@ export default {
 			route: '/company-manage/team',
 			icon: 'people.svg'
 		},
-		// {
-		// 	name: 'Чат',
-		// 	route: '#',
-		// 	icon: 'message.svg',
-		// }
+		{
+			name: 'Сообщения',
+			route: '/company-manage/messages',
+			icon: 'message.svg',
+		}
 	],
 
 	client: [
 		{
-			name: 'Поездки',
+			name: 'myTour.trips',
 			route: '/profile-manage',
 			icon: 'compass-tab.svg',
 			className: 'single'
 		},
 		{
-			name: 'Профиль',
+			name: 'profile.profile',
 			route: '/profile-manage/info',
 			icon: 'profile-tab.svg',
 			className: 'single'
 		},
 		{
-			name: 'Уведомления',
+			name: 'notifications',
 			route: '/profile-manage/notifications',
 			icon: 'notification-tab.svg',
 			className: 'multi'
 		},
 		{
-			name: 'Мои отзывы',
+			name: 'myReviews',
 			route: '/profile-manage/reviews',
 			icon: 'review-tab.svg',
 			className: 'single'
 		},
 		{
-			name: 'Сохраненные туры',
+			name: 'favoriteTours',
 			route: '/profile-manage/favorites',
 			icon: 'favorite-tab.svg',
 			className: 'multi'
 		},
-		// {
-		// 	name: 'Сообщения',
-		// 	route: '#',
-		// 	icon: 'message-tab.svg',
-		// 	className: 'multi'
-		// }
+		{
+			name: 'messages',
+			route: '/profile-manage/messages',
+			icon: 'message-tab.svg',
+			className: 'multi'
+		}
 	],
 };

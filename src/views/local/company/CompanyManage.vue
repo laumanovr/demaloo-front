@@ -28,6 +28,7 @@ export default {
 	},
 	created() {
 		this.$store.dispatch('notification/checkCompanyNotifies');
+		this.$root.$i18n.locale = 'ru';
 	},
 	watch: {
 		onNewNotifies(newNotify) {

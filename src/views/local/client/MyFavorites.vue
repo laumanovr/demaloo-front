@@ -2,8 +2,8 @@
 	<div class="favorite-tours-container">
 		<PreLoader v-if="isLoading"/>
 		<div class="mob-profile-head head-title mob">
-			<img src="../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
-			<span>Сохраненные туры</span>
+			<img src="../../../assets/icons/arrow-dark.svg" @click="$router.push('/mobile-profile')"/>
+			<span>{{$t('favoriteTours')}}</span>
 		</div>
 		<div class="tour-items" v-if="favoriteTours.length">
 			<div
@@ -13,7 +13,7 @@
 			>
 				<div class="tour-img">
 					<img :src="showTourPhoto(tour.images[0])" class="main">
-					<img src="../../assets/icons/red-heart.svg" class="heart">
+					<img src="../../../assets/icons/red-heart.svg" class="heart">
 				</div>
 				<div class="tour-item-info">
 					<div class="tour-name">{{tour.name.ru}}</div>
@@ -21,7 +21,7 @@
 						<img :src="showCompanyPhoto(tour.company.logo)" class="company">
 						<span class="company-name">{{tour.company.name}}</span>
 						<div class="rating flex">
-							<img src="../../assets/icons/rating-icon.svg">
+							<img src="../../../assets/icons/rating-icon.svg">
 							<span>{{tour.company.rating}} ({{tour.company.reviewCount}})</span>
 						</div>
 					</div>
@@ -30,22 +30,22 @@
 					</div>
 					<div class="free-place">
 						<template v-if="tour.bookingCount > 0">
-							Осталось мест: {{tour.bookingCount}}
+							{{$t('tourBooking.remainPlace')}}: {{tour.bookingCount}}
 						</template>
 					</div>
 					<div class="date-price flex align-center justify-space-between">
 						<div class="date" v-html="formatDate(tour.date)"></div>
-						<span class="price">{{tour.price}} сом</span>
+						<span class="price">{{tour.price}} {{$t('tourBooking.som')}}</span>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="empty" v-else>Пусто</div>
+		<div class="empty" v-else>{{$t('empty')}}</div>
 	</div>
 </template>
 
 <script>
-import {TourService} from '../../services/tour.service';
+import {TourService} from '../../../services/tour.service';
 import PreLoader from '@/components/general/PreLoader';
 import {AWS_IMAGE_URL} from '@/services/api.service';
 import {mapState} from 'vuex';

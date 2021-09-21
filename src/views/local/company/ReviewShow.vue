@@ -33,10 +33,10 @@
 				<div class="comments">
 					<div class="name">
 						<div class="rating">
-							<img src="../../assets/icons/unfilled-star.svg" v-for="star in 5" :key="star">
+							<img src="../../../assets/icons/unfilled-star.svg" v-for="star in 5" :key="star">
 						</div>
 						<div class="rating">
-							<img src="../../assets/icons/rating-icon.svg" v-for="star in review.rating" :key="star">
+							<img src="../../../assets/icons/rating-icon.svg" v-for="star in review.rating" :key="star">
 						</div>
 						<span>{{review.customer.name}}</span>
 					</div>

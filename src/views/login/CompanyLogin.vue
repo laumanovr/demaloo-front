@@ -8,7 +8,7 @@
 					<img src="../../assets/images/big-logo.svg" class="logo">
 					<div class="title">
 						<img src="../../assets/images/demaloo-text.png">
-						<span>Отдых без забот</span>
+						<span>{{$t('slogan2')}}</span>
 					</div>
 				</div>
 			</router-link>

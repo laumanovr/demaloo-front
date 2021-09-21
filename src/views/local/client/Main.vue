@@ -2,11 +2,21 @@
 	<div class="main-container">
 		<PreLoader v-if="isLoading"/>
 		<div class="main-top-bg web">
-			<img src="../../assets/images/main-page-bg.png">
+			<img src="../../../assets/images/main-page-bg.png">
 			<div class="bg-text">
 				<div class="bg-text__block">
-					<div class="bg-text__top">Начало незабываемого отдыха</div>
-					<div class="bg-text__bottom">Быстрый и удобный поиск туров по всему Кыргызстану.</div>
+					<div class="bg-text__top">{{$t('mainPage.bannerTopTitle')}}</div>
+					<div class="bg-text__bottom">{{$t('mainPage.bannerBottomTitle')}}.</div>
+					<div class="d-flex justify-center switchers">
+						<router-link to="/" class="d-flex align-center switcher active">
+							<img src="../../../assets/icons/local-tour.svg">
+							Туры
+						</router-link>
+						<router-link to="/activities" class="d-flex align-center switcher">
+							<img src="../../../assets/icons/activity.svg">
+							Развлечения
+						</router-link>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -14,12 +24,12 @@
 			<div class="search" :class="{'mob-search': showMobSearch}">
 				<div class="search__filter">
 					<div class="search__form-field location">
-						<img src="../../assets/icons/marker-green.svg">
+						<img src="../../../assets/icons/marker-green.svg">
 						<div class="label">
-							<span>Локация</span>
+							<span>{{$t('mainPage.location')}}</span>
 							<input
 								type="text"
-								placeholder="Начинайте печатать..."
+								:placeholder="$t('mainPage.startTyping')"
 								v-model="searchObj.inputValue"
 								@input="autoCompleteLocation"
 								v-on:blur="onBlurInput"
@@ -36,12 +46,12 @@
 								<span class="type">{{placeType[item.type]}}</span>
 							</div>
 						</div>
-						<div class="not-found drop-down-result" v-if="noResult">Ничего не найдено</div>
+						<div class="not-found drop-down-result" v-if="noResult">{{$t('mainPage.notFound')}}</div>
 					</div>
 					<div class="search__form-field date">
-						<img src="../../assets/icons/calendar-green.svg">
+						<img src="../../../assets/icons/calendar-green.svg">
 						<div class="label">
-							<span>Дата</span>
+							<span>{{$t('date')}}</span>
 							<v-menu
 								v-model="showDatePicker"
 								:close-on-content-click="true"
@@ -52,7 +62,7 @@
 							>
 								<template v-slot:activator="{ on, attrs }">
 									<input
-										placeholder="Выберите дату начиная с ..."
+										:placeholder="$t('filter.chooseDate')+'...'"
 										type="text"
 										readonly
 										v-model="pickerDate"
@@ -73,15 +83,15 @@
 							</v-menu>
 						</div>
 					</div>
-					<button class="btn green-main" @click="submitSearchTours">Найти</button>
+					<button class="btn green-main" @click="submitSearchTours">{{$t('button.search')}}</button>
 				</div>
-				<div class="hint web"><span>Пример:</span><span>Каракол</span></div>
+				<div class="hint web"><span>{{$t('mainPage.example')}}:</span><span>Каракол</span></div>
 			</div>
 
 			<div class="tour-content">
 				<div class="filter-sidebar web">
 					<div class="filter-item">
-						<span class="label">Тур компания</span>
+						<span class="label">{{$t('filter.tourCompany')}}</span>
 						<v-select
 							solo
 							label="Выбрать"
@@ -94,7 +104,7 @@
 						/>
 					</div>
 					<div class="filter-item">
-						<span class="label">Длительность (дней)</span>
+						<span class="label">{{$t('filter.duration')}} ({{$t('filter.days')}})</span>
 						<v-select
 							solo
 							label="Выбрать"
@@ -107,20 +117,20 @@
 						/>
 					</div>
 					<div class="filter-item">
-						<span class="label">Категории</span>
+						<span class="label">{{$t('filter.categories')}}</span>
 						<div class="check-boxes">
 							<label class="box" v-for="(item, i) in categories" :key="i" :for="item.id" ref="boxes">
 								<input :id="item.id" type="checkbox" @change="selectCategory($event, item)">
-								<span>{{item.ru}}</span>
+								<span>{{item[currentLang]}}</span>
 							</label>
 						</div>
 					</div>
 					<div class="filter-item">
-						<span class="label">Цена (сом)</span>
+						<span class="label">{{$t('filter.price')}} ({{$t('tourBooking.som')}})</span>
 						<div class="set-price">
 							<v-text-field
 								outlined
-								label="От"
+								:label="$t('filter.from')"
 								class="no-detail from"
 								type="number"
 								v-model="sortPriceFrom"
@@ -128,7 +138,7 @@
 							/>
 							<v-text-field
 								outlined
-								label="До"
+								:label="$t('filter.to')"
 								class="no-detail to"
 								type="number"
 								v-model="sortPriceTo"
@@ -141,13 +151,13 @@
 					<div class="sort-price-chip web">
 						<div class="chips">
 							<div class="chip" v-for="chip in sortCategories" :key="chip.id">
-								{{chip.ru}}
+								{{chip[currentLang]}}
 								<PlusIcon @click="selectCategory({currentTarget: {}}, chip)"/>
 							</div>
 						</div>
 						<v-select
 							solo
-							label="Сортировка"
+							:label="$t('filter.sorting')"
 							class="v-select-item border no-detail"
 							:items="sortItems"
 							item-text="title"
@@ -165,7 +175,7 @@
 						>
 							<div class="tour-item__image">
 								<img :src="showTourPhoto(tour.images[0])" v-if="tour.images">
-								<img src="../../assets/images/no-image.png" v-else>
+								<img src="../../../assets/images/no-image.png" v-else>
 								<div
 									class="tour-item__campaigns mob"
 									v-for="item in tour.campaigns"
@@ -183,7 +193,7 @@
 											<img :src="showCompanyPhoto(tour.company.logo)">
 											{{tour.company.name}}
 											<div class="rating">
-												<img src="../../assets/icons/rating-icon.svg">
+												<img src="../../../assets/icons/rating-icon.svg">
 												<span>
 													{{tour.company.rating}}
 													<template v-if="tour.company.reviewCount">
@@ -196,10 +206,10 @@
 											{{tour.description.ru}}
 										</div>
 										<div class="tour-item__location" v-if="tour.locations">
-											Локация: <span>{{tour.locations.length && tour.locations[0].place}}</span>
+											{{$t('mainPage.location')}}: <span>{{tour.locations.length && tour.locations[0].place}}</span>
 										</div>
 										<div class="tour-item__date">
-											<span class="web">Дата тура:</span>
+											<span class="web">{{$t('tourDate')}}:</span>
 											<div class="format-date" v-html="formatDate(tour.date)"></div>
 										</div>
 									</div>
@@ -214,10 +224,10 @@
 										</div>
 										<div class="tour-item__free-place">
 											<template v-if="tour.bookingCount > 0">
-												Осталось мест: {{tour.bookingCount}}
+												{{$t('tourBooking.remainPlace')}}: {{tour.bookingCount}}
 											</template>
 										</div>
-										<span class="tour-item__price">{{tour.price}} сом</span>
+										<span class="tour-item__price">{{tour.price}} {{$t('tourBooking.som')}}</span>
 									</div>
 								</div>
 							</div>
@@ -225,24 +235,24 @@
 					</div>
 					<div class="single-center">
 						<button class="btn green-main" @click="showMore" v-if="tourList.length < totalToursCount">
-							Показать еще
+							{{$t('button.showMore')}}
 						</button>
-						<h2 v-if="!tourList.length">Ничего не найдено</h2>
+						<h2 v-if="!tourList.length">{{$t('mainPage.notFound')}}</h2>
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="banner">
-			<img src="../../assets/images/app-bg.png" class="bg">
+			<img src="../../../assets/images/app-bg.png" class="bg">
 			<div class="banner__text">
-				<div class="banner__title">Скачивайте приложение <br> для мобильных устройств</div>
+				<div class="banner__title">{{$t('mainPage.downloadApp')}} <br> {{$t('mainPage.forMobile')}}</div>
 				<div class="app-icons web">
 					<a href="https://apps.apple.com/us/app/demaloo/id1560957584">
-						<img src="../../assets/images/app-store.png">
+						<img src="../../../assets/images/app-store.png">
 					</a>
 					<a href="https://play.google.com/store/apps/details?id=kg.demaloo">
-						<img src="../../assets/images/play-market.png">
+						<img src="../../../assets/images/play-market.png">
 					</a>
 				</div>
 			</div>
@@ -289,12 +299,12 @@ export default {
 			categories: [],
 			allCompanies: [],
 			allDurations: [
-				{name: 'Выбрать', val: ''}, {name: 1, val: 1}, {name: 2, val: 2},
+				{name: this.$t('button.choose'), val: ''}, {name: 1, val: 1}, {name: 2, val: 2},
 				{name: 3, val: 3}, {name: 4, val: 4}, {name: 5, val: 5}
 			],
 			sortItems: [
-				{title: 'По цене', type: 'price'},
-				{title: 'По дате', type: 'date'},
+				{title: this.$t('filter.byPrice'), type: 'price'},
+				{title: this.$t('filter.byDate'), type: 'date'},
 			],
 			showDatePicker: false,
 			pickerDate: '',
@@ -324,6 +334,11 @@ export default {
 			showMobSearch: false,
 			totalToursCount: 0
 		};
+	},
+	computed: {
+		currentLang() {
+			return this.$root.$i18n.locale;
+		}
 	},
 	created() {
 		this.isLoading = true;
@@ -412,7 +427,7 @@ export default {
 			} else {
 				let index = this.sortCategories.findIndex((i) => i.id === category.id);
 				this.sortCategories.splice(index, 1);
-				let box = this.$refs.boxes.find((i) => i.innerText === category.ru);
+				let box = this.$refs.boxes.find((i) => i.innerText === category[this.currentLang]);
 				box.querySelector('input').checked = false;
 			}
 			this.sortCategories.forEach((category) => {
@@ -438,7 +453,7 @@ export default {
 			try {
 				const res = await UserService.fetchAllCompanies();
 				this.allCompanies = res.data.companies;
-				this.allCompanies.unshift({_id: '', name: 'Выбрать'});
+				this.allCompanies.unshift({_id: '', name: this.$t('button.choose')});
 			} catch (err) {
 				this.$toast.error(err);
 			}
@@ -548,6 +563,27 @@ export default {
 					font-weight: 500;
 					font-size: 22px;
 					font-family: $montserrat;
+				}
+				.switchers {
+					transform: translateY(25px);
+					.switcher {
+						color: $blue-darkest;
+						padding: 15px 30px;
+						border-radius: 7px;
+						background: #fff;
+						font-size: 14px;
+						font-weight: 600;
+						cursor: pointer;
+						&:first-child {
+							margin-right: 20px;
+						}
+						img {
+							margin-right: 8px;
+						}
+						&.active {
+							color: $green-main;
+						}
+					}
 				}
 			}
 		}

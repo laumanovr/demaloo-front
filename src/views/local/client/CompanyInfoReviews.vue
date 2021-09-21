@@ -2,7 +2,7 @@
 	<div class="company-info-reviews-container">
 		<PreLoader v-if="isLoading"/>
 		<div class="back">
-			<img src="../../assets/icons/arrow-dark.svg" @click="$router.go(-1)"/>
+			<img src="../../../assets/icons/arrow-dark.svg" @click="$router.go(-1)"/>
 		</div>
 		<div class="company-info-review-content">
 			<div class="company-info flex align-center">
@@ -10,10 +10,10 @@
 				<div>
 					<div class="company-name flex align-center">
 						<span>{{currentCompany.name}}</span>
-						<img src="../../assets/icons/rating-icon.svg" class="star">
+						<img src="../../../assets/icons/rating-icon.svg" class="star">
 						<span class="rating">{{currentCompany.rating}}</span>
 					</div>
-					<div class="created-date">В Demaloo c {{formatDate(currentCompany.createdAt)}}</div>
+					<div class="created-date">{{$t('companyInfo.inDemalooFrom')}} {{formatDate(currentCompany.createdAt)}}</div>
 				</div>
 			</div>
 			<div class="reviews">
@@ -26,7 +26,7 @@
 						</div>
 					</div>
 					<div class="review__rating">
-						<img src="../../assets/icons/rating-icon.svg" v-for="i in review.rating" :key="i">
+						<img src="../../../assets/icons/rating-icon.svg" v-for="i in review.rating" :key="i">
 					</div>
 					<div class="review__comment">
 						<div v-for="(comment, i) in review.messages" :key="i" :class="comment.author">
@@ -53,9 +53,9 @@
 </template>
 
 <script>
-import {ReviewService} from '../../services/review.service';
-import {UserService} from '../../services/user.service';
-import {AWS_IMAGE_URL} from '../../services/api.service';
+import {ReviewService} from '../../../services/review.service';
+import {UserService} from '../../../services/user.service';
+import {AWS_IMAGE_URL} from '../../../services/api.service';
 import PreLoader from '@/components/general/PreLoader';
 import {format} from 'date-fns';
 
