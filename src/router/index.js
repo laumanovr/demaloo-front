@@ -1,24 +1,46 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import ClientManage from '../views/ClientManage';
 import {isCompany, isClient} from '../utils/checkPermission';
 
-const loadComponent = (path) => () => import(`@/views/${path}.vue`);
+const localTourComponent = (path) => () => import(`@/views/local/${path}.vue`);
+const loginComponent = (path) => () => import(`@/views/login/${path}.vue`);
+const activityComponent = (path) => () => import(`@/views/activity/${path}.vue`);
 
 Vue.use(VueRouter);
 
 const routes = [
-	// CLIENT SIDE
+	// MAIN CLIENT SIDE
 	{
 		path: '/',
-		component: loadComponent('client/ClientManage'),
+		component: ClientManage,
 		beforeEnter: (to, from, next) => {
 			isClient(to, from, next);
 		},
 		children: [
+			// ACTIVITY PAGES
+			{
+				path: 'activities',
+				name: 'activityList',
+				component: activityComponent('MainList'),
+				meta: {
+					requireAuth: false
+				}
+			},
+			{
+				path: 'activity-detail/:id',
+				name: 'activityDetail',
+				component: activityComponent('ActivityDetail'),
+				meta: {
+					requireAuth: false
+				}
+			},
+
+			// LOCAL TOUR PAGES
 			{
 				path: '',
 				name: 'clientMain',
-				component: loadComponent('client/Main'),
+				component: localTourComponent('client/Main'),
 				meta: {
 					requireAuth: false
 				}
@@ -26,7 +48,7 @@ const routes = [
 			{
 				path: 'tour-detail/:tourId',
 				name: 'tourDetail',
-				component: loadComponent('client/TourDetail'),
+				component: localTourComponent('client/TourDetail'),
 				meta: {
 					requireAuth: false
 				}
@@ -34,7 +56,7 @@ const routes = [
 			{
 				path: 'contacts',
 				name: 'contacts',
-				component: loadComponent('client/Contacts'),
+				component: localTourComponent('client/Contacts'),
 				meta: {
 					requireAuth: false
 				}
@@ -42,7 +64,7 @@ const routes = [
 			{
 				path: 'booking-detail/:tourId/:bookId',
 				name: 'bookingDetail',
-				component: loadComponent('client/BookingDetail'),
+				component: localTourComponent('client/BookingDetail'),
 				meta: {
 					requireAuth: true
 				}
@@ -50,7 +72,7 @@ const routes = [
 			{
 				path: '/mobile-profile',
 				name: 'mobileProfile',
-				component: loadComponent('client/MobileProfile'),
+				component: localTourComponent('client/MobileProfile'),
 				meta: {
 					requireAuth: true
 				}
@@ -58,7 +80,7 @@ const routes = [
 			{
 				path: 'company-info/:companyId',
 				name: 'companyInfo',
-				component: loadComponent('client/CompanyInfo'),
+				component: localTourComponent('client/CompanyInfo'),
 				meta: {
 					requireAuth: false
 				}
@@ -66,19 +88,19 @@ const routes = [
 			{
 				path: 'company-info-reviews/:companyId',
 				name: 'companyInfoReviews',
-				component: loadComponent('client/CompanyInfoReviews'),
+				component: localTourComponent('client/CompanyInfoReviews'),
 				meta: {
 					requireAuth: false
 				}
 			},
 			{
 				path: '/profile-manage',
-				component: loadComponent('client/ProfileManage'),
+				component: localTourComponent('client/ProfileManage'),
 				children: [
 					{
 						path: '',
 						name: 'myTours',
-						component: loadComponent('client/MyTours'),
+						component: localTourComponent('client/MyTours'),
 						meta: {
 							requireAuth: true
 						}
@@ -86,7 +108,7 @@ const routes = [
 					{
 						path: 'info',
 						name: 'personalInfo',
-						component: loadComponent('client/PersonalInfo'),
+						component: localTourComponent('client/PersonalInfo'),
 						meta: {
 							requireAuth: true
 						}
@@ -94,7 +116,7 @@ const routes = [
 					{
 						path: 'notifications',
 						name: 'notifications',
-						component: loadComponent('client/Notifications'),
+						component: localTourComponent('client/Notifications'),
 						meta: {
 							requireAuth: true
 						}
@@ -102,7 +124,7 @@ const routes = [
 					{
 						path: 'favorites',
 						name: 'favorites',
-						component: loadComponent('client/MyFavorites'),
+						component: localTourComponent('client/MyFavorites'),
 						meta: {
 							requireAuth: true
 						}
@@ -110,7 +132,7 @@ const routes = [
 					{
 						path: 'reviews',
 						name: 'reviews',
-						component: loadComponent('client/MyReviews'),
+						component: localTourComponent('client/MyReviews'),
 						meta: {
 							requireAuth: true
 						}
@@ -118,7 +140,7 @@ const routes = [
 					{
 						path: 'messages',
 						name: 'chat',
-						component: loadComponent('client/ClientChat'),
+						component: localTourComponent('client/ClientChat'),
 						meta: {
 							requireAuth: true
 						}
@@ -132,15 +154,16 @@ const routes = [
 	{
 		path: '/company-login',
 		name: 'companyLogin',
-		component: loadComponent('login/CompanyLogin'),
+		component: loginComponent('CompanyLogin'),
 		meta: {
 			requireAuth: false
 		}
 	},
-	// COMPANY
+
+	// LOCAL TOUR COMPANY ADMIN
 	{
 		path: '/company-manage',
-		component: loadComponent('company/CompanyManage'),
+		component: localTourComponent('company/CompanyManage'),
 		beforeEnter: (to, from, next) => {
 			isCompany(to, from, next);
 		},
@@ -148,7 +171,7 @@ const routes = [
 			{
 				path: '',
 				name: 'companyTours',
-				component: loadComponent('company/Tours'),
+				component: localTourComponent('company/Tours'),
 				meta: {
 					requireAuth: true
 				}
@@ -156,7 +179,7 @@ const routes = [
 			{
 				path: 'tour-create',
 				name: 'tourCreate',
-				component: loadComponent('company/TourCreate'),
+				component: localTourComponent('company/TourCreate'),
 				meta: {
 					requireAuth: true
 				}
@@ -164,7 +187,7 @@ const routes = [
 			{
 				path: 'tour-show/:tourId',
 				name: 'companyTourShow',
-				component: loadComponent('company/TourShow'),
+				component: localTourComponent('company/TourShow'),
 				meta: {
 					requireAuth: true
 				}
@@ -172,7 +195,7 @@ const routes = [
 			{
 				path: 'profile',
 				name: 'companyProfile',
-				component: loadComponent('company/Profile'),
+				component: localTourComponent('company/Profile'),
 				meta: {
 					requireAuth: true
 				}
@@ -180,7 +203,7 @@ const routes = [
 			{
 				path: 'notifications',
 				name: 'companyNotifications',
-				component: loadComponent('company/Notification'),
+				component: localTourComponent('company/Notification'),
 				meta: {
 					requireAuth: true
 				}
@@ -188,7 +211,7 @@ const routes = [
 			{
 				path: 'reviews',
 				name: 'companyReviews',
-				component: loadComponent('company/Reviews'),
+				component: localTourComponent('company/Reviews'),
 				meta: {
 					requireAuth: true
 				}
@@ -196,7 +219,7 @@ const routes = [
 			{
 				path: 'review-show/:tourId',
 				name: 'companyReviewShow',
-				component: loadComponent('company/ReviewShow'),
+				component: localTourComponent('company/ReviewShow'),
 				meta: {
 					requireAuth: true
 				}
@@ -204,7 +227,7 @@ const routes = [
 			{
 				path: 'team',
 				name: 'companyTeam',
-				component: loadComponent('company/Team'),
+				component: localTourComponent('company/Team'),
 				meta: {
 					requireAuth: true
 				}
@@ -212,7 +235,7 @@ const routes = [
 			{
 				path: 'messages',
 				name: 'message',
-				component: loadComponent('company/CompanyChat'),
+				component: localTourComponent('company/CompanyChat'),
 				meta: {
 					requireAuth: true
 				}
