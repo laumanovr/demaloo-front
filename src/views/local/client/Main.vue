@@ -20,6 +20,16 @@
 				</div>
 			</div>
 		</div>
+		<div class="switchers mob">
+			<router-link to="/" class="d-flex align-center switcher active">
+				<img src="../../../assets/icons/local-tour.svg">
+				Туры
+			</router-link>
+			<router-link to="/activities" class="d-flex align-center switcher">
+				<img src="../../../assets/icons/activity.svg">
+				Развлечения
+			</router-link>
+		</div>
 		<div class="main-all-tours">
 			<div class="search" :class="{'mob-search': showMobSearch}">
 				<div class="search__filter">
@@ -176,14 +186,6 @@
 							<div class="tour-item__image">
 								<img :src="showTourPhoto(tour.images[0])" v-if="tour.images">
 								<img src="../../../assets/images/no-image.png" v-else>
-								<div
-									class="tour-item__campaigns mob"
-									v-for="item in tour.campaigns"
-									:key="item.id"
-									:class="item.color"
-								>
-									{{item.name.ru}}
-								</div>
 							</div>
 							<div class="tour-item__info">
 								<div class="tour-item__right">
@@ -214,14 +216,6 @@
 										</div>
 									</div>
 									<div class="tour-item__price-block">
-										<div
-											class="tour-item__campaigns web"
-											v-for="item in tour.campaigns"
-											:key="item.id"
-											:class="item.color"
-										>
-											{{item.name.ru}}
-										</div>
 										<div class="tour-item__free-place">
 											<template v-if="tour.bookingCount > 0">
 												{{$t('tourBooking.remainPlace')}}: {{tour.bookingCount}}
@@ -532,6 +526,43 @@ export default {
 <style lang="scss">
 	.main-container {
 		background: #f5f5f5;
+		.switchers {
+			transform: translateY(25px);
+			@media #{$mob-view} {
+				transform: translateY(0);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.switcher {
+				color: $blue-darkest;
+				padding: 15px 30px;
+				border-radius: 7px;
+				background: #fff;
+				font-size: 14px;
+				font-weight: 600;
+				cursor: pointer;
+				&:first-child {
+					margin-right: 20px;
+					@media #{$mob-view} {
+						margin: 0;
+						border-right: 1px solid $gray-light;
+					}
+				}
+				img {
+					margin-right: 8px;
+				}
+				&.active {
+					color: $green-main;
+				}
+				@media #{$mob-view} {
+					padding: 17px 0;
+					border-radius: 0;
+					width: 50%;
+					justify-content: center;
+				}
+			}
+		}
 		.main-top-bg {
 			position: relative;
 			height: 350px;
@@ -563,27 +594,6 @@ export default {
 					font-weight: 500;
 					font-size: 22px;
 					font-family: $montserrat;
-				}
-				.switchers {
-					transform: translateY(25px);
-					.switcher {
-						color: $blue-darkest;
-						padding: 15px 30px;
-						border-radius: 7px;
-						background: #fff;
-						font-size: 14px;
-						font-weight: 600;
-						cursor: pointer;
-						&:first-child {
-							margin-right: 20px;
-						}
-						img {
-							margin-right: 8px;
-						}
-						&.active {
-							color: $green-main;
-						}
-					}
 				}
 			}
 		}
@@ -994,21 +1004,6 @@ export default {
 							font-family: $montserrat;
 							@media #{$mob-view} {
 								font-size: 18px;
-							}
-						}
-						&__campaigns {
-							font-size: 12px;
-							color: $blue-darkest;
-							border-radius: 25px;
-							padding: 6px 0;
-							text-align: center;
-							transform: translateY(-8px);
-							margin-bottom: 5px;
-							@media #{$mob-view} {
-								position: absolute;
-								bottom: 0;
-								right: 8px;
-								padding: 6px;
 							}
 						}
 					}
