@@ -55,8 +55,8 @@ export default {
 			isSearchOpen: false,
 			currentLang: 'ru',
 			languages: [
-				{title: 'English', value: 'en'},
-				{title: 'Русский', value: 'ru'}
+				{title: 'EN', value: 'en'},
+				{title: 'РУ', value: 'ru'}
 			]
 		};
 	},
@@ -125,7 +125,7 @@ export default {
 					font-size: 12px;
 					text-decoration: none;
 					letter-spacing: 0.8px;
-					margin-left: 30px;
+					margin-left: 15px;
 					&:hover {
 						font-weight: 900;
 					}
@@ -177,7 +177,7 @@ export default {
 						margin-right: 5px;
 					}
 					.no-detail {
-						max-width: 97px;
+						max-width: 55px;
 						margin: 0;
 						padding-top: 8px;
 						.v-input__slot:before {
