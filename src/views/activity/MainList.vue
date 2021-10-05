@@ -1,35 +1,7 @@
 <template>
     <div class="main-activity-container">
         <PreLoader v-if="isLoading"/>
-        <div class="main-top-bg web">
-            <img src="./../../assets/images/main-page-bg.png">
-            <div class="bg-text">
-                <div class="bg-text__block">
-                    <div class="bg-text__top">{{$t('mainPage.bannerTopTitle')}}</div>
-                    <div class="bg-text__bottom">{{$t('mainPage.bannerBottomTitle')}}.</div>
-                    <div class="d-flex justify-center switchers">
-                        <router-link to="/" class="d-flex align-center switcher">
-                            <img src="./../../assets/icons/local-tour.svg">
-                            Туры
-                        </router-link>
-                        <router-link to="/activities" class="d-flex align-center switcher active">
-                            <img src="./../../assets/icons/activity.svg">
-                            Развлечения
-                        </router-link>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="switchers mob">
-            <router-link to="/" class="d-flex align-center switcher">
-                <img src="./../../assets/icons/local-tour.svg">
-                Туры
-            </router-link>
-            <router-link to="/activities" class="d-flex align-center switcher active">
-                <img src="./../../assets/icons/activity.svg">
-                Развлечения
-            </router-link>
-        </div>
+        <TopBlockMain tourColor="#102542" activityColor="#02D0AA" :isActivity="true" :isTour="false"/>
         <div class="main-all-tours">
             <div class="search">
                 <div class="search__filter">
@@ -126,12 +98,11 @@
 </template>
 
 <script>
-import PreLoader from '@/components/general/PreLoader';
 import {ActivityService} from '../../services/activity.service';
 
 export default {
 	components: {
-		PreLoader,
+		TopBlockMain: () => import('@/components/client/TopBlockMain')
 	},
 	data() {
 		return {
@@ -213,7 +184,7 @@ export default {
                         border-right: 1px solid $gray-light;
                     }
                 }
-                img {
+                svg {
                     margin-right: 8px;
                 }
                 &.active {
@@ -794,18 +765,6 @@ export default {
                     width: 175px;
                 }
             }
-        }
-    }
-
-    .search-date {
-        .v-picker__title {
-            background: $green-main !important;
-        }
-
-        .v-date-picker-title__year {
-            color: #fff !important;
-            opacity: 1 !important;
-            pointer-events: none !important;
         }
     }
 </style>
