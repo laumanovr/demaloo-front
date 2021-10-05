@@ -1,35 +1,7 @@
 <template>
 	<div class="main-container">
 		<PreLoader v-if="isLoading"/>
-		<div class="main-top-bg web">
-			<img src="../../../assets/images/main-page-bg.png">
-			<div class="bg-text">
-				<div class="bg-text__block">
-					<div class="bg-text__top">{{$t('mainPage.bannerTopTitle')}}</div>
-					<div class="bg-text__bottom">{{$t('mainPage.bannerBottomTitle')}}.</div>
-					<div class="d-flex justify-center switchers">
-						<router-link to="/" class="d-flex align-center switcher active">
-							<img src="../../../assets/icons/local-tour.svg">
-							Туры
-						</router-link>
-						<router-link to="/activities" class="d-flex align-center switcher">
-							<img src="../../../assets/icons/activity.svg">
-							Развлечения
-						</router-link>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="switchers mob">
-			<router-link to="/" class="d-flex align-center switcher active">
-				<img src="../../../assets/icons/local-tour.svg">
-				Туры
-			</router-link>
-			<router-link to="/activities" class="d-flex align-center switcher">
-				<img src="../../../assets/icons/activity.svg">
-				Развлечения
-			</router-link>
-		</div>
+		<TopBlockMain tourColor="#02D0AA" activityColor="#102542" :isTour="true" :isActivity="false"/>
 		<div class="main-all-tours">
 			<div class="search" :class="{'mob-search': showMobSearch}">
 				<div class="search__filter">
@@ -268,22 +240,18 @@
 import {TourService} from '@/services/tour.service';
 import {format} from 'date-fns';
 import {ru} from 'date-fns/locale';
-import PreLoader from '@/components/general/PreLoader';
-import SmallLoader from '@/components/general/SmallLoader';
 import {AWS_IMAGE_URL} from '@/services/api.service';
 import {CategoryService} from '@/services/category.service';
 import {UserService} from '@/services/user.service';
 import {LocationService} from '@/services/location.service';
 import {CustomEventEmitter} from '@/utils/customEventEmitter';
-import PlusIcon from '@/components/icons/PlusIcon';
-import MobileTourFilter from '@/components/client/MobileTourFilter';
 
 export default {
 	components: {
-		PreLoader,
-		PlusIcon,
-		SmallLoader,
-		MobileTourFilter
+		PlusIcon: () => import('@/components/icons/PlusIcon'),
+		SmallLoader: () => import('@/components/general/SmallLoader'),
+		MobileTourFilter: () => import('@/components/client/MobileTourFilter'),
+		TopBlockMain: () => import('@/components/client/TopBlockMain')
 	},
 	data() {
 		return {
@@ -549,7 +517,7 @@ export default {
 						border-right: 1px solid $gray-light;
 					}
 				}
-				img {
+				svg {
 					margin-right: 8px;
 				}
 				&.active {
