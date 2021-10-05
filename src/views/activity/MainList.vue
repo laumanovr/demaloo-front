@@ -643,9 +643,6 @@ export default {
                             width: 25%;
                             @media #{$mob-view} {
                                 width: auto;
-                                position: absolute;
-                                right: 0;
-                                bottom: 0;
                             }
                         }
 
