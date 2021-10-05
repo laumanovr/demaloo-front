@@ -158,7 +158,6 @@
 <script>
 import {TourService} from '@/services/tour.service';
 import {ReviewService} from '../../../services/review.service';
-import PreLoader from '@/components/general/PreLoader';
 import {format} from 'date-fns';
 import {ru} from 'date-fns/locale';
 import {AWS_IMAGE_URL} from '@/services/api.service';
@@ -167,7 +166,6 @@ import CloseIcon from '@/components/icons/CloseIcon';
 
 export default {
 	components: {
-		PreLoader,
 		CloseIcon
 	},
 	data() {

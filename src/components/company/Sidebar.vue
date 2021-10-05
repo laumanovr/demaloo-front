@@ -40,11 +40,9 @@
 <script>
 import Sidebars from '@/utils/sidebars';
 import {AWS_IMAGE_URL} from '@/services/api.service';
-import PreLoader from '@/components/general/PreLoader';
 
 export default {
 	components: {
-		PreLoader
 	},
 	props: {
 		role: String,

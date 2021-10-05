@@ -67,7 +67,6 @@
 
 <script>
 import MaskedInput from 'vue-masked-input';
-import PreLoader from '@/components/general/PreLoader';
 import {mapState} from 'vuex';
 import {format, parse, isValid} from 'date-fns';
 import {ImageService} from '@/services/image.service';
@@ -76,8 +75,7 @@ import {UserService} from '../../../services/user.service';
 
 export default {
 	components: {
-		MaskedInput,
-		PreLoader
+		MaskedInput
 	},
 	data() {
 		return {

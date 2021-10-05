@@ -47,14 +47,12 @@
 import ClientSignIn from '@/components/client/SignIn';
 import ClientSignUp from '@/components/client/SignUp';
 import ForgotPassword from '@/components/client/ForgotPassword';
-import PreLoader from '@/components/general/PreLoader';
 
 export default {
 	components: {
 		ClientSignUp,
 		ClientSignIn,
-		ForgotPassword,
-		PreLoader
+		ForgotPassword
 	},
 	data() {
 		return {

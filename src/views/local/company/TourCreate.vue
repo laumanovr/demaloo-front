@@ -330,7 +330,6 @@ import {TourService} from '@/services/tour.service';
 import {LocationService} from '@/services/location.service';
 import PlusIcon from '@/components/icons/PlusIcon';
 import CloseIcon from '@/components/icons/CloseIcon';
-import PreLoader from '@/components/general/PreLoader';
 import {AWS_IMAGE_URL} from '@/services/api.service';
 import {CategoryService} from '@/services/category.service';
 import {ImageService} from '@/services/image.service';
@@ -340,8 +339,7 @@ export default {
 	components: {
 		VueTimepicker,
 		PlusIcon,
-		CloseIcon,
-		PreLoader
+		CloseIcon
 	},
 	data() {
 		return {

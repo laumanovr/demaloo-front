@@ -46,7 +46,6 @@
 
 <script>
 import {TourService} from '../../../services/tour.service';
-import PreLoader from '@/components/general/PreLoader';
 import {AWS_IMAGE_URL} from '@/services/api.service';
 import {mapState} from 'vuex';
 import {format} from 'date-fns';
@@ -54,7 +53,6 @@ import {ru} from 'date-fns/locale';
 
 export default {
 	components: {
-		PreLoader
 	},
 	data() {
 		return {

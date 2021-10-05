@@ -67,13 +67,11 @@
 
 <script>
 import {mapState} from 'vuex';
-import PreLoader from '@/components/general/PreLoader';
 import {AWS_IMAGE_URL} from '@/services/api.service';
 import {ImageService} from '@/services/image.service';
 
 export default {
 	components: {
-		PreLoader
 	},
 	data() {
 		return {

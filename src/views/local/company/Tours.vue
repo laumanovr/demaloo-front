@@ -76,14 +76,12 @@
 <script>
 import {TourService} from '@/services/tour.service';
 import RefreshIcon from '@/components/icons/RefreshIcon';
-import PreLoader from '@/components/general/PreLoader';
 import {format} from 'date-fns';
 
 
 export default {
 	components: {
-		RefreshIcon,
-		PreLoader
+		RefreshIcon
 	},
 	data() {
 		return {

@@ -35,13 +35,11 @@
 
 <script>
 import {ReviewService} from '../../../services/review.service';
-import PreLoader from '../../../components/general/PreLoader';
 import {AWS_IMAGE_URL} from '../../../services/api.service';
 import {format} from 'date-fns';
 
 export default {
 	components: {
-		PreLoader
 	},
 	data() {
 		return {

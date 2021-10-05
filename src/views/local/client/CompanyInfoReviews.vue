@@ -56,12 +56,10 @@
 import {ReviewService} from '../../../services/review.service';
 import {UserService} from '../../../services/user.service';
 import {AWS_IMAGE_URL} from '../../../services/api.service';
-import PreLoader from '@/components/general/PreLoader';
 import {format} from 'date-fns';
 
 export default {
 	components: {
-		PreLoader
 	},
 	data() {
 		return {

@@ -399,7 +399,6 @@
 
 <script>
 import {TourService} from '@/services/tour.service';
-import PreLoader from '@/components/general/PreLoader';
 import FullSizeSliderModal from '@/components/client/FullSizeSliderModal';
 import {AWS_IMAGE_URL} from '@/services/api.service';
 import {Carousel, Slide} from 'vue-carousel';
@@ -408,7 +407,6 @@ import {ru} from 'date-fns/locale';
 
 export default {
 	components: {
-		PreLoader,
 		Carousel,
 		Slide,
 		FullSizeSliderModal

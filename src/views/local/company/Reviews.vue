@@ -32,11 +32,9 @@
 
 <script>
 import {ReviewService} from '@/services/review.service';
-import PreLoader from '@/components/general/PreLoader';
 
 export default {
 	components: {
-		PreLoader
 	},
 	data() {
 		return {

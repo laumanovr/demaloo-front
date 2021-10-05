@@ -89,7 +89,6 @@
 
 <script>
 import MaskedInput from 'vue-masked-input';
-import PreLoader from '@/components/general/PreLoader';
 import DeleteIcon from '@/components/icons/DeleteIcon';
 import EditIcon from '@/components/icons/EditIcon';
 import {mapState} from 'vuex';
@@ -97,7 +96,6 @@ import {mapState} from 'vuex';
 export default {
 	components: {
 		MaskedInput,
-		PreLoader,
 		DeleteIcon,
 		EditIcon
 	},

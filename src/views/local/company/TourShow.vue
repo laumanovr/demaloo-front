@@ -328,7 +328,6 @@
 
 <script>
 import {TourService} from '@/services/tour.service';
-import PreLoader from '@/components/general/PreLoader';
 import VueTimepicker from 'vue2-timepicker';
 import MaskedInput from 'vue-masked-input';
 import DeleteIcon from '@/components/icons/DeleteIcon';
@@ -341,7 +340,6 @@ export default {
 	components: {
 		VueTimepicker,
 		MaskedInput,
-		PreLoader,
 		EditIcon,
 		DeleteIcon,
 		ExcelExport,

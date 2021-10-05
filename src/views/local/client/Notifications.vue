@@ -23,12 +23,10 @@
 
 <script>
 import {NotificationService} from '../../../services/notification.service';
-import PreLoader from '@/components/general/PreLoader';
 import {format} from 'date-fns';
 
 export default {
 	components: {
-		PreLoader
 	},
 	data() {
 		return {

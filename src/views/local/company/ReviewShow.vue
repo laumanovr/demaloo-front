@@ -65,12 +65,10 @@
 <script>
 import {ReviewService} from '@/services/review.service';
 import {TourService} from '@/services/tour.service';
-import PreLoader from '@/components/general/PreLoader';
 import {format} from 'date-fns';
 
 export default {
 	components: {
-		PreLoader
 	},
 	data() {
 		return {

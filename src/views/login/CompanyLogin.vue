@@ -46,14 +46,12 @@
 import CompanySignUp from '@/components/company/SignUp';
 import CompanyLogin from '@/components/company/SignIn';
 import RecoveryPassword from '@/components/company/RecoveryPassword';
-import PreLoader from '@/components/general/PreLoader';
 
 export default {
 	components: {
 		CompanySignUp,
 		CompanyLogin,
-		RecoveryPassword,
-		PreLoader
+		RecoveryPassword
 	},
 	data() {
 		return {
