@@ -139,7 +139,7 @@
 <!--                                <a href="/docs/condition.pdf" target="_blank">{{$t('tourBooking.bookTermLast')}}.</a>-->
 <!--                            </div>-->
                             <button class="btn green-main">
-                                {{activityDetail.phone}}
+                                <a :href="'https://wa.me/'+activityDetail.phone" target="_blank">Забронировать</a>
                             </button>
                         </div>
                     </div>
@@ -560,6 +560,7 @@ export default {
             font-size: 14px;
             color: #153243;
             margin-bottom: 25px;
+            white-space: pre-line;
         }
 
         &__additional-block {
@@ -781,6 +782,10 @@ export default {
 
                 .btn {
                     height: 53px;
+                    a {
+                        color: #fff;
+                        font-weight: bold;
+                    }
                     @media #{$mob-view} {
                         width: 50%;
                         height: 50px;
