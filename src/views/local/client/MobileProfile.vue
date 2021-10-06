@@ -13,7 +13,7 @@
 			<div class="tabs">
 				<div class="tab" v-for="(item, i) in sidebars" :key="i" @click="$router.push(item.route)">
 					<inline-svg :src="require(`@/assets/icons/${item.icon}`)"/>
-					<span>{{ item.name }}</span>
+					<span>{{ $t(item.name) }}</span>
 				</div>
 				<div class="tab about" @click="$router.push({name: 'contacts'})">
 					<img src="../../../assets/icons/info-icon.svg">
