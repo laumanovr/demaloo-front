@@ -247,6 +247,9 @@ export default {
 		isMobileWindow() {
 			return window.innerWidth < 1024;
 		},
+		userLogged() {
+			return Object.values(this.userProfile).length > 0;
+		}
 	},
 	created() {
 		this.isLoading = true;
@@ -278,6 +281,11 @@ export default {
 
 		toggleContactReserveModal() {
 			this.$modal.toggle('reserve-contact-modal');
+			if (this.userLogged && this.reserveMode === 'initial') {
+				this.reserveClient.name = this.userProfile.name;
+				this.reserveClient.surname = this.userProfile.surname;
+				this.reserveClient.phone = this.userProfile.phoneNumber.replace('+', '');
+			}
 		},
 
 		async submitReserve() {
