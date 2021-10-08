@@ -705,6 +705,8 @@ export default {
                             font-family: $montserrat;
                             @media #{$mob-view} {
                                 font-size: 18px;
+                                text-align: left;
+                                color: $green-main;
                             }
                         }
                     }
