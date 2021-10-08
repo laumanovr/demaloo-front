@@ -772,6 +772,9 @@ export default {
                     .price {
                         font-weight: bold;
                         font-size: 24px;
+                        @media #{$mob-view} {
+                            font-size: 17px;
+                        }
                     }
 
                     .head-block {
