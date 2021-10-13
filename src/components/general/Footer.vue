@@ -30,7 +30,7 @@
 			<div class="footer__contacts flex align-center justify-center">
 				<div class="contact flex align-center">
 					<img src="../../assets/icons/cell-phone.png" class="phone">
-					<span>+996 500 100 901</span>
+					<a :href="'https://wa.me/'+'+996500100901'" target="_blank">+996 500 100 901</a>
 				</div>
 				<div class="contact address flex align-center">
 					<img src="../../assets/icons/marker-dark.png" class="street">
@@ -38,7 +38,7 @@
 				</div>
 				<div class="contact flex align-center">
 					<img src="../../assets/icons/envelope-dark.png" class="email">
-					<span>demaloo.help@gmail.com</span>
+					<a href="mailto:demaloo.help@gmail.com">demaloo.help@gmail.com</a>
 				</div>
 			</div>
 

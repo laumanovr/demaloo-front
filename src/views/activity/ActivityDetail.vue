@@ -196,8 +196,7 @@
                         Бронь успешно произведена. <br> В скором времени с вами свяжутся!
                     </div>
                     <div class="single-center complete">
-                        <button class="btn green-main" @click="toggleContactReserveModal">{{$t('button.ready')}}
-                        </button>
+                        <button class="btn green-main" @click="toggleContactReserveModal">{{$t('button.ready')}}</button>
                     </div>
                 </template>
             </div>

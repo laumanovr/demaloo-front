@@ -27,7 +27,7 @@
 				<div class="d-flex align-center justify-center flex-wrap">
 					<div class="d-flex align-center">
 						<img src="../../../assets/icons/whatsapp-icon.svg">
-						<span>+996 500 100 901</span>
+						<a :href="'https://wa.me/'+'+996500100901'" target="_blank">+996 500 100 901</a>
 					</div>
 					<div class="d-flex align-center second">
 						<img src="../../../assets/icons/contact-icon.svg">
@@ -35,7 +35,7 @@
 					</div>
 					<div class="d-flex align-center">
 						<img src="../../../assets/icons/telegram-icon.svg">
-						<span>@Akyl_1</span>
+						<span>+996 706 400901</span>
 					</div>
 				</div>
 			</div>
