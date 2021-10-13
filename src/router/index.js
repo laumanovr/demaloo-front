@@ -20,7 +20,7 @@ const routes = [
 		children: [
 			// ACTIVITY PAGES
 			{
-				path: 'activities',
+				path: '',
 				name: 'activityList',
 				component: activityComponent('MainList'),
 				meta: {
@@ -38,7 +38,7 @@ const routes = [
 
 			// LOCAL TOUR PAGES
 			{
-				path: '',
+				path: 'tours',
 				name: 'clientMain',
 				component: localTourComponent('client/Main'),
 				meta: {

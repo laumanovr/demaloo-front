@@ -7,26 +7,26 @@
                     <div class="bg-text__top">{{$t('mainPage.bannerTopTitle')}}</div>
                     <div class="bg-text__bottom">{{$t('mainPage.bannerBottomTitle')}}.</div>
                     <div class="d-flex justify-center switchers">
-                        <router-link to="/" class="d-flex align-center switcher" :class="{'active': isTour}">
-                            <inline-svg :src="require('@/assets/icons/local-tour.svg')" :fill="tourColor"/>
-                            Туры
-                        </router-link>
-                        <router-link to="/activities" class="d-flex align-center switcher" :class="{'active': isActivity}">
+                        <router-link to="/" class="d-flex align-center switcher" :class="{'active': isActivity}">
                             <inline-svg :src="require('@/assets/icons/activity.svg')" :fill="activityColor"/>
                             Развлечения
+                        </router-link>
+                        <router-link to="/tours" class="d-flex align-center switcher" :class="{'active': isTour}">
+                            <inline-svg :src="require('@/assets/icons/local-tour.svg')" :fill="tourColor"/>
+                            Туры
                         </router-link>
                     </div>
                 </div>
             </div>
         </div>
         <div class="switchers mob">
-            <router-link to="/" class="d-flex align-center switcher" :class="{'active': isTour}">
-                <inline-svg :src="require('@/assets/icons/local-tour.svg')" :fill="tourColor"/>
-                Туры
-            </router-link>
-            <router-link to="/activities" class="d-flex align-center switcher" :class="{'active': isActivity}">
+            <router-link to="/" class="d-flex align-center switcher" :class="{'active': isActivity}">
                 <inline-svg :src="require('@/assets/icons/activity.svg')" :fill="activityColor"/>
                 Развлечения
+            </router-link>
+            <router-link to="/tours" class="d-flex align-center switcher" :class="{'active': isTour}">
+                <inline-svg :src="require('@/assets/icons/local-tour.svg')" :fill="tourColor"/>
+                Туры
             </router-link>
         </div>
     </div>
