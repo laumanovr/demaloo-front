@@ -71,9 +71,9 @@
                         </router-link>
                     </div>
                     <div class="single-center">
-                        <!--<button class="btn green-main">-->
-                        <!--{{$t('button.showMore')}}-->
-                        <!--</button>-->
+                        <button class="btn green-main" @click="getMore" v-if="activityList.length < totalListCount">
+                            {{$t('button.showMore')}}
+                        </button>
                         <h2 v-if="!activityList.length">{{$t('mainPage.notFound')}}</h2>
                     </div>
                 </div>
@@ -113,7 +113,8 @@ export default {
 			],
 			activityList: [],
 			page: 1,
-			searchTitle: ''
+			searchTitle: '',
+            totalListCount: 0
 		};
 	},
 	computed: {
@@ -128,7 +129,9 @@ export default {
 		async getActivityList() {
 			try {
 				this.isLoading = true;
-				this.activityList = await ActivityService.fetchAllActivities(this.page);
+				const res = await ActivityService.fetchAllActivities(this.page);
+				this.activityList = [...this.activityList, ...res.results];
+				this.totalListCount = res.total_results_size;
 				this.isLoading = false;
 			} catch (err) {
 				this.$toast.error(err);
@@ -139,6 +142,11 @@ export default {
 		sortByPrice(type) {
 			const Asc = type === 'priceAsc';
 			this.activityList = this.activityList.sort((a, b) => Asc ? a.data.price - b.data.price : b.data.price - a.data.price);
+		},
+
+		getMore() {
+			this.page += 1;
+			this.getActivityList();
 		},
 
 		async submitSearch() {

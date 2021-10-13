@@ -9,7 +9,7 @@ export class ActivityService {
 			const latestRef = await this.fetchLatestRef();
 			const fetchUrl = `${activityUrl}/documents/search?ref=${latestRef}`;
 			const res = await axios.get(`${fetchUrl}&q=[[at(document.type, "entertainment")]]&page=${page}`);
-			return res.data.results;
+			return res.data;
 		} catch (err) {
 			return Promise.reject(err);
 		}
