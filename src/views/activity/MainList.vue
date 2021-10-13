@@ -555,8 +555,8 @@ export default {
 
                         &:hover {
                             transition: transform 0.2s ease-in;
-                            transform: scale(1.01);
-                            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.30);
+                            transform: scale(1.005);
+                            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
                         }
 
                         &__image {
