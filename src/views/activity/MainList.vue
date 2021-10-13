@@ -114,7 +114,7 @@ export default {
 			activityList: [],
 			page: 1,
 			searchTitle: '',
-            totalListCount: 0
+			totalListCount: 0
 		};
 	},
 	computed: {
