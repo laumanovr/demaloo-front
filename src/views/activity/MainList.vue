@@ -4,7 +4,7 @@
         <TopBlockMain tourColor="#102542" activityColor="#02D0AA" :isActivity="true" :isTour="false"/>
         <div class="main-all-tours">
             <div class="search">
-                <div class="search__filter">
+                <form class="search__filter">
                     <div class="search__form-field location">
                         <img src="./../../assets/icons/marker-green.svg">
                         <div class="label">
@@ -12,8 +12,8 @@
                             <input type="text" :placeholder="$t('mainPage.startTyping')" v-model="searchTitle">
                         </div>
                     </div>
-                    <button class="btn green-main" @click="submitSearch">{{$t('button.search')}}</button>
-                </div>
+                    <button class="btn green-main" @click.prevent="submitSearch">{{$t('button.search')}}</button>
+                </form>
                 <div class="hint web"><span>{{$t('mainPage.example')}}:</span><span>Flyjump</span></div>
             </div>
 
@@ -153,7 +153,9 @@ export default {
 			if (this.searchTitle) {
 				try {
 					this.isLoading = true;
-					this.activityList = await ActivityService.searchByText(this.searchTitle);
+					const res = await ActivityService.searchByText(this.searchTitle);
+					this.activityList = res.results;
+					this.totalListCount = res.total_results_size;
 					this.isLoading = false;
 				} catch (err) {
 					this.$toast.error(err);

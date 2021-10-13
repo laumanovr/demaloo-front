@@ -31,7 +31,7 @@ export class ActivityService {
 			const latestRef = await this.fetchLatestRef();
 			const fetchUrl = `${activityUrl}/documents/search?ref=${latestRef}&q=[[fulltext(document, "${text}")]]`;
 			const res = await axios.get(fetchUrl);
-			return res.data.results;
+			return res.data;
 		} catch (err) {
 			return Promise.reject(err);
 		}
