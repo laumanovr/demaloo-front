@@ -5,18 +5,18 @@
 				<img src="../../assets/images/logo-text.svg">
 			</div>
 			<div class="links">
-				<div class="lang-select d-flex align-center">
-					<inline-svg :src="require('@/assets/icons/globus.svg')" fill="#102542"/>
-					<v-select
-						class="no-detail"
-						:items="languages"
-						item-text="title"
-						item-value="value"
-						v-model="currentLang"
-						@change="changeLang"
-					/>
-				</div>
-				<template v-if="$route.path == '/'">
+<!--				<div class="lang-select d-flex align-center">-->
+<!--					<inline-svg :src="require('@/assets/icons/globus.svg')" fill="#102542"/>-->
+<!--					<v-select-->
+<!--						class="no-detail"-->
+<!--						:items="languages"-->
+<!--						item-text="title"-->
+<!--						item-value="value"-->
+<!--						v-model="currentLang"-->
+<!--						@change="changeLang"-->
+<!--					/>-->
+<!--				</div>-->
+				<template v-if="$route.path == '/tours'">
 					<!--mobile-->
 					<svg @click="showMobileSearch" class="mob search" :class="{'searchOpen': isSearchOpen}">
 						<use href="../../assets/icons/svg-sprite/loupe-icon.svg#loupe"/>
@@ -86,11 +86,11 @@ export default {
 			CustomEventEmitter.$emit('onOpenFilter');
 		},
 
-		changeLang(selectedLang) {
-			this.$root.$i18n.locale = selectedLang;
-			window.localStorage.setItem('demalooLang', JSON.stringify(selectedLang));
-			window.location.reload();
-		}
+		// changeLang(selectedLang) {
+		// 	this.$root.$i18n.locale = selectedLang;
+		// 	window.localStorage.setItem('demalooLang', JSON.stringify(selectedLang));
+		// 	window.location.reload();
+		// }
 	}
 };
 </script>
