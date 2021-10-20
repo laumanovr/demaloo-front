@@ -331,6 +331,13 @@ svg {
   height: 24px;
 }
 
+.custom-select {
+  border: 1px solid $blue-darkest;
+  border-radius: 5px;
+  outline: none;
+  -webkit-appearance: inner-spin-button;
+}
+
 .VueCarousel-pagination {
   position: absolute;
   bottom: 0;
