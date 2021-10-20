@@ -41,14 +41,18 @@
                                     <img src="./../../assets/icons/calendar-blue.svg">
                                     <span>Дата проведения:</span>
                                 </div>
-                                <div class="value">{{eventDetail.days}}</div>
+                                <select class="custom-select" v-model="eventDetail.dayObj" @change="$forceUpdate()">
+                                    <option v-for="day in eventDetail.days" :key="day.day" :value="day">
+                                        {{day.day+', '+day.hour}}
+                                    </option>
+                                </select>
                             </div>
                             <div class="short-info">
                                 <div class="item flex align-center">
                                     <img src="./../../assets/icons/timer-icon.svg">
                                     <span>Время:</span>
                                 </div>
-                                <div class="value">{{eventDetail.hours}}</div>
+                                <div class="value" v-if="eventDetail.dayObj">{{eventDetail.dayObj.hour}}</div>
                             </div>
                             <div class="short-info">
                                 <div class="item flex align-center">
@@ -61,7 +65,7 @@
                         <!--Mobile end-->
                         <div class="activity-detail__additional-block flex">
                             <div class="includes">
-                                <div class="data-block">
+                                <div class="data-block" v-if="eventDetail.included_items.length">
                                     <div class="block-title flex">
                                         <img src="./../../assets/icons/include-icon.svg">
                                         <span>{{$t('tourBooking.includes')}}</span>
@@ -71,7 +75,7 @@
                                         <span class="item-title">{{item.included_item}}</span>
                                     </div>
                                 </div>
-                                <div class="data-block additional">
+                                <div class="data-block additional" v-if="eventDetail.additional_items.length">
                                     <div class="block-title flex">
                                         <img src="./../../assets/icons/additional-icon.svg">
                                         <span>{{$t('tourBooking.additional')}}</span>
@@ -82,7 +86,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="not-include">
+                            <div class="not-include" v-if="eventDetail.necessary_items.length">
                                 <div class="data-block">
                                     <div class="block-title flex">
                                         <img src="./../../assets/icons/not-include-icon.svg">
@@ -161,7 +165,7 @@
                             {{eventDetail.company}}
                         </div>
                     </div>
-                    <div class="short-info web">
+                    <div class="short-info">
                         <div class="item flex align-center">
                             <img src="./../../assets/icons/duration-icon.svg">
                             <span>Дата проведения:</span>
@@ -172,7 +176,7 @@
                             </option>
                         </select>
                     </div>
-                    <div class="short-info web">
+                    <div class="short-info">
                         <div class="item flex align-center">
                             <img src="./../../assets/icons/timer-icon.svg">
                             <span>Время:</span>
@@ -233,7 +237,7 @@ export default {
 	data() {
 		return {
 			requiredRule: [(v) => !!v || this.$t('requiredField')],
-			eventDetail: {logo: {}, dayObj: {}},
+			eventDetail: {logo: {}, dayObj: {}, included_items: [], additional_items: [], necessary_items: []},
 			isLoading: false,
 			imgIndex: 1,
 			slideImages: [],
