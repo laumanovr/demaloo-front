@@ -1,7 +1,7 @@
 <template>
 	<div class="main-container">
 		<PreLoader v-if="isLoading"/>
-		<TopBlockMain tourColor="#02D0AA" activityColor="#102542" :isTour="true" :isActivity="false"/>
+		<TopBlockMain/>
 		<div class="main-all-tours">
 			<div class="search" :class="{'mob-search': showMobSearch}">
 				<div class="search__filter">
@@ -494,77 +494,6 @@ export default {
 <style lang="scss">
 	.main-container {
 		background: #f5f5f5;
-		.switchers {
-			transform: translateY(25px);
-			@media #{$mob-view} {
-				transform: translateY(0);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-			.switcher {
-				color: $blue-darkest;
-				padding: 15px 30px;
-				border-radius: 7px;
-				background: #fff;
-				font-size: 14px;
-				font-weight: 600;
-				cursor: pointer;
-				&:first-child {
-					margin-right: 20px;
-					@media #{$mob-view} {
-						margin: 0;
-						border-right: 1px solid $gray-light;
-					}
-				}
-				svg {
-					margin-right: 8px;
-				}
-				&.active {
-					color: $green-main;
-				}
-				@media #{$mob-view} {
-					padding: 17px 0;
-					border-radius: 0;
-					width: 50%;
-					justify-content: center;
-				}
-			}
-		}
-		.main-top-bg {
-			position: relative;
-			height: 350px;
-			img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-			}
-			.bg-text {
-				color: #fff;
-				position: absolute;
-				top: 0;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				background: #00000080;
-				height: 100%;
-				width: 100%;
-				&__block {
-					text-align: center;
-					transform: translateY(-20px);
-				}
-				&__top {
-					font-weight: bold;
-					font-size: 48px;
-					font-family: $montserrat;
-				}
-				&__bottom {
-					font-weight: 500;
-					font-size: 22px;
-					font-family: $montserrat;
-				}
-			}
-		}
 		.main-all-tours {
 			max-width: 1200px;
 			margin: 0 auto;
