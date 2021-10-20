@@ -41,7 +41,8 @@
                             :key="item.id"
                         >
                             <div class="tour-item__image">
-                                <img :src="item.data.images[0].image.url">
+                                <img :src="item.data.images[0].image.url" v-if="item.data.images.length">
+                                <img src="./../../assets/images/no-image.png" v-else>
                             </div>
                             <div class="tour-item__info">
                                 <div class="tour-item__name">{{item.data.name}}</div>
