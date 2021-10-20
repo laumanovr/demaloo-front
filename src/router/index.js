@@ -6,6 +6,7 @@ import {isCompany, isClient} from '../utils/checkPermission';
 const localTourComponent = (path) => () => import(`@/views/local/${path}.vue`);
 const loginComponent = (path) => () => import(`@/views/login/${path}.vue`);
 const activityComponent = (path) => () => import(`@/views/activity/${path}.vue`);
+const eventComponent = (path) => () => import(`@/views/events/${path}.vue`);
 
 Vue.use(VueRouter);
 
@@ -31,6 +32,24 @@ const routes = [
 				path: 'activity-detail/:id',
 				name: 'activityDetail',
 				component: activityComponent('ActivityDetail'),
+				meta: {
+					requireAuth: false
+				}
+			},
+			
+			// EVENTS
+			{
+				path: 'events',
+				name: 'eventList',
+				component: eventComponent('MainEventList'),
+				meta: {
+					requireAuth: false
+				}
+			},
+			{
+				path: 'event-detail/:id',
+				name: 'eventDetail',
+				component: eventComponent('EventDetail'),
 				meta: {
 					requireAuth: false
 				}
