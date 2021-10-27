@@ -29,7 +29,7 @@ export class ActivityService {
 	static async searchByText(text) {
 		try {
 			const latestRef = await this.fetchLatestRef();
-			const fetchUrl = `${activityUrl}/documents/search?ref=${latestRef}&q=[[fulltext(document, "${text}")]]`;
+			const fetchUrl = `${activityUrl}/documents/search?ref=${latestRef}&q=[[fulltext(document, "${text}")][at(document.type, "entertainment")]]`;
 			const res = await axios.get(fetchUrl);
 			return res.data;
 		} catch (err) {
