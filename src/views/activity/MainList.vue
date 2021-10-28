@@ -192,7 +192,7 @@ export default {
 		async submitFilterCategory() {
 			try {
 				this.isLoading = true;
-				const res = await ActivityService.filterByCategories(this.selectedCategories);
+				const res = await ActivityService.filterByCategories(JSON.stringify(this.selectedCategories));
 				this.activityList = res.results;
 				this.totalListCount = res.total_results_size;
 				this.isLoading = false;

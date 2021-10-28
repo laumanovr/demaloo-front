@@ -19,7 +19,15 @@
 
             <div class="tour-content">
                 <div class="filter-sidebar web">
-                    <!--left sidebar-->
+                    <div class="filter-item">
+                        <span class="label">{{$t('filter.categories')}}</span>
+                        <div class="check-boxes">
+                            <label class="box" v-for="(item, i) in categoryList" :key="i" :for="i">
+                                <input :id="i" type="checkbox" @change="onSelectCategory($event, item)">
+                                <span>{{item}}</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 <div class="found-tours">
                     <div class="sort-price-chip web">
@@ -114,7 +122,11 @@ export default {
 			eventList: [],
 			page: 1,
 			searchTitle: '',
-			totalListCount: 0
+			totalListCount: 0,
+			categoryList: [
+				'Концерты', 'Исскуство', 'Для детей', 'Спорт', 'Бизнес', 'Выставки', 'Стендап', 'Митап'
+			],
+			selectedCategories: []
 		};
 	},
 	computed: {
@@ -161,6 +173,31 @@ export default {
 					this.$toast.error(err);
 					this.isLoading = false;
 				}
+			}
+		},
+
+		onSelectCategory(e, selectedCat) {
+			const isSelected = e.currentTarget.checked;
+			if (isSelected) {
+				this.selectedCategories.push(selectedCat);
+				this.submitFilterCategory();
+				return;
+			}
+			const i = this.selectedCategories.indexOf(selectedCat);
+			this.selectedCategories.splice(i, 1);
+			this.submitFilterCategory();
+		},
+
+		async submitFilterCategory() {
+			try {
+				this.isLoading = true;
+				const res = await EventService.filterByCategories(JSON.stringify(this.selectedCategories));
+				this.eventList = res.results;
+				this.totalListCount = res.total_results_size;
+				this.isLoading = false;
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
 			}
 		}
 
