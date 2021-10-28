@@ -40,7 +40,7 @@ export class ActivityService {
 	static async filterByCategories(categories) {
 		try {
 			const latestRef = await this.fetchLatestRef();
-			const fetchUrl = `${activityUrl}/documents/search?ref=${latestRef}&q=[[any(my.entertainment.categories.category, ${JSON.stringify(categories)})][at(document.type, "entertainment")]]`;
+			const fetchUrl = `${activityUrl}/documents/search?ref=${latestRef}&q=[[any(my.entertainment.categories.category, ${categories})][at(document.type, "entertainment")]]`;
 			const res = await axios.get(fetchUrl);
 			return res.data;
 		} catch (err) {

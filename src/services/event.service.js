@@ -29,7 +29,18 @@ export class EventService {
 	static async searchByText(text) {
 		try {
 			const latestRef = await this.fetchLatestRef();
-			const fetchUrl = `${MainUrl}/documents/search?ref=${latestRef}&q=[[fulltext(document, "${text}")]]`;
+			const fetchUrl = `${MainUrl}/documents/search?ref=${latestRef}&q=[[fulltext(document, "${text}")][at(document.type, "event")]]`;
+			const res = await axios.get(fetchUrl);
+			return res.data;
+		} catch (err) {
+			return Promise.reject(err);
+		}
+	}
+	
+	static async filterByCategories(categories) {
+		try {
+			const latestRef = await this.fetchLatestRef();
+			const fetchUrl = `${MainUrl}/documents/search?ref=${latestRef}&q=[[any(my.event.categories.category, ${categories})][at(document.type, "event")]]`;
 			const res = await axios.get(fetchUrl);
 			return res.data;
 		} catch (err) {
