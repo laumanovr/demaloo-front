@@ -47,14 +47,14 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="short-info">
+                            <div class="short-info" v-if="eventDetail.link">
                                 <div class="item flex align-center">
-                                    <img src="./../../assets/icons/timer-icon.svg">
-                                    <span>Время:</span>
+                                    <img src="./../../assets/icons/link-icon.svg" class="icon-link">
+                                    <span class="link">Ссылка:</span>
                                 </div>
-                                <div class="value" v-if="eventDetail.dayObj">{{eventDetail.dayObj.hour}}</div>
+                                <a :href="eventDetail.link" target="_blank" class="value">Перейти</a>
                             </div>
-                            <div class="short-info">
+                            <div class="short-info" v-if="eventDetail.location">
                                 <div class="item flex align-center">
                                     <img src="./../../assets/icons/marker-dark.png">
                                     <span>Адрес:</span>
@@ -118,14 +118,14 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="short-info web">
+                        <div class="short-info web" v-if="eventDetail.link">
                             <div class="item flex align-center">
-                                <img src="./../../assets/icons/timer-icon.svg">
-                                <span>Время:</span>
+                                <img src="./../../assets/icons/link-icon.svg" class="icon-link">
+                                <span class="link">Ссылка:</span>
                             </div>
-                            <div class="value" v-if="eventDetail.dayObj">{{eventDetail.dayObj.hour}}</div>
+                            <a :href="eventDetail.link" target="_blank" class="value">Перейти</a>
                         </div>
-                        <div class="short-info web">
+                        <div class="short-info web" v-if="eventDetail.location">
                             <div class="item flex align-center">
                                 <img src="./../../assets/icons/marker-dark.png">
                                 <span>Адрес:</span>
@@ -967,14 +967,21 @@ export default {
                 img {
                     width: 16px;
                     height: 19px;
+                    &.icon-link {
+                        width: auto;
+                        transform: rotate(90deg) translateY(3px);
+                        height: 22px;
+                    }
                 }
 
                 span {
                     font-weight: 600;
                     margin-left: 16px;
-
                     &.reserve {
                         font-weight: 400;
+                    }
+                    &.link {
+                        margin-left: 8px;
                     }
                 }
             }
