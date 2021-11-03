@@ -483,7 +483,7 @@ export default {
                     border-radius: 6px;
                     object-fit: contain;
                     @media #{$mob-view} {
-                        height: 220px;
+                        height: 300px;
                         object-fit: cover;
                     }
                 }
