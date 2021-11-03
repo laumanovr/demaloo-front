@@ -59,10 +59,6 @@
                                         <div class="tour-item__company">
                                             <img :src="item.data.logo.url">
                                             {{item.data.company}}
-<!--                                            <div class="rating">-->
-<!--                                                <img src="./../../assets/icons/rating-icon.svg">-->
-<!--                                                <span>4.5</span>-->
-<!--                                            </div>-->
                                         </div>
                                         <div class="tour-item__description">
                                             {{item.data.description}}
@@ -534,7 +530,7 @@ export default {
 
                             @media #{$mob-view} {
                                 max-width: 336px;
-                                height: 200px;
+                                height: 260px;
                                 img {
                                     border-radius: 7px 7px 0 0;
                                 }
