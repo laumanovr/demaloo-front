@@ -58,22 +58,24 @@
                                     <div class="tour-item__desc-block">
                                         <div class="tour-item__company">
                                             <img :src="item.data.logo.url">
-                                            {{item.data.company}}
+                                            <span class="name">{{item.data.company}}</span>
                                         </div>
                                         <div class="tour-item__description d-flex align-center">
                                             <img src="../../assets/icons/marker-dark.png">
-                                            {{item.data.location}}
+                                            <span class="name">{{item.data.location}}</span>
                                         </div>
+                                    </div>
+                                    <div>
                                         <div class="tour-item__date">
                                             <div class="format-date" v-for="time in item.data.days.slice(0,2)" :key="time.day">
                                                 {{time.day}}, {{time.hour}}
                                             </div>
                                             <div class="format-date" v-if="item.data.days.length > 2">..</div>
                                         </div>
+                                        <div class="tour-item__price-block">
+                                            <span class="tour-item__price">{{item.data.price}} {{$t('tourBooking.som')}}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="tour-item__price-block">
-                                    <span class="tour-item__price">{{item.data.price}} {{$t('tourBooking.som')}}</span>
                                 </div>
                             </div>
                         </router-link>
@@ -534,7 +536,7 @@ export default {
 
                             @media #{$mob-view} {
                                 max-width: 336px;
-                                height: 200px;
+                                height: 260px;
                                 img {
                                     border-radius: 7px 7px 0 0;
                                 }
@@ -565,12 +567,13 @@ export default {
                         }
 
                         &__right {
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: flex-end;
+                            display: block;
                             @media #{$mob-view} {
-                                display: block;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
                                 position: relative;
+                                margin-top: 10px;
                             }
                         }
 
@@ -583,6 +586,9 @@ export default {
 
                         &__price-block {
                             transform: translateY(7px);
+                            @media #{$mob-view} {
+                                transform: translateY(3px);
+                            }
                         }
 
                         &__company {
@@ -591,6 +597,15 @@ export default {
                             font-weight: 600;
                             font-size: 14px;
                             margin: 5px 0 7px;
+                            @media #{$mob-view} {
+                                margin: 0 0 9px 0;
+                            }
+                          .name {
+                            max-width: 165px;
+                            white-space: nowrap;
+                            overflow-x: hidden;
+                            text-overflow: ellipsis;
+                          }
 
                             img {
                                 width: 24px;
@@ -623,6 +638,16 @@ export default {
                             margin-bottom: 5px;
                             height: 38px;
                             overflow-y: hidden;
+                            @media #{$mob-view} {
+                                margin: 0;
+                                height: auto;
+                                .name {
+                                  white-space: nowrap;
+                                  max-width: 170px;
+                                  overflow-x: hidden;
+                                  text-overflow: ellipsis;
+                                }
+                            }
 
                             img {
                                 width: 16px;
@@ -645,6 +670,7 @@ export default {
                             color: $blue-darkest;
                             display: flex;
                             align-items: center;
+                            margin-bottom: 4px;
 
                             span {
                                 font-size: 14px;
