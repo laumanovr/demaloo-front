@@ -2,12 +2,13 @@
 @import "login";
 @import "time-picker";
 @import "toaster";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 body * {
   font-family: 'Open Sans', sans-serif;
+}
+
+a {
+  text-decoration: none;
 }
 
 input {
@@ -316,16 +317,6 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-@media #{$mob-view} {
-  .web {
-    display: none !important;
-  }
-}
-@media (min-width: 1024px) {
-  .mob {
-    display: none !important;
-  }
-}
 svg {
   width: 24px;
   height: 24px;
@@ -360,6 +351,17 @@ svg {
     &.VueCarousel-navigation-prev {
       left: 53px;
     }
+  }
+}
+
+@media #{$mob-view} {
+  .web {
+    display: none !important;
+  }
+}
+@media (min-width: 1024px) {
+  .mob {
+    display: none !important;
   }
 }
 
