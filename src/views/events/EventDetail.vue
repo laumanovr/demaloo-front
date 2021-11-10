@@ -24,10 +24,10 @@
                         </div>
                     </div>
                     <div class="activity-detail__info">
-                        <div class="top-title flex align-center justify-space-between">
+                        <div class="top-title d-flex align-center justify-space-between">
                             <span class="activity-detail__name">{{eventDetail.name}}</span>
                         </div>
-                        <span class="activity-detail__company-info link flex align-center">
+                        <span class="activity-detail__company-info link d-flex align-center">
                             <img :src="eventDetail.logo.url" class="company">
                             {{eventDetail.company}}
                         </span>
@@ -37,7 +37,7 @@
                         <!--Mobile-->
                         <div class="mob detail">
                             <div class="short-info">
-                                <div class="item flex align-center">
+                                <div class="item d-flex align-center">
                                     <img src="./../../assets/icons/calendar-blue.svg">
                                     <span>Дата проведения:</span>
                                 </div>
@@ -48,14 +48,14 @@
                                 </select>
                             </div>
                             <div class="short-info" v-if="eventDetail.link">
-                                <div class="item flex align-center">
+                                <div class="item d-flex align-center">
                                     <img src="./../../assets/icons/link-icon.svg" class="icon-link">
                                     <span class="link">Ссылка:</span>
                                 </div>
                                 <a :href="eventDetail.link" target="_blank" class="value">Перейти</a>
                             </div>
                             <div class="short-info" v-if="eventDetail.location">
-                                <div class="item flex align-center">
+                                <div class="item d-flex align-center">
                                     <img src="./../../assets/icons/marker-dark.png">
                                     <span>Адрес:</span>
                                 </div>
@@ -63,10 +63,10 @@
                             </div>
                         </div>
                         <!--Mobile end-->
-                        <div class="activity-detail__additional-block flex">
+                        <div class="activity-detail__additional-block d-flex">
                             <div class="includes">
                                 <div class="data-block" v-if="eventDetail.included_items.length">
-                                    <div class="block-title flex">
+                                    <div class="block-title d-flex">
                                         <img src="./../../assets/icons/include-icon.svg">
                                         <span>{{$t('tourBooking.includes')}}</span>
                                     </div>
@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                                 <div class="data-block additional" v-if="eventDetail.additional_items.length">
-                                    <div class="block-title flex">
+                                    <div class="block-title d-flex">
                                         <img src="./../../assets/icons/additional-icon.svg">
                                         <span>{{$t('tourBooking.additional')}}</span>
                                     </div>
@@ -88,7 +88,7 @@
                             </div>
                             <div class="not-include" v-if="eventDetail.necessary_items.length">
                                 <div class="data-block">
-                                    <div class="block-title flex">
+                                    <div class="block-title d-flex">
                                         <img src="./../../assets/icons/not-include-icon.svg">
                                         <span>{{$t('tourBooking.notIncludes')}}</span>
                                     </div>
@@ -104,11 +104,11 @@
 
                 <div class="activity-detail__right">
                     <div class="reserve-block">
-                        <div class="head-block flex align-center justify-space-between">
+                        <div class="head-block d-flex align-center justify-space-between">
                             <div class="price">{{eventDetail.price}} {{$t('tourBooking.som')}}</div>
                         </div>
                         <div class="short-info web">
-                            <div class="item flex align-center">
+                            <div class="item d-flex align-center">
                                 <img src="./../../assets/icons/duration-icon.svg">
                                 <span>Дата проведения:</span>
                             </div>
@@ -119,20 +119,20 @@
                             </select>
                         </div>
                         <div class="short-info web" v-if="eventDetail.link">
-                            <div class="item flex align-center">
+                            <div class="item d-flex align-center">
                                 <img src="./../../assets/icons/link-icon.svg" class="icon-link">
                                 <span class="link">Ссылка:</span>
                             </div>
                             <a :href="eventDetail.link" target="_blank" class="value">Перейти</a>
                         </div>
                         <div class="short-info web" v-if="eventDetail.location">
-                            <div class="item flex align-center">
+                            <div class="item d-flex align-center">
                                 <img src="./../../assets/icons/marker-dark.png">
                                 <span>Адрес:</span>
                             </div>
                             <div class="value">{{eventDetail.location}}</div>
                         </div>
-                        <div class="total flex align-center justify-space-between web">
+                        <div class="total align-center justify-space-between web">
                             <span>{{$t('tourBooking.total')}}:</span>
                             <span>{{eventDetail.price}} {{$t('tourBooking.som')}}</span>
                         </div>
@@ -154,19 +154,19 @@
         >
             <div class="modal-container">
                 <template v-if="reserveMode === 'initial'">
-                    <div class="reserve__title flex align-center justify-end">
+                    <div class="reserve__title d-flex align-center justify-end">
                         <span>{{$t('tourBooking.bookDetail')}}</span>
                         <img src="./../../assets/icons/close.svg" @click="toggleContactReserveModal">
                     </div>
                     <div class="reserve__tour-title">{{eventDetail.title}}</div>
-                    <div class="reserve__company-date flex align-center justify-space-between">
-                        <div class="activity-detail__company-info flex align-center">
+                    <div class="reserve__company-date d-flex align-center justify-space-between">
+                        <div class="activity-detail__company-info d-flex align-center">
                             <img :src="eventDetail.logo.url" class="company">
                             {{eventDetail.company}}
                         </div>
                     </div>
                     <div class="short-info">
-                        <div class="item flex align-center">
+                        <div class="item d-flex align-center">
                             <img src="./../../assets/icons/duration-icon.svg">
                             <span>Дата проведения:</span>
                         </div>
@@ -177,14 +177,14 @@
                         </select>
                     </div>
                     <div class="short-info">
-                        <div class="item flex align-center">
+                        <div class="item d-flex align-center">
                             <img src="./../../assets/icons/timer-icon.svg">
                             <span>Время:</span>
                         </div>
                         <div class="value" v-if="eventDetail.dayObj">{{eventDetail.dayObj.hour}}</div>
                     </div>
                     <div class="short-info">
-                        <div class="item flex align-center">
+                        <div class="item d-flex align-center">
                             <img src="./../../assets/icons/marker-dark.png">
                             <span>Адрес:</span>
                         </div>
@@ -818,6 +818,7 @@ export default {
                     }
 
                     .total {
+                        display: flex;
                         font-weight: bold;
                         font-size: 18px;
                         border-top: 1px solid $gray-light;

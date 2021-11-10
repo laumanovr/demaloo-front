@@ -24,10 +24,10 @@
                         </div>
                     </div>
                     <div class="activity-detail__info">
-                        <div class="top-title flex align-center justify-space-between">
+                        <div class="top-title d-flex align-center justify-space-between">
                             <span class="activity-detail__name">{{activityDetail.title}}</span>
                         </div>
-                        <span class="activity-detail__company-info link flex align-center">
+                        <span class="activity-detail__company-info link d-flex align-center">
                                 <img :src="activityDetail.logo.url" class="company">
                                 {{activityDetail.company}}
                         </span>
@@ -37,21 +37,21 @@
                         <!--Mobile-->
                         <div class="mob detail">
                             <div class="short-info">
-                                <div class="item flex align-center">
+                                <div class="item d-flex align-center">
                                     <img src="./../../assets/icons/calendar-blue.svg">
                                     <span>Рабочие дни:</span>
                                 </div>
                                 <div class="value">{{activityDetail.days}}</div>
                             </div>
                             <div class="short-info">
-                                <div class="item flex align-center">
+                                <div class="item d-flex align-center">
                                     <img src="./../../assets/icons/timer-icon.svg">
                                     <span>График работы:</span>
                                 </div>
                                 <div class="value">{{activityDetail.hours}}</div>
                             </div>
                             <div class="short-info">
-                                <div class="item flex align-center">
+                                <div class="item d-flex align-center">
                                     <img src="./../../assets/icons/marker-dark.png">
                                     <span>Адрес:</span>
                                 </div>
@@ -59,10 +59,10 @@
                             </div>
                         </div>
                         <!--Mobile end-->
-                        <div class="activity-detail__additional-block flex">
+                        <div class="activity-detail__additional-block d-flex">
                             <div class="includes">
                                 <div class="data-block">
-                                    <div class="block-title flex">
+                                    <div class="block-title d-flex">
                                         <img src="./../../assets/icons/include-icon.svg">
                                         <span>{{$t('tourBooking.includes')}}</span>
                                     </div>
@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
                                 <div class="data-block additional">
-                                    <div class="block-title flex">
+                                    <div class="block-title d-flex">
                                         <img src="./../../assets/icons/additional-icon.svg">
                                         <span>{{$t('tourBooking.additional')}}</span>
                                     </div>
@@ -85,7 +85,7 @@
                             </div>
                             <div class="not-include">
                                 <div class="data-block">
-                                    <div class="block-title flex">
+                                    <div class="block-title d-flex">
                                         <img src="./../../assets/icons/not-include-icon.svg">
                                         <span>{{$t('tourBooking.notIncludes')}}</span>
                                     </div>
@@ -102,31 +102,31 @@
 
                 <div class="activity-detail__right">
                     <div class="reserve-block">
-                        <div class="head-block flex align-center justify-space-between">
+                        <div class="head-block d-flex align-center justify-space-between">
                             <div class="price">{{activityDetail.price}} {{$t('tourBooking.som')}}</div>
                         </div>
                         <div class="short-info web">
-                            <div class="item flex align-center">
+                            <div class="item d-flex align-center">
                                 <img src="./../../assets/icons/duration-icon.svg">
                                 <span>Рабочие дни:</span>
                             </div>
                             <div class="value">{{activityDetail.days}}</div>
                         </div>
                         <div class="short-info web">
-                            <div class="item flex align-center">
+                            <div class="item d-flex align-center">
                                 <img src="./../../assets/icons/timer-icon.svg">
                                 <span>График работы:</span>
                             </div>
                             <div class="value">{{activityDetail.hours}}</div>
                         </div>
                         <div class="short-info web">
-                            <div class="item flex align-center">
+                            <div class="item d-flex align-center">
                                 <img src="./../../assets/icons/marker-dark.png">
                                 <span>Адрес:</span>
                             </div>
                             <div class="value">{{activityDetail.location}}</div>
                         </div>
-                        <div class="total flex align-center justify-space-between web">
+                        <div class="total align-center justify-space-between web">
                             <span>{{$t('tourBooking.total')}}:</span>
                             <span>{{activityDetail.price}} {{$t('tourBooking.som')}}</span>
                         </div>
@@ -148,33 +148,33 @@
         >
             <div class="modal-container">
                 <template v-if="reserveMode === 'initial'">
-                    <div class="reserve__title flex align-center justify-end">
+                    <div class="reserve__title d-flex align-center justify-end">
                         <span>{{$t('tourBooking.bookDetail')}}</span>
                         <img src="./../../assets/icons/close.svg" @click="toggleContactReserveModal">
                     </div>
                     <div class="reserve__tour-title">{{activityDetail.title}}</div>
-                    <div class="reserve__company-date flex align-center justify-space-between">
-                        <div class="activity-detail__company-info flex align-center">
+                    <div class="reserve__company-date d-flex align-center justify-space-between">
+                        <div class="activity-detail__company-info d-flex align-center">
                             <img :src="activityDetail.logo.url" class="company">
                             {{activityDetail.company}}
                         </div>
                     </div>
                     <div class="short-info">
-                        <div class="item flex align-center">
+                        <div class="item d-flex align-center">
                             <img src="./../../assets/icons/duration-icon.svg">
                             <span>Рабочие дни:</span>
                         </div>
                         <div class="value">{{activityDetail.days}}</div>
                     </div>
                     <div class="short-info">
-                        <div class="item flex align-center">
+                        <div class="item d-flex align-center">
                             <img src="./../../assets/icons/timer-icon.svg">
                             <span>График работы:</span>
                         </div>
                         <div class="value">{{activityDetail.hours}}</div>
                     </div>
                     <div class="short-info">
-                        <div class="item flex align-center">
+                        <div class="item d-flex align-center">
                             <img src="./../../assets/icons/marker-dark.png">
                             <span>Адрес:</span>
                         </div>
@@ -805,6 +805,7 @@ export default {
                     }
 
                     .total {
+                        display: flex;
                         font-weight: bold;
                         font-size: 18px;
                         border-top: 1px solid $gray-light;

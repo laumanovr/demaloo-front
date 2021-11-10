@@ -17,10 +17,10 @@
 				</div>
 				<div class="tour-item-info">
 					<div class="tour-name">{{tour.name.ru}}</div>
-					<div class="company-info flex align-center">
+					<div class="company-info d-flex align-center">
 						<img :src="showCompanyPhoto(tour.company.logo)" class="company">
 						<span class="company-name">{{tour.company.name}}</span>
-						<div class="rating flex">
+						<div class="rating d-flex">
 							<img src="../../../assets/icons/rating-icon.svg">
 							<span>{{tour.company.rating}} ({{tour.company.reviewCount}})</span>
 						</div>
@@ -33,7 +33,7 @@
 							{{$t('tourBooking.remainPlace')}}: {{tour.bookingCount}}
 						</template>
 					</div>
-					<div class="date-price flex align-center justify-space-between">
+					<div class="date-price d-flex align-center justify-space-between">
 						<div class="date" v-html="formatDate(tour.date)"></div>
 						<span class="price">{{tour.price}} {{$t('tourBooking.som')}}</span>
 					</div>

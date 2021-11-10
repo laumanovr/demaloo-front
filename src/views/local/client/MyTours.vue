@@ -76,10 +76,10 @@
 						<div class="tour-img"><img :src="showTourPhoto(book.tour.images[0])"></div>
 						<div class="tour-item-info">
 							<div class="tour-name">{{book.tour.name.ru}}</div>
-							<div class="company-info flex align-center">
+							<div class="company-info d-flex align-center">
 								<img :src="showCompanyPhoto(book.tour.company.logo)" class="company">
 								<span class="company-name">{{book.tour.company.name}}</span>
-								<div class="rating flex">
+								<div class="rating d-flex">
 									<img src="../../../assets/icons/rating-icon.svg">
 									<span>{{book.tour.company.rating}} ({{book.tour.company.reviewCount}})</span>
 								</div>
@@ -87,7 +87,7 @@
 							<div class="tour-desc web">
 								{{book.tour.description.ru}}
 							</div>
-							<div class="date-price flex align-center justify-space-between">
+							<div class="date-price d-flex align-center justify-space-between">
 								<div class="date" v-html="formatDate(book.tour.date)"></div>
 								<span class="price">{{book.tour.price}} {{$t('tourBooking.som')}}</span>
 							</div>

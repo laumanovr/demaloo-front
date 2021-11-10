@@ -6,7 +6,7 @@
 		:shiftY="1" @before-open="setSomeData"
 	>
 		<div class="modal-container">
-			<div class="head flex align-center justify-space-between">
+			<div class="head d-flex align-center justify-space-between">
 				<span class="clear" @click="clearFilter">{{$t('button.clear')}}</span>
 				<span class="title">{{$t('filter.filters')}}</span>
 				<CloseIcon class="close" @click="toggleFilterModal"/>

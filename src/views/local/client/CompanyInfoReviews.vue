@@ -5,10 +5,10 @@
 			<img src="../../../assets/icons/arrow-dark.svg" @click="$router.go(-1)"/>
 		</div>
 		<div class="company-info-review-content">
-			<div class="company-info flex align-center">
+			<div class="company-info d-flex align-center">
 				<img :src="showCompanyImage(currentCompany.logo)" class="company">
 				<div>
-					<div class="company-name flex align-center">
+					<div class="company-name d-flex align-center">
 						<span>{{currentCompany.name}}</span>
 						<img src="../../../assets/icons/rating-icon.svg" class="star">
 						<span class="rating">{{currentCompany.rating}}</span>

@@ -4,11 +4,11 @@
 			<img src="../../../assets/icons/arrow-dark.svg" @click="$router.go(-1)" class="back"/>
 			<PreLoader v-if="isLoading"/>
 			<div class="company__description">
-				<div class="flex top justify-space-between flex-wrap">
-					<div class="company-info flex align-center">
+				<div class="d-flex top justify-space-between flex-wrap">
+					<div class="company-info d-flex align-center">
 						<img :src="showCompanyImage(currentCompany.logo)" class="company">
 						<div>
-							<div class="company-name flex align-center">
+							<div class="company-name d-flex align-center">
 								<span>{{currentCompany.name}}</span>
 								<img src="../../../assets/icons/rating-icon.svg" class="star">
 								<span class="rating">{{currentCompany.rating}}</span>
@@ -17,13 +17,13 @@
 						</div>
 					</div>
 					<div class="right">
-						<!--<div class="chat-btn flex align-center">-->
+						<!--<div class="chat-btn d-flex align-center">-->
 							<!--<img src="../../assets/icons/envelope-dark.png">-->
 							<!--<span>Написать</span>-->
 						<!--</div>-->
 					</div>
 				</div>
-				<div class="flex bottom flex-wrap">
+				<div class="d-flex bottom flex-wrap">
 					<div class="desc">
 						{{currentCompany.description}}
 					</div>
@@ -35,10 +35,10 @@
 			</div>
 
 			<div class="company__review">
-				<div class="review-title flex justify-space-between">
-					<div class="flex align-center">
+				<div class="review-title d-flex justify-space-between">
+					<div class="d-flex align-center">
 						<span class="top-title">{{$t('companyInfo.reviews')}} ({{currentCompany.reviewCount}})</span>
-						<!--<div class="rating flex align-center">-->
+						<!--<div class="rating d-flex align-center">-->
 							<!--<img src="../../assets/icons/rating-icon.svg">-->
 							<!--<span>{{currentCompany.rating}}</span>-->
 						<!--</div>-->
@@ -80,10 +80,10 @@
 					<div class="tour-item" v-for="tour in companyTours" :key="tour._id" @click="openTourFromOther(tour._id)">
 						<div class="tour-img"><img :src="showTourImage(tour.images[0])" v-if="tour.images"></div>
 						<div class="tour-name">{{tour.name.ru}}</div>
-						<div class="company-info flex align-center">
+						<div class="company-info d-flex align-center">
 							<img :src="showCompanyImage(tour.company.logo)" class="company">
 							<span class="company-name">{{tour.company.name}}</span>
-							<div class="rating flex">
+							<div class="rating d-flex">
 								<img src="../../../assets/icons/rating-icon.svg">
 								<span>{{tour.company.rating}} ({{tour.company.reviewCount}})</span>
 							</div>
@@ -91,7 +91,7 @@
 						<div class="tour-desc">
 							{{tour.description.ru}}
 						</div>
-						<div class="date-price flex align-center justify-space-between">
+						<div class="date-price d-flex align-center justify-space-between">
 							<div class="date" v-html="formatDate(tour.date)"></div>
 							<span class="price">{{tour.price}} {{$t('tourBooking.som')}}</span>
 						</div>
