@@ -1,14 +1,14 @@
 <template>
 	<div class="footer-container">
 		<div class="footer__content">
-			<div class="footer__logo flex justify-center">
+			<div class="footer__logo d-flex justify-center">
 				<img src="../../assets/images/logo.svg">
 				<span>Demaloo</span>
 			</div>
 
 			<div class="footer__title">{{$t('slogan')}}</div>
 			
-			<!--<div class="footer__links flex align-center justify-center">-->
+			<!--<div class="footer__links d-flex align-center justify-center">-->
 				<!--<a href="#">Как устроено Demaloo</a>-->
 				<!--<span class="dot"></span>-->
 				<!--<a href="#">Публичная оферта</a>-->
@@ -18,7 +18,25 @@
 				<!--<a href="#">Часто задаваемые вопросы</a>-->
 			<!--</div>-->
 
-			<div class="footer__icons flex align-center justify-center">
+            <div class="footer__social d-flex align-center justify-center">
+                <a href="https://t.me/demaloo_com" target="_blank">
+                    <img src="../../assets/icons/telegram.svg">
+                </a>
+                <a :href="'https://wa.me/'+'+996500100901'" target="_blank">
+                    <img src="../../assets/icons/whats-app.svg">
+                </a>
+                <a href="https://www.instagram.com/demaloocom" target="_blank">
+                    <img src="../../assets/icons/instagram.svg">
+                </a>
+                <a href="https://www.facebook.com/demaloo" target="_blank">
+                    <img src="../../assets/icons/facebook.svg">
+                </a>
+                <a href="https://www.tiktok.com/@demaloo.com" target="_blank">
+                    <img src="../../assets/icons/tiktok.svg">
+                </a>
+            </div>
+
+			<div class="footer__icons d-flex align-center justify-center">
 				<a href="https://apps.apple.com/us/app/demaloo/id1560957584">
 					<img src="../../assets/images/app-store.png">
 				</a>
@@ -27,16 +45,16 @@
 				</a>
 			</div>
 
-			<div class="footer__contacts flex align-center justify-center">
-				<div class="contact flex align-center">
+			<div class="footer__contacts d-flex align-center justify-center">
+				<div class="contact d-flex align-center">
 					<img src="../../assets/icons/cell-phone.png" class="phone">
 					<a :href="'https://wa.me/'+'+996500100901'" target="_blank">+996 500 100 901</a>
 				</div>
-				<div class="contact address flex align-center">
+				<div class="contact address d-flex align-center">
 					<img src="../../assets/icons/marker-dark.png" class="street">
 					<span>{{$t('officeAddress')}}, 789065</span>
 				</div>
-				<div class="contact flex align-center">
+				<div class="contact d-flex align-center">
 					<img src="../../assets/icons/envelope-dark.png" class="email">
 					<a href="mailto:demaloo.help@gmail.com">demaloo.help@gmail.com</a>
 				</div>
@@ -148,6 +166,15 @@
 					}
 				}
 			}
+            &__social {
+                margin-bottom: 25px;
+                a {
+                    cursor: pointer;
+                    &:not(:last-child) {
+                        margin-right: 15px;
+                    }
+                }
+            }
 		}
 	}
 </style>
