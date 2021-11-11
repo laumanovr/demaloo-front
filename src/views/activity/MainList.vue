@@ -68,7 +68,7 @@
                                         </div>
                                     </div>
                                     <div class="tour-item__price-block">
-                                        <span class="tour-item__price">{{item.data.price}} {{$t('tourBooking.som')}}</span>
+                                        <span class="tour-item__price">{{item.data.price}}</span>
                                     </div>
                                 </div>
                             </div>

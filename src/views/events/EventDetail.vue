@@ -134,7 +134,7 @@
                         </div>
                         <div class="total align-center justify-space-between web">
                             <span>{{$t('tourBooking.total')}}:</span>
-                            <span>{{eventDetail.price}} {{$t('tourBooking.som')}}</span>
+                            <span>{{eventDetail.price}}</span>
                         </div>
                         <button class="btn green-main" @click="toggleContactReserveModal">
                             Забронировать

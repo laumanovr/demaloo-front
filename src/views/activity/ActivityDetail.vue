@@ -103,7 +103,7 @@
                 <div class="activity-detail__right">
                     <div class="reserve-block">
                         <div class="head-block d-flex align-center justify-space-between">
-                            <div class="price">{{activityDetail.price}} {{$t('tourBooking.som')}}</div>
+                            <div class="price">{{activityDetail.price}}</div>
                         </div>
                         <div class="short-info web">
                             <div class="item d-flex align-center">
@@ -128,7 +128,7 @@
                         </div>
                         <div class="total align-center justify-space-between web">
                             <span>{{$t('tourBooking.total')}}:</span>
-                            <span>{{activityDetail.price}} {{$t('tourBooking.som')}}</span>
+                            <span>{{activityDetail.price}}</span>
                         </div>
                         <button class="btn green-main" @click="toggleContactReserveModal">
                             Забронировать
