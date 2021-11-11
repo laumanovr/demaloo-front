@@ -105,7 +105,7 @@
                 <div class="activity-detail__right">
                     <div class="reserve-block">
                         <div class="head-block d-flex align-center justify-space-between">
-                            <div class="price">{{eventDetail.price}} {{$t('tourBooking.som')}}</div>
+                            <div class="price">{{eventDetail.price}}</div>
                         </div>
                         <div class="short-info web">
                             <div class="item d-flex align-center">

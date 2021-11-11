@@ -73,7 +73,7 @@
 											<div class="format-date" v-if="item.data.days.length > 2">..</div>
 										</div>
 										<div class="tour-item__price-block">
-                                            <span class="tour-item__price">{{item.data.price}} {{$t('tourBooking.som')}}</span>
+                                            <span class="tour-item__price">{{item.data.price}}</span>
 										</div>
 									</div>
 								</div>
@@ -536,9 +536,10 @@ export default {
 
 						@media #{$mob-view} {
 							max-width: 336px;
-							height: 260px;
+							height: 280px;
 							img {
 								border-radius: 7px 7px 0 0;
+                                object-fit: contain;
 							}
 						}
 					}
@@ -672,7 +673,9 @@ export default {
 						display: flex;
 						align-items: center;
 						margin-bottom: 4px;
-
+                        @media #{$mob-view} {
+                            justify-content: flex-end;
+                        }
 						span {
 							font-size: 14px;
 						}
@@ -687,6 +690,7 @@ export default {
 							margin-right: 8px;
 							@media #{$mob-view} {
 								font-size: 13px;
+                                margin-right: 0;
 							}
 						}
 					}
@@ -709,6 +713,7 @@ export default {
 						color: $green-main;
 						@media #{$mob-view} {
 							font-size: 18px;
+                            text-align: right;
 						}
 					}
 				}
