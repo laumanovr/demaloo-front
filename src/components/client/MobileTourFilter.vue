@@ -12,6 +12,7 @@
 				<CloseIcon class="close" @click="toggleFilterModal"/>
 			</div>
 			<div class="filters">
+                <template v-if="$route.name === 'tours'">
 				<div class="filter-item">
 					<v-select
 						outlined
@@ -59,6 +60,18 @@
 						</label>
 					</div>
 				</div>
+                </template>
+                <template v-else>
+                    <div class="filter-item category">
+                        <span class="label">{{$t('filter.categories')}}</span>
+                        <div class="check-boxes">
+                            <label class="box" v-for="(item, i) in allCategories" :key="i" :for="item+'-box'">
+                                <input type="checkbox" @change="$emit('onSelectCat', $event, item, false)" :id="item+'-box'">
+                                <span>{{item}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </template>
 			</div>
 			<div class="d-flex justify-center submit-btn">
 				<button class="btn green-main" @click="submitFilter">{{$t('button.submit')}}</button>
