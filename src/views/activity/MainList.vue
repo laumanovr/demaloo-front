@@ -23,7 +23,7 @@
                         <span class="label">{{$t('filter.categories')}}</span>
                         <div class="check-boxes">
                             <label class="box" v-for="(item, i) in categoryList" :key="i" :for="i">
-                                <input :id="i" type="checkbox" @change="onSelectCategory($event, item)">
+                                <input :id="i" type="checkbox" @change="onSelectCategory($event, item, true)">
                                 <span>{{item}}</span>
                             </label>
                         </div>
@@ -98,15 +98,25 @@
                 </div>
             </div>
         </div>
+
+        <!--MOBILE FILTER MODAL-->
+        <MobileTourFilter
+            ref="mobileFilter"
+            :categories="categoryList"
+            @onSelectCat="onSelectCategory"
+            @onSubmit="submitFilterCategory"
+        />
     </div>
 </template>
 
 <script>
 import {ActivityService} from '../../services/activity.service';
+import {CustomEventEmitter} from '@/utils/customEventEmitter';
 
 export default {
 	components: {
-		TopBlockMain: () => import('@/components/client/TopBlockMain')
+		TopBlockMain: () => import('@/components/client/TopBlockMain'),
+        MobileTourFilter: () => import('@/components/client/MobileTourFilter')
 	},
 	data() {
 		return {
@@ -129,12 +139,25 @@ export default {
 	computed: {
 		currentLang() {
 			return this.$root.$i18n.locale;
-		}
+		},
+        isMobileWindow() {
+            return window.innerWidth < 1024;
+        }
 	},
 	created() {
 		this.getActivityList();
+        this.onMobileFilter();
 	},
+    beforeDestroy() {
+        CustomEventEmitter.$off('onOpenFilter');
+    },
 	methods: {
+        onMobileFilter() {
+            CustomEventEmitter.$on('onOpenFilter', () => {
+                this.$refs.mobileFilter.toggleFilterModal();
+            });
+        },
+
 		async getActivityList() {
 			try {
 				this.isLoading = true;
@@ -173,29 +196,34 @@ export default {
 			}
 		},
 
-		onSelectCategory(e, selectedCat) {
+		onSelectCategory(e, selectedCat, isSubmit) {
 			const isSelected = e.currentTarget.checked;
 			if (isSelected) {
 				this.selectedCategories.push(selectedCat);
-				this.submitFilterCategory();
+				this.submitFilterCategory(isSubmit);
 				return;
 			}
 			const i = this.selectedCategories.indexOf(selectedCat);
 			this.selectedCategories.splice(i, 1);
-			this.submitFilterCategory();
-		},
+			this.submitFilterCategory(isSubmit);
+        },
 
-		async submitFilterCategory() {
-			try {
-				this.isLoading = true;
-				const res = await ActivityService.filterByCategories(JSON.stringify(this.selectedCategories));
-				this.activityList = res.results;
-				this.totalListCount = res.total_results_size;
-				this.isLoading = false;
-			} catch (err) {
-				this.$toast.error(err);
-				this.isLoading = false;
-			}
+		async submitFilterCategory(isSubmit) {
+            if (isSubmit) {
+                try {
+                    this.isLoading = true;
+                    const res = await ActivityService.filterByCategories(JSON.stringify(this.selectedCategories));
+                    this.activityList = res.results;
+                    this.totalListCount = res.total_results_size;
+                    this.isLoading = false;
+                    if (this.isMobileWindow) {
+                        this.$refs.mobileFilter.toggleFilterModal();
+                    }
+                } catch (err) {
+                    this.$toast.error(err);
+                    this.isLoading = false;
+                }
+            }
 		}
 
 	},
