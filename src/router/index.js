@@ -58,7 +58,7 @@ const routes = [
 			// LOCAL TOUR PAGES
 			{
 				path: 'tours',
-				name: 'clientMain',
+				name: 'tours',
 				component: localTourComponent('client/Main'),
 				meta: {
 					requireAuth: false
