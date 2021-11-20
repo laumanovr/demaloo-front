@@ -21,8 +21,8 @@
 					<svg @click="showMobileSearch" class="mob search" :class="{'searchOpen': isSearchOpen}">
 						<use href="../../assets/icons/svg-sprite/loupe-icon.svg#loupe"/>
 					</svg>
-					<img src="../../assets/icons/sort-icon.svg" class="mob sort" @click="openMobileFilter">
 				</template>
+                <img src="../../assets/icons/sort-icon.svg" class="mob sort" @click="openMobileFilter">
 				<router-link :to="{name: 'contacts'}" class="web contact">{{$t('contact.about7')}}</router-link>
 				<template v-if="userLogged">
 					<div class="profile web" @click="$router.push('/profile-manage')">
