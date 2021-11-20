@@ -310,7 +310,10 @@ export default {
 		this.onMobileSearch();
 		this.onMobileFilter();
 	},
-	methods: {
+    beforeDestroy() {
+        CustomEventEmitter.$off('onOpenFilter');
+    },
+    methods: {
 		showPickerTitle() {
 			return 'Выберите дату начиная с ...';
 		},
