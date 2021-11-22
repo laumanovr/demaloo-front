@@ -7,8 +7,8 @@
                     <div class="bg-text__top">{{$t('mainPage.bannerTopTitle')}}</div>
                     <div class="bg-text__bottom">{{$t('mainPage.bannerBottomTitle')}}.</div>
                     <div class="d-flex justify-center switchers">
-                        <router-link to="/" class="d-flex align-center switcher">
-                            <inline-svg :src="require('@/assets/icons/popcorn.svg')" :fill="isActive('/')"/>
+                        <router-link to="/activities" class="d-flex align-center switcher">
+                            <inline-svg :src="require('@/assets/icons/popcorn.svg')" :fill="isActive('/activities')"/>
                             Развлечения
                         </router-link>
                         <router-link to="/events" class="d-flex align-center switcher">
@@ -24,18 +24,10 @@
             </div>
         </div>
         <div class="switchers mob">
-            <router-link to="/" class="d-flex align-center switcher">
-                <inline-svg :src="require('@/assets/icons/popcorn.svg')" :fill="isActive('/')"/>
-                <template v-if="$route.path === '/'">Развлечения</template>
-            </router-link>
-            <router-link to="/events" class="d-flex align-center switcher">
-                <inline-svg :src="require('@/assets/icons/event.svg')" :fill="isActive('/events')"/>
-                <template v-if="$route.path === '/events'">Мероприятия</template>
-            </router-link>
-            <router-link to="/tours" class="d-flex align-center switcher">
-                <inline-svg :src="require('@/assets/icons/local-tour.svg')" :fill="isActive('/tours')"/>
-                <template v-if="$route.path === '/tours'">Туры</template>
-            </router-link>
+            <router-link to="/" class="d-flex align-center switcher">Все</router-link>
+            <router-link to="/activities" class="d-flex align-center switcher">Развлечения</router-link>
+            <router-link to="/events" class="d-flex align-center switcher">Мероприятия</router-link>
+            <router-link to="/tours" class="d-flex align-center switcher">Туры</router-link>
         </div>
     </div>
 </template>
@@ -80,18 +72,27 @@ export default {
             &.router-link-exact-active {
                 color: $green-main;
                 @media #{$mob-view} {
-                    width: 50%;
+                    border-bottom: 2px solid $green-main;
                 }
             }
 
             @media #{$mob-view} {
                 padding: 17px 5px;
                 border-radius: 0;
-                width: 25%;
                 justify-content: center;
                 margin: 0 !important;
-                &:not(:last-child) {
-                    border-right: 1px solid $gray-light;
+                text-transform: uppercase;
+                &:first-child {
+                    width: 15%;
+                }
+                &:nth-child(2) {
+                    width: 35%;
+                }
+                &:nth-child(3) {
+                    width: 35%;
+                }
+                &:nth-child(4) {
+                    width: 15%;
                 }
             }
         }
