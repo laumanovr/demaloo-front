@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import ClientManage from '../views/ClientManage';
+import MainPage from '../views/MainPage';
 import {isCompany, isClient} from '../utils/checkPermission';
 
 const localTourComponent = (path) => () => import(`@/views/local/${path}.vue`);
@@ -19,9 +20,17 @@ const routes = [
 			isClient(to, from, next);
 		},
 		children: [
-			// ACTIVITY PAGES
 			{
 				path: '',
+				name: 'mainPage',
+				component: MainPage,
+				meta: {
+					requireAuth: false
+				}
+			},
+			// ACTIVITY PAGES
+			{
+				path: 'activities',
 				name: 'activityList',
 				component: activityComponent('MainList'),
 				meta: {
@@ -50,6 +59,16 @@ const routes = [
 				path: 'event-detail/:id',
 				name: 'eventDetail',
 				component: eventComponent('EventDetail'),
+				meta: {
+					requireAuth: false
+				}
+			},
+
+			// BLOG
+			{
+				path: 'blog-detail/:id',
+				name: 'blogDetail',
+				component: () => import('@/views/blog/BlogDetail.vue'),
 				meta: {
 					requireAuth: false
 				}
