@@ -42,61 +42,61 @@ import {Carousel, Slide} from 'vue-carousel';
 import {BlogService} from '../../services/blog.service';
 
 export default {
-    components: {
-        TopBlockMain: () => import('@/components/client/TopBlockMain'),
-        Carousel, Slide
-    },
-    data() {
-        return {
-            isLoading: false,
-            blogDetail: {images: []},
-            imgIndex: 1,
-            slideImages: [],
-            blogList: []
-        }
-    },
-    async created() {
-        this.isLoading = true;
-        await this.getSelectedBlog(this.$route.params.id);
-        await this.getBlogList();
-    },
-    watch: {
-        '$route.path': function() {
-            this.isLoading = true;
-            this.slideImages = [];
-            this.getSelectedBlog(this.$route.params.id);
-            this.getBlogList();
-        }
-    },
-    methods: {
-        async getSelectedBlog(id) {
-            try {
-                this.blogDetail = await BlogService.fetchById(id);
-                this.blogDetail.images.forEach((item) => {
-                    this.slideImages.push(item.image.url);
-                });
-            } catch (err) {
-                this.$toast.error(err);
-                this.isLoading = false;
-            }
-        },
+	components: {
+		TopBlockMain: () => import('@/components/client/TopBlockMain'),
+		Carousel, Slide
+	},
+	data() {
+		return {
+			isLoading: false,
+			blogDetail: {images: []},
+			imgIndex: 1,
+			slideImages: [],
+			blogList: []
+		};
+	},
+	async created() {
+		this.isLoading = true;
+		await this.getSelectedBlog(this.$route.params.id);
+		await this.getBlogList();
+	},
+	watch: {
+		'$route.path': function() {
+			this.isLoading = true;
+			this.slideImages = [];
+			this.getSelectedBlog(this.$route.params.id);
+			this.getBlogList();
+		}
+	},
+	methods: {
+		async getSelectedBlog(id) {
+			try {
+				this.blogDetail = await BlogService.fetchById(id);
+				this.blogDetail.images.forEach((item) => {
+					this.slideImages.push(item.image.url);
+				});
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
+		},
 
-        async getBlogList() {
-            try {
-                const res = await BlogService.fetchAllBlogs();
-                this.blogList = res.results.filter((item) => item.id !== this.$route.params.id);
-                this.isLoading = false;
-            } catch (err) {
-                this.$toast.error(err);
-                this.isLoading = false;
-            }
-        },
+		async getBlogList() {
+			try {
+				const res = await BlogService.fetchAllBlogs();
+				this.blogList = res.results.filter((item) => item.id !== this.$route.params.id);
+				this.isLoading = false;
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
+		},
 
-        changeImage(slidePage) {
-            this.imgIndex = slidePage + 1;
-        },
-    }
-}
+		changeImage(slidePage) {
+			this.imgIndex = slidePage + 1;
+		},
+	}
+};
 </script>
 
 <style lang="scss">

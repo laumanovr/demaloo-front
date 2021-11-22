@@ -116,7 +116,7 @@ import {CustomEventEmitter} from '@/utils/customEventEmitter';
 export default {
 	components: {
 		TopBlockMain: () => import('@/components/client/TopBlockMain'),
-        MobileTourFilter: () => import('@/components/client/MobileTourFilter')
+		MobileTourFilter: () => import('@/components/client/MobileTourFilter')
 	},
 	data() {
 		return {
@@ -140,23 +140,23 @@ export default {
 		currentLang() {
 			return this.$root.$i18n.locale;
 		},
-        isMobileWindow() {
-            return window.innerWidth < 1024;
-        }
+		isMobileWindow() {
+			return window.innerWidth < 1024;
+		}
 	},
 	created() {
 		this.getActivityList();
-        this.onMobileFilter();
+		this.onMobileFilter();
 	},
-    beforeDestroy() {
-        CustomEventEmitter.$off('onOpenFilter');
-    },
+	beforeDestroy() {
+		CustomEventEmitter.$off('onOpenFilter');
+	},
 	methods: {
-        onMobileFilter() {
-            CustomEventEmitter.$on('onOpenFilter', () => {
-                this.$refs.mobileFilter.toggleFilterModal();
-            });
-        },
+		onMobileFilter() {
+			CustomEventEmitter.$on('onOpenFilter', () => {
+				this.$refs.mobileFilter.toggleFilterModal();
+			});
+		},
 
 		async getActivityList() {
 			try {
@@ -206,24 +206,24 @@ export default {
 			const i = this.selectedCategories.indexOf(selectedCat);
 			this.selectedCategories.splice(i, 1);
 			this.submitFilterCategory(isSubmit);
-        },
+		},
 
 		async submitFilterCategory(isSubmit) {
-            if (isSubmit) {
-                try {
-                    this.isLoading = true;
-                    const res = await ActivityService.filterByCategories(JSON.stringify(this.selectedCategories));
-                    this.activityList = res.results;
-                    this.totalListCount = res.total_results_size;
-                    this.isLoading = false;
-                    if (this.isMobileWindow) {
-                        this.$refs.mobileFilter.toggleFilterModal();
-                    }
-                } catch (err) {
-                    this.$toast.error(err);
-                    this.isLoading = false;
-                }
-            }
+			if (isSubmit) {
+				try {
+					this.isLoading = true;
+					const res = await ActivityService.filterByCategories(JSON.stringify(this.selectedCategories));
+					this.activityList = res.results;
+					this.totalListCount = res.total_results_size;
+					this.isLoading = false;
+					if (this.isMobileWindow) {
+						this.$refs.mobileFilter.toggleFilterModal();
+					}
+				} catch (err) {
+					this.$toast.error(err);
+					this.isLoading = false;
+				}
+			}
 		}
 
 	},

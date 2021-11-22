@@ -190,94 +190,94 @@ import {AWS_IMAGE_URL} from '../services/api.service';
 import {Carousel, Slide} from 'vue-carousel';
 
 export default {
-    beforeRouteEnter(to, from, next) {
-        if (window.innerWidth < 1024) {
-            next();
-            return;
-        }
-        next('/activities');
-    },
-    components: {
-        TopBlockMain: () => import('@/components/client/TopBlockMain'),
-        Carousel,
-        Slide
-    },
-    data() {
-        return {
-            isLoading: false,
-            tourList: [],
-            activityList: [],
-            eventList: [],
-            blogList: []
-        }
-    },
-    async created() {
-        await this.getAllTours();
-        await this.getActivityList();
-        await this.getEventList();
-        await this.getBlogList();
-    },
-    methods: {
-        async getAllTours() {
-            try {
-                this.isLoading = true;
-                const res = await TourService.fetchAllTours();
-                this.tourList = res.data.tours.slice(0, 3);
-            } catch (err) {
-                this.$toast.error(err);
-                this.isLoading = false;
-            }
-        },
+	beforeRouteEnter(to, from, next) {
+		if (window.innerWidth < 1024) {
+			next();
+			return;
+		}
+		next('/activities');
+	},
+	components: {
+		TopBlockMain: () => import('@/components/client/TopBlockMain'),
+		Carousel,
+		Slide
+	},
+	data() {
+		return {
+			isLoading: false,
+			tourList: [],
+			activityList: [],
+			eventList: [],
+			blogList: []
+		};
+	},
+	async created() {
+		await this.getAllTours();
+		await this.getActivityList();
+		await this.getEventList();
+		await this.getBlogList();
+	},
+	methods: {
+		async getAllTours() {
+			try {
+				this.isLoading = true;
+				const res = await TourService.fetchAllTours();
+				this.tourList = res.data.tours.slice(0, 3);
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
+		},
 
-        showTourPhoto(imgUrl) {
-            return `${AWS_IMAGE_URL}/images/` + imgUrl + '?w=900&q=100';
-        },
+		showTourPhoto(imgUrl) {
+			return `${AWS_IMAGE_URL}/images/` + imgUrl + '?w=900&q=100';
+		},
 
-        showCompanyPhoto(imgUrl) {
-            return `${AWS_IMAGE_URL}/logos/` + imgUrl + '?w=100&q=100';
-        },
+		showCompanyPhoto(imgUrl) {
+			return `${AWS_IMAGE_URL}/logos/` + imgUrl + '?w=100&q=100';
+		},
 
-        formatDate(date) {
-            const dateNum = format(new Date(date), 'dd');
-            const month = format(new Date(date), 'LLLL', {locale: ru});
-            const weekD = format(new Date(date), 'eeeeee', {locale: ru});
-            return `<span>${dateNum}</span><span style="margin: 0 6px">${month},</span><span>${weekD}</span>`;
-        },
+		formatDate(date) {
+			const dateNum = format(new Date(date), 'dd');
+			const month = format(new Date(date), 'LLLL', {locale: ru});
+			const weekD = format(new Date(date), 'eeeeee', {locale: ru});
+			return `<span>${dateNum}</span><span style="margin: 0 6px">${month},</span><span>${weekD}</span>`;
+		},
 
-        async getActivityList() {
-            try {
-                this.isLoading = true;
-                const res = await ActivityService.fetchAllActivities();
-                this.activityList = res.results.slice(0, 3);
-            } catch (err) {
-                this.$toast.error(err);
-                this.isLoading = false;
-            }
-        },
+		async getActivityList() {
+			try {
+				this.isLoading = true;
+				const res = await ActivityService.fetchAllActivities();
+				this.activityList = res.results.slice(0, 3);
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
+		},
 
-        async getEventList() {
-            try {
-                this.isLoading = true;
-                const res = await EventService.fetchAllEvents();
-                this.eventList = res.results.slice(0, 3);
-            } catch (err) {
-                this.$toast.error(err);
-                this.isLoading = false;
-            }
-        },
+		async getEventList() {
+			try {
+				this.isLoading = true;
+				const res = await EventService.fetchAllEvents();
+				this.eventList = res.results.slice(0, 3);
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
+		},
 
-        async getBlogList() {
-            try {
-                const res = await BlogService.fetchAllBlogs();
-                this.blogList = res.results;
-                this.isLoading = false;
-            } catch (err) {
-                this.$toast.error(err);
-                this.isLoading = false;
-            }
-        }
-    }
-}
+		async getBlogList() {
+			try {
+				const res = await BlogService.fetchAllBlogs();
+				this.blogList = res.results;
+				this.isLoading = false;
+			} catch (err) {
+				this.$toast.error(err);
+				this.isLoading = false;
+			}
+		}
+	}
+};
 </script>
 
 <style lang="scss">
