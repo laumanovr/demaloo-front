@@ -561,6 +561,7 @@ export default {
                                 height: 260px;
                                 img {
                                     border-radius: 7px 7px 0 0;
+                                    object-fit: contain;
                                 }
                             }
                         }
