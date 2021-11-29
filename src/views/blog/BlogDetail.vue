@@ -178,6 +178,7 @@ export default {
         }
         .desc {
             font-size: 14px;
+            white-space: pre-line;
         }
     }
     .article-canvas {

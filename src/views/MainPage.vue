@@ -350,7 +350,7 @@ export default {
                     position: relative;
                     //max-width: 336px;
                     height: 200px;
-                    min-width: 285px;
+                    width: 285px;
                     img {
                         border-radius: 7px 7px 0 0;
                     }
