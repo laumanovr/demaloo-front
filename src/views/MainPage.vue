@@ -10,7 +10,7 @@
                         <div class="type">{{blog.data.type}}</div>
                         <div class="name-block slider">
                             <div class="a-title">{{blog.data.title}}</div>
-                            <div class="desc">{{blog.data.description}}</div>
+<!--                            <div class="desc">{{blog.data.description}}</div>-->
                         </div>
                     </router-link>
                 </slide>
