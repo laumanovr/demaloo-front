@@ -15,9 +15,12 @@
         <div class="inform">
             <div class="blog-title">{{blogDetail.title}}</div>
             <div class="date">{{blogDetail.date}}</div>
-            <div class="desc">{{blogDetail.description}}</div>
+            <div class="desc" v-for="(item, i) in blogDetail.group_desc" :key="i">
+              <div>{{item.descrip}}</div>
+              <div class="img" v-if="item.image && item.image.url"><img :src="item.image.url"></div>
+            </div>
         </div>
-        <div class="article-canvas">
+        <div class="article-canvas" v-if="blogList.length">
             <div class="header-top"><span>Может это для вас:</span></div>
             <div class="articles">
                 <router-link
@@ -179,6 +182,14 @@ export default {
         .desc {
             font-size: 14px;
             white-space: pre-line;
+            margin-top: 10px;
+          .img {
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+            }
+          }
         }
     }
     .article-canvas {
