@@ -50,10 +50,10 @@
                         >
                             <div class="tour-item__image">
                                 <img :src="item.data.images[0].image.url">
+                                <div class="tag mob" :class="item.data.tagcolor">{{item.data.tagtext}}</div>
                             </div>
                             <div class="tour-item__info">
                                 <div class="tour-item__name">{{item.data.title}}</div>
-
                                 <div class="tour-item__right">
                                     <div class="tour-item__desc-block">
                                         <div class="tour-item__company">
@@ -68,7 +68,8 @@
                                         </div>
                                     </div>
                                     <div class="tour-item__price-block">
-                                        <span class="tour-item__price">{{item.data.price}}</span>
+                                      <div class="tag web" :class="item.data.tagcolor">{{item.data.tagtext}}</div>
+                                      <span class="tour-item__price">{{item.data.price}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -535,7 +536,7 @@ export default {
                         @media #{$mob-view} {
                             flex-wrap: wrap;
                             justify-content: center;
-                            max-width: 336px;
+                            max-width: 343px;
                         }
 
                         &:hover {
@@ -557,11 +558,11 @@ export default {
                             }
 
                             @media #{$mob-view} {
-                                max-width: 336px;
-                                height: 260px;
+                                position: relative;
+                                max-width: 343px;
+                                height: 214px;
                                 img {
                                     border-radius: 7px 7px 0 0;
-                                    object-fit: contain;
                                 }
                             }
                         }
@@ -701,9 +702,21 @@ export default {
                             font-family: $montserrat;
                             @media #{$mob-view} {
                                 font-size: 18px;
-                                text-align: left;
-                                color: $green-main;
                             }
+                        }
+                        .tag {
+                          background: $orange-primary;
+                          text-align: center;
+                          font-size: 14px;
+                          border-radius: 7px;
+                          margin-bottom: 10px;
+                          @media #{$mob-view} {
+                            position: absolute;
+                            bottom: 5px;
+                            right: 15px;
+                            padding: 0 8px;
+                            color: #000;
+                          }
                         }
                     }
 
