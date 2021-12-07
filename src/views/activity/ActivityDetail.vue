@@ -485,6 +485,7 @@ export default {
                     @media #{$mob-view} {
                         height: 300px;
                         object-fit: cover;
+                        width: 100%;
                     }
                 }
 
