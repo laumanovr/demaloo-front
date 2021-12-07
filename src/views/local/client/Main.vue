@@ -839,6 +839,7 @@ export default {
 								height: 24px;
 								object-fit: cover;
 								margin-right: 6px;
+                border-radius: 30px;
 							}
 							.rating {
 								display: flex;
