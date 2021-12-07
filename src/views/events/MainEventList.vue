@@ -51,33 +51,29 @@
 							<div class="tour-item__image">
 								<img :src="item.data.images[0].image.url" v-if="item.data.images.length">
 								<img src="./../../assets/images/no-image.png" v-else>
+                <div class="tag mob" :class="item.data.tagcolor">{{item.data.tagtext}}</div>
 							</div>
-							<div class="tour-item__info">
-								<div class="tour-item__name">{{item.data.name}}</div>
-								<div class="tour-item__right">
-									<div class="tour-item__desc-block">
-										<div class="tour-item__company">
-											<img :src="item.data.logo.url">
-											<span class="name">{{item.data.company}}</span>
-										</div>
-										<div class="tour-item__description d-flex align-center">
-											<img src="../../assets/icons/marker-dark.png">
-											<span class="name">{{item.data.location}}</span>
-										</div>
-									</div>
-									<div>
-										<div class="tour-item__date">
-											<div class="format-date" v-for="time in item.data.days.slice(0,2)" :key="time.day">
-												{{time.day}}, {{time.hour}}
-											</div>
-											<div class="format-date" v-if="item.data.days.length > 2">..</div>
-										</div>
-										<div class="tour-item__price-block">
-                                            <span class="tour-item__price">{{item.data.price}}</span>
-										</div>
-									</div>
-								</div>
-							</div>
+              <div class="tour-item__info">
+                <div class="tour-item__name">{{item.data.title}}</div>
+                <div class="tour-item__right">
+                  <div class="tour-item__desc-block">
+                    <div class="tour-item__company">
+                      <img :src="item.data.logo.url">
+                      {{item.data.company}}
+                    </div>
+                    <div class="tour-item__description">
+                      {{item.data.description}}
+                    </div>
+                    <div class="tour-item__date">
+                      <div class="format-date">{{item.data.days[0].day}}, {{item.data.days[0].hour}}</div>
+                    </div>
+                  </div>
+                  <div class="tour-item__price-block">
+                    <div class="tag web" :class="item.data.tagcolor">{{item.data.tagtext}}</div>
+                    <span class="tour-item__price">{{item.data.price}}</span>
+                  </div>
+                </div>
+              </div>
 						</router-link>
 					</div>
 					<div class="single-center">
@@ -513,7 +509,7 @@ export default {
 					@media #{$mob-view} {
 						flex-wrap: wrap;
 						justify-content: center;
-						max-width: 336px;
+						max-width: 343px;
 					}
 
 					&:hover {
@@ -535,187 +531,166 @@ export default {
 						}
 
 						@media #{$mob-view} {
-							max-width: 336px;
-							height: 280px;
+              position: relative;
+              max-width: 343px;
+              height: 214px;
 							img {
 								border-radius: 7px 7px 0 0;
-                                object-fit: contain;
 							}
 						}
 					}
 
-					&__info {
-						width: 100%;
-						padding: 12px 25px 5px;
-						color: $blue-darkest;
-						@media #{$mob-view} {
-							padding: 16px;
-						}
-					}
+          &__info {
+            width: 100%;
+            padding: 18px 25px 5px;
+            color: $blue-darkest;
+            @media #{$mob-view} {
+              padding: 16px;
+            }
+          }
 
-					&__name {
-						font-weight: bold;
-						font-size: 18px;
-						white-space: nowrap;
-						overflow-x: hidden;
-						text-overflow: ellipsis;
-						max-width: 460px;
-						font-family: $montserrat;
-						@media #{$mob-view} {
-							max-width: 304px;
-							font-size: 16px;
-						}
-					}
+          &__name {
+            font-weight: bold;
+            font-size: 18px;
+            white-space: nowrap;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+            max-width: 460px;
+            font-family: $montserrat;
+            @media #{$mob-view} {
+              max-width: 304px;
+              font-size: 16px;
+            }
+          }
 
-					&__right {
-						display: block;
-						@media #{$mob-view} {
-							display: flex;
-							justify-content: space-between;
-							align-items: center;
-							position: relative;
-							margin-top: 10px;
-						}
-					}
+          &__right {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            @media #{$mob-view} {
+              display: block;
+              position: relative;
+            }
+          }
 
-					&__desc-block {
-						width: 75%;
-						@media #{$mob-view} {
-							width: auto;
-						}
-					}
+          &__desc-block {
+            width: 75%;
+            @media #{$mob-view} {
+              width: auto;
+            }
+          }
 
-					&__price-block {
-						transform: translateY(7px);
-						@media #{$mob-view} {
-							transform: translateY(3px);
-						}
-					}
+          &__price-block {
+            width: 25%;
+            @media #{$mob-view} {
+              width: auto;
+            }
+          }
 
-					&__company {
-						display: flex;
-						align-items: center;
-						font-weight: 600;
-						font-size: 14px;
-						margin: 5px 0 7px;
-						@media #{$mob-view} {
-							margin: 0 0 9px 0;
-						}
+          &__company {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 5px 0 7px;
 
-						.name {
-							max-width: 165px;
-							white-space: nowrap;
-							overflow-x: hidden;
-							text-overflow: ellipsis;
-						}
+            img {
+              width: 24px;
+              height: 24px;
+              object-fit: cover;
+              margin-right: 6px;
+            }
 
-						img {
-							width: 24px;
-							height: 24px;
-							object-fit: cover;
-							margin-right: 6px;
-							border-radius: 30px;
-						}
+            .rating {
+              display: flex;
+              align-items: center;
+              margin-left: 14px;
 
-						.rating {
-							display: flex;
-							align-items: center;
-							margin-left: 14px;
+              img {
+                width: 12px;
+                height: 12px;
+                margin-right: 3px;
+              }
 
-							img {
-								width: 12px;
-								height: 12px;
-								margin-right: 3px;
-							}
+              span {
+                font-size: 14px;
+                font-weight: normal;
+              }
+            }
+          }
 
-							span {
-								font-size: 14px;
-								font-weight: normal;
-							}
-						}
-					}
+          &__description {
+            font-size: 12px;
+            margin-bottom: 5px;
+            height: 38px;
+            overflow-y: hidden;
+          }
 
-					&__description {
-						font-size: 12px;
-						margin-bottom: 5px;
-						height: 38px;
-						overflow-y: hidden;
-						@media #{$mob-view} {
-							margin: 0;
-							height: auto;
-							.name {
-								white-space: nowrap;
-								max-width: 170px;
-								overflow-x: hidden;
-								text-overflow: ellipsis;
-							}
-						}
+          &__location {
+            font-size: 14px;
+            color: $blue-darkest;
+            margin-bottom: 5px;
 
-						img {
-							width: 16px;
-							height: 20px;
-							margin-right: 5px;
-						}
-					}
+            span {
+              font-weight: 600;
+            }
+          }
 
-					&__location {
-						font-size: 14px;
-						color: $blue-darkest;
-						margin-bottom: 5px;
+          &__date {
+            color: $blue-darkest;
+            display: flex;
+            align-items: center;
 
-						span {
-							font-weight: 600;
-						}
-					}
+            span {
+              font-size: 14px;
+            }
 
-					&__date {
-						color: $blue-darkest;
-						display: flex;
-						align-items: center;
-						margin-bottom: 4px;
-                        @media #{$mob-view} {
-                            justify-content: flex-end;
-                        }
-						span {
-							font-size: 14px;
-						}
+            .format-date {
+              display: flex;
+              font-weight: 600;
+              font-size: 16px;
+              text-transform: capitalize;
+              margin-left: 6px;
+              @media #{$mob-view} {
+                margin: 0;
+              }
+            }
+          }
 
-						.format-date {
-							display: flex;
-							font-weight: 600;
-							font-size: 14px;
-							background: #E9EAEE;
-							padding: 3px 8px;
-							border-radius: 7px;
-							margin-right: 8px;
-							@media #{$mob-view} {
-								font-size: 13px;
-                                margin-right: 0;
-							}
-						}
-					}
+          &__free-place {
+            font-size: 14px;
+            color: $red-primary;
+            text-align: right;
+            margin-bottom: 5px;
+            @media #{$mob-view} {
+              margin-bottom: 0;
+            }
+          }
 
-					&__free-place {
-						font-size: 14px;
-						color: $red-primary;
-						text-align: right;
-						margin-bottom: 5px;
-						@media #{$mob-view} {
-							margin-bottom: 0;
-						}
-					}
-
-					&__price {
-						font-weight: bold;
-						font-size: 24px;
-						display: block;
-						font-family: $montserrat;
-						color: $green-main;
-						@media #{$mob-view} {
-							font-size: 18px;
-                            text-align: right;
-						}
-					}
+          &__price {
+            font-weight: bold;
+            font-size: 24px;
+            display: block;
+            text-align: right;
+            font-family: $montserrat;
+            @media #{$mob-view} {
+              font-size: 18px;
+            }
+          }
+          .tag {
+            background: $orange-primary;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 7px;
+            margin-bottom: 10px;
+            @media #{$mob-view} {
+              position: absolute;
+              bottom: 5px;
+              right: 15px;
+              padding: 0 8px;
+              color: #000;
+            }
+          }
 				}
 
 				.single-center {
